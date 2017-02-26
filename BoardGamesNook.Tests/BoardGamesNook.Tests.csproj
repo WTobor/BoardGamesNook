@@ -50,13 +50,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="GamerServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">
       <Project>{0dbd4913-4f0c-4862-8b4d-addf21162e5e}</Project>
       <Name>BoardGamesNook.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BoardGamesNook.Repository\BoardGamesNook.Repository.csproj">
+      <Project>{20832E45-D6E4-4DA7-8AA9-2B8E9B23E23E}</Project>
+      <Name>BoardGamesNook.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\BoardGamesNook.Services\BoardGamesNook.Services.csproj">
       <Project>{6d2ca308-019d-4ba6-8bd9-c7698fd62dfd}</Project>
