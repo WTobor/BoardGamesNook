@@ -1,0 +1,61 @@
+﻿<div *ngIf="hasError" class="alert alert-danger alert-dismissible" role="alert">
+    <button (click)="hideError()" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div [innerHTML]="errorMsg"></div>
+</div>
+<form *ngIf="!hasError">
+    <div class="leftcontainer">
+        <!--<div class="addcontentlist">
+            <i class="glyphicon glyphicon-plus" (click)="addlist(newlistctrl)" [ngClass]="{'actionenable' : newlistctrl.valid, 'actiondisable' : !newlistctrl.valid}"></i>
+            <input type="text" [(ngModel)]="newlist" class="form-control" ngControl="newlistctrl" required #newlistctrl="ngForm" />
+        </div>-->
+        <div *ngIf="gamer">
+            <div>{{gamer.Nick}}</div>
+            <div>{{gamer.Name}}</div>
+            <div>{{gamer.Surname}}</div>
+        </div>
+    </div>
+    <!--<div class="centercontainer">
+        <ul class="list-group" *ngIf="GamerList">
+            <li class="list-group-item addcontent">
+                <i class="glyphicon glyphicon-plus" (click)="addGamer(newgamerctrl)" [ngClass]="{'actionenable' : newgamerctrl.valid, 'actiondisable' : !newgamerctrl.valid}"></i>
+                Nick <input type="text" [(ngModel)]="gamerNick" class="form-control" ngControl="newgamerctrl" required #newgamerctrl="ngForm" />
+                <br/>
+                Name <input type="text" [(ngModel)]="gamerName" class="form-control" ngControl="newgamerctrl" required #newgamerctrl="ngForm" />
+                <br />
+                Surname <input type="text" [(ngModel)]="gamerSurname" class="form-control" ngControl="newgamerctrl" required #newgamerctrl="ngForm" />
+                <br />
+                Age <input type="number" [(ngModel)]="gamerAge" class="form-control" ngControl="newgamerctrl" required #newgamerctrl="ngForm" />
+                <br />
+                City <input type="text" [(ngModel)]="gamerCity" class="form-control" ngControl="newgamerctrl" required #newgamerctrl="ngForm" />
+                <br />
+                Street <input type="text" [(ngModel)]="gamerStreet" class="form-control" ngControl="newgamerctrl" required #newgamerctrl="ngForm" />
+            </li>
+            <li class="list-group-item" *ngFor="let gamer of gamerList">
+                <div class="gamerwrapper">
+                    <i class="checkicon glyphicon" [ngClass]="{'glyphicon-check' : gamer.Active, 'glyphicon-unchecked' : !gamer.Active}" (click)="deactivateGamer(gamer)"></i>
+                    <div>
+                        {{gamer.Nick}}
+                    </div>
+                    <div>
+                        {{gamer.Name}}
+                    </div>
+                    <div>
+                        {{gamer.Surname}}
+                    </div>
+                    <div>
+                        {{gamer.Age}}
+                    </div>
+                    <div>
+                        {{gamer.City}}
+                    </div>
+                    <div>
+                        {{gamer.Street}}
+                    </div>
+                    <div class="actionbtn text-danger" (click)="deleteGamer(gamer)"><i class="glyphicon glyphicon-remove"></i></div>
+                </div>
+            </li>
+        </ul>
+        <button *ngIf="!shownotactivegamer" (click)="shownotactivegamer=true" type="button" class="btn btn-default shownotactivegamer">Show not active gamers</button>
+        <button *ngIf="shownotactivegamer" (click)="shownotactivegamer=false" type="button" class="btn btn-default shownotactivegamer">Hide not active gamers</button>
+    </div>-->
+</form>
