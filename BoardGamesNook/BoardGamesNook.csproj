@@ -154,25 +154,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\bootgamer.js" />
-    <Content Include="app\components\gamer\gamer.component.css" />
-    <Content Include="app\components\gamer\gamer.component.html" />
-    <Content Include="app\components\gamer\gamer.component.js" />
-    <Content Include="app\services\app.service.gamer.js" />
-    <Content Include="app\utils\HttpHelpers.js" />
+    <Content Include="app\index.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="gulpfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
-    <Content Include="app\bootgamer.js.map" />
-    <Content Include="app\components\gamer\gamer.component.js.map" />
-    <Content Include="app\services\app.service.gamer.js.map" />
-    <Content Include="app\utils\HttpHelpers.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -189,6 +181,7 @@
       <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
     </Content>
     <Content Include="Scripts\_references.js" />
+    <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -239,10 +232,21 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\bootgamer.ts" />
-    <TypeScriptCompile Include="app\components\gamer\gamer.component.ts" />
-    <TypeScriptCompile Include="app\services\app.service.gamer.ts" />
-    <TypeScriptCompile Include="app\utils\HttpHelpers.ts" />
+    <TypeScriptCompile Include="app\app-routing.module.ts" />
+    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\auth-guard.service.ts" />
+    <TypeScriptCompile Include="app\auth.service.ts" />
+    <TypeScriptCompile Include="app\dialog.service.ts" />
+    <TypeScriptCompile Include="app\gamers\gamer-detail.component.ts" />
+    <TypeScriptCompile Include="app\gamers\gamer-list.component.ts" />
+    <TypeScriptCompile Include="app\gamers\gamer.service.ts" />
+    <TypeScriptCompile Include="app\gamers\gamers-routing.module.ts" />
+    <TypeScriptCompile Include="app\gamers\gamers.module.ts" />
+    <TypeScriptCompile Include="app\login.component.ts" />
+    <TypeScriptCompile Include="app\login-routing.module.ts" />
+    <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\not-found.component.ts" />
     <TypeScriptCompile Include="Scripts\TypeLite.Net4.d.ts">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
