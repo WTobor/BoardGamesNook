@@ -9,36 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 require('rxjs/add/operator/switchMap');
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var hero_service_1 = require('./hero.service');
-var GamerListComponent = (function () {
-    function GamerListComponent(service, route, router) {
+const core_1 = require('@angular/core');
+const router_1 = require('@angular/router');
+const gamer_service_1 = require('./gamer.service');
+let GamerListComponent = class GamerListComponent {
+    constructor(service, route, router) {
         this.service = service;
         this.route = route;
         this.router = router;
     }
-    GamerListComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ngOnInit() {
         this.gamers = this.route.params
-            .switchMap(function (params) {
-            _this.selectedId = +params['id'];
-            return _this.service.getGamers();
+            .switchMap((params) => {
+            this.selectedId = +params['id'];
+            return this.service.getGamers();
         });
-    };
-    GamerListComponent.prototype.isSelected = function (gamer) { return gamer.id === this.selectedId; };
-    GamerListComponent.prototype.onSelect = function (gamer) {
+    }
+    isSelected(gamer) { return gamer.id === this.selectedId; }
+    onSelect(gamer) {
         this.router.navigate(['/gamer', gamer.id]);
-    };
-    GamerListComponent = __decorate([
-        core_1.Component({
-            template: "\n    <h2>GAMERS</h2>\n    <ul class=\"items\">\n      <li *ngFor=\"let gamer of gamers | async\"\n        [class.selected]=\"isSelected(gamer)\"\n        (click)=\"onSelect(gamer)\">\n        <span class=\"badge\">{{ gamer.id }}</span> {{ gamer.name }}\n      </li>\n    </ul>\n\n    <button routerLink=\"/sidekicks\">Go to sidekicks</button>\n  "
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof hero_service_1.GamerService !== 'undefined' && hero_service_1.GamerService) === 'function' && _a) || Object, router_1.ActivatedRoute, router_1.Router])
-    ], GamerListComponent);
-    return GamerListComponent;
-    var _a;
-}());
+    }
+};
+GamerListComponent = __decorate([
+    core_1.Component({
+        selector: 'gamer-list',
+        template: `
+    <h2>GAMERS</h2>
+    <ul class="items">
+      <li *ngFor="let gamer of gamers | async"
+        [class.selected]="isSelected(gamer)"
+        (click)="onSelect(gamer)">
+        <span class="badge">{{ gamer.id }}</span> {{ gamer.name }}
+      </li>
+    </ul>
+
+    <button routerLink="/sidekicks">Go to sidekicks</button>
+  `
+    }), 
+    __metadata('design:paramtypes', [gamer_service_1.GamerService, router_1.ActivatedRoute, router_1.Router])
+], GamerListComponent);
 exports.GamerListComponent = GamerListComponent;
 /*
 Copyright 2017 Google Inc. All Rights Reserved.

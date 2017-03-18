@@ -9,48 +9,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 require('rxjs/add/operator/switchMap');
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
+const core_1 = require('@angular/core');
+const router_1 = require('@angular/router');
 //import { slideInDownAnimation } from '../animations';
-var gamer_service_1 = require('./gamer.service');
-var GamerDetailComponent = (function () {
-    function GamerDetailComponent(route, router, service) {
+const gamer_service_1 = require('./gamer.service');
+let GamerDetailComponent = class GamerDetailComponent {
+    constructor(route, router, service) {
         this.route = route;
         this.router = router;
         this.service = service;
-        this.routeAnimation = true;
+        //@HostBinding('@routeAnimation') routeAnimation = true;
         this.display = 'block';
         this.position = 'absolute';
     }
-    GamerDetailComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ngOnInit() {
         this.route.params
-            .switchMap(function (params) { return _this.service.getGamer(+params['id']); })
-            .subscribe(function (gamer) { return _this.gamer = gamer; });
-    };
-    GamerDetailComponent.prototype.gotoGamers = function () {
-        var gamerId = this.gamer ? this.gamer.id : null;
+            .switchMap((params) => this.service.getGamer(+params['id']))
+            .subscribe((gamer) => this.gamer = gamer);
+    }
+    gotoGamers() {
+        let gamerId = this.gamer ? this.gamer.id : null;
         this.router.navigate(['/gamers', { id: gamerId, foo: 'foo' }]);
-    };
-    __decorate([
-        core_1.HostBinding('@routeAnimation'), 
-        __metadata('design:type', Object)
-    ], GamerDetailComponent.prototype, "routeAnimation", void 0);
-    __decorate([
-        core_1.HostBinding('style.display'), 
-        __metadata('design:type', Object)
-    ], GamerDetailComponent.prototype, "display", void 0);
-    __decorate([
-        core_1.HostBinding('style.position'), 
-        __metadata('design:type', Object)
-    ], GamerDetailComponent.prototype, "position", void 0);
-    GamerDetailComponent = __decorate([
-        core_1.Component({
-            template: "\n  <h2>Gamers</h2>\n  <div *ngIf=\"gamer\">\n    <h3>\"{{ gamer.name }}\"</h3>\n    <div>\n      <label>Id: </label>{{ gamer.id }}</div>\n    <div>\n      <label>Name: </label>\n      <input [(ngModel)]=\"gamer.name\" placeholder=\"name\"/>\n    </div>\n    <p>\n      <button (click)=\"gotoGamers()\">Back</button>\n    </p>\n  </div>\n  "
-        }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, gamer_service_1.GamerService])
-    ], GamerDetailComponent);
-    return GamerDetailComponent;
-}());
+    }
+};
+__decorate([
+    core_1.HostBinding('style.display'), 
+    __metadata('design:type', Object)
+], GamerDetailComponent.prototype, "display", void 0);
+__decorate([
+    core_1.HostBinding('style.position'), 
+    __metadata('design:type', Object)
+], GamerDetailComponent.prototype, "position", void 0);
+GamerDetailComponent = __decorate([
+    core_1.Component({
+        selector: 'gamer-detail',
+        template: `
+  <h2>Gamers</h2>
+  <div *ngIf="gamer">
+    <h3>"{{ gamer.name }}"</h3>
+    <div>
+      <label>Id: </label>{{ gamer.id }}</div>
+    <div>
+      <label>Name: </label>
+      <input [(ngModel)]="gamer.name" placeholder="name"/>
+    </div>
+    <p>
+      <button (click)="gotoGamers()">Back</button>
+    </p>
+  </div>
+  `
+    }), 
+    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, gamer_service_1.GamerService])
+], GamerDetailComponent);
 exports.GamerDetailComponent = GamerDetailComponent;
 //# sourceMappingURL=gamer-detail.component.js.map

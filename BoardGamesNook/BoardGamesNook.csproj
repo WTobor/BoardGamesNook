@@ -154,14 +154,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\index.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="gulpfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="package.json" />
@@ -176,10 +174,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\TypeLite.Net4.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
-    </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.js" />
@@ -198,9 +192,9 @@
     <Content Include="typings.json" />
     <Content Include="Scripts\Manager.ttinclude" />
     <Content Include="tsconfig.json" />
-    <Content Include="Views\Shared\DefineAngular.cshtml" />
     <Content Include="Views\Gamer\GetAll.cshtml" />
     <Content Include="Views\Gamer\Get.cshtml" />
+    <Content Include="src\app.component.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -232,26 +226,21 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app-routing.module.ts" />
-    <TypeScriptCompile Include="app\app.module.ts" />
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\auth-guard.service.ts" />
-    <TypeScriptCompile Include="app\auth.service.ts" />
-    <TypeScriptCompile Include="app\dialog.service.ts" />
-    <TypeScriptCompile Include="app\gamers\gamer-detail.component.ts" />
-    <TypeScriptCompile Include="app\gamers\gamer-list.component.ts" />
-    <TypeScriptCompile Include="app\gamers\gamer.service.ts" />
-    <TypeScriptCompile Include="app\gamers\gamers-routing.module.ts" />
-    <TypeScriptCompile Include="app\gamers\gamers.module.ts" />
-    <TypeScriptCompile Include="app\login.component.ts" />
-    <TypeScriptCompile Include="app\login-routing.module.ts" />
-    <TypeScriptCompile Include="app\main.ts" />
-    <TypeScriptCompile Include="app\not-found.component.ts" />
-    <TypeScriptCompile Include="Scripts\TypeLite.Net4.d.ts">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TypeLite.Net4.tt</DependentUpon>
-    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\app-routing.module.ts" />
+    <TypeScriptCompile Include="src\app.module.ts" />
+    <TypeScriptCompile Include="src\app.component.ts" />
+    <TypeScriptCompile Include="src\auth-guard.service.ts" />
+    <TypeScriptCompile Include="src\auth.service.ts" />
+    <TypeScriptCompile Include="src\dialog.service.ts" />
+    <TypeScriptCompile Include="src\gamers\gamer-detail.component.ts" />
+    <TypeScriptCompile Include="src\gamers\gamer-list.component.ts" />
+    <TypeScriptCompile Include="src\gamers\gamer.service.ts" />
+    <TypeScriptCompile Include="src\gamers\gamers-routing.module.ts" />
+    <TypeScriptCompile Include="src\gamers\gamers.module.ts" />
+    <TypeScriptCompile Include="src\login.component.ts" />
+    <TypeScriptCompile Include="src\login-routing.module.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\not-found.component.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
