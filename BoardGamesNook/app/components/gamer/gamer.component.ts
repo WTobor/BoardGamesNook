@@ -12,7 +12,7 @@ export class GamerComponent {
     }
 
     get gamer(): Models.Gamer {
-        return this._appService.Gamer;
+        return this._appService.gamer;
     }
 
     get gamerList(): Models.Gamer[] {

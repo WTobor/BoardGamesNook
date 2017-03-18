@@ -17,7 +17,7 @@ var GamerComponent = (function () {
     }
     Object.defineProperty(GamerComponent.prototype, "gamer", {
         get: function () {
-            return this._appService.Gamer;
+            return this._appService.gamer;
         },
         enumerable: true,
         configurable: true
