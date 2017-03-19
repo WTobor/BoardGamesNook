@@ -14,7 +14,7 @@ const gamer_list_component_1 = require('./gamer-list.component');
 const gamer_detail_component_1 = require('./gamer-detail.component');
 const gamersRoutes = [
     { path: 'gamers', component: gamer_list_component_1.GamerListComponent },
-    { path: 'gamer/:id', component: gamer_detail_component_1.GamerDetailComponent }
+    { path: 'gamers/:id', component: gamer_detail_component_1.GamerDetailComponent }
 ];
 let GamerRoutingModule = class GamerRoutingModule {
 };

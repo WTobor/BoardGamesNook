@@ -1,51 +1,33 @@
 ﻿import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, HostBinding } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 
-//import { slideInDownAnimation } from '../animations';
-
-import { Gamer, GamerService } from './gamer.service';
+import { GamerService } from './gamer.service';
+import { Gamer } from './gamer';
 
 @Component({
     selector: 'gamer-detail',
-    template: `
-  <h2>Gamers</h2>
-  <div *ngIf="gamer">
-    <h3>"{{ gamer.name }}"</h3>
-    <div>
-      <label>Id: </label>{{ gamer.id }}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="gamer.name" placeholder="name"/>
-    </div>
-    <p>
-      <button (click)="gotoGamers()">Back</button>
-    </p>
-  </div>
-  `
+    templateUrl: './src/gamers/gamer-detail.component.html'
 })
 export class GamerDetailComponent implements OnInit {
-    //@HostBinding('@routeAnimation') routeAnimation = true;
-    @HostBinding('style.display') display = 'block';
-    @HostBinding('style.position') position = 'absolute';
 
     gamer: Gamer;
-
+    
     constructor(
+        private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router,
-        private service: GamerService
+        private location: Location
     ) { }
 
     ngOnInit() {
         this.route.params
             // (+) converts string 'id' to a number
-            .switchMap((params: Params) => this.service.getGamer(+params['id']))
+            .switchMap((params: Params) => this.gamerService.getGamer(+params['id']))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 
-    gotoGamers() {
-        let gamerId = this.gamer ? this.gamer.id : null;
-        this.router.navigate(['/gamers', { id: gamerId, foo: 'foo' }]);
+    goBack(): void {
+        this.location.back();
     }
 }

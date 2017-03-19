@@ -1,26 +1,45 @@
-﻿import { Injectable } from '@angular/core';
+﻿//import { Injectable } from '@angular/core';
+//import { Http } from '@angular/http';
+//import { HttpHelpers } from '../http-helpers';
+import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
 
-export class Gamer {
-    constructor(public id: number, public name: string) { }
-}
+import 'rxjs/add/operator/toPromise';
 
-let HEROES = [
-    new Gamer(11, 'Mr. Nice'),
-    new Gamer(12, 'Narco'),
-    new Gamer(13, 'Bombasto'),
-    new Gamer(14, 'Celeritas'),
-    new Gamer(15, 'Magneta'),
-    new Gamer(16, 'RubberMan')
-];
-
-let gamersPromise = Promise.resolve(HEROES);
+import { Gamer } from './gamer';
 
 @Injectable()
 export class GamerService {
-    getGamers() { return gamersPromise; }
+    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private _getGamerUrl = 'Gamer/Get';
+    private _getGamerListUrl = 'Gamer/GetAll';
 
-    getGamer(id: number | string) {
-        return gamersPromise
-            .then(gamers => gamers.find(gamer => gamer.id === +id));
+    constructor(private http: Http) { }
+
+    getGamers(): Promise<Gamer[]> {
+        const url = `${this._getGamerListUrl}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => {
+                console.log(response.json());
+                 return response.json() as Gamer[];
+            })
+            .catch(this.handleError);
+    }
+
+    getGamer(id: number): Promise<Gamer> {
+        const url = `${this._getGamerUrl}/${id}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => {
+                console.log(response.json());
+                return response.json() as Gamer;
+            })
+            .catch(this.handleError);
+    }
+
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
     }
 }

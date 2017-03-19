@@ -1,54 +1,40 @@
-﻿import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
+﻿//import 'rxjs/add/operator/switchMap';
+//import { Observable } from 'rxjs/Observable';
+//import { Component, OnInit } from '@angular/core';
+//import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { Gamer, GamerService } from './gamer.service';
+import { GamerService } from './gamer.service';
+import { Gamer } from './gamer';
 
 @Component({
     selector: 'gamer-list',
-    template: `
-    <h2>GAMERS</h2>
-    <ul class="items">
-      <li *ngFor="let gamer of gamers | async"
-        [class.selected]="isSelected(gamer)"
-        (click)="onSelect(gamer)">
-        <span class="badge">{{ gamer.id }}</span> {{ gamer.name }}
-      </li>
-    </ul>
-
-    <button routerLink="/sidekicks">Go to sidekicks</button>
-  `
+    templateUrl: './src/gamers/gamer-list.component.html'
 })
 export class GamerListComponent implements OnInit {
-    gamers: Observable<Gamer[]>;
-
-    private selectedId: number;
+    gamers: Gamer[];
+    selectedGamer: Gamer;
 
     constructor(
-        private service: GamerService,
-        private route: ActivatedRoute,
-        private router: Router
-    ) { }
+        private gamerService: GamerService,
+        private router: Router) { }
 
-    ngOnInit() {
-        this.gamers = this.route.params
-            .switchMap((params: Params) => {
-                this.selectedId = +params['id'];
-                return this.service.getGamers();
-            });
+    getGamers(): void {
+        this.gamerService
+            .getGamers()
+            .then(gamers => this.gamers = gamers);
     }
 
-    isSelected(gamer: Gamer) { return gamer.id === this.selectedId; }
+    ngOnInit(): void {
+        this.getGamers();
+    }
 
-    onSelect(gamer: Gamer) {
-        this.router.navigate(['/gamer', gamer.id]);
+    onSelect(gamer: Gamer): void {
+        this.selectedGamer = gamer;
+    }
+
+    gotoDetail(): void {
+        this.router.navigate(['/gamers', this.selectedGamer.Id]);
     }
 }
-
-
-/*
-Copyright 2017 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

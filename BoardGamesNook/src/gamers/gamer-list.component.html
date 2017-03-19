@@ -1,0 +1,13 @@
+﻿<h2>GAMERS</h2>
+<ul class="gamers">
+    <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
+        <span class="badge">{{ gamer.Id }}</span>
+        <span>{{ gamer.Nick }}</span>
+    </li>
+</ul>
+<div *ngIf="selectedGamer">
+    <h2>
+        {{selectedGamer.Name | uppercase}} is gamer
+    </h2>
+    <button (click)="gotoDetail()">View Details</button>
+</div>

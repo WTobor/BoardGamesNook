@@ -1,19 +1,12 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-//import { PageNotFoundComponent } from './not-found.component';
+import { PageNotFoundComponent } from './not-found.component';
 
-import { AuthGuard } from './auth-guard.service';
+import { GamerDetailComponent } from './gamers/gamer-detail.component';
+import { GamerListComponent } from './gamers/gamer-list.component';
 
-const appRoutes: Routes = [
-    {
-        path: 'admin',
-        loadChildren: 'app/admin/admin.module#AdminModule',
-        canLoad: [AuthGuard]
-    }
-    //{ path: '', redirectTo: '/', pathMatch: 'full' },
-    //{ path: '**', component: PageNotFoundComponent }
-];
+const appRoutes: Routes = [];
 
 @NgModule({
     imports: [

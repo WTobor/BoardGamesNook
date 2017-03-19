@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Web application for board gamers" />
     <script>document.write('<base href="' + document.location + '" />');</script>
     <title>BoardGamesNook</title>
     <script src="~/node_modules/core-js/client/shim.min.js"></script>
@@ -13,57 +14,8 @@
         System.import('../../app/main.js')
               .catch(function (err) { console.error(err); });
     </script>
-
 </head>
 <body>
-<nav class="navbar">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">BoardGamesNook</a>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-8 collapse navbar-collapse" id="myNavbar">
-                <ul class="nav nav-tabs">
-                    @*<li class="active">
-                        @Html.ActionLink("Home", "Index", "Home")
-                    </li>*@
-                    @*<li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Gamer <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="@Url.Action("Get", "Gamer")">
-                                    <i class="glyphicon"></i>&nbsp;Gamer
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("GetAll", "Gamer")">
-                                    <i class="glyphicon"></i>&nbsp;Gamer List
-                                </a>
-                            </li>
-                        </ul>
-                    </li>*@
-                            <li>
-                                <a routerLink="/gamers">Gamers</a>
-                            </li>
-                            @*<li>
-                                <a routerLink="/login" routerLinkActive="active">Login</a>
-                            </li>*@
-                        </ul>
-                    </div>
-                    <div class="col-xs-6 col-md-4 ">
-                        <ul class="nav navbar navbar-right">
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
 
 <div class="container">
     <div class="h3">
@@ -77,7 +29,7 @@
 @*<div id="footer">
     <span class="text-muted">&copy; @DateTime.Now.Year - BoardGamesNook</span>
 </div>*@
-    
+
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)

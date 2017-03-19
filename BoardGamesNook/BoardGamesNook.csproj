@@ -147,10 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Validation\IValidationDictionary.cs" />
-    <Compile Include="Models\Validation\ModelStateWrapper.cs" />
     <Compile Include="Models\Gamer.cs" />
-    <Compile Include="Models\ViewModel\JSONReturnVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +172,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\gamers\gamer-detail.component.html" />
     <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config" />
@@ -195,6 +193,7 @@
     <Content Include="Views\Gamer\GetAll.cshtml" />
     <Content Include="Views\Gamer\Get.cshtml" />
     <Content Include="src\app.component.html" />
+    <Content Include="src\gamers\gamer-list.component.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -229,16 +228,13 @@
     <TypeScriptCompile Include="src\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\app.component.ts" />
-    <TypeScriptCompile Include="src\auth-guard.service.ts" />
-    <TypeScriptCompile Include="src\auth.service.ts" />
     <TypeScriptCompile Include="src\dialog.service.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-detail.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-list.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer.service.ts" />
+    <TypeScriptCompile Include="src\gamers\gamer.ts" />
     <TypeScriptCompile Include="src\gamers\gamers-routing.module.ts" />
     <TypeScriptCompile Include="src\gamers\gamers.module.ts" />
-    <TypeScriptCompile Include="src\login.component.ts" />
-    <TypeScriptCompile Include="src\login-routing.module.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\not-found.component.ts" />
   </ItemGroup>

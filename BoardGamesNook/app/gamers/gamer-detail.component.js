@@ -11,55 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 require('rxjs/add/operator/switchMap');
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-//import { slideInDownAnimation } from '../animations';
+const common_1 = require('@angular/common');
 const gamer_service_1 = require('./gamer.service');
 let GamerDetailComponent = class GamerDetailComponent {
-    constructor(route, router, service) {
+    constructor(gamerService, route, location) {
+        this.gamerService = gamerService;
         this.route = route;
-        this.router = router;
-        this.service = service;
-        //@HostBinding('@routeAnimation') routeAnimation = true;
-        this.display = 'block';
-        this.position = 'absolute';
+        this.location = location;
     }
     ngOnInit() {
         this.route.params
-            .switchMap((params) => this.service.getGamer(+params['id']))
+            .switchMap((params) => this.gamerService.getGamer(+params['id']))
             .subscribe((gamer) => this.gamer = gamer);
     }
-    gotoGamers() {
-        let gamerId = this.gamer ? this.gamer.id : null;
-        this.router.navigate(['/gamers', { id: gamerId, foo: 'foo' }]);
+    goBack() {
+        this.location.back();
     }
 };
-__decorate([
-    core_1.HostBinding('style.display'), 
-    __metadata('design:type', Object)
-], GamerDetailComponent.prototype, "display", void 0);
-__decorate([
-    core_1.HostBinding('style.position'), 
-    __metadata('design:type', Object)
-], GamerDetailComponent.prototype, "position", void 0);
 GamerDetailComponent = __decorate([
     core_1.Component({
         selector: 'gamer-detail',
-        template: `
-  <h2>Gamers</h2>
-  <div *ngIf="gamer">
-    <h3>"{{ gamer.name }}"</h3>
-    <div>
-      <label>Id: </label>{{ gamer.id }}</div>
-    <div>
-      <label>Name: </label>
-      <input [(ngModel)]="gamer.name" placeholder="name"/>
-    </div>
-    <p>
-      <button (click)="gotoGamers()">Back</button>
-    </p>
-  </div>
-  `
+        templateUrl: './src/gamers/gamer-detail.component.html'
     }), 
-    __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, gamer_service_1.GamerService])
+    __metadata('design:paramtypes', [gamer_service_1.GamerService, router_1.ActivatedRoute, common_1.Location])
 ], GamerDetailComponent);
 exports.GamerDetailComponent = GamerDetailComponent;
 //# sourceMappingURL=gamer-detail.component.js.map

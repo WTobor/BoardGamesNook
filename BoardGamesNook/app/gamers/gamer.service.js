@@ -8,33 +8,47 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+//import { Injectable } from '@angular/core';
+//import { Http } from '@angular/http';
+//import { HttpHelpers } from '../http-helpers';
 const core_1 = require('@angular/core');
-class Gamer {
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-}
-exports.Gamer = Gamer;
-let HEROES = [
-    new Gamer(11, 'Mr. Nice'),
-    new Gamer(12, 'Narco'),
-    new Gamer(13, 'Bombasto'),
-    new Gamer(14, 'Celeritas'),
-    new Gamer(15, 'Magneta'),
-    new Gamer(16, 'RubberMan')
-];
-let gamersPromise = Promise.resolve(HEROES);
+const http_1 = require('@angular/http');
+require('rxjs/add/operator/toPromise');
 let GamerService = class GamerService {
-    getGamers() { return gamersPromise; }
+    constructor(http) {
+        this.http = http;
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this._getGamerUrl = 'Gamer/Get';
+        this._getGamerListUrl = 'Gamer/GetAll';
+    }
+    getGamers() {
+        const url = `${this._getGamerListUrl}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => {
+            console.log(response.json());
+            return response.json();
+        })
+            .catch(this.handleError);
+    }
     getGamer(id) {
-        return gamersPromise
-            .then(gamers => gamers.find(gamer => gamer.id === +id));
+        const url = `${this._getGamerUrl}/${id}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => {
+            console.log(response.json());
+            return response.json();
+        })
+            .catch(this.handleError);
+    }
+    handleError(error) {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
     }
 };
 GamerService = __decorate([
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [http_1.Http])
 ], GamerService);
 exports.GamerService = GamerService;
 //# sourceMappingURL=gamer.service.js.map

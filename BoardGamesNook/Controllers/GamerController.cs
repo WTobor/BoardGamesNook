@@ -14,6 +14,7 @@ namespace BoardGamesNook.Controllers
         {
             var gamer = new Gamer()
             {
+                Id = 1,
                 Active = true,
                 Age = 5,
                 Nick = "testNick",
@@ -32,6 +33,7 @@ namespace BoardGamesNook.Controllers
             var gamerList = gamerService.GetAll();
             IEnumerable<Gamer> items = new Gamer[] { new Gamer()
             {
+                Id = 1,
                 Active = true,
                 Age = 5,
                 Nick = "testNick",
@@ -44,6 +46,7 @@ namespace BoardGamesNook.Controllers
             {
                 new Gamer()
                 {
+                    Id = 2,
                     Active = true,
                     Age = 51,
                     Nick = "testNick1",

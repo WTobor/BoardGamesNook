@@ -10,15 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-//import { PageNotFoundComponent } from './not-found.component';
-const auth_guard_service_1 = require('./auth-guard.service');
-const appRoutes = [
-    {
-        path: 'admin',
-        loadChildren: 'app/admin/admin.module#AdminModule',
-        canLoad: [auth_guard_service_1.AuthGuard]
-    }
-];
+const appRoutes = [];
 let AppRoutingModule = class AppRoutingModule {
 };
 AppRoutingModule = __decorate([

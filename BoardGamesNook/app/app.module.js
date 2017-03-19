@@ -11,31 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const platform_browser_1 = require('@angular/platform-browser');
 const forms_1 = require('@angular/forms');
-const router_1 = require('@angular/router');
+const http_1 = require('@angular/http');
 const app_component_1 = require('./app.component');
 const app_routing_module_1 = require('./app-routing.module');
 const gamers_module_1 = require('./gamers/gamers.module');
-const login_routing_module_1 = require('./login-routing.module');
-const login_component_1 = require('./login.component');
 const not_found_component_1 = require('./not-found.component');
 const dialog_service_1 = require('./dialog.service');
 let AppModule = class AppModule {
-    constructor(router) {
-        //console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
-    }
 };
 AppModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
+            http_1.HttpModule,
             gamers_module_1.GamersModule,
-            login_routing_module_1.LoginRoutingModule,
             app_routing_module_1.AppRoutingModule
         ],
         declarations: [
             app_component_1.AppComponent,
-            login_component_1.LoginComponent,
             not_found_component_1.PageNotFoundComponent
         ],
         providers: [
@@ -43,7 +37,7 @@ AppModule = __decorate([
         ],
         bootstrap: [app_component_1.AppComponent]
     }), 
-    __metadata('design:paramtypes', [router_1.Router])
+    __metadata('design:paramtypes', [])
 ], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map
