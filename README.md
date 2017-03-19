@@ -7,4 +7,4 @@ Web application for board gamers, who want to:
 - invite other players to join board games tables,
 - save game results.
 
-Application is written in MVC with Angular2.0.
+Application is written in MVC with Angular
