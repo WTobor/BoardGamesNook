@@ -15,7 +15,6 @@ const router_1 = require('@angular/router');
 const app_component_1 = require('./app.component');
 const app_routing_module_1 = require('./app-routing.module');
 const gamers_module_1 = require('./gamers/gamers.module');
-//import { ComposeMessageComponent } from './compose-message.component';
 const login_routing_module_1 = require('./login-routing.module');
 const login_component_1 = require('./login.component');
 const not_found_component_1 = require('./not-found.component');
@@ -36,7 +35,6 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            //ComposeMessageComponent,
             login_component_1.LoginComponent,
             not_found_component_1.PageNotFoundComponent
         ],

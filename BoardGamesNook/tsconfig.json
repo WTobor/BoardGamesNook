@@ -10,9 +10,9 @@
     "moduleResolution": "node"
   },
   "exclude": [
-    "node_modules", //<-- this would be needed in case of VS2015
-   "node_modules/@typings",
-   "typings"
+    "node_modules",
+    "node_modules/@typings",
+    "typings"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true
