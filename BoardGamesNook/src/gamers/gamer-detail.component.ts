@@ -11,7 +11,6 @@ import { Gamer } from './gamer';
     templateUrl: './src/gamers/gamer-detail.component.html'
 })
 export class GamerDetailComponent implements OnInit {
-
     gamer: Gamer;
     
     constructor(
@@ -25,6 +24,11 @@ export class GamerDetailComponent implements OnInit {
             // (+) converts string 'id' to a number
             .switchMap((params: Params) => this.gamerService.getGamer(+params['id']))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
+    }
+
+    save(): void {
+        this.gamerService.update(this.gamer)
+            .then(() => this.goBack());
     }
 
     goBack(): void {

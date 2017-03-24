@@ -13,6 +13,9 @@ export class GamerService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private _getGamerUrl = 'Gamer/Get';
     private _getGamerListUrl = 'Gamer/GetAll';
+    private _addGamerUrl = 'Gamer/Add';
+    private _editGamerUrl = 'Gamer/Edit';
+    private _deleteGamerUrl = 'Gamer/Delete';
 
     constructor(private http: Http) { }
 
@@ -38,8 +41,33 @@ export class GamerService {
             .catch(this.handleError);
     }
 
+    delete(id: number): Promise<void> {
+        const url = `${this._deleteGamerUrl}/${id}`;
+        return this.http.delete(url, { headers: this.headers })
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
+    create(nick: string, name: string, surname: string, age: number, city: string, street: string): Promise<Gamer> {
+        return this.http
+            .post(`${this._addGamerUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
+            .toPromise()
+            .then(res => res.json().data)
+            .catch(this.handleError);
+    }
+
+    update(gamer: Gamer): Promise<Gamer> {
+        const url = `${this._editGamerUrl}`;
+        return this.http
+            .post(url, JSON.stringify(gamer) , { headers: this.headers })
+            .toPromise()
+            .then(() => gamer)
+            .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
+        console.error(`An error occurred`, error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
 }

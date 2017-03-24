@@ -20,12 +20,6 @@ export class GamerListComponent implements OnInit {
         private gamerService: GamerService,
         private router: Router) { }
 
-    getGamers(): void {
-        this.gamerService
-            .getGamers()
-            .then(gamers => this.gamers = gamers);
-    }
-
     ngOnInit(): void {
         this.getGamers();
     }
@@ -33,6 +27,31 @@ export class GamerListComponent implements OnInit {
     onSelect(gamer: Gamer): void {
         this.selectedGamer = gamer;
     }
+
+    getGamers(): void {
+        this.gamerService
+            .getGamers()
+            .then(gamers => this.gamers = gamers);
+    }
+
+    add(nick: string, name: string, surname: string, age: number, city: string, street: string): void {
+        this.gamerService.create(nick, name, surname, age, city, street)
+            .then(gamer => {
+                this.gamers.push(gamer);
+                this.selectedGamer = null;
+            });
+    }
+
+    delete(gamer: Gamer): void {
+        this.gamerService
+            .delete(gamer.Id)
+            .then(() => {
+                this.gamers = this.gamers.filter(g => g !== gamer);
+                if (this.selectedGamer === gamer) { this.selectedGamer = null; }
+            });
+    }
+
+    
 
     gotoDetail(): void {
         this.router.navigate(['/gamers', this.selectedGamer.Id]);

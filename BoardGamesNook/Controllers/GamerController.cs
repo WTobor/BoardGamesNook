@@ -10,19 +10,9 @@ namespace BoardGamesNook.Controllers
     public class GamerController :Controller
     {
         GamerService gamerService = new GamerService(new GamerRepository());
-        public JsonResult Get()
+        public JsonResult Get(int id)
         {
-            var gamer = new Gamer()
-            {
-                Id = 1,
-                Active = true,
-                Age = 5,
-                Nick = "testNick",
-                Name = "testName",
-                Surname = "testSurname",
-                City = "Wrocław",
-                Street = "tmp"
-            };
+            var gamer = gamerService.Get(id);
             return Json(gamer, JsonRequestBehavior.AllowGet);
         }
 
@@ -31,51 +21,61 @@ namespace BoardGamesNook.Controllers
             ViewBag.Message = "GetAll";
 
             var gamerList = gamerService.GetAll();
-            IEnumerable<Gamer> items = new Gamer[] { new Gamer()
-            {
-                Id = 1,
-                Active = true,
-                Age = 5,
-                Nick = "testNick",
-                Name = "testName",
-                Surname = "testSurname",
-                City = "Wrocław",
-                Street = "tmp"
-            } };
-            items = items.Concat(new[]
-            {
-                new Gamer()
-                {
-                    Id = 2,
-                    Active = true,
-                    Age = 51,
-                    Nick = "testNick1",
-                    Name = "testName1",
-                    Surname = "testSurname1",
-                    City = "Wrocław1",
-                    Street = "tmp1"
-                }
-            });
-            return Json(items, JsonRequestBehavior.AllowGet);
+            return Json(gamerList, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Add()
+        [HttpPost]
+        public JsonResult Add(string nick, string name, string surname, int age, string city, string street)
         {
             ViewBag.Message = "Add";
 
+            Gamer gamer = new Gamer()
+            {
+                Nick = nick,
+                Name = name,
+                Surname = surname,
+                Age = age,
+                City = city,
+                Street = street
+            };
+
+            gamerService.Add(gamer);
+
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Edit()
+        [HttpPost]
+        public JsonResult Edit(Gamer gamer)
+        //public JsonResult Edit(int id, string name, string surname, int age, string city, string street)
         {
+
             ViewBag.Message = "Edit";
 
+            Gamer dbGamer = gamerService.Get(gamer.Id);
+            if (dbGamer != null)
+            {
+                dbGamer.Name = gamer.Name;
+                dbGamer.Surname = gamer.Surname;
+                dbGamer.Age = gamer.Age;
+                dbGamer.City = gamer.City;
+                dbGamer.Street = gamer.Street;
+            }
+            else
+            {
+                return Json("No gamer with Id=" + gamer.Id, JsonRequestBehavior.AllowGet);
+            }
+
+            var gamers = gamerService.GetAll();
+
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Delete()
-        {
+        [HttpPost]
+        public JsonResult Delete(int id)
+        { 
             ViewBag.Message = "Delete";
+
+            gamerService.Delete(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

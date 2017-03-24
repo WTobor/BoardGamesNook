@@ -1,5 +1,31 @@
 ﻿<h2>GAMERS</h2>
-<ul class="gamers">
+
+<div>
+    <label>Add gamer</label>
+    <label>nick:</label> <input #nick/>
+    <label>name:</label> <input #name/>
+    <label>surname:</label> <input #surname/>
+    <label>age:</label> <input #age/>
+    <label>city:</label> <input #city/>
+    <label>street:</label> <input #street/>
+    <button (click)="add(
+                nick.value, 
+                name.value, 
+                surname.value, 
+                age.value, 
+                city.value, 
+                street.value
+            );
+             nick.value='', 
+            name.value='', 
+            surname.value='', 
+            age.value='',
+            city.value='',
+            street.value=''"
+    >Add</button>
+</div>
+
+<ul>
     <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
         <span class="badge">{{ gamer.Id }}</span>
         <span>{{ gamer.Nick }}</span>
