@@ -43,15 +43,15 @@ export class GamerService {
 
     delete(id: number): Promise<void> {
         const url = `${this._deleteGamerUrl}/${id}`;
-        return this.http.delete(url, { headers: this.headers })
+        return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
     }
 
-    create(nick: string, name: string, surname: string, age: number, city: string, street: string): Promise<Gamer> {
+    create(gamer: Gamer): Promise<Gamer> {
         return this.http
-            .post(`${this._addGamerUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
+            .post(`${this._addGamerUrl}`, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()
             .then(res => res.json().data)
             .catch(this.handleError);

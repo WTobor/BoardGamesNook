@@ -7,7 +7,7 @@ namespace BoardGamesNook.Repository
 {
     public class GamerRepository : IGamerRepository
     {
-        private readonly List<Gamer> _gamers = new List<Gamer>()
+        public static List<Gamer> _gamers = new List<Gamer>()
         {
             new Gamer()
             {

@@ -35,7 +35,18 @@ export class GamerListComponent implements OnInit {
     }
 
     add(nick: string, name: string, surname: string, age: number, city: string, street: string): void {
-        this.gamerService.create(nick, name, surname, age, city, street)
+        debugger
+        var gamer = new Gamer();
+        gamer.Id = 0;
+        gamer.CreatedDate = null;
+        gamer.Active = true;
+        gamer.Nick = nick;
+        gamer.Name = name;
+        gamer.Surname = surname;
+        gamer.Age = age;
+        gamer.City = city;
+        gamer.Street = street;
+        this.gamerService.create(gamer)
             .then(gamer => {
                 this.gamers.push(gamer);
                 this.selectedGamer = null;
@@ -56,4 +67,5 @@ export class GamerListComponent implements OnInit {
     gotoDetail(): void {
         this.router.navigate(['/gamers', this.selectedGamer.Id]);
     }
+
 }

@@ -1,29 +1,32 @@
 ﻿<h2>Gamer</h2>
 <div *ngIf="gamer">
     <h3>"{{ gamer.Nick }}"</h3>
-    <div>
+    <div hidden>
         <label>Id: </label>{{ gamer.Id }}
     </div>
-    <div>
-        <label>Name: </label>
-        <input [(ngModel)]="gamer.Name" placeholder="name" />
-    </div>
-    <div>
-        <label>Surname: </label>
-        <input [(ngModel)]="gamer.Surname" placeholder="surname" />
-    </div>
-    <div>
-        <label>Age: </label>
-        <input [(ngModel)]="gamer.Age" placeholder="age" />
-    </div>
-    <div>
-        <label>City: </label>
-        <input [(ngModel)]="gamer.City" placeholder="city" />
-    </div>
-    <div>
-        <label>Street: </label>
-        <input [(ngModel)]="gamer.Street" placeholder="street" />
-    </div>
+    <table>
+        <tr>
+            <td><label>Name: </label></td>
+            <td><input [(ngModel)]="gamer.Name" placeholder="name" /></td>
+        </tr>
+        <tr>
+            <td><label>Surname: </label></td>
+            <td><input [(ngModel)]="gamer.Surname" placeholder="surname" /></td>
+        </tr>
+        <tr>
+            <td><label>Age: </label></td>
+            <td><input [(ngModel)]="gamer.Age" placeholder="age" /></td>
+        </tr>
+        <tr>
+            <td><label>City: </label></td>
+            <td><input [(ngModel)]="gamer.City" placeholder="city" /></td>
+        </tr>
+        <tr>
+            <td><label>Street: </label></td>
+            <td><input [(ngModel)]="gamer.Street" placeholder="street" /></td>
+        </tr>
+    </table>
+    
     <p>
         <button (click)="goBack()">Back</button>
         <button (click)="save()">Save</button>

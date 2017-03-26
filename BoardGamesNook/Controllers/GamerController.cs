@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using BoardGamesNook.Model;
@@ -27,16 +28,20 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(string nick, string name, string surname, int age, string city, string street)
         {
+
             ViewBag.Message = "Add";
 
             Gamer gamer = new Gamer()
             {
+                Id = gamerService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
                 Nick = nick,
                 Name = name,
                 Surname = surname,
                 Age = age,
                 City = city,
-                Street = street
+                Street = street,
+                CreatedDate = DateTimeOffset.Now,
+                Active = true
             };
 
             gamerService.Add(gamer);
@@ -46,9 +51,7 @@ namespace BoardGamesNook.Controllers
 
         [HttpPost]
         public JsonResult Edit(Gamer gamer)
-        //public JsonResult Edit(int id, string name, string surname, int age, string city, string street)
         {
-
             ViewBag.Message = "Edit";
 
             Gamer dbGamer = gamerService.Get(gamer.Id);
@@ -59,6 +62,7 @@ namespace BoardGamesNook.Controllers
                 dbGamer.Age = gamer.Age;
                 dbGamer.City = gamer.City;
                 dbGamer.Street = gamer.Street;
+                dbGamer.ModifiedDate = DateTimeOffset.Now;
             }
             else
             {
