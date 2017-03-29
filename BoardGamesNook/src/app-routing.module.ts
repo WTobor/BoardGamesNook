@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PageNotFoundComponent } from './not-found.component';
 
+import { GamerAddComponent } from './gamers/gamer-add.component';
 import { GamerDetailComponent } from './gamers/gamer-detail.component';
 import { GamerListComponent } from './gamers/gamer-list.component';
 

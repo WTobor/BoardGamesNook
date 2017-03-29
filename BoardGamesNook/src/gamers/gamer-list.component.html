@@ -1,38 +1,5 @@
-﻿<h2>GAMERS</h2>
+﻿<h2>GRACZE</h2>
 
-<div>
-    <label>Add gamer</label>
-    <table>
-        <tr>
-            <td><label>nick:</label></td>
-            <td><input #nick /></td>
-        </tr>
-        <tr>
-            <td><label>name:</label></td>
-            <td><input #name /></td>
-        </tr>
-        <tr>
-            <td><label>surname:</label></td>
-            <td><input #surname /></td>
-        </tr>
-        <tr>
-            <td><label>age:</label></td>
-            <td><input #age type="number" /></td>
-        </tr>
-        <tr>
-            <td><label>city:</label></td>
-            <td><input #city /></td>
-        </tr>
-        <tr>
-            <td><label>street:</label></td>
-            <td><input #street /></td>
-        </tr>
-    </table>
-
-    <button (click)="add(nick.value, name.value, surname.value, age.value, city.value, street.value);
-             nick.value='';name.value=''; surname.value=''; age.value='';city.value='';street.value='';"
-    >Add</button>
-</div>
 <br/>
 <ul>
     <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
@@ -41,9 +8,11 @@
         <button (click)="delete(gamer); $event.stopPropagation()">x</button>
     </li>
 </ul>
+
+<button (click)="gotoAdd()">Dodaj nowy</button>
 <div *ngIf="selectedGamer">
     <h2>
-        {{selectedGamer.Name | uppercase}} is gamer
+        gracz ma na imię {{selectedGamer.Name | uppercase}}
     </h2>
-    <button (click)="gotoDetail()">View Details</button>
+    <button (click)="gotoDetail()">Szczegóły</button>
 </div>

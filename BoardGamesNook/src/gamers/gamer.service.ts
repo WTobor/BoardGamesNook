@@ -28,14 +28,22 @@ export class GamerService {
     }
 
     getGamer(id: number): Promise<Gamer> {
-        const url = `${this._getGamerUrl}/${id}`;
-        return this.http.get(url)
-            .toPromise()
-            .then(response => {
-                console.log(response.json());
-                return response.json() as Gamer;
-            })
-            .catch(this.handleError);
+        if (id != 0) {
+            const url = `${this._getGamerUrl}/${id}`;
+            return this.http.get(url)
+                .toPromise()
+                .then(response => {
+                    console.log(response.json());
+                    return response.json() as Gamer;
+                })
+                .catch(this.handleError);
+        }
+        else {
+            var response = new Gamer;
+            return new Promise((resolve, reject) => {
+                resolve(response);
+            }).then(response => { return response });
+        }
     }
 
     delete(id: number): Promise<void> {

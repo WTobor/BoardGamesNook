@@ -196,6 +196,8 @@
     <Content Include="src\gamers\gamer-list.component.html" />
     <Content Include="Views\BoardGame\Get.cshtml" />
     <Content Include="Views\BoardGame\GetAll.cshtml" />
+    <Content Include="src\gamers\gamer-add.component.html" />
+    <Content Include="Views\Gamer\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -232,6 +234,7 @@
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\app.component.ts" />
     <TypeScriptCompile Include="src\dialog.service.ts" />
+    <TypeScriptCompile Include="src\gamers\gamer-add.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-detail.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-list.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer.service.ts" />

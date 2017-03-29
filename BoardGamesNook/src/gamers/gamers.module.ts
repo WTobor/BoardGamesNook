@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { GamerListComponent } from './gamer-list.component';
 import { GamerDetailComponent } from './gamer-detail.component';
+import { GamerAddComponent } from './gamer-add.component';
 
 import { GamerService } from './gamer.service';
 
@@ -17,7 +18,8 @@ import { GamerRoutingModule } from './gamers-routing.module';
     ],
     declarations: [
         GamerListComponent,
-        GamerDetailComponent
+        GamerDetailComponent,
+        GamerAddComponent
     ],
     providers: [GamerService]
 })

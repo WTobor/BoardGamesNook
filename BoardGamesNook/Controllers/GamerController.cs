@@ -41,7 +41,7 @@ namespace BoardGamesNook.Controllers
 
             gamerService.Add(gamer);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -62,7 +62,7 @@ namespace BoardGamesNook.Controllers
                 return Json("No gamer with Id=" + gamer.Id, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -70,7 +70,7 @@ namespace BoardGamesNook.Controllers
         {
             gamerService.Delete(id);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
     }
 }

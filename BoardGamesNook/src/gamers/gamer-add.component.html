@@ -1,0 +1,33 @@
+﻿<h2>Nowy gracz</h2>
+<table>
+    <tr>
+        <td><label>Nick:</label></td>
+        <td><input #nick/></td>
+    </tr>
+    <tr>
+        <td><label>Imię:</label></td>
+        <td><input #name/></td>
+    </tr>
+    <tr>
+        <td><label>Nazwisko:</label></td>
+        <td><input #surname/></td>
+    </tr>
+    <tr>
+        <td><label>Wiek:</label></td>
+        <td><input #age type="number"/></td>
+    </tr>
+    <tr>
+        <td><label>Miasto:</label></td>
+        <td><input #city/></td>
+    </tr>
+    <tr>
+        <td><label>Ulica:</label></td>
+        <td><input #street/></td>
+    </tr>
+</table>
+
+<button (click)="goBack()">Powrót</button>
+<button (click)="add(nick.value, name.value, surname.value, age.value, city.value, street.value);
+        nick.value='';name.value=''; surname.value=''; age.value='';city.value='';street.value='';">
+    Dodaj
+</button>
