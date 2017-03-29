@@ -1,7 +1,4 @@
-﻿//import { Injectable } from '@angular/core';
-//import { Http } from '@angular/http';
-//import { HttpHelpers } from '../http-helpers';
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';

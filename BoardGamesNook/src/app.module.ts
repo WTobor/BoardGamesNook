@@ -28,8 +28,4 @@ import { DialogService } from './dialog.service';
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-    //constructor(router: Router) {
-    //    //console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
-    //}
-}
+export class AppModule {}

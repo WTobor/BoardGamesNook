@@ -5,5 +5,4 @@
     selector: 'my-app',
     templateUrl: "./src/app.component.html"
 })
-export class AppComponent {
-}
+export class AppComponent {}

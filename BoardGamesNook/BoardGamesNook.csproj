@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BoardGameController.cs" />
     <Compile Include="Controllers\GamerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -173,7 +174,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="src\gamers\gamer-detail.component.html" />
-    <Content Include="systemjs-angular-loader.js" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -194,9 +194,12 @@
     <Content Include="Views\Gamer\Get.cshtml" />
     <Content Include="src\app.component.html" />
     <Content Include="src\gamers\gamer-list.component.html" />
+    <Content Include="Views\BoardGame\Get.cshtml" />
+    <Content Include="Views\BoardGame\GetAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="src\boardGame\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
