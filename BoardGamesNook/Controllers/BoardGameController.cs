@@ -4,10 +4,11 @@ using System.Web.Mvc;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services;
 using BoardGamesNook.Repository;
+using BoardGamesNook.ViewModels.BoardGame;
 
 namespace BoardGamesNook.Controllers
 {
-    public class BoardGameController :Controller
+    public class BoardGameController : Controller
     {
         BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
 
@@ -24,17 +25,17 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(string name, string description, int minPlayers, int maxPlayers, TimeSpan minTime, TimeSpan maxTime, int minAge)
+        public JsonResult Add(string name)
         {
             BoardGame BoardGame = new BoardGame()
             {
                 Id = boardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
                 Name = name,
-                Description = description,
-                MinPlayers = minPlayers,
-                MaxPlayers = maxPlayers,
-                MinTime = minTime,
-                MaxTime = maxTime,
+                Description = "",
+                MinPlayers = 1,
+                MaxPlayers = 1,
+                MinTime = new TimeSpan(),
+                MaxTime = new TimeSpan(),
                 CreatedDate = DateTimeOffset.Now,
                 Active = true,
                 IsConfirmed = true
@@ -46,7 +47,7 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(BoardGame boardGame)
+        public JsonResult Edit(BoardGameViewModel boardGame)
         {
             BoardGame dbBoardGame = boardGameService.Get(boardGame.Id);
             if (dbBoardGame != null)

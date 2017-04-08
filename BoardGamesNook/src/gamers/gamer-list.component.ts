@@ -1,8 +1,4 @@
-﻿//import 'rxjs/add/operator/switchMap';
-//import { Observable } from 'rxjs/Observable';
-//import { Component, OnInit } from '@angular/core';
-//import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { GamerService } from './gamer.service';
