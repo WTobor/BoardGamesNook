@@ -7,27 +7,26 @@ import { BoardGameService } from './BoardGame.service';
 import { BoardGame } from './BoardGame';
 
 @Component({
-    selector: 'BoardGame-detail',
-    templateUrl: './src/BoardGames/BoardGame-detail.component.html'
+    selector: 'BoardGame-add',
+    templateUrl: './src/BoardGames/BoardGame-add.component.html'
 })
-export class BoardGameDetailComponent implements OnInit {
-    BoardGame: BoardGame;
+export class BoardGameAddComponent implements OnInit {
+    boardGame: BoardGame;
 
     constructor(
-        private BoardGameService: BoardGameService,
+        private boardGameService: BoardGameService,
         private route: ActivatedRoute,
         private location: Location
     ) { }
 
     ngOnInit() {
         this.route.params
-            // (+) converts string 'id' to a number
-            .switchMap((params: Params) => this.BoardGameService.getBoardGame(+params['id']))
-            .subscribe((BoardGame: BoardGame) => this.BoardGame = BoardGame);
+            .switchMap((params: Params) => this.boardGameService.getBoardGame(0))
+            .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
-    save(): void {
-        this.BoardGameService.update(this.BoardGame)
+    add(name: string) : void {
+        this.boardGameService.create(name)
             .then(() => this.goBack());
     }
 

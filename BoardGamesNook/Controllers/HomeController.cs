@@ -10,6 +10,8 @@ namespace BoardGamesNook.Controllers
     {
         public ActionResult Index()
         {
+            BoardGameGeekIntegration.BGGBoardGame.GetBoardGameId("Terra Mystica");
+
             return View();
         }
 

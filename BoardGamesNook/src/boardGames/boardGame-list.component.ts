@@ -9,41 +9,41 @@ import { BoardGame } from './BoardGame';
     templateUrl: './src/BoardGames/BoardGame-list.component.html',
 })
 export class BoardGameListComponent implements OnInit {
-    BoardGames: BoardGame[];
+    boardGames: BoardGame[];
     selectedBoardGame: BoardGame;
 
     constructor(
-        private BoardGameService: BoardGameService,
+        private boardGameService: BoardGameService,
         private router: Router) { }
 
     ngOnInit(): void {
         this.getBoardGames();
     }
 
-    onSelect(BoardGame: BoardGame): void {
-        this.selectedBoardGame = BoardGame;
+    onSelect(boardGame: BoardGame): void {
+        this.selectedBoardGame = boardGame;
     }
 
     getBoardGames(): void {
-        this.BoardGameService
+        this.boardGameService
             .getBoardGames()
-            .then(BoardGames => this.BoardGames = BoardGames);
+            .then(boardGames => this.boardGames = boardGames);
     }
 
-    delete(BoardGame: BoardGame): void {
-        this.BoardGameService
-            .delete(BoardGame.Id)
+    delete(boardGame: BoardGame): void {
+        this.boardGameService
+            .delete(boardGame.Id)
             .then(() => {
-                this.BoardGames = this.BoardGames.filter(g => g !== BoardGame);
-                if (this.selectedBoardGame === BoardGame) { this.selectedBoardGame = null; }
+                this.boardGames = this.boardGames.filter(g => g !== boardGame);
+                if (this.selectedBoardGame === boardGame) { this.selectedBoardGame = null; }
             });
     }
 
     gotoDetail(): void {
-        this.router.navigate(['/BoardGames', this.selectedBoardGame.Id]);
+        this.router.navigate(['/boardGames', this.selectedBoardGame.Id]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(['/BoardGame', 0]);
+        this.router.navigate(['/boardGame', 0]);
     }
 }

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { GamersModule } from './gamers/gamers.module';
+import { BoardGamesModule } from './boardGames/boardGames.module';
 import { PageNotFoundComponent } from './not-found.component';
 
 import { DialogService } from './dialog.service';
@@ -17,6 +18,7 @@ import { DialogService } from './dialog.service';
         FormsModule,
         HttpModule,
         GamersModule,
+        BoardGamesModule,
         AppRoutingModule
     ],
     declarations: [

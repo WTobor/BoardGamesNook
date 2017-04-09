@@ -5,15 +5,15 @@ import { BoardGameListComponent } from './BoardGame-list.component';
 import { BoardGameDetailComponent } from './BoardGame-detail.component';
 import { BoardGameAddComponent } from './BoardGame-add.component';
 
-const BoardGamesRoutes: Routes = [
-    { path: 'BoardGames', component: BoardGameListComponent },
-    { path: 'BoardGame/0', component: BoardGameAddComponent },
-    { path: 'BoardGames/:id', component: BoardGameDetailComponent }
+const boardGamesRoutes: Routes = [
+    { path: 'boardGames', component: BoardGameListComponent },
+    { path: 'boardGame/0', component: BoardGameAddComponent },
+    { path: 'boardGames/:id', component: BoardGameDetailComponent }
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forChild(BoardGamesRoutes)
+        RouterModule.forChild(boardGamesRoutes)
     ],
     exports: [
         RouterModule

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGamesNook.Model", "Boa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGamesNook.Tests", "BoardGamesNook.Tests\BoardGamesNook.Tests.csproj", "{68405245-EDBE-42C9-B1D5-03391C664124}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoardGameGeekIntegration", "BoardGameGeekIntegration\BoardGameGeekIntegration.csproj", "{3548FE01-A88F-47DA-ADBE-75271A65B08D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{68405245-EDBE-42C9-B1D5-03391C664124}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68405245-EDBE-42C9-B1D5-03391C664124}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68405245-EDBE-42C9-B1D5-03391C664124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3548FE01-A88F-47DA-ADBE-75271A65B08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3548FE01-A88F-47DA-ADBE-75271A65B08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3548FE01-A88F-47DA-ADBE-75271A65B08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3548FE01-A88F-47DA-ADBE-75271A65B08D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

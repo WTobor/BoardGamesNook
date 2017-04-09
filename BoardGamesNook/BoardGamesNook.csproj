@@ -173,6 +173,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\boardGames\boardGame-detail.component.html" />
+    <Content Include="src\boardGames\boardGame-list.component.html" />
     <Content Include="src\gamers\gamer-detail.component.html" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config" />
@@ -198,6 +200,7 @@
     <Content Include="Views\BoardGame\GetAll.cshtml" />
     <Content Include="src\gamers\gamer-add.component.html" />
     <Content Include="Views\Gamer\Add.cshtml" />
+    <Content Include="src\boardGames\boardGame-add.component.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -211,6 +214,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BoardGameGeekIntegration\BoardGameGeekIntegration.csproj">
+      <Project>{3548fe01-a88f-47da-adbe-75271a65b08d}</Project>
+      <Name>BoardGameGeekIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">
       <Project>{0dbd4913-4f0c-4862-8b4d-addf21162e5e}</Project>
       <Name>BoardGamesNook.Model</Name>
@@ -232,13 +239,13 @@
     <TypeScriptCompile Include="src\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\app.component.ts" />
-    <TypeScriptCompile Include="src\boardGame\boardGame-add.component.ts" />
-    <TypeScriptCompile Include="src\boardGame\boardGame-detail.component.ts" />
-    <TypeScriptCompile Include="src\boardGame\boardGame-list.component.ts" />
-    <TypeScriptCompile Include="src\boardGame\boardGames-routing.module.ts" />
-    <TypeScriptCompile Include="src\boardGame\boardGame.service.ts" />
-    <TypeScriptCompile Include="src\boardGame\boardGame.ts" />
-    <TypeScriptCompile Include="src\boardGame\boardGames.module.ts" />
+    <TypeScriptCompile Include="src\boardGames\boardGame-add.component.ts" />
+    <TypeScriptCompile Include="src\boardGames\boardGame-detail.component.ts" />
+    <TypeScriptCompile Include="src\boardGames\boardGame-list.component.ts" />
+    <TypeScriptCompile Include="src\boardGames\boardGames-routing.module.ts" />
+    <TypeScriptCompile Include="src\boardGames\boardGame.service.ts" />
+    <TypeScriptCompile Include="src\boardGames\boardGame.ts" />
+    <TypeScriptCompile Include="src\boardGames\boardGames.module.ts" />
     <TypeScriptCompile Include="src\dialog.service.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-add.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-detail.component.ts" />

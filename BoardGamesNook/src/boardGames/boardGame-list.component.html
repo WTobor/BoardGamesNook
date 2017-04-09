@@ -1,0 +1,18 @@
+﻿<h2>LISTA GIER</h2>
+
+<br />
+<ul>
+    <li *ngFor="let boardGame of boardGames" (click)="onSelect(boardGame)">
+        <span class="badge">{{ boardGame.Id }}</span>
+        <span>{{ boardGame.Name }}</span>
+        <button (click)="delete(boardGame); $event.stopPropagation()">x</button>
+    </li>
+</ul>
+
+<button (click)="gotoAdd()">Dodaj nową grę</button>
+<div *ngIf="selectedBoardGame">
+    <h2>
+        opis gry {{selectedBoardGame.Description | uppercase}}
+    </h2>
+    <button (click)="gotoDetail()">Szczegóły</button>
+</div>

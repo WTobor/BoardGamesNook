@@ -27,7 +27,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(string name)
         {
-            BoardGame BoardGame = new BoardGame()
+            BoardGame boardGame = new BoardGame()
             {
                 Id = boardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
                 Name = name,
@@ -41,9 +41,9 @@ namespace BoardGamesNook.Controllers
                 IsConfirmed = true
             };
 
-            boardGameService.Add(BoardGame);
+            boardGameService.Add(boardGame);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -65,7 +65,7 @@ namespace BoardGamesNook.Controllers
                 return Json("No BoardGame with Id=" + boardGame.Id, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace BoardGamesNook.Controllers
         {
             boardGameService.Delete(id);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
     }
 }

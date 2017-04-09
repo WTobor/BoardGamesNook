@@ -1,0 +1,13 @@
+﻿<h2>Nowa gra</h2>
+<table>
+    <tr>
+        <td><label>Nazwa:</label></td>
+        <td><input #name /></td>
+    </tr>
+</table>
+
+<button (click)="goBack()">Powrót</button>
+<button (click)="add(name.value);
+        name.value='';">
+    Dodaj
+</button>
