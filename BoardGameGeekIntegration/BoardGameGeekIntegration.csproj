@@ -45,8 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BGGBoardGame.cs" />
+    <Compile Include="BoardGameDetails.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Models\boardgames.cs" />
+    <Compile Include="Models\BoardGames.cs" />
     <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
@@ -58,7 +59,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Models\BoardGameDetails.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BoardGameDetails.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

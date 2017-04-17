@@ -13,8 +13,8 @@ namespace BoardGamesNook.Model
         public int MinPlayers { get; set; }
         public int MaxPlayers { get; set; }
         public int MinAge { get; set; }
-        public TimeSpan MinTime { get; set; }
-        public TimeSpan MaxTime { get; set; }
+        public int MinTime { get; set; }
+        public int MaxTime { get; set; }
         public int? BGGId { get; set; }
         public bool IsExpansion { get; set; }
         public int? ParentId { get; set; }

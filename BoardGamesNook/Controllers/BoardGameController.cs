@@ -34,8 +34,8 @@ namespace BoardGamesNook.Controllers
                 Description = "",
                 MinPlayers = 1,
                 MaxPlayers = 1,
-                MinTime = new TimeSpan(),
-                MaxTime = new TimeSpan(),
+                MinTime = 0,
+                MaxTime = 0,
                 CreatedDate = DateTimeOffset.Now,
                 Active = true,
                 IsConfirmed = true

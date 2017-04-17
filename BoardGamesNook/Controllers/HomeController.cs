@@ -10,7 +10,12 @@ namespace BoardGamesNook.Controllers
     {
         public ActionResult Index()
         {
-            BoardGameGeekIntegration.BGGBoardGame.GetBoardGameId("Terra Mystica");
+            int boardGameId = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameId("Terra Mystica");
+            if (boardGameId != 0)
+            {
+                //int boardGameId = 120677;
+                BoardGameGeekIntegration.BGGBoardGame.GetBoardGameById(boardGameId);
+            }
 
             return View();
         }

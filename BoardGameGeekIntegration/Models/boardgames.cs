@@ -5,7 +5,7 @@ namespace BoardGameGeekIntegration.Models
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class boardgames
+    public  class boardgames
     {
 
         private boardgamesBoardgame[] boardgameField;
