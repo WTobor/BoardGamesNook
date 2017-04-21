@@ -1,8 +1,7 @@
-﻿using System;
+﻿using BoardGamesNook.Model;
+using BoardGamesNook.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using BoardGamesNook.Model;
-using BoardGamesNook.Repository.Interfaces;
 
 namespace BoardGamesNook.Repository
 {

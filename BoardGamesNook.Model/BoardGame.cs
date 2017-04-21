@@ -20,6 +20,8 @@ namespace BoardGamesNook.Model
         public int? ParentId { get; set; }
         public bool IsConfirmed { get; set; }
         public bool Active { get; set; }
-        public virtual BoardGame ParentBoardGame { get; set; }
+        public string ImageUrl { get; set; }
+
+    public virtual BoardGame ParentBoardGame { get; set; }
     }
 }

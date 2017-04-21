@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using BoardGamesNook.Model;
+﻿using BoardGamesNook.Model;
+using System.Collections.Generic;
 
 namespace BoardGamesNook.Services.Interfaces
 {

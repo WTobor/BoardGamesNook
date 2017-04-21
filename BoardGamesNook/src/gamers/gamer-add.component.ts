@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { GamerService } from './gamer.service';
 import { Gamer } from './gamer';
 
+import { Common } from './../Common';
+
 @Component({
     selector: 'gamer-add',
     templateUrl: './src/gamers/gamer-add.component.html'
@@ -35,11 +37,9 @@ export class GamerAddComponent implements OnInit {
         this.gamer.Age = age;
         this.gamer.City = city;
         this.gamer.Street = street;
-        this.gamerService.create(this.gamer)
-            .then(() => this.goBack());
-    }
 
-    goBack(): void {
-        this.location.back();
+        var loc = this.location;
+        this.gamerService.create(this.gamer)
+            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
 }

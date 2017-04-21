@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BoardGamesNook.Model;
+using BoardGamesNook.Repository;
+using BoardGamesNook.Services;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using BoardGamesNook.Model;
-using BoardGamesNook.Services;
-using BoardGamesNook.Repository;
 
 namespace BoardGamesNook.Controllers
 {
@@ -38,10 +38,9 @@ namespace BoardGamesNook.Controllers
                 CreatedDate = DateTimeOffset.Now,
                 Active = true
             };
-
             gamerService.Add(gamer);
 
-            return Json("", JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -62,7 +61,7 @@ namespace BoardGamesNook.Controllers
                 return Json("No gamer with Id=" + gamer.Id, JsonRequestBehavior.AllowGet);
             }
 
-            return Json("", JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -70,7 +69,7 @@ namespace BoardGamesNook.Controllers
         {
             gamerService.Delete(id);
 
-            return Json("", JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }

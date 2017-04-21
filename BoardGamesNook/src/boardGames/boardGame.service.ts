@@ -5,6 +5,8 @@ import 'rxjs/add/operator/toPromise';
 
 import { BoardGame } from './BoardGame';
 
+import { Common } from './../Common';
+
 @Injectable()
 export class BoardGameService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
@@ -24,7 +26,7 @@ export class BoardGameService {
                 console.log(response.json());
                 return response.json() as BoardGame[];
             })
-            .catch(this.handleError);
+            .catch(ex => { return new Common(null).handleError(ex) });
     }
 
     getBoardGame(id: number): Promise<BoardGame> {
@@ -32,47 +34,40 @@ export class BoardGameService {
             const url = `${this._getBoardGameUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
-                .then(response => {
-                    console.log(response.json());
-                    return response.json() as BoardGame;
-                })
-                .catch(this.handleError);
+                .then(response => { return response.json() as BoardGame; })
+                .catch(ex => { return new Common(null).handleError(ex) });
         }
         else {
             var response = new BoardGame;
-            return new Promise((resolve, reject) => {
-                resolve(response);
-            }).then(response => { return response });
+            return new Promise((resolve) => { resolve(response); })
+                .then(response => { return response; });
         }
     }
 
-    delete(id: number): Promise<void> {
+    delete(id: number): Promise<string> {
         const url = `${this._deleteBoardGameUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
-            .then(() => null)
-            .catch(this.handleError);
+            .then(response => { return response.text(); })
+            .catch(ex => { return new Common().handleError(ex) });
     }
 
-    create(name: string): Promise<BoardGame> {
+    create(name: string): Promise<string> {
         return this.http
             .post(`${this._addBoardGameUrl}`, JSON.stringify(name), { headers: this.headers })
             .toPromise()
-            .then(res => res.json().data)
-            .catch(this.handleError);
+            .then(response => { return response.text(); })
+            .catch(ex => { debugger; return new Common().handleError(ex) });
     }
 
-    update(BoardGame: BoardGame): Promise<BoardGame> {
+    update(boardGame: BoardGame): Promise<string> {
         const url = `${this._editBoardGameUrl}`;
         return this.http
-            .post(url, JSON.stringify(BoardGame), { headers: this.headers })
+            .post(url, JSON.stringify(boardGame), { headers: this.headers })
             .toPromise()
-            .then(() => BoardGame)
-            .catch(this.handleError);
+            .then(response => { return response.text(); })
+            .catch(ex => { return new Common().handleError(ex) });
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error(`An error occurred`, error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
+    
 }

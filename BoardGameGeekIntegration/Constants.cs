@@ -3,8 +3,9 @@ namespace BoardGameGeekIntegration
 {
     public static class Constants
     {
-        public const string BGGApiUrl = @"https://boardgamegeek.com/xmlapi/";
-        public const string getBoardGameObjectByName = BGGApiUrl + @"search?search={0}";
-        public const string getBoardGameObjectDetailsById = BGGApiUrl + @"boardgame/{0}";
+        public const string BGGXMLApiUrl = @"https://boardgamegeek.com/xmlapi/";
+        public const string BGGJSONApiUrl = @"https://bgg-json.azurewebsites.net/";
+        public const string getXMLBoardGameObjectByName = BGGXMLApiUrl + @"search?search={0}";
+        public const string getJSONBoardGameObjectDetailsById = BGGJSONApiUrl + @"thing/{0}";
     }
 }

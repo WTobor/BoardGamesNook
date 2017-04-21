@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using BoardGamesNook.Model;
+﻿using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace BoardGamesNook.Services
 {

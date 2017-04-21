@@ -1,10 +1,11 @@
-﻿import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { BoardGameService } from './BoardGame.service';
 import { BoardGame } from './BoardGame';
+
+import { Common } from './../Common';
 
 @Component({
     selector: 'BoardGame-add',
@@ -25,12 +26,11 @@ export class BoardGameAddComponent implements OnInit {
             .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
-    add(name: string) : void {
+    add(name: string): void {
+        var loc = this.location;
         this.boardGameService.create(name)
-            .then(() => this.goBack());
-    }
-
-    goBack(): void {
-        this.location.back();
+            .then(function (errorMessage) {
+                new Common(loc).showErrorOrGoBack(errorMessage);
+            });
     }
 }

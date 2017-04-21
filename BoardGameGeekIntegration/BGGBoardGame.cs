@@ -1,12 +1,10 @@
-﻿using System;
-using System.Data;
+﻿using BoardGamesNook.Model;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Xml;
 using System.Xml.Serialization;
-using BoardGamesNook.Model;
 
 namespace BoardGameGeekIntegration
 {
@@ -16,7 +14,7 @@ namespace BoardGameGeekIntegration
         {
             int objectId = 0;
 
-            string url = String.Format(Constants.getBoardGameObjectByName, name);
+            string url = String.Format(Constants.getXMLBoardGameObjectByName, name);
             string BGGBoardGameObjectStr = GetStringResponse(url);
             object boardGamesObject = new Models.boardgames();
 
@@ -28,7 +26,7 @@ namespace BoardGameGeekIntegration
 
             var boardGames = (Models.boardgames)boardGamesObject;
 
-            if (boardGames.boardgame.Length > 0)
+            if (boardGames.boardgame != null && boardGames.boardgame.Length > 0)
             {
                 objectId = (int)boardGames.boardgame.First().objectid;
             }
@@ -40,33 +38,24 @@ namespace BoardGameGeekIntegration
         {
             BoardGame boardGame = null;
 
-            string url = String.Format(Constants.getBoardGameObjectDetailsById, id);
+            string url = String.Format(Constants.getJSONBoardGameObjectDetailsById, id);
             string BGGBoardGameObjectDetailsStr = GetStringResponse(url);
-            object boardGamesObjectDetails = new boardgames();
 
+            BoardGameDetails boardGameDetails = JsonConvert.DeserializeObject<BoardGameDetails>(BGGBoardGameObjectDetailsStr);
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(boardgames));
-            using (TextReader textReader = new StringReader(BGGBoardGameObjectDetailsStr))
+            boardGame = new BoardGame()
             {
-                boardGamesObjectDetails = xmlSerializer.Deserialize(textReader);
-            }
-
-            var boardGameDetails = (boardgames)boardGamesObjectDetails;
-
-            if (boardGameDetails.boardgame != null)
-            {
-                boardGame = new BoardGame()
-                {
-                    Name = "",
-                    Description = "",
-                    MinPlayers = Convert.ToInt32(boardGameDetails.boardgame.Items[1].ToString()),
-                    MaxPlayers = Convert.ToInt32(boardGameDetails.boardgame.Items[2].ToString()),
-                    MinTime = Convert.ToInt32(boardGameDetails.boardgame.Items[4].ToString()),
-                    MaxTime = Convert.ToInt32(boardGameDetails.boardgame.Items[5].ToString()),
-                    MinAge = Convert.ToInt32(boardGameDetails.boardgame.Items[6].ToString()),
-                    BGGId = id
-                };
-            }
+                Name = boardGameDetails.name,
+                Description = boardGameDetails.description,
+                MinPlayers = boardGameDetails.minPlayers,
+                MaxPlayers = boardGameDetails.maxPlayers,
+                MinTime = boardGameDetails.playingTime,
+                MaxTime = boardGameDetails.playingTime,
+                BGGId = id,
+                IsExpansion = boardGameDetails.isExpansion,
+                ImageUrl = boardGameDetails.image,
+                CreatedDate = DateTimeOffset.Now
+            };
 
             return boardGame;
         }
@@ -75,6 +64,7 @@ namespace BoardGameGeekIntegration
         {
             string result = string.Empty;
             WebRequest request = WebRequest.Create(url);
+            request.ContentType = "text/javascript";
             var response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             if (dataStream != null)
@@ -86,5 +76,22 @@ namespace BoardGameGeekIntegration
             response.Close();
             return result;
         }
+
+        //public static string GetJSONResponse(string url)
+        //{
+        //    string result = string.Empty;
+        //    WebRequest request = WebRequest.Create(url);
+        //    request.ContentType = "application/json";
+        //    var response = request.GetResponse();
+        //    Stream dataStream = response.GetResponseStream();
+        //    if (dataStream != null)
+        //    {
+        //        StreamReader reader = new StreamReader(dataStream);
+        //        result = reader.ReadToEnd();
+        //        reader.Close();
+        //    }
+        //    response.Close();
+        //    return result;
+        //}
     }
 }

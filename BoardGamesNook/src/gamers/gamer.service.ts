@@ -5,6 +5,8 @@ import 'rxjs/add/operator/toPromise';
 
 import { Gamer } from './gamer';
 
+import { Common } from './../Common';
+
 @Injectable()
 export class GamerService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
@@ -24,7 +26,7 @@ export class GamerService {
                 console.log(response.json());
                  return response.json() as Gamer[];
             })
-            .catch(this.handleError);
+            .catch(ex => { return new Common().handleError(ex) });
     }
 
     getGamer(id: number): Promise<Gamer> {
@@ -32,47 +34,38 @@ export class GamerService {
             const url = `${this._getGamerUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
-                .then(response => {
-                    console.log(response.json());
-                    return response.json() as Gamer;
-                })
-                .catch(this.handleError);
+                .then(response => { return response.json() as Gamer; })
+                .catch(ex => { return new Common().handleError(ex) });
         }
         else {
             var response = new Gamer;
-            return new Promise((resolve, reject) => {
-                resolve(response);
-            }).then(response => { return response });
+            return new Promise((resolve) => { resolve(response); })
+                .then(response => { return response });
         }
     }
 
-    delete(id: number): Promise<void> {
+    delete(id: number): Promise<string> {
         const url = `${this._deleteGamerUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
-            .then(() => null)
-            .catch(this.handleError);
+            .then(response => { return response.text(); })
+            .catch(ex => { return new Common().handleError(ex) });
     }
 
-    create(gamer: Gamer): Promise<Gamer> {
+    create(gamer: Gamer): Promise<string> {
         return this.http
             .post(`${this._addGamerUrl}`, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()
-            .then(res => res.json().data)
-            .catch(this.handleError);
+            .then(response => { return response.text(); })
+            .catch(ex => { return new Common().handleError(ex) });
     }
 
-    update(gamer: Gamer): Promise<Gamer> {
+    update(gamer: Gamer): Promise<string> {
         const url = `${this._editGamerUrl}`;
         return this.http
             .post(url, JSON.stringify(gamer) , { headers: this.headers })
             .toPromise()
-            .then(() => gamer)
-            .catch(this.handleError);
-    }
-
-    private handleError(error: any): Promise<any> {
-        console.error(`An error occurred`, error); // for demo purposes only
-        return Promise.reject(error.message || error);
+            .then(response => { return response.text(); })
+            .catch(ex => { return new Common().handleError(ex) });
     }
 }

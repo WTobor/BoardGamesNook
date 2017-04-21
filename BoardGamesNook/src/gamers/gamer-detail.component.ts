@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { GamerService } from './gamer.service';
 import { Gamer } from './gamer';
 
+import { Common } from './../Common';
+
 @Component({
     selector: 'gamer-detail',
     templateUrl: './src/gamers/gamer-detail.component.html'
@@ -21,17 +23,13 @@ export class GamerDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            // (+) converts string 'id' to a number
             .switchMap((params: Params) => this.gamerService.getGamer(+params['id']))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 
     save(): void {
+        var loc = this.location;
         this.gamerService.update(this.gamer)
-            .then(() => this.goBack());
-    }
-
-    goBack(): void {
-        this.location.back();
+            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
 }

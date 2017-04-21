@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { BoardGameService } from './BoardGame.service';
 import { BoardGame } from './BoardGame';
 
+import { Common } from './../Common';
+
 @Component({
     selector: 'BoardGame-detail',
     templateUrl: './src/BoardGames/BoardGame-detail.component.html'
@@ -21,17 +23,13 @@ export class BoardGameDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            // (+) converts string 'id' to a number
             .switchMap((params: Params) => this.boardGameService.getBoardGame(+params['id']))
             .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
     save(): void {
+        var loc = this.location;
         this.boardGameService.update(this.boardGame)
-            .then(() => this.goBack());
-    }
-
-    goBack(): void {
-        this.location.back();
+            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage) });
     }
 }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BoardGamesNook.Model;
+using BoardGamesNook.Repository;
+using BoardGamesNook.Services;
+using BoardGamesNook.ViewModels.BoardGame;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using BoardGamesNook.Model;
-using BoardGamesNook.Services;
-using BoardGamesNook.Repository;
-using BoardGamesNook.ViewModels.BoardGame;
 
 namespace BoardGamesNook.Controllers
 {
@@ -27,23 +27,16 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(string name)
         {
-            BoardGame boardGame = new BoardGame()
+            int boardGameId = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameId(name);
+            if (boardGameId != 0)
             {
-                Id = boardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
-                Name = name,
-                Description = "",
-                MinPlayers = 1,
-                MaxPlayers = 1,
-                MinTime = 0,
-                MaxTime = 0,
-                CreatedDate = DateTimeOffset.Now,
-                Active = true,
-                IsConfirmed = true
-            };
+                BoardGame boardGame = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameById(boardGameId);
+                boardGame.Id = boardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1;
+                boardGameService.Add(boardGame);
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
 
-            boardGameService.Add(boardGame);
-
-            return Json("", JsonRequestBehavior.AllowGet);
+            return Json("Nie znaleziono gry o nazwie " + name, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -59,13 +52,13 @@ namespace BoardGamesNook.Controllers
                 dbBoardGame.MinTime = boardGame.MinTime;
                 dbBoardGame.MaxTime = boardGame.MaxTime;
                 dbBoardGame.ModifiedDate = DateTimeOffset.Now;
+
+                return Json(null, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json("No BoardGame with Id=" + boardGame.Id, JsonRequestBehavior.AllowGet);
+                return Json("Nie znaleziono gry o Id=" + boardGame.Id, JsonRequestBehavior.AllowGet);
             }
-
-            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -73,7 +66,7 @@ namespace BoardGamesNook.Controllers
         {
             boardGameService.Delete(id);
 
-            return Json("", JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }
