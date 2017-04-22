@@ -29,7 +29,7 @@ export class BoardGameAddComponent implements OnInit {
     add(name: string): void {
         var loc = this.location;
         this.boardGameService.create(name)
-            .then(function (errorMessage) {
+            .then(errorMessage => {
                 new Common(loc).showErrorOrGoBack(errorMessage);
             });
     }

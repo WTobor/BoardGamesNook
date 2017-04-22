@@ -5,7 +5,7 @@
     <li *ngFor="let boardGame of boardGames" (click)="onSelect(boardGame)">
         <span class="badge">{{ boardGame.Id }}</span>
         <span>{{ boardGame.Name }}</span>
-        <button (click)="delete(boardGame); $event.stopPropagation()">x</button>
+        <button (click)="delete(boardGame); $event.stopPropagation()" class="delete-icon">x</button>
     </li>
 </ul>
 

@@ -5,7 +5,7 @@
     <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
         <span class="badge">{{ gamer.Id }}</span>
         <span>{{ gamer.Nick }}</span>
-        <button (click)="delete(gamer); $event.stopPropagation()">x</button>
+        <button (click)="delete(gamer); $event.stopPropagation()" class="delete-icon">x</button>
     </li>
 </ul>
 

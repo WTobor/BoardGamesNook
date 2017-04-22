@@ -10,7 +10,6 @@ export class Common  {
     }
 
     showErrorOrGoBack(errorMessage): void {
-        debugger;
         if (errorMessage !== "") {
             alert(errorMessage);
             return;
@@ -20,12 +19,12 @@ export class Common  {
     }
 
     handleError(error: any, message?: any): Promise<string> {
-        let errorDetails: string = error.message != "" ? error.message : "";
-        if (error.message !== "") {
-            message = error + errorDetails;
+        let errorDetails: string = error.message !== "" ? error.message : "";
+        if (error !== "Error") {
+            message += error;
         }
-        else if (error.name !== "Error") {
-            message = error.name;
+        else if (typeof error.message != "undefined" && error.message !== "") {
+            message += errorDetails;
         }
         else {
             message = "Wystąpił nieznany błąd";
