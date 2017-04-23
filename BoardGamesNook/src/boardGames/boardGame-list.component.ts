@@ -5,7 +5,7 @@ import { BoardGameService } from './BoardGame.service';
 import { BoardGame } from './BoardGame';
 
 @Component({
-    selector: 'BoardGame-list',
+    selector: 'boardGame-list',
     templateUrl: './src/BoardGames/BoardGame-list.component.html',
 })
 export class BoardGameListComponent implements OnInit {

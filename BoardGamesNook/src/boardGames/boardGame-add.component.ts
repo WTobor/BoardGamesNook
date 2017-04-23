@@ -8,7 +8,7 @@ import { BoardGame } from './BoardGame';
 import { Common } from './../Common';
 
 @Component({
-    selector: 'BoardGame-add',
+    selector: 'boardGame-add',
     templateUrl: './src/BoardGames/BoardGame-add.component.html'
 })
 export class BoardGameAddComponent implements OnInit {
@@ -32,5 +32,10 @@ export class BoardGameAddComponent implements OnInit {
             .then(errorMessage => {
                 new Common(loc).showErrorOrGoBack(errorMessage);
             });
+    }
+
+    goBack(): void {
+        var loc = this.location;
+        return new Common(loc).goBack();
     }
 }

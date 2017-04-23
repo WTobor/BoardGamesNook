@@ -32,4 +32,9 @@ export class GamerDetailComponent implements OnInit {
         this.gamerService.update(this.gamer)
             .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
+
+    goBack(): void {
+        var loc = this.location;
+        return new Common(loc).goBack();
+    }
 }

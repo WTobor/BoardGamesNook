@@ -49,11 +49,10 @@ namespace BoardGameGeekIntegration
                 Description = boardGameDetails.description,
                 MinPlayers = boardGameDetails.minPlayers,
                 MaxPlayers = boardGameDetails.maxPlayers,
-                MinTime = boardGameDetails.playingTime,
                 MaxTime = boardGameDetails.playingTime,
                 BGGId = id,
                 IsExpansion = boardGameDetails.isExpansion,
-                ImageUrl = boardGameDetails.image,
+                ImageUrl = boardGameDetails.thumbnail,
                 CreatedDate = DateTimeOffset.Now
             };
 
@@ -76,22 +75,5 @@ namespace BoardGameGeekIntegration
             response.Close();
             return result;
         }
-
-        //public static string GetJSONResponse(string url)
-        //{
-        //    string result = string.Empty;
-        //    WebRequest request = WebRequest.Create(url);
-        //    request.ContentType = "application/json";
-        //    var response = request.GetResponse();
-        //    Stream dataStream = response.GetResponseStream();
-        //    if (dataStream != null)
-        //    {
-        //        StreamReader reader = new StreamReader(dataStream);
-        //        result = reader.ReadToEnd();
-        //        reader.Close();
-        //    }
-        //    response.Close();
-        //    return result;
-        //}
     }
 }

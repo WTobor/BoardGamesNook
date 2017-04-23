@@ -12,7 +12,7 @@
 <button (click)="gotoAdd()">Dodaj nową grę</button>
 <div *ngIf="selectedBoardGame">
     <h2>
-        opis gry {{selectedBoardGame.Description | uppercase}}
+        <a href="https://boardgamegeek.com/boardgame/{{selectedBoardGame.BGGId}}" target="_blank"><img src="{{selectedBoardGame.ImageUrl}}" /></a>
     </h2>
     <button (click)="gotoDetail()">Szczegóły</button>
 </div>

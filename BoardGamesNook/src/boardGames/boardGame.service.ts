@@ -54,10 +54,10 @@ export class BoardGameService {
 
     create(name: string): Promise<string> {
         return this.http
-            .post(`${this._addBoardGameUrl}`, JSON.stringify(name), { headers: this.headers })
+            .post(`${this._addBoardGameUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { debugger; return new Common().handleError(ex) });
+            .catch(ex => { return new Common().handleError(ex) });
     }
 
     update(boardGame: BoardGame): Promise<string> {

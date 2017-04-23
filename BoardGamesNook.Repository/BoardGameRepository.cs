@@ -19,11 +19,12 @@ namespace BoardGamesNook.Repository
                 MinAge = 10,
                 MinTime = 60,
                 MaxTime = 120,
-                BGGId = null,
+                BGGId = 13,
                 IsExpansion = false,
                 ParentBoardGame = null,
                 Active = true,
-                IsConfirmed = true
+                IsConfirmed = true,
+                ImageUrl = "http://cf.geekdo-images.com/images/pic2419375_t.jpg"
             },
             new BoardGame()
             {
@@ -35,11 +36,12 @@ namespace BoardGamesNook.Repository
                 MinAge = 6,
                 MinTime = 30,
                 MaxTime = 30,
-                BGGId = null,
+                BGGId = 39856,
                 IsExpansion = false,
                 ParentBoardGame = null,
                 Active = true,
-                IsConfirmed = true
+                IsConfirmed = true,
+                ImageUrl = "http://cf.geekdo-images.com/images/pic3483909_t.jpg"
             }
         };
 

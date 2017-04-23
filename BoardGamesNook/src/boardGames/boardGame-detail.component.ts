@@ -9,7 +9,7 @@ import { BoardGame } from './BoardGame';
 import { Common } from './../Common';
 
 @Component({
-    selector: 'BoardGame-detail',
+    selector: 'boardGame-detail',
     templateUrl: './src/BoardGames/BoardGame-detail.component.html'
 })
 export class BoardGameDetailComponent implements OnInit {
@@ -31,5 +31,10 @@ export class BoardGameDetailComponent implements OnInit {
         var loc = this.location;
         this.boardGameService.update(this.boardGame)
             .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage) });
+    }
+
+    goBack(): void {
+        var loc = this.location;
+        return new Common(loc).goBack();
     }
 }

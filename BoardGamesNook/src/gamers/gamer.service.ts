@@ -53,8 +53,9 @@ export class GamerService {
     }
 
     create(gamer: Gamer): Promise<string> {
+        const url = `${this._addGamerUrl}`;
         return this.http
-            .post(`${this._addGamerUrl}`, JSON.stringify(gamer), { headers: this.headers })
+            .post(url, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex) });
