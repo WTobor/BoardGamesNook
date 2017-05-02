@@ -3,7 +3,7 @@
 <br/>
 <ul>
     <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
-        <span class="badge">{{ gamer.Id }}</span>
+        <span class="hidden">{{ gamer.Id }}</span>
         <span>{{ gamer.Nick }}</span>
         <button (click)="delete(gamer); $event.stopPropagation()" class="delete-icon">x</button>
     </li>

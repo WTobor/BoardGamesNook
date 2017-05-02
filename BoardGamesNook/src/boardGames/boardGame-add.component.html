@@ -13,3 +13,17 @@
         name.value='';">
     Dodaj
 </button>
+
+<div *ngIf="boardGameNotFound">
+    Czy chodziło Ci o:
+    <ul>
+        <li *ngFor="let similarBoardGame of similarBoardGames">
+            <span>
+                <a href="https://boardgamegeek.com/boardgame/{{similarBoardGame.Id}}" target="_blank">
+                    {{ similarBoardGame.Name }}
+                </a>
+            </span>
+            <button (click)="onSelect(similarBoardGame)">wybierz</button>
+        </li>
+    </ul>
+</div>

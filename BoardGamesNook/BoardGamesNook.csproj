@@ -249,6 +249,7 @@
     <TypeScriptCompile Include="src\boardGames\boardGame.service.ts" />
     <TypeScriptCompile Include="src\boardGames\boardGame.ts" />
     <TypeScriptCompile Include="src\boardGames\boardGames.module.ts" />
+    <TypeScriptCompile Include="src\boardGames\similarBoardGame.ts" />
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\dialog.service.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-add.component.ts" />

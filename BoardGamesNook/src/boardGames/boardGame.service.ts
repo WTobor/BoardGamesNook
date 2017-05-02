@@ -13,6 +13,7 @@ export class BoardGameService {
     private _getBoardGameUrl = 'BoardGame/Get';
     private _getBoardGameListUrl = 'BoardGame/GetAll';
     private _addBoardGameUrl = 'BoardGame/Add';
+    private _addBoardGameByIdUrl = 'BoardGame/AddById';
     private _editBoardGameUrl = 'BoardGame/Edit';
     private _deleteBoardGameUrl = 'BoardGame/Delete';
 
@@ -55,6 +56,14 @@ export class BoardGameService {
     create(name: string): Promise<string> {
         return this.http
             .post(`${this._addBoardGameUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
+            .toPromise()
+            .then(response => { return response.text(); })
+            .catch(ex => { return new Common().handleError(ex) });
+    }
+
+    addSimilar(id: number): Promise<string> {
+        return this.http
+            .post(`${this._addBoardGameByIdUrl}`, JSON.stringify({ id: id }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex) });

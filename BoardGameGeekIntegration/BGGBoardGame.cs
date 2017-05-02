@@ -1,10 +1,12 @@
 ﻿using BoardGamesNook.Model;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Xml.Serialization;
+using BoardGameGeekIntegration.Models;
 
 namespace BoardGameGeekIntegration
 {
@@ -33,6 +35,35 @@ namespace BoardGameGeekIntegration
 
             return objectId;
         }
+
+        public static List<SimilarBoardGame> GetSimilarBoardGameList(string name)
+        {
+            int objectId = 0;
+
+            string url = String.Format(Constants.getXMLBoardGameObjectListByName, name);
+            string BGGBoardGameObjectStr = GetStringResponse(url);
+            object boardGamesObject = new Models.boardgames();
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Models.boardgames));
+            using (TextReader textReader = new StringReader(BGGBoardGameObjectStr))
+            {
+                boardGamesObject = xmlSerializer.Deserialize(textReader);
+            }
+
+            var boardGames = (Models.boardgames)boardGamesObject;
+
+            if (boardGames.boardgame != null && boardGames.boardgame.Length > 0)
+            {
+                return boardGames.boardgame.Select(x => new SimilarBoardGame()
+                {
+                    Id = (int)x.objectid,
+                    Name = x.name.Value
+                }).ToList();
+            }
+
+            return new List<SimilarBoardGame>();
+        }
+        
 
         public static BoardGame GetBoardGameById(int id)
         {

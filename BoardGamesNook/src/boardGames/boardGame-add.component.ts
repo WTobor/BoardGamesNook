@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { BoardGameService } from './BoardGame.service';
 import { BoardGame } from './BoardGame';
+import { SimilarBoardGame } from './SimilarBoardGame';
 
 import { Common } from './../Common';
 
@@ -13,6 +14,8 @@ import { Common } from './../Common';
 })
 export class BoardGameAddComponent implements OnInit {
     boardGame: BoardGame;
+    boardGameNotFound: boolean = false;
+    similarBoardGames: SimilarBoardGame[];
 
     constructor(
         private boardGameService: BoardGameService,
@@ -29,8 +32,22 @@ export class BoardGameAddComponent implements OnInit {
     add(name: string): void {
         var loc = this.location;
         this.boardGameService.create(name)
-            .then(errorMessage => {
-                new Common(loc).showErrorOrGoBack(errorMessage);
+            .then(result => {
+                try {
+                    this.similarBoardGames = JSON.parse(result);
+                    this.boardGameNotFound = true;
+                }
+                catch (e) {
+                    new Common(loc).showErrorOrGoBack(result);
+                }
+            });
+    }
+
+    onSelect(similarBoardGame: SimilarBoardGame): void {
+        var loc = this.location;
+        this.boardGameService.addSimilar(similarBoardGame.Id)
+            .then(result => {
+                    new Common(loc).showErrorOrGoBack(result);
             });
     }
 
