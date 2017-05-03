@@ -11,6 +11,10 @@ import { BoardGameAddComponent } from './boardGames/boardGame-add.component';
 import { BoardGameDetailComponent } from './boardGames/boardGame-detail.component';
 import { BoardGameListComponent } from './boardGames/boardGame-list.component';
 
+import { GamerBoardGameAddComponent } from './gamerBoardGames/gamerBoardGame-add.component';
+import { GamerBoardGameDetailComponent } from './gamerBoardGames/gamerBoardGame-detail.component';
+import { GamerBoardGameListComponent } from './gamerBoardGames/gamerBoardGame-list.component';
+
 const appRoutes: Routes = [];
 
 @NgModule({

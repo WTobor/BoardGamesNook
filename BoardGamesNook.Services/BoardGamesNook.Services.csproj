@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GamerBoardGameService.cs" />
     <Compile Include="BoardGameService.cs" />
     <Compile Include="GamerService.cs" />
+    <Compile Include="Interfaces\IGamerBoardGameService.cs" />
     <Compile Include="Interfaces\IBoardGameService.cs" />
     <Compile Include="Interfaces\IGamerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

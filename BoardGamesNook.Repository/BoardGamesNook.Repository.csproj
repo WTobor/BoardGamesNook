@@ -40,9 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generators\BoardGameGenerator.cs" />
     <Compile Include="BoardGameRepository.cs" />
+    <Compile Include="GamerBoardGameRepository.cs" />
+    <Compile Include="Generators\GamerBoardGameGenerator.cs" />
+    <Compile Include="Generators\GamerGenerator.cs" />
     <Compile Include="GamerRepository.cs" />
     <Compile Include="Interfaces\IBoardGameRepository .cs" />
+    <Compile Include="Interfaces\IGamerBoardGameRepository.cs" />
     <Compile Include="Interfaces\IGamerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

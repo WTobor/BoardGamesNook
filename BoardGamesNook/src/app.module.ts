@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { GamersModule } from './gamers/gamers.module';
 import { BoardGamesModule } from './boardGames/boardGames.module';
+import { GamerBoardGamesModule } from './gamerBoardGames/gamerBoardGames.module';
+
 import { PageNotFoundComponent } from './not-found.component';
 
 import { DialogService } from './dialog.service';
@@ -19,6 +21,7 @@ import { DialogService } from './dialog.service';
         HttpModule,
         GamersModule,
         BoardGamesModule,
+        GamerBoardGamesModule,
         AppRoutingModule
     ],
     declarations: [

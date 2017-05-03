@@ -1,0 +1,14 @@
+﻿<h2>Nowa gra dla gracza {{ gamerBoardGames.GamerName}}</h2>
+
+<select class="selectpicker" data-live-search="true">
+    <option *ngFor="let gamer_BoardGame of gamerBoardGames"
+            [value]="gamerBoardGame.BoardGameId">
+        {{gamer_BoardGame.boardGameName}}
+    </option>
+</select>
+<br/>
+<button (click)="goBack()">Powrót</button>
+<button (click)="add(gamerId.value, boardGameId.value);
+    gamerId.value='';boardGameId.value='';">
+    Dodaj
+</button>

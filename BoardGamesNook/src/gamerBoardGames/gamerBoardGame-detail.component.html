@@ -1,0 +1,35 @@
+﻿
+<div *ngIf="gamer">
+    <h2>Gracz</h2>
+    <h3>"{{ gamer.Nick }}"</h3>
+    <div hidden>
+        <label>Id: </label>{{ gamer.Id }}
+    </div>
+    <table>
+        <tr>
+            <td><label>Imię: </label></td>
+            <td><input [(ngModel)]="gamer.Name"/></td>
+        </tr>
+        <tr>
+            <td><label>Nazwisko: </label></td>
+            <td><input [(ngModel)]="gamer.Surname"/></td>
+        </tr>
+        <tr>
+            <td><label>Wiek: </label></td>
+            <td><input [(ngModel)]="gamer.Age"/></td>
+        </tr>
+        <tr>
+            <td><label>Miasto: </label></td>
+            <td><input [(ngModel)]="gamer.City"/></td>
+        </tr>
+        <tr>
+            <td><label>Ulica: </label></td>
+            <td><input [(ngModel)]="gamer.Street"/></td>
+        </tr>
+    </table>
+
+    <p>
+        <button (click)="goBack()">Powrót</button>
+        <button (click)="save()">Zapisz</button>
+    </p>
+</div>

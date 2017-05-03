@@ -42,7 +42,8 @@ namespace BoardGamesNook.Controllers
                 List<SimilarBoardGame> similarBoardGameList = BoardGameGeekIntegration.BGGBoardGame.GetSimilarBoardGameList(name);
                 if (similarBoardGameList.Count > 0)
                 {
-                    return Json(similarBoardGameList, JsonRequestBehavior.AllowGet);
+                    //temporary - get only first 10 boardGames
+                    return Json(similarBoardGameList.Take(10), JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

@@ -1,18 +1,22 @@
 ﻿<h2>Nowa gra</h2>
-<table>
-    <tr>
-        <td><label>Nazwa:</label></td>
-        <td><input #name /></td>
-    </tr>
-</table>
+<div *ngIf="!boardGameNotFound">
+    <table>
+        <tr>
+            <td><label>Nazwa:</label></td>
+            <td><input #name /></td>
+        </tr>
+    </table>
 
-<br />
+    <br />
 
-<button (click)="goBack()">Powrót</button>
-<button (click)="add(name.value);
-        name.value='';">
-    Dodaj
-</button>
+    <button (click)="goBack()">Powrót</button>
+    <button (click)="add(name.value);
+            name.value='';">
+        Dodaj
+    </button>
+</div>
+
+<br/>
 
 <div *ngIf="boardGameNotFound">
     Czy chodziło Ci o:
