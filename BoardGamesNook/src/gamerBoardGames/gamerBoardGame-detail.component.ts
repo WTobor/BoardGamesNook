@@ -9,8 +9,8 @@ import { GamerBoardGame } from './gamerBoardGame';
 import { Common } from './../Common';
 
 @Component({
-    selector: 'gamer_boardGame-detail',
-    templateUrl: './src/gamers/gamer_BoardGame-detail.component.html'
+    selector: 'gamerBoardGame-detail',
+    templateUrl: './src/gamerBoardGames/gamerBoardGame-detail.component.html'
 })
 export class GamerBoardGameDetailComponent implements OnInit {
     gamerBoardGame: GamerBoardGame;

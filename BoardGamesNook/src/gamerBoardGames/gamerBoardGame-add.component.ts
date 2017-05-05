@@ -8,12 +8,15 @@ import { GamerBoardGame } from './gamerBoardGame';
 
 import { Common } from './../Common';
 
+declare var jQuery: any;
+
 @Component({
-    selector: 'gamerBoardGames-add',
-    templateUrl: './src/gamers/gamerBoardGames-add.component.html'
+    selector: 'gamerBoardGame-add',
+    templateUrl: './src/gamerBoardGames/gamerBoardGame-add.component.html'
 })
 export class GamerBoardGameAddComponent implements OnInit {
     gamerBoardGame: GamerBoardGame;
+    gamerBoardGames: GamerBoardGame[];
     
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
@@ -23,8 +26,10 @@ export class GamerBoardGameAddComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGame(0))
-            .subscribe((gamerBoardGame: GamerBoardGame) => this.gamerBoardGame = gamerBoardGame);
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerAvailableBoardGames(+params['gamerId']))
+            .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
+
+        jQuery('.selectpicker').selectpicker();
     }
 
     add(gamerId: number, gamerNick: string, boardGameId: number, boardGameName: string): void {

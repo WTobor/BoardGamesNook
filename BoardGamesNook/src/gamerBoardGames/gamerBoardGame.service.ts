@@ -15,11 +15,12 @@ export class GamerBoardGameService {
     private _addGamerBoardGameUrl = 'GamerBoardGame/Add';
     private _editGamerBoardGameUrl = 'GamerBoardGame/Edit';
     private _deleteGamerBoardGameUrl = 'GamerBoardGame/Delete';
+    private _getGamerAvailableBoardGamesUrl = 'GamerBoardGame/GetGamerAvailableBoardGames';
 
     constructor(private http: Http) { }
 
-    getGamerBoardGames(): Promise<GamerBoardGame[]> {
-        const url = `${this._getGamerBoardGameListUrl}`;
+    getGamerBoardGames(gamerId: number): Promise<GamerBoardGame[]> {
+        const url = `${this._getGamerBoardGameListUrl}/${gamerId}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
@@ -44,6 +45,21 @@ export class GamerBoardGameService {
         }
     }
 
+    getGamerAvailableBoardGames(id: number): Promise<GamerBoardGame[]> {
+        if (id !== 0) {
+            const url = `${this._getGamerAvailableBoardGamesUrl}/${id}`;
+            return this.http.get(url)
+                .toPromise()
+                .then(response => { return response.json() as GamerBoardGame[]; })
+                .catch(ex => { return new Common().handleError(ex) });
+        }
+        else {
+            var response = new GamerBoardGame;
+            return new Promise((resolve) => { resolve(response); })
+                .then(response => { return response });
+        }
+    }
+
     delete(id: number): Promise<string> {
         const url = `${this._deleteGamerBoardGameUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
@@ -55,7 +71,7 @@ export class GamerBoardGameService {
     create(gamerBoardGame: GamerBoardGame): Promise<string> {
         const url = `${this._addGamerBoardGameUrl}`;
         return this.http
-            .post(url, JSON.stringify(gamerBoardGame), { headers: this.headers })
+            .post(url, JSON.stringify({ gamerId: gamerBoardGame.GamerId, boardGameId: gamerBoardGame.BoardGameId }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex) });
@@ -64,7 +80,7 @@ export class GamerBoardGameService {
     update(gamerBoardGame: GamerBoardGame): Promise<string> {
         const url = `${this._editGamerBoardGameUrl}`;
         return this.http
-            .post(url, JSON.stringify(gamerBoardGame) , { headers: this.headers })
+            .post(url, JSON.stringify({ gamerBoardGameId: gamerBoardGame.BoardGameId }) , { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex) });

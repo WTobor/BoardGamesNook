@@ -1,35 +1,14 @@
 ﻿
-<div *ngIf="gamer">
-    <h2>Gracz</h2>
-    <h3>"{{ gamer.Nick }}"</h3>
+<div *ngIf="gamerBoardGame">
+    <h2>Gra {{gamerBoardGame.BoardGameName}} gracza {{gamerBoardGame.GamerNick}}</h2>
     <div hidden>
-        <label>Id: </label>{{ gamer.Id }}
+        <label>Id: </label>{{ gamerBoardGame.BoardGameId }}
     </div>
-    <table>
-        <tr>
-            <td><label>Imię: </label></td>
-            <td><input [(ngModel)]="gamer.Name"/></td>
-        </tr>
-        <tr>
-            <td><label>Nazwisko: </label></td>
-            <td><input [(ngModel)]="gamer.Surname"/></td>
-        </tr>
-        <tr>
-            <td><label>Wiek: </label></td>
-            <td><input [(ngModel)]="gamer.Age"/></td>
-        </tr>
-        <tr>
-            <td><label>Miasto: </label></td>
-            <td><input [(ngModel)]="gamer.City"/></td>
-        </tr>
-        <tr>
-            <td><label>Ulica: </label></td>
-            <td><input [(ngModel)]="gamer.Street"/></td>
-        </tr>
-    </table>
+    <h2>
+        <a href="https://boardgamegeek.com/boardgame/{{gamerBoardGame.BGGId}}" target="_blank"><img src="{{gamerBoardGame.ImageUrl}}" /></a>
+    </h2>
 
     <p>
         <button (click)="goBack()">Powrót</button>
-        <button (click)="save()">Zapisz</button>
     </p>
 </div>

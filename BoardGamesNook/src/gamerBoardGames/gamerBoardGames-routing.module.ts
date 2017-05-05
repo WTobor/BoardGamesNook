@@ -6,9 +6,9 @@ import { GamerBoardGameDetailComponent } from './gamerBoardGame-detail.component
 import { GamerBoardGameAddComponent } from './gamerBoardGame-add.component';
 
 const gamersRoutes: Routes = [
-    { path: 'gamerBoardGames', component: GamerBoardGameListComponent },
-    { path: 'gamerBoardGame/0', component: GamerBoardGameAddComponent },
-    { path: 'gamerBoardGames/:id', component: GamerBoardGameDetailComponent }
+    { path: 'gamerBoardGames/:gamerId', component: GamerBoardGameListComponent },
+    { path: 'gamerBoardGame/:gamerId/0', component: GamerBoardGameAddComponent },
+    { path: 'gamerBoardGames/:gamerId/:id', component: GamerBoardGameDetailComponent }
 ];
 
 @NgModule({

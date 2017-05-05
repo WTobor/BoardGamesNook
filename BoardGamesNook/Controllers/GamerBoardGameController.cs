@@ -2,8 +2,11 @@
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using BoardGamesNook.Mappers;
+using BoardGamesNook.ViewModels.GamerBoardGame;
 
 namespace BoardGamesNook.Controllers
 {
@@ -16,19 +19,28 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             var gamerBoardGame = gamerBoardGameService.Get(id);
-            return Json(gamerBoardGame, JsonRequestBehavior.AllowGet);
+            var gamerBoardGameViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModel(gamerBoardGame);
+
+            return Json(gamerBoardGameViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAll()
+        public JsonResult GetAll(int id)
         {
             var gamerList = gamerBoardGameService.GetAll();
-            return Json(gamerList, JsonRequestBehavior.AllowGet);
+            var gamerListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerList);
+
+            return Json(gamerListViewModel, JsonRequestBehavior.AllowGet);
+        }
+        
+        public JsonResult GetGamerAvailableBoardGames(int id)
+        {
+            var gamerAvailableBoardGameListViewModel = GetGamerAvailableBoardGameList(id);
+            return Json(gamerAvailableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Add(int gamerId, int BGGId)
+        public JsonResult Add(int gamerId, int boardGameId)
         {
-            int boardGameId = boardGameService.GetAll().Where(x => x.BGGId == BGGId).Select(x => x.Id).FirstOrDefault();
             GamerBoardGame gamerBoardGame = new GamerBoardGame()
             {
                 Id = gamerBoardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
@@ -62,11 +74,22 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Delete(int gamerBoardGameId)
         {
-            gamerBoardGameService.Delete(id);
+            gamerBoardGameService.Delete(gamerBoardGameId);
 
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        private IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(int gamerId)
+        {
+            Gamer gamer = gamerService.Get(gamerId);
+            var availableBoardGameList = boardGameService.GetAll();
+            var gamerBoardGameList = gamerBoardGameService.GetAll().Where(x => x.GamerId == gamerId);
+            var availableBoardGameListViewModel = BoardGameMapper.MapToGamerBoardGameViewModelList(availableBoardGameList, gamer);
+            var gamerBoardGameListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerBoardGameList);
+
+            return availableBoardGameListViewModel.Except(gamerBoardGameListViewModel);
         }
     }
 }

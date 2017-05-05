@@ -41,10 +41,29 @@ namespace BoardGamesNook.Repository.Generators
             ImageUrl = "http://cf.geekdo-images.com/images/pic3483909_t.jpg"
         };
 
+        public static BoardGame boardGame3 = new BoardGame()
+        {
+            Id = 3,
+            Name = "Terra Mystica",
+            Description = "Opis gry Terra Mystica",
+            MinPlayers = 2,
+            MaxPlayers = 5,
+            MinAge = 12,
+            MinTime = 60,
+            MaxTime = 150,
+            BGGId = 120677,
+            IsExpansion = false,
+            ParentBoardGame = null,
+            Active = true,
+            IsConfirmed = true,
+            ImageUrl = "http://cf.geekdo-images.com/images/pic1356616_t.jpg"
+        };
+
         public static List<BoardGame> boardGames = new List<BoardGame>()
         {
             boardGame1,
-            boardGame2
+            boardGame2,
+            boardGame3
         };
     }
 }

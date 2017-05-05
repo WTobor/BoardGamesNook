@@ -43,6 +43,10 @@ export class GamerListComponent implements OnInit {
         this.router.navigate(['/gamers', this.selectedGamer.Id]);
     }
 
+    gotoGamerBoardGames(): void {
+        this.router.navigate(['/gamerBoardGames', this.selectedGamer.Id]);
+    }
+
     gotoAdd(): void {
         this.router.navigate(['/gamer', 0]);
     }

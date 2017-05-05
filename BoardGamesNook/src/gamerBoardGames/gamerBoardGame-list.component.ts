@@ -1,33 +1,31 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { GamerBoardGameService } from './gamerBoardGame.service';
 import { GamerBoardGame } from './gamerBoardGame';
 
 @Component({
     selector: 'gamerBoardGame-list',
-    templateUrl: './src/gamers/gamerBoardGame-list.component.html',
+    templateUrl: './src/gamerBoardGames/gamerBoardGame-list.component.html',
 })
 export class GamerBoardGameListComponent implements OnInit {
     gamerBoardGames: GamerBoardGame[];
     selectedGamerBoardGame: GamerBoardGame;
+    selectedGamerId: number;
 
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
+        private route: ActivatedRoute,
         private router: Router) { }
 
-    ngOnInit(): void {
-        this.getGamerBoardGames();
+    ngOnInit() {
+        this.route.params
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(+params['gamerId']))
+            .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
     }
 
     onSelect(gamerBoardGame: GamerBoardGame): void {
         this.selectedGamerBoardGame = gamerBoardGame;
-    }
-
-    getGamerBoardGames(): void {
-        this.gamerBoardGameService
-            .getGamerBoardGames()
-            .then(gamerBoardGames => this.gamerBoardGames = gamerBoardGames);
     }
 
     delete(gamerBoardGame: GamerBoardGame): void {
@@ -40,10 +38,10 @@ export class GamerBoardGameListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(['/gamerBoardGames', this.selectedGamerBoardGame.BoardGameId]);
+        this.router.navigate(['/gamerBoardGames', this.selectedGamerBoardGame.GamerId, this.selectedGamerBoardGame.BoardGameId]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(['/gamerBoardGame', 0]);
+        this.router.navigate(['/gamerBoardGame', this.gamerBoardGames[0].GamerId, 0]);
     }
 }

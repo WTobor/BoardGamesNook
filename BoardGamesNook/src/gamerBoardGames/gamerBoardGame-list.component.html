@@ -1,18 +1,20 @@
-﻿<h2>LISTA GIER GRACZA {{ gamerBoardGame.GamerNick }}</h2>
+﻿<div *ngIf="gamerBoardGames">
+    <h2>LISTA GIER GRACZA {{ gamerBoardGames.GamerNick }}</h2>
 
-<br/>
-<ul>
-    <li *ngFor="let gamerBoardGame of gamerBoardGames" (click)="onSelect(gamerBoardGame)">
-        <span class="hidden">{{ gamerBoardGame.BoardGameId }}</span>
-        <span>{{ gamerBoardGame.BoardGameName }}</span>
-        <button (click)="delete(gamerBoardGame); $event.stopPropagation()" class="delete-icon">x</button>
-    </li>
-</ul>
+    <br />
+    <ul>
+        <li *ngFor="let gamerBoardGame of gamerBoardGames" (click)="onSelect(gamerBoardGame)">
+            <span class="hidden">{{ gamerBoardGame.BoardGameId }}</span>
+            <span>{{ gamerBoardGame.BoardGameName }}</span>
+            <button (click)="delete(gamerBoardGame); $event.stopPropagation()" class="delete-icon">x</button>
+        </li>
+    </ul>
 
-<button (click)="gotoAdd()">Dodaj nową grę dla gracza</button>
-<div *ngIf="selectedGamerBoardGame">
-    <h2>
-        <a href="https://boardgamegeek.com/boardgame/{{selectedGamerBoardGame.BGGId}}" target="_blank"><img src="{{selectedGamerBoardGame.ImageUrl}}" /></a>
-    </h2>
-    <button (click)="gotoDetail()">Szczegóły</button>
+    <button (click)="gotoAdd()">Dodaj nową grę dla gracza</button>
+    <div *ngIf="selectedGamerBoardGame">
+        <h2>
+            <a href="https://boardgamegeek.com/boardgame/{{selectedGamerBoardGame.BGGId}}" target="_blank"><img src="{{selectedGamerBoardGame.ImageUrl}}" /></a>
+        </h2>
+        <button (click)="gotoDetail()">Szczegóły</button>
+    </div>
 </div>
