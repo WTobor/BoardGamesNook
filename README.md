@@ -8,3 +8,26 @@ Web application for board gamers, who want to:
 - save game results.
 
 Application is written in MVC with Angular
+
+
+# Requirements
+
+- installed NodeJS (source: https://nodejs.org/en/download/)
+- added nodejs path to PATH
+- installed .NET Framework 4.5
+- installed Visual Studio
+
+
+# Instructions
+
+Clone repository - download .zip file or use command line (with git):
+```
+git clone https://github.com/WTobor/BoardGamesNook.git
+```
+
+Go to BoardGamesNook subfolder and run command to install all required packages:
+```
+npm install
+```
+
+Run application using Visual Studio
