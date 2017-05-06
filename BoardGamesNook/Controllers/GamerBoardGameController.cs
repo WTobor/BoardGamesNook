@@ -74,9 +74,9 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(int gamerBoardGameId)
+        public JsonResult Delete(int id)
         {
-            gamerBoardGameService.Delete(gamerBoardGameId);
+            gamerBoardGameService.Delete(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

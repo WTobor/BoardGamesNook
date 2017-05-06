@@ -38,8 +38,6 @@ namespace BoardGameGeekIntegration
 
         public static List<SimilarBoardGame> GetSimilarBoardGameList(string name)
         {
-            int objectId = 0;
-
             string url = String.Format(Constants.getXMLBoardGameObjectListByName, name);
             string BGGBoardGameObjectStr = GetStringResponse(url);
             object boardGamesObject = new Models.boardgames();

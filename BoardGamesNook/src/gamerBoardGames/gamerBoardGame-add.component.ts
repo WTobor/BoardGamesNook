@@ -8,8 +8,6 @@ import { GamerBoardGame } from './gamerBoardGame';
 
 import { Common } from './../Common';
 
-declare var jQuery: any;
-
 @Component({
     selector: 'gamerBoardGame-add',
     templateUrl: './src/gamerBoardGames/gamerBoardGame-add.component.html'
@@ -28,16 +26,13 @@ export class GamerBoardGameAddComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.gamerBoardGameService.getGamerAvailableBoardGames(+params['gamerId']))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
-
-        jQuery('.selectpicker').selectpicker();
     }
 
-    add(gamerId: number, gamerNick: string, boardGameId: number, boardGameName: string): void {
+    add(gamerId: number, gamerNick: string, boardGameId: number): void {
         this.gamerBoardGame.GamerId = gamerId;
         this.gamerBoardGame.GamerNick = gamerNick;
         this.gamerBoardGame.BoardGameId = boardGameId;
-        this.gamerBoardGame.BoardGameName = boardGameName;
-
+        this.gamerBoardGame.BoardGameName = this.gamerBoardGames.filter(x => x.BoardGameId === boardGameId)[0].BoardGameName;
         var loc = this.location;
         this.gamerBoardGameService.create(this.gamerBoardGame)
             .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
