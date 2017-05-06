@@ -12,7 +12,7 @@ Application is written in MVC with Angular
 
 # Requirements
 
-- installed NodeJS (osurce: https://nodejs.org/en/download/)
+- installed NodeJS (source: https://nodejs.org/en/download/)
 - added nodejs path to PATH
 - installed .NET Framework 4.5
 
