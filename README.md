@@ -15,6 +15,7 @@ Application is written in MVC with Angular
 - installed NodeJS (source: https://nodejs.org/en/download/)
 - added nodejs path to PATH
 - installed .NET Framework 4.5
+- installed Visual Studio
 
 
 # Instructions
@@ -28,3 +29,5 @@ Go to BoardGamesNook subfolder and run command to install all required packages:
 ```
 npm install
 ```
+
+Run application using Visual Studio
