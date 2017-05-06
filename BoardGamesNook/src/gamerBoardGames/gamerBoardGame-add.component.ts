@@ -15,6 +15,7 @@ import { Common } from './../Common';
 export class GamerBoardGameAddComponent implements OnInit {
     gamerBoardGame: GamerBoardGame;
     gamerBoardGames: GamerBoardGame[];
+    selectedBoardGameId: number;
     
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
@@ -24,15 +25,16 @@ export class GamerBoardGameAddComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerAvailableBoardGames(+params['gamerId']))
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerAvailableBoardGames(Number(params['gamerId'])))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
     }
 
-    add(gamerId: number, gamerNick: string, boardGameId: number): void {
+    add(gamerId: number, gamerNick: string): void {
+        this.gamerBoardGame = new GamerBoardGame();
         this.gamerBoardGame.GamerId = gamerId;
         this.gamerBoardGame.GamerNick = gamerNick;
-        this.gamerBoardGame.BoardGameId = boardGameId;
-        this.gamerBoardGame.BoardGameName = this.gamerBoardGames.filter(x => x.BoardGameId === boardGameId)[0].BoardGameName;
+        this.gamerBoardGame.BoardGameId = this.selectedBoardGameId;
+        this.gamerBoardGame.BoardGameName = this.gamerBoardGames.filter(x => x.BoardGameId === this.selectedBoardGameId)[0].BoardGameName;
         var loc = this.location;
         this.gamerBoardGameService.create(this.gamerBoardGame)
             .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
@@ -41,5 +43,9 @@ export class GamerBoardGameAddComponent implements OnInit {
     goBack(): void {
         var loc = this.location;
         return new Common(loc).goBack();
+    }
+
+    selectBoardGame(value): void {
+        this.selectedBoardGameId = Number(value);
     }
 }

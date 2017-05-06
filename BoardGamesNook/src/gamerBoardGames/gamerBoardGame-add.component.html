@@ -1,7 +1,7 @@
 ﻿<div *ngIf="gamerBoardGames">
     <h2>Nowa gra dla gracza {{ gamerBoardGames[0].GamerNick }}</h2>
 
-    <select>
+    <select #boardGame (change)="selectBoardGame(boardGame.value)" >
         <option *ngFor="let gamerBoardGame of gamerBoardGames"
                 [value]="gamerBoardGame.BoardGameId">
             {{gamerBoardGame.BoardGameName}}
@@ -9,7 +9,7 @@
     </select>
     <br />
     <button (click)="goBack()">Powrót</button>
-    <button (click)="add(gamerBoardGames[0].GamerId, gamerBoardGames[0].GamerNick, [value]);">
+    <button (click)="add(gamerBoardGames[0].GamerId, gamerBoardGames[0].GamerNick);">
         Dodaj
     </button>
 </div>
