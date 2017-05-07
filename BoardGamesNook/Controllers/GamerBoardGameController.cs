@@ -24,9 +24,9 @@ namespace BoardGamesNook.Controllers
             return Json(gamerBoardGameViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAll(int id)
+        public JsonResult GetAllByGamerId(int id)
         {
-            var gamerList = gamerBoardGameService.GetAll();
+            var gamerList = gamerBoardGameService.GetAllByGamerId(id);
             var gamerListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerList);
 
             return Json(gamerListViewModel, JsonRequestBehavior.AllowGet);
@@ -85,11 +85,13 @@ namespace BoardGamesNook.Controllers
         {
             Gamer gamer = gamerService.Get(gamerId);
             var availableBoardGameList = boardGameService.GetAll();
-            var gamerBoardGameList = gamerBoardGameService.GetAll().Where(x => x.GamerId == gamerId);
-            var availableBoardGameListViewModel = BoardGameMapper.MapToGamerBoardGameViewModelList(availableBoardGameList, gamer);
-            var gamerBoardGameListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerBoardGameList);
+            var gamerBoardGameList = gamerBoardGameService.GetAllByGamerId(gamerId);
+            var gamerAvailableBoardGameList = availableBoardGameList
+                .Where(x => !gamerBoardGameList.Any(y => y.BoardGameId == x.Id)).ToList();
 
-            return availableBoardGameListViewModel.Except(gamerBoardGameListViewModel);
+            var availableBoardGameListViewModel = BoardGameMapper.MapToGamerBoardGameViewModelList(gamerAvailableBoardGameList, gamer);
+
+            return availableBoardGameListViewModel;
         }
     }
 }

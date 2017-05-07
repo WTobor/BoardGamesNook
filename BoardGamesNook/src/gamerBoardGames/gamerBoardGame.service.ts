@@ -11,7 +11,7 @@ import { Common } from './../Common';
 export class GamerBoardGameService {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private _getGamerBoardGameUrl = 'GamerBoardGame/Get';
-    private _getGamerBoardGameListUrl = 'GamerBoardGame/GetAll';
+    private _getGamerBoardGameListUrl = 'GamerBoardGame/GetAllByGamerId';
     private _addGamerBoardGameUrl = 'GamerBoardGame/Add';
     private _editGamerBoardGameUrl = 'GamerBoardGame/Edit';
     private _deleteGamerBoardGameUrl = 'GamerBoardGame/Delete';
