@@ -144,8 +144,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BoardGameController.cs" />
+    <Compile Include="Controllers\GameParticipationController.cs" />
     <Compile Include="Controllers\GamerBoardGameController.cs" />
     <Compile Include="Controllers\GamerController.cs" />
+    <Compile Include="Controllers\GameTableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -154,7 +156,9 @@
     <Compile Include="Mappers\GamerBoardGameMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />
+    <Compile Include="ViewModels\GameParticipation\GameParticipationViewModel.cs" />
     <Compile Include="ViewModels\GamerBoardGame\GamerBoardGameViewModel.cs" />
+    <Compile Include="ViewModels\GameTable\GameTableViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -248,6 +252,9 @@
     <Content Include="src\gamerBoardGames\gamerBoardGame-add.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-detail.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-list.component.html" />
+    <Content Include="src\gameTables\gameTable-add.component.html" />
+    <Content Include="src\gameTables\gameTable-detail.component.html" />
+    <Content Include="src\gameTables\gameTable-list.component.html" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -278,6 +285,11 @@
     <Content Include="Views\GamerBoardGame\Add.cshtml" />
     <Content Include="Views\GamerBoardGame\GetAll.cshtml" />
     <Content Include="Views\GamerBoardGame\Get.cshtml" />
+    <Content Include="Views\GameTable\Add.cshtml" />
+    <Content Include="Views\GameTable\Get.cshtml" />
+    <Content Include="Views\GameTable\GetAll.cshtml" />
+    <Content Include="Views\GameParticipation\Get.cshtml" />
+    <Content Include="Views\GameParticipation\GetAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +352,13 @@
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGame.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames-routing.module.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames.module.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTable-add.component.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTable-detail.component.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTable-list.component.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTable.service.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTable.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTables-routing.module.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTables.module.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\not-found.component.ts" />
   </ItemGroup>

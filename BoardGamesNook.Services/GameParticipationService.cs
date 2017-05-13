@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BoardGamesNook.Model;
+using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
-using BoardGamesNookNook.Repository.Interfaces;
 
 namespace BoardGamesNook.Services
 {
@@ -22,6 +22,11 @@ namespace BoardGamesNook.Services
         public IEnumerable<GameParticipation> GetAll()
         {
             return _gameParticipationRepository.GetAll();
+        }
+
+        public IEnumerable<GameParticipation> GetAllByTableId(int id)
+        {
+            return _gameParticipationRepository.GetAllByTableId(id);
         }
 
         public void Add(GameParticipation gameParticipation)

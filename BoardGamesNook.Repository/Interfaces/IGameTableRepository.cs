@@ -9,6 +9,8 @@ namespace BoardGamesNook.Repository.Interfaces
 
         IEnumerable<GameTable> GetAll();
 
+        IEnumerable<GameTable> GetAllByUserId(int id);
+
         void Add(GameTable gameTable);
 
         void Edit(GameTable gameTable);

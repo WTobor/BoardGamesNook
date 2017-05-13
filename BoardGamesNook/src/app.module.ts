@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { GamersModule } from './gamers/gamers.module';
 import { BoardGamesModule } from './boardGames/boardGames.module';
 import { GamerBoardGamesModule } from './gamerBoardGames/gamerBoardGames.module';
+import { GameTablesModule } from './gameTables/gameTables.module';
 
 import { PageNotFoundComponent } from './not-found.component';
 
@@ -22,6 +23,7 @@ import { DialogService } from './dialog.service';
         GamersModule,
         BoardGamesModule,
         GamerBoardGamesModule,
+        GameTablesModule,
         AppRoutingModule
     ],
     declarations: [

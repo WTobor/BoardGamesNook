@@ -9,6 +9,8 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<GameParticipation> GetAll();
 
+        IEnumerable<GameParticipation> GetAllByTableId(int id);
+
         void Add(GameParticipation gameParticipation);
 
         void Edit(GameParticipation gameParticipation);

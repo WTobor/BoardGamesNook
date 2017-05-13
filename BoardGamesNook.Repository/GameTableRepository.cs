@@ -20,6 +20,12 @@ namespace BoardGamesNook.Repository
             return _gameTables;
         }
 
+        public IEnumerable<GameTable> GetAllByUserId(int gamerId)
+        {
+            //temporaty solution, when no users
+            return _gameTables.Where(x => x.CreatedUserId == gamerId).ToList();
+        }
+
         public void Add(GameTable gameTable)
         {
             _gameTables.Add(gameTable);

@@ -1,0 +1,31 @@
+﻿
+<div *ngIf="gameTable">
+    <h2>STÓŁ</h2>
+    <h3>twórca {{ gameTable.GamerNick }} gra {{ gameTable.BoardGameName }}</h3>
+    <div hidden>
+        <label>Id: </label>{{ gameTable.Id }}
+    </div>
+    <table>
+        <tr>
+            <td><label>Imię: </label></td>
+            <td><input [(ngModel)]="gameTable.Name"/></td>
+        </tr>
+        <tr>
+            <td><label>Miasto: </label></td>
+            <td><input [(ngModel)]="gameTable.City"/></td>
+        </tr>
+        <tr>
+            <td><label>Ulica: </label></td>
+            <td><input [(ngModel)]="gameTable.Street"/></td>
+        </tr>
+        <tr>
+            <td><label>Prywatny: </label></td>
+            <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" /></td>
+        </tr>
+    </table>
+
+    <p>
+        <button (click)="goBack()">Powrót</button>
+        <button (click)="save()">Zapisz</button>
+    </p>
+</div>

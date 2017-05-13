@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
-using BoardGamesNookNook.Repository.Interfaces;
+using BoardGamesNook.Repository.Interfaces;
 
 namespace BoardGamesNook.Repository
 {
@@ -21,6 +18,11 @@ namespace BoardGamesNook.Repository
         public IEnumerable<GameParticipation> GetAll()
         {
             return _gameParticipations;
+        }
+
+        public IEnumerable<GameParticipation> GetAllByTableId(int tableId)
+        {
+            return _gameParticipations.Where(x => x.GameTableId == tableId).ToList();
         }
 
         public void Add(GameParticipation gameParticipation)
