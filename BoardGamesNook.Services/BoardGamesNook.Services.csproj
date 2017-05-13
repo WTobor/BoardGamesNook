@@ -40,12 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameParticipationService.cs" />
     <Compile Include="GamerBoardGameService.cs" />
     <Compile Include="BoardGameService.cs" />
     <Compile Include="GamerService.cs" />
+    <Compile Include="GameTableService.cs" />
+    <Compile Include="Interfaces\IGameParticipationService.cs" />
     <Compile Include="Interfaces\IGamerBoardGameService.cs" />
     <Compile Include="Interfaces\IBoardGameService.cs" />
     <Compile Include="Interfaces\IGamerService.cs" />
+    <Compile Include="Interfaces\IGameTableService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

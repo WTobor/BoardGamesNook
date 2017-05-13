@@ -51,8 +51,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BoardGameServiceTest.cs" />
+    <Compile Include="GameParticipationTest.cs" />
     <Compile Include="GamerBoardGameServiceTest.cs" />
     <Compile Include="GamerServiceTest.cs" />
+    <Compile Include="GameTableServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
