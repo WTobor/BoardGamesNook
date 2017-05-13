@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardGame.cs" />
+    <Compile Include="GameParticipation.cs" />
     <Compile Include="Gamer.cs" />
     <Compile Include="GamerBoardGame.cs" />
+    <Compile Include="GameTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
