@@ -1,14 +1,25 @@
 ﻿
 <div *ngIf="gameTable">
     <h2>STÓŁ</h2>
-    <h3>twórca {{ gameTable.GamerNick }} gra {{ gameTable.BoardGameName }}</h3>
+    
+    Twórca {{ gameTable.GamerNick }}
+    <div *ngIf="gameTable.TableBoardGameList">
+        Wybrane pozycje:
+        <ul>
+            <li *ngFor="let boardGame of gameTable.TableBoardGameList">
+                <span>{{boardGame.BoardGameName}}</span>
+                <button (click)="delete(boardGame); $event.stopPropagation()" class="delete-icon">x</button>
+            </li>
+        </ul>
+    </div>
+    
     <div hidden>
-        <label>Id: </label>{{ gameTable.Id }}
+        {{ gameTable.Id }}
     </div>
     <table>
         <tr>
-            <td><label>Imię: </label></td>
-            <td><input [(ngModel)]="gameTable.Name"/></td>
+            <td><label>Gra: </label></td>
+            <td></td>
         </tr>
         <tr>
             <td><label>Miasto: </label></td>

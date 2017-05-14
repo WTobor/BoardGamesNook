@@ -4,22 +4,23 @@ using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Repository.Generators
 {
-    public class GameTableGenerator
+    public static class GameTableGenerator
     {
-        public static readonly GameTable gameTable1 = new GameTable()
+        public static GameTable gameTable1 = new GameTable()
         {
             Id = 1,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedUserId = GamerGenerator.gamer1.Id,
+            CreatedGamerId = GamerGenerator.gamer1.Id,
+            CreatedGamer = GamerGenerator.gamer1,
             IsFull = false,
             IsPrivate = false,
             City = "Wrocław",
             Street = "Legnicka",
-            GameParticipationInfo = new List<GameParticipation>()
+            BoardGames = new List<BoardGame>()
             {
-                GameParticipationGenerator.gameParticipation1,
-                GameParticipationGenerator.gameParticipation2
+                BoardGameGenerator.boardGame1
             },
+            GameParticipationInfo = null,
             Active = true
         };
 
@@ -27,15 +28,18 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 2,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedUserId = GamerGenerator.gamer2.Id,
+            CreatedGamerId = GamerGenerator.gamer2.Id,
+            CreatedGamer = GamerGenerator.gamer2,
             IsFull = false,
             IsPrivate = false,
             City = "Warszawa",
             Street = "Wyszyńskiego",
-            GameParticipationInfo = new List<GameParticipation>()
+            BoardGames = new List<BoardGame>()
             {
-                GameParticipationGenerator.gameParticipation3
+                BoardGameGenerator.boardGame2,
+                BoardGameGenerator.boardGame3
             },
+            GameParticipationInfo = null,
             Active = true
         };
 
@@ -43,11 +47,13 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 3,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedUserId = GamerGenerator.gamer1.Id,
+            CreatedGamerId = GamerGenerator.gamer1.Id,
+            CreatedGamer = GamerGenerator.gamer1,
             IsFull = false,
             IsPrivate = false,
             City = "Poznań",
             Street = "Rynek",
+            BoardGames = null,
             GameParticipationInfo = null,
             Active = true
         };

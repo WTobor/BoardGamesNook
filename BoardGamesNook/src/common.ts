@@ -1,4 +1,4 @@
-﻿import { Location } from '@angular/common';
+﻿import { Location } from "@angular/common";
 
 export class Common  {
     constructor(
@@ -23,7 +23,7 @@ export class Common  {
         if (error !== "Error") {
             message += error;
         }
-        else if (typeof error.message != "undefined" && error.message !== "") {
+        else if (typeof error.message !== "undefined" && error.message !== "") {
             message += errorDetails;
         }
         else {

@@ -1,14 +1,14 @@
-﻿import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+﻿import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
-import { GamerListComponent } from './gamer-list.component';
-import { GamerDetailComponent } from './gamer-detail.component';
-import { GamerAddComponent } from './gamer-add.component';
+import { GamerListComponent } from "./gamer-list.component";
+import { GamerDetailComponent } from "./gamer-detail.component";
+import { GamerAddComponent } from "./gamer-add.component";
 
 const gamersRoutes: Routes = [
-    { path: 'gamers', component: GamerListComponent },
-    { path: 'gamer/0', component: GamerAddComponent },
-    { path: 'gamers/:id', component: GamerDetailComponent }
+    { path: "gamers", component: GamerListComponent },
+    { path: "gamer/0", component: GamerAddComponent },
+    { path: "gamers/:id", component: GamerDetailComponent }
 ];
 
 @NgModule({

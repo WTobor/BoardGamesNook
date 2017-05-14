@@ -1,20 +1,20 @@
-﻿import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+﻿import "rxjs/add/operator/switchMap";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
+import { Location } from "@angular/common";
 
-import { GamerService } from './gamer.service';
-import { Gamer } from './gamer';
+import { GamerService } from "./gamer.service";
+import { Gamer } from "./gamer";
 
-import { Common } from './../Common';
+import { Common } from "./../Common";
 
 @Component({
-    selector: 'gamer-detail',
-    templateUrl: './src/gamers/gamer-detail.component.html'
+    selector: "gamer-detail",
+    templateUrl: "./src/gamers/gamer-detail.component.html"
 })
 export class GamerDetailComponent implements OnInit {
     gamer: Gamer;
-    
+
     constructor(
         private gamerService: GamerService,
         private route: ActivatedRoute,
@@ -23,7 +23,7 @@ export class GamerDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerService.getGamer(Number(params['id'])))
+            .switchMap((params: Params) => this.gamerService.getGamer(Number(params["id"])))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 

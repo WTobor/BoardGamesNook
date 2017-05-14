@@ -1,12 +1,12 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+﻿import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { BoardGameService } from './BoardGame.service';
-import { BoardGame } from './BoardGame';
+import { BoardGameService } from "./BoardGame.service";
+import { BoardGame } from "./BoardGame";
 
 @Component({
-    selector: 'boardGame-list',
-    templateUrl: './src/BoardGames/BoardGame-list.component.html',
+    selector: "boardGame-list",
+    templateUrl: "./src/BoardGames/BoardGame-list.component.html",
 })
 export class BoardGameListComponent implements OnInit {
     boardGames: BoardGame[];
@@ -40,10 +40,10 @@ export class BoardGameListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(['/boardGames', this.selectedBoardGame.Id]);
+        this.router.navigate(["/boardGames", this.selectedBoardGame.Id]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(['/boardGame', 0]);
+        this.router.navigate(["/boardGame", 0]);
     }
 }

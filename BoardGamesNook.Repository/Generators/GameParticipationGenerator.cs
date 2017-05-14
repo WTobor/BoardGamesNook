@@ -4,9 +4,9 @@ using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Repository.Generators
 {
-    public class GameParticipationGenerator
+    public static class GameParticipationGenerator
     {
-        public static readonly GameParticipation gameParticipation1 = new GameParticipation()
+        public static GameParticipation gameParticipation1 = new GameParticipation()
         {
             Id = 1,
             CreatedDate = DateTimeOffset.UtcNow,

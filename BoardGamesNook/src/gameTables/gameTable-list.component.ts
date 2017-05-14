@@ -1,12 +1,12 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+﻿import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { GameTableService } from './gameTable.service';
-import { GameTable } from './gameTable';
+import { GameTableService } from "./gameTable.service";
+import { GameTable } from "./gameTable";
 
 @Component({
-    selector: 'gameTable-list',
-    templateUrl: './src/gameTables/gameTable-list.component.html',
+    selector: "gameTable-list",
+    templateUrl: "./src/gameTables/gameTable-list.component.html"
 })
 export class GameTableListComponent implements OnInit {
     gameTables: GameTable[];
@@ -40,14 +40,14 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(['/gameTables', this.selectedGameTable.Id]);
+        this.router.navigate(["/gameTables", this.selectedGameTable.Id]);
     }
 
     gotoGameTableBoardGames(): void {
-        this.router.navigate(['/gameTableBoardGames', this.selectedGameTable.Id]);
+        this.router.navigate(["/gameTableBoardGames", this.selectedGameTable.Id]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(['/gameTable', 0]);
+        this.router.navigate(["/gameTable", 0]);
     }
 }

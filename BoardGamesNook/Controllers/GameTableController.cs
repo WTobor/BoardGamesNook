@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using BoardGamesNook.Mappers;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
@@ -14,19 +15,25 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             var gameTable = gameTableService.Get(id);
-            return Json(gameTable, JsonRequestBehavior.AllowGet);
+            var gameTableViewModel = GameTableMapper.MapToGameTableViewModel(gameTable);
+
+            return Json(gameTableViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
             var gameTableList = gameTableService.GetAll();
-            return Json(gameTableList, JsonRequestBehavior.AllowGet);
+            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList);
+
+            return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAllByUserId(int id)
+        public JsonResult GetAllByGamerId(int id)
         {
-            var gameTableList = gameTableService.GetAllByUserId(id);
-            return Json(gameTableList, JsonRequestBehavior.AllowGet);
+            var gameTableList = gameTableService.GetAllByGamerId(id);
+            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList, id);
+
+            return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

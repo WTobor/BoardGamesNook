@@ -1,21 +1,21 @@
-﻿import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+﻿import { Injectable } from "@angular/core";
+import { Headers, Http } from "@angular/http";
 
-import 'rxjs/add/operator/toPromise';
+import "rxjs/add/operator/toPromise";
 
-import { BoardGame } from './BoardGame';
+import { BoardGame } from "./BoardGame";
 
-import { Common } from './../Common';
+import { Common } from "./../Common";
 
 @Injectable()
 export class BoardGameService {
-    private headers = new Headers({ 'Content-Type': 'application/json' });
-    private _getBoardGameUrl = 'BoardGame/Get';
-    private _getBoardGameListUrl = 'BoardGame/GetAll';
-    private _addBoardGameUrl = 'BoardGame/Add';
-    private _addBoardGameByIdUrl = 'BoardGame/AddById';
-    private _editBoardGameUrl = 'BoardGame/Edit';
-    private _deleteBoardGameUrl = 'BoardGame/Delete';
+    private headers = new Headers({ "Content-Type": "application/json" });
+    private _getBoardGameUrl = "BoardGame/Get";
+    private _getBoardGameListUrl = "BoardGame/GetAll";
+    private _addBoardGameUrl = "BoardGame/Add";
+    private _addBoardGameByIdUrl = "BoardGame/AddById";
+    private _editBoardGameUrl = "BoardGame/Edit";
+    private _deleteBoardGameUrl = "BoardGame/Delete";
 
     constructor(private http: Http) { }
 
@@ -27,16 +27,16 @@ export class BoardGameService {
                 console.log(response.json());
                 return response.json() as BoardGame[];
             })
-            .catch(ex => { return new Common(null).handleError(ex) });
+            .catch(ex => { return new Common(null).handleError(ex); });
     }
 
     getBoardGame(id: number): Promise<BoardGame> {
-        if (id != 0) {
+        if (id !== 0) {
             const url = `${this._getBoardGameUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as BoardGame; })
-                .catch(ex => { return new Common(null).handleError(ex) });
+                .catch(ex => { return new Common(null).handleError(ex); });
         }
         else {
             var response = new BoardGame;
@@ -50,7 +50,7 @@ export class BoardGameService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex) });
+            .catch(ex => { return new Common().handleError(ex); });
     }
 
     create(name: string): Promise<string> {
@@ -58,7 +58,7 @@ export class BoardGameService {
             .post(`${this._addBoardGameUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex) });
+            .catch(ex => { return new Common().handleError(ex); });
     }
 
     addSimilar(id: number): Promise<string> {
@@ -66,7 +66,7 @@ export class BoardGameService {
             .post(`${this._addBoardGameByIdUrl}`, JSON.stringify({ id: id }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex) });
+            .catch(ex => { return new Common().handleError(ex); });
     }
 
     update(boardGame: BoardGame): Promise<string> {
@@ -75,8 +75,6 @@ export class BoardGameService {
             .post(url, JSON.stringify(boardGame), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex) });
-    }
-
-    
+            .catch(ex => { return new Common().handleError(ex); });
+    }  
 }

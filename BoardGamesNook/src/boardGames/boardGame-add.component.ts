@@ -1,16 +1,16 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
+import { Location } from "@angular/common";
 
-import { BoardGameService } from './BoardGame.service';
-import { BoardGame } from './BoardGame';
-import { SimilarBoardGame } from './SimilarBoardGame';
+import { BoardGameService } from "./BoardGame.service";
+import { BoardGame } from "./BoardGame";
+import { SimilarBoardGame } from "./SimilarBoardGame";
 
-import { Common } from './../Common';
+import { Common } from "./../Common";
 
 @Component({
-    selector: 'boardGame-add',
-    templateUrl: './src/BoardGames/BoardGame-add.component.html'
+    selector: "boardGame-add",
+    templateUrl: "./src/BoardGames/BoardGame-add.component.html"
 })
 export class BoardGameAddComponent implements OnInit {
     boardGame: BoardGame;

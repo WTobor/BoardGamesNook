@@ -1,20 +1,20 @@
-﻿import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+﻿import "rxjs/add/operator/switchMap";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
+import { Location } from "@angular/common";
 
-import { GamerService } from './gamer.service';
-import { Gamer } from './gamer';
+import { GamerService } from "./gamer.service";
+import { Gamer } from "./gamer";
 
-import { Common } from './../Common';
+import { Common } from "./../Common";
 
 @Component({
-    selector: 'gamer-add',
-    templateUrl: './src/gamers/gamer-add.component.html'
+    selector: "gamer-add",
+    templateUrl: "./src/gamers/gamer-add.component.html"
 })
 export class GamerAddComponent implements OnInit {
     gamer: Gamer;
-    
+
     constructor(
         private gamerService: GamerService,
         private route: ActivatedRoute,

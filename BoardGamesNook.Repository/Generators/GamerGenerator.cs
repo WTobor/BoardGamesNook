@@ -5,7 +5,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public class GamerGenerator
     {
-        public static readonly Gamer gamer1 = new Gamer()
+        public static Gamer gamer1 = new Gamer()
         {
             Id = 1,
             Active = true,

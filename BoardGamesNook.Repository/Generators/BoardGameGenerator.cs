@@ -5,7 +5,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class BoardGameGenerator
     {
-        public static readonly BoardGame boardGame1 = new BoardGame()
+        public static BoardGame boardGame1 = new BoardGame()
         {
             Id = 1,
             Name = "Osadnicy z Catanu",

@@ -1,12 +1,12 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 
-import { GamerBoardGameService } from './gamerBoardGame.service';
-import { GamerBoardGame } from './gamerBoardGame';
+import { GamerBoardGameService } from "./gamerBoardGame.service";
+import { GamerBoardGame } from "./gamerBoardGame";
 
 @Component({
-    selector: 'gamerBoardGame-list',
-    templateUrl: './src/gamerBoardGames/gamerBoardGame-list.component.html',
+    selector: "gamerBoardGame-list",
+    templateUrl: "./src/gamerBoardGames/gamerBoardGame-list.component.html",
 })
 export class GamerBoardGameListComponent implements OnInit {
     gamerBoardGames: GamerBoardGame[];
@@ -20,7 +20,7 @@ export class GamerBoardGameListComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(Number(params['gamerId'])))
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(Number(params["gamerId"])))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
     }
 
@@ -38,10 +38,10 @@ export class GamerBoardGameListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(['/gamerBoardGames', this.selectedGamerBoardGame.GamerId, this.selectedGamerBoardGame.BoardGameId]);
+        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerId, this.selectedGamerBoardGame.BoardGameId]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(['/gamerBoardGame', this.gamerBoardGames[0].GamerId, 0]);
+        this.router.navigate(["/gamerBoardGame", this.gamerBoardGames[0].GamerId, 0]);
     }
 }

@@ -1,11 +1,13 @@
-﻿export class GameTable {
+﻿import {TableBoardGame} from "./tableBoardGame";
+
+export class GameTable {
     Id: number;
     GamerId: number;
     GamerNick: string;
-    BoardGameId: number;
-    BoardGameName: string;
+    TableBoardGameList: TableBoardGame[];
     PlayersNumber: number;
-    City: string; 
+    City: string;
     Street: string;
     IsPrivate: boolean;
+    CreatedDate: Date;
 }

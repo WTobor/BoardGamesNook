@@ -1,20 +1,20 @@
-﻿import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+﻿import "rxjs/add/operator/switchMap";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
+import { Location } from "@angular/common";
 
-import { GameTableService } from './gameTable.service';
-import { GameTable } from './gameTable';
+import { GameTableService } from "./gameTable.service";
+import { GameTable } from "./gameTable";
 
-import { Common } from './../Common';
+import { Common } from "./../Common";
 
 @Component({
-    selector: 'gameTable-add',
-    templateUrl: './src/gameTables/gameTable-add.component.html'
+    selector: "gameTable-add",
+    templateUrl: "./src/gameTables/gameTable-add.component.html"
 })
 export class GameTableAddComponent implements OnInit {
     gameTable: GameTable;
-    
+   
     constructor(
         private gameTableService: GameTableService,
         private route: ActivatedRoute,
@@ -29,10 +29,9 @@ export class GameTableAddComponent implements OnInit {
 
     add(boardGameId: number, boardGameName: string, playersNumber: number, city: string, street: string, isPrivate: boolean): void {
         this.gameTable.Id = 0;
-        //this.gameTable.GamerId = gamerId;
-        //this.gameTable.GamerNick = gamerNick;
-        this.gameTable.BoardGameId = boardGameId;
-        this.gameTable.BoardGameName = boardGameName;
+        // this.gameTable.GamerId = gamerId;
+        // this.gameTable.GamerNick = gamerNick;
+        this.gameTable.TableBoardGameList = [];
         this.gameTable.PlayersNumber = playersNumber;
         this.gameTable.City = city;
         this.gameTable.Street = street;
