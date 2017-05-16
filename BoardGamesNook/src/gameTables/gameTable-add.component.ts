@@ -5,6 +5,7 @@ import { Location } from "@angular/common";
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
+import { TableBoardGame } from "./tableBoardGame";
 
 import { Common } from "./../Common";
 
@@ -24,7 +25,11 @@ export class GameTableAddComponent implements OnInit {
     ngOnInit() {
         this.route.params
             .switchMap((params: Params) => this.gameTableService.getGameTable(0))
-            .subscribe((gameTable: GameTable) => this.gameTable = gameTable);
+            .subscribe((gameTable: GameTable) => {
+                this.gameTable = gameTable;
+                this.gameTable.TableBoardGameList = new Array<TableBoardGame>();
+            }
+    );
     }
 
     add(boardGameId: number, boardGameName: string, playersNumber: number, city: string, street: string, isPrivate: boolean): void {

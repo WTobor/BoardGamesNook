@@ -4,10 +4,10 @@
 <ul>
     <li *ngFor="let gameTable of gameTables" (click)="onSelect(gameTable)">
         <span class="hidden">{{ gameTable.Id }}</span>
-        <div *ngIf="gameTable.TableBoardGameList == null">
+        <span *ngIf="gameTable.TableBoardGameList == null">
             stół gracza {{gameTable.GamerNick | uppercase}}. Brak wybranych gier.
             <!--<button (click)="delete(gameTable); $event.stopPropagation()" class="delete-icon">x</button>-->
-        </div>
+        </span>
         <div *ngIf="gameTable.TableBoardGameList">
             Stół gracza {{gameTable.GamerNick | uppercase}}. Wybrane pozycje:
             <ul>
@@ -15,7 +15,7 @@
                     <span>{{boardGame.BoardGameName}}</span>
                 </li>
             </ul>
-            <!--<button (click)="delete(gameTable); $event.stopPropagation()" class="delete-icon">x</button>-->
+            <button (click)="delete(gameTable); $event.stopPropagation()" class="delete-icon">x</button>
         </div>
     </li>
 </ul>

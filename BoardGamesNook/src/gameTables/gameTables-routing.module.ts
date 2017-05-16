@@ -9,6 +9,7 @@ const gameTablesRoutes: Routes = [
     { path: "gameTables", component: GameTableListComponent },
     { path: "gameTable/0", component: GameTableAddComponent },
     { path: "gameTables/:id", component: GameTableDetailComponent }
+    // TODO: add with gamerID
 ];
 
 @NgModule({
