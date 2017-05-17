@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace BoardGamesNook.Controllers
 {
-    public class GamerController :Controller
+    public class GamerController : Controller
     {
         GamerService gamerService = new GamerService(new GamerRepository());
 

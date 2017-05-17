@@ -50,12 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AccountServiceTest.cs" />
     <Compile Include="BoardGameServiceTest.cs" />
     <Compile Include="GameParticipationTest.cs" />
     <Compile Include="GamerBoardGameServiceTest.cs" />
     <Compile Include="GamerServiceTest.cs" />
     <Compile Include="GameTableServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">
