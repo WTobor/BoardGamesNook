@@ -1,0 +1,20 @@
+﻿<label>Login</label>
+<input type="text" class="form-control" required #login />
+
+<div [hidden]="login.valid || login.pristine"
+     class="alert alert-danger">
+    Login jest wymagany
+</div>
+
+<label>Hasło</label>
+<input type="text" class="form-control" required #password />
+
+<div [hidden]="password.valid || password.pristine"
+     class="alert alert-danger">
+    Hasło jest wymagane
+</div>
+
+<button (click)="loginAction(login.value, password.value);
+            name.value=''; password=''">
+    Zaloguj
+</button>

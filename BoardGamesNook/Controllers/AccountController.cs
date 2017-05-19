@@ -12,12 +12,14 @@ namespace BoardGamesNook.Controllers
         AccountService accountService = new AccountService(new AccountRepository());
         UserService userService = new UserService(new UserRepository());
 
+        [HttpPost]
         public JsonResult Login(string login, string password)
         {
             var boardGame = accountService.Login(login, password);
             return Json(boardGame, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult Register(string login, string password)
         {
             bool registrationSuccess = false;

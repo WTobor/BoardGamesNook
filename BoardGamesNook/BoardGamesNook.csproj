@@ -251,6 +251,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\account\login.component.html" />
+    <Content Include="src\account\register.component.html" />
     <Content Include="src\boardGames\boardGame-detail.component.html" />
     <Content Include="src\boardGames\boardGame-list.component.html" />
     <Content Include="src\gamers\gamer-detail.component.html" />
@@ -260,8 +262,6 @@
     <Content Include="src\gameTables\gameTable-add.component.html" />
     <Content Include="src\gameTables\gameTable-detail.component.html" />
     <Content Include="src\gameTables\gameTable-list.component.html" />
-    <Content Include="src\login\login.component.html" />
-    <Content Include="src\register\register.component.html" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -336,6 +336,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\account\account-routing.module.ts" />
+    <TypeScriptCompile Include="src\account\account.module.ts" />
+    <TypeScriptCompile Include="src\account\account.service.ts" />
+    <TypeScriptCompile Include="src\account\login.component.ts" />
+    <TypeScriptCompile Include="src\account\register.component.ts" />
     <TypeScriptCompile Include="src\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\app.component.ts" />
@@ -373,8 +378,6 @@
     <TypeScriptCompile Include="src\gameTables\tableBoardGame.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\not-found.component.ts" />
-    <TypeScriptCompile Include="src\login\login.component.ts" />
-    <TypeScriptCompile Include="src\register\register.component.ts" />
     <TypeScriptCompile Include="src\userGamer\userGamer.service.ts" />
     <TypeScriptCompile Include="src\userGamer\userGamer.ts" />
     <TypeScriptCompile Include="src\users\user.ts" />

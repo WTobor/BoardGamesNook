@@ -2,6 +2,8 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { PageNotFoundComponent } from "./not-found.component";
+import { LoginComponent } from "./account/login.component";
+import { RegisterComponent } from "./account/register.component";
 
 import { GamerAddComponent } from "./gamers/gamer-add.component";
 import { GamerDetailComponent } from "./gamers/gamer-detail.component";
