@@ -11,6 +11,8 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<GameTable> GetAllByGamerId(int id);
 
+        IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table);
+
         void Add(GameTable gameTable);
 
         void Edit(GameTable gameTable);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
@@ -35,6 +36,21 @@ namespace BoardGamesNook.Tests
             var GameTables = gameTableService.GetAll();
             //Assert
             Assert.AreEqual(generatedGameTablesCount + 1, GameTables.Count());
+        }
+        
+        [TestMethod]
+        public void GetAvailableTableBoardGameList()
+        {
+            //Arrange
+            var gameTableService = new GameTableService(new GameTableRepository());
+            var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
+            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
+            var newTable = GetTestGameTable();
+            //Act
+            gameTableService.Add(newTable);
+            var availableTableBoardGameList = gameTableService.GetAvailableTableBoardGameList(newTable);
+            //Assert
+            Assert.AreEqual(generatedBoardGamesCount, availableTableBoardGameList.Count());
         }
 
         [TestMethod]
@@ -88,6 +104,7 @@ namespace BoardGamesNook.Tests
             return new GameTable()
             {
                 Id = newGameTableId,
+                BoardGames = new List<BoardGame>(),
                 GameParticipationInfo = null,
                 Active = true
             };

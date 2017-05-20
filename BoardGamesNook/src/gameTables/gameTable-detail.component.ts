@@ -7,7 +7,7 @@ import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
 
 import { Common } from "./../Common";
-import {TableBoardGame} from "./tableBoardGame";
+import { TableBoardGame } from "./tableBoardGame";
 
 @Component({
     selector: "gameTable-detail",
@@ -15,9 +15,9 @@ import {TableBoardGame} from "./tableBoardGame";
 })
 export class GameTableDetailComponent implements OnInit {
     gameTable: GameTable;
-    tableBoardGames: TableBoardGame[];
+    availableTableBoardGames: TableBoardGame[];
     selectedTableBoardGame: TableBoardGame;
-    
+
     constructor(
         private gameTableService: GameTableService,
         private route: ActivatedRoute,
@@ -27,22 +27,45 @@ export class GameTableDetailComponent implements OnInit {
     ngOnInit() {
         this.route.params
             .switchMap((params: Params) => this.gameTableService.getGameTable(Number(params["id"])))
-            .subscribe((gameTable: GameTable) => this.gameTable = gameTable);
+            .subscribe((gameTable: GameTable) => {
+                this.gameTable = gameTable;
+                this.getAvailableTableBoardGameList(this.gameTable.Id);
+            });
+    }
+
+    getAvailableTableBoardGameList(tableId: number): void {
+        this.gameTableService
+            .getAvailableTableBoardGameList(tableId)
+            .then(
+            availableTableBoardGames => this.availableTableBoardGames = availableTableBoardGames
+            );
+    }
+
+    addTableBoardGame(selectedTableBoardGameId: number): void {
+        this.selectedTableBoardGame = this.availableTableBoardGames.filter(x => x.BoardGameId === Number(selectedTableBoardGameId))[0];
+        this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList || [];
+        this.gameTable.TableBoardGameList.push(this.selectedTableBoardGame);
+        var index = this.availableTableBoardGames.indexOf(this.selectedTableBoardGame, 0);
+        this.availableTableBoardGames.splice(index, 1);
+        //TODO: count minPlayers and maxPlayers by boardGames
     }
 
     delete(tableBoardGame: TableBoardGame): void {
-        this.gameTableService
-            .delete(tableBoardGame.BoardGameId)
-            .then(() => {
-                this.tableBoardGames = this.tableBoardGames.filter(t => t !== tableBoardGame);
-                if (this.selectedTableBoardGame === tableBoardGame) { this.selectedTableBoardGame = null; }
-            });
+        this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList.filter(t => t !== tableBoardGame);
+        this.availableTableBoardGames.push(tableBoardGame);
+        if (this.selectedTableBoardGame === tableBoardGame) { this.selectedTableBoardGame = null; }
     }
 
     save(): void {
         var loc = this.location;
-        this.gameTableService.update(this.gameTable)
-            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+        if (this.gameTable.Id === 0) {
+            this.gameTableService.create(this.gameTable)
+                .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+        }
+        else {
+            this.gameTableService.update(this.gameTable)
+                .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+        }
     }
 
     goBack(): void {

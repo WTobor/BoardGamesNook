@@ -8,10 +8,13 @@ namespace BoardGamesNook.ViewModels.GameTable
         public int Id { get; set; }
         public int GamerId { get; set; }
         public string GamerNick { get; set; }
+
         //TODO: allow multiple games
         public IEnumerable<TableBoardGameViewModel> TableBoardGameList { get; set; }
+
         public DateTimeOffset CreatedDate { get; set; }
-        public int PlayersNumber { get; set; }
+        public int MinPlayers { get; set; }
+        public int MaxPlayers { get; set; }
         public bool IsPrivate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }

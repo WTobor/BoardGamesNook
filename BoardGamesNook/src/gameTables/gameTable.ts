@@ -1,11 +1,12 @@
-﻿import {TableBoardGame} from "./tableBoardGame";
+﻿import { TableBoardGame } from "./tableBoardGame";
 
 export class GameTable {
     Id: number;
     GamerId: number;
     GamerNick: string;
     TableBoardGameList: TableBoardGame[];
-    PlayersNumber: number;
+    MinPlayers: number;
+    MaxPlayers: number;
     City: string;
     Street: string;
     IsPrivate: boolean;

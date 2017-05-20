@@ -12,7 +12,8 @@ namespace BoardGamesNook.Model
         public DateTimeOffset? ModifiedDate { get; set; }
         public int? ModifiedGamerId { get; set; }
         public Gamer ModifiedGamer { get; set; }
-        public int PlayersNumber { get; set; }
+        public int MinPlayersNumber { get; set; }
+        public int MaxPlayersNumber { get; set; }
         public bool IsPrivate { get; set; }
         public bool IsFull { get; set; }
         public string City { get; set; }

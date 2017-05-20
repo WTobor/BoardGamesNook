@@ -10,6 +10,8 @@ namespace BoardGamesNook.Repository
     {
         private List<GameTable> _gameTables = GameTableGenerator.gameTables;
 
+        private BoardGameRepository boardGameRepository = new BoardGameRepository();
+
         public GameTable Get(int id)
         {
             return _gameTables.Where(x => x.Id == id).FirstOrDefault();
@@ -18,6 +20,16 @@ namespace BoardGamesNook.Repository
         public IEnumerable<GameTable> GetAll()
         {
             return _gameTables;
+        }
+
+        public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
+        {
+            var availableTableBoardGameList = boardGameRepository.GetAll();
+            if (table != null && table.BoardGames != null)
+            {
+                availableTableBoardGameList = availableTableBoardGameList.Where(x => !table.BoardGames.Contains(x)).ToList();
+            }
+            return availableTableBoardGameList;
         }
 
         public IEnumerable<GameTable> GetAllByGamerId(int gamerId)

@@ -31,6 +31,7 @@ export class GameTableListComponent implements OnInit {
     }
 
     delete(gameTable: GameTable): void {
+        debugger
         this.gameTableService
             .delete(gameTable.Id)
             .then(() => {
@@ -48,6 +49,6 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gameTable", 0]);
+        this.router.navigate(["/gameTables", 0]);
     }
 }

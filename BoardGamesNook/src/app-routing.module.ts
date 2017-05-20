@@ -17,7 +17,6 @@ import { GamerBoardGameAddComponent } from "./gamerBoardGames/gamerBoardGame-add
 import { GamerBoardGameDetailComponent } from "./gamerBoardGames/gamerBoardGame-detail.component";
 import { GamerBoardGameListComponent } from "./gamerBoardGames/gamerBoardGame-list.component";
 
-import { GameTableAddComponent } from "./gameTables/gameTable-add.component";
 import { GameTableDetailComponent } from "./gameTables/gameTable-detail.component";
 import { GameTableListComponent } from "./gameTables/gameTable-list.component";
 

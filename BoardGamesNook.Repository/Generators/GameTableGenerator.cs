@@ -20,6 +20,8 @@ namespace BoardGamesNook.Repository.Generators
             {
                 BoardGameGenerator.boardGame1
             },
+            MinPlayersNumber = 2,
+            MaxPlayersNumber = 4,
             GameParticipationInfo = null,
             Active = true
         };
@@ -39,6 +41,8 @@ namespace BoardGamesNook.Repository.Generators
                 BoardGameGenerator.boardGame2,
                 BoardGameGenerator.boardGame3
             },
+            MinPlayersNumber = 2,
+            MaxPlayersNumber = 4,
             GameParticipationInfo = null,
             Active = true
         };
@@ -54,6 +58,8 @@ namespace BoardGamesNook.Repository.Generators
             City = "Poznań",
             Street = "Rynek",
             BoardGames = null,
+            MinPlayersNumber = 2,
+            MaxPlayersNumber = 2,
             GameParticipationInfo = null,
             Active = true
         };

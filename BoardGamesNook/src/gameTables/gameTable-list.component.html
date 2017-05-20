@@ -15,7 +15,6 @@
                     <span>{{boardGame.BoardGameName}}</span>
                 </li>
             </ul>
-            <button (click)="delete(gameTable); $event.stopPropagation()" class="delete-icon">x</button>
         </div>
     </li>
 </ul>
@@ -35,5 +34,6 @@
     </div>
     <button (click)="gotoDetail()">Szczegóły stołu do gry</button>
     <!--TODO: wypisz się-->
-    <button (click)="gotoJoin()">Dołącz do stołu do gry</button>
+    <!--<button (click)="gotoJoin()">Dołącz do stołu do gry</button>-->
+    <button (click)="delete(selectedGameTable); $event.stopPropagation()" class="delete-icon">Usuń stół</button>
 </div>

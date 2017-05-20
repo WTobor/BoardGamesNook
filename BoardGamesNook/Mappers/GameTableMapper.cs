@@ -27,11 +27,12 @@ namespace BoardGamesNook.Mappers
                 IsPrivate = gameTable.IsPrivate,
                 City = gameTable.City,
                 Street = gameTable.Street,
-                PlayersNumber = gameTable.PlayersNumber,
+                MinPlayers = gameTable.MinPlayersNumber,
+                MaxPlayers = gameTable.MaxPlayersNumber,
                 CreatedDate = gameTable.CreatedDate,
                 GamerId = gameTable.CreatedGamer.Id,
                 GamerNick = gameTable.CreatedGamer.Nick,
-                TableBoardGameList = gameTable.BoardGames == null ? null :  MapToTableBoardGameViewModelList(gameTable.BoardGames, gameTable)
+                TableBoardGameList = gameTable.BoardGames == null ? null : MapToTableBoardGameViewModelList(gameTable.BoardGames, gameTable)
             };
         }
 
