@@ -1,5 +1,5 @@
 ﻿
-<label>Login</label>
+<!--<label>Login</label>
 <input type="text" class="form-control" required #login />
 
 <div [hidden]="login.valid || login.pristine"
@@ -16,6 +16,22 @@
 </div>
 
 <button (click)="registerAction(login.value, password.value);
-            name.value=''; password=''">
+            login.value=''; password=''">
     Zarejestruj
-</button>
+</button>-->
+
+<form #registerForm="ngModel">
+    <div class="form-group">
+        <label for="login">Login</label>
+        <input type="text" class="form-control" ngControl="login" #loginControl="ngModel" [(ngModel)]="login" id="login" required>
+        <div [hidden]="loginControl.valid || !loginControl.errors || !loginControl.errors.required">Login is required</div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" ngControl="password" #passwordControl="ngModel" [(ngModel)]="password" id="password" required>
+        <div [hidden]="passwordControl.valid || !passwordControl.errors || !passwordControl.errors.required">Password is required</div>
+    </div>
+    <button (click)="registerAction(login.value, password.value);">
+        Zarejestruj
+    </button>
+</form>
