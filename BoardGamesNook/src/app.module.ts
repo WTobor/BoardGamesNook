@@ -2,11 +2,12 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 
-//import { AccountModule } from "./account/account.module";
+import { AccountModule } from "./account/account.module";
 import { GamersModule } from "./gamers/gamers.module";
 import { BoardGamesModule } from "./boardGames/boardGames.module";
 import { GamerBoardGamesModule } from "./gamerBoardGames/gamerBoardGames.module";
@@ -21,7 +22,7 @@ import { DialogService } from "./dialog.service";
         BrowserModule,
         FormsModule,
         HttpModule,
-        //AccountModule,
+        AccountModule,
         GamersModule,
         BoardGamesModule,
         GamerBoardGamesModule,
@@ -33,8 +34,10 @@ import { DialogService } from "./dialog.service";
         PageNotFoundComponent
     ],
     providers: [
-        DialogService
+        DialogService, {
+            provide: LocationStrategy, useClass: HashLocationStrategy
+        }
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
