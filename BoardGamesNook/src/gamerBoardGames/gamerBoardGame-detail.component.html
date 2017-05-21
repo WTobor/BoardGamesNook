@@ -1,5 +1,4 @@
-﻿
-<div *ngIf="gamerBoardGame">
+﻿<div *ngIf="gamerBoardGame">
     <h2>Gra {{gamerBoardGame.BoardGameName}} gracza {{gamerBoardGame.GamerNick}}</h2>
     <div hidden>
         <label>Id: </label>{{ gamerBoardGame.BoardGameId }}
@@ -9,6 +8,6 @@
     </h2>
 
     <p>
-        <button (click)="goBack()">Powrót</button>
+        <button class="btn btn-default" (click)="goBack()">Powrót</button>
     </p>
 </div>

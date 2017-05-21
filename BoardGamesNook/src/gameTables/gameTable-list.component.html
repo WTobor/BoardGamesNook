@@ -6,7 +6,7 @@
         <span class="hidden">{{ gameTable.Id }}</span>
         <span *ngIf="gameTable.TableBoardGameList == null">
             stół gracza {{gameTable.GamerNick | uppercase}}. Brak wybranych gier.
-            <!--<button (click)="delete(gameTable); $event.stopPropagation()" class="delete-icon">x</button>-->
+            <!--<button class="btn btn-danger" (click)="delete(gameTable); $event.stopPropagation()" class="delete-icon">x</button>-->
         </span>
         <div *ngIf="gameTable.TableBoardGameList">
             Stół gracza {{gameTable.GamerNick | uppercase}}. Wybrane pozycje:
@@ -19,10 +19,10 @@
     </li>
 </ul>
 
-<button (click)="gotoAdd()">Dodaj nowy stół do gry</button>
+<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
 <div *ngIf="selectedGameTable">
     <h2>
-        Stół gracza {{selectedGameTable.GamerNick | uppercase}} 
+        Stół gracza {{selectedGameTable.GamerNick | uppercase}}
     </h2>
     <div *ngIf="selectedGameTable.TableBoardGameList">
         Wybrane pozycje:
@@ -32,8 +32,8 @@
             </li>
         </ul>
     </div>
-    <button (click)="gotoDetail()">Szczegóły stołu do gry</button>
+    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły stołu do gry</button>
     <!--TODO: wypisz się-->
-    <!--<button (click)="gotoJoin()">Dołącz do stołu do gry</button>-->
-    <button (click)="delete(selectedGameTable); $event.stopPropagation()" class="delete-icon">Usuń stół</button>
+    <!--<button class="btn btn-primary" (click)="gotoJoin()">Dołącz do stołu do gry</button>-->
+    <button class="btn btn-danger" (click)="delete(selectedGameTable); $event.stopPropagation()">Usuń stół</button>
 </div>

@@ -7,7 +7,7 @@
         <ul>
             <li *ngFor="let boardGame of gameTable.TableBoardGameList">
                 <span>{{boardGame.BoardGameName}}</span>
-                <button (click)="delete(boardGame); $event.stopPropagation()" class="delete-icon">x</button>
+                <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
             </li>
         </ul>
     </div>
@@ -26,7 +26,7 @@
                             {{tableBoardGame.BoardGameName}}
                         </option>
                     </select>
-                    <button (click)="addTableBoardGame(selectedTableBoardGame.value)">Dodaj</button>
+                    <button class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">Dodaj</button>
                 </div>
                 <div *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
                     Brak dostępnych gier dla tego stołu
@@ -56,7 +56,7 @@
     </table>
 
     <p>
-        <button (click)="goBack()">Powrót</button>
-        <button (click)="save()">Zapisz</button>
+        <button class="btn btn-default" (click)="goBack()">Powrót</button>
+        <button class="btn btn-success" (click)="save()">Zapisz</button>
     </p>
 </div>

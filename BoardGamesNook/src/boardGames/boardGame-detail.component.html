@@ -16,12 +16,12 @@
         <tr></tr>
         <tr>
             <td><label>Maksymalny czas gry: </label></td>
-            <td><input [(ngModel)]="boardGame.MaxTime"/></td>
+            <td><input [(ngModel)]="boardGame.MaxTime" /></td>
         </tr>
     </table>
-    <br/>
+    <br />
     <p>
-        <button (click)="goBack()">Powrót</button>
-        <button (click)="save()">Zapisz</button>
+        <button class="btn btn-default" (click)="goBack()">Powrót</button>
+        <button class="btn btn-success" (click)="save()">Zapisz</button>
     </p>
 </div>

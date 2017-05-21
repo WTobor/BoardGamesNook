@@ -1,19 +1,19 @@
 ﻿<h2>LISTA GRACZY</h2>
 
-<br/>
+<br />
 <ul>
     <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
         <span class="hidden">{{ gamer.Id }}</span>
         <span>{{ gamer.Nick }}</span>
-        <button (click)="delete(gamer); $event.stopPropagation()" class="delete-icon">x</button>
+        <button (click)="delete(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
     </li>
 </ul>
 
-<button (click)="gotoAdd()">Dodaj nowego gracza</button>
+<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nowego gracza</button>
 <div *ngIf="selectedGamer">
     <h2>
         gracz ma na imię {{selectedGamer.Name | uppercase}}
     </h2>
-    <button (click)="gotoDetail()">Szczegóły gracza</button>
-    <button (click)="gotoGamerBoardGames()">Kolekcja gier gracza</button>
+    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły gracza</button>
+    <button class="btn btn-primary" (click)="gotoGamerBoardGames()">Kolekcja gier gracza</button>
 </div>

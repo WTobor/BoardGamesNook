@@ -31,7 +31,7 @@
         <input type="text" class="form-control" ngControl="password" #passwordControl="ngModel" [(ngModel)]="password" id="password" required minlength="5">
         <div [hidden]="passwordControl.valid || !passwordControl.errors || !passwordControl.errors.required">Password is required</div>
     </div>
-    <button (click)="loginAction(login.value, password.value);
+    <button class="btn btn-primary" (click)="loginAction(login.value, password.value);
             login.value=''; password=''">
         Zaloguj
     </button>

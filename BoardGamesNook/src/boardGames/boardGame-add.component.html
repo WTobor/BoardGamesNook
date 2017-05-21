@@ -9,14 +9,14 @@
 
     <br />
 
-    <button (click)="goBack()">Powrót</button>
-    <button (click)="add(name.value);
+    <button class="btn btn-default" (click)="goBack()">Powrót</button>
+    <button class="btn btn-success" (click)="add(name.value);
             name.value='';">
         Dodaj
     </button>
 </div>
 
-<br/>
+<br />
 
 <div *ngIf="boardGameNotFound">
     Czy chodziło Ci o:
@@ -27,7 +27,7 @@
                     {{ similarBoardGame.Name }}
                 </a>
             </span>
-            <button (click)="onSelect(similarBoardGame)">wybierz</button>
+            <button class="btn btn-success" (click)="onSelect(similarBoardGame)">Wybierz</button>
         </li>
     </ul>
 </div>

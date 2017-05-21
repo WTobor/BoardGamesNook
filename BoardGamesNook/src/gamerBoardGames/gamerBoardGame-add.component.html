@@ -1,15 +1,15 @@
 ﻿<div *ngIf="gamerBoardGames?.length > 0">
     <h2>Nowa gra dla gracza {{ gamerBoardGames[0].GamerNick }}</h2>
 
-    <select #boardGame (change)="selectBoardGame(boardGame.value)" >
+    <select #boardGame (change)="selectBoardGame(boardGame.value)">
         <option *ngFor="let gamerBoardGame of gamerBoardGames"
                 [value]="gamerBoardGame.BoardGameId">
             {{gamerBoardGame.BoardGameName}}
         </option>
     </select>
     <br />
-    <button (click)="goBack()">Powrót</button>
-    <button (click)="add(gamerBoardGames[0].GamerId, gamerBoardGames[0].GamerNick);">
+    <button class="btn btn-default" (click)="goBack()">Powrót</button>
+    <button class="btn btn-success" (click)="add(gamerBoardGames[0].GamerId, gamerBoardGames[0].GamerNick);">
         Dodaj
     </button>
 </div>

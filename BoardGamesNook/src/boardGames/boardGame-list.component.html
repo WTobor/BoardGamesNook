@@ -3,16 +3,16 @@
 <br />
 <ul>
     <li *ngFor="let boardGame of boardGames" (click)="onSelect(boardGame)">
-        <span class="badge">{{ boardGame.Id }}</span>
+        <span class="hidden">{{ boardGame.Id }}</span>
         <span>{{ boardGame.Name }}</span>
-        <button (click)="delete(boardGame); $event.stopPropagation()" class="delete-icon">x</button>
+        <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
     </li>
 </ul>
 
-<button (click)="gotoAdd()">Dodaj nową grę</button>
+<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>
 <div *ngIf="selectedBoardGame">
     <h2>
         <a href="https://boardgamegeek.com/boardgame/{{selectedBoardGame.BGGId}}" target="_blank"><img src="{{selectedBoardGame.ImageUrl}}" /></a>
     </h2>
-    <button (click)="gotoDetail()">Szczegóły</button>
+    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
 </div>
