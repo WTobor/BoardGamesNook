@@ -11,6 +11,9 @@ export class AccountService {
     private _loginUrl = "Account/Login";
     private _registerUrl = "Account/Register";
 
+    private _fbAuth = "authentication/redirect/facebook";
+    private _googleAuth = "authentication/redirect/google";
+
     constructor(private http: Http) { }
 
     loginAction(login: string, password: string): Promise<string> {
