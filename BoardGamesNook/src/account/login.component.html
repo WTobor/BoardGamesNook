@@ -1,39 +1,27 @@
-﻿<!--<label>Login</label>
-<input type="text" class="form-control" required #login />
-
-<div [hidden]="login.valid || login.pristine"
-     class="alert alert-danger">
-    Login jest wymagany
-</div>
-
-<label>Hasło</label>
-<input type="text" class="form-control" required #password />
-
-<div [hidden]="password.valid || password.pristine"
-     class="alert alert-danger">
-    Hasło jest wymagane
-</div>
-
-<button (click)="loginAction(login.value, password.value);
-            login.value=''; password=''">
-    Zaloguj
-</button>-->
-<!--<form #loginForm="ngModel">
-    <div class="form-group">
-        <label for="login">Login</label>
-        <input type="text" class="form-control" ngControl="login" #loginControl="ngModel" [(ngModel)]="login" id="login" name="login" required minlength="5">
-        <div [hidden]="loginControl.valid || !loginControl.errors || !loginControl.errors.required">Name is required</div>
-        <div [hidden]="loginControl.valid || !loginControl.errors || !loginControl.errors.minlength">Min Length</div>
+﻿<div class="text-center">
+    <h2>Zaloguj się za pomocą konta:</h2>
+    <div>
+        <div>
+            Facebook
+        </div>
+        <a href="/authentication/redirect/facebook">
+            <img src="/Content/images/facebok64.png" />
+        </a>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" ngControl="password" #passwordControl="ngModel" [(ngModel)]="password" id="password" name="password" required minlength="5">
-        <div [hidden]="passwordControl.valid || !passwordControl.errors || !passwordControl.errors.required">Password is required</div>
+    <div>
+        <div>
+            Google
+        </div>
+        <a href="/authentication/redirect/google">
+            <img src="/Content/images/google64.png" />
+        </a>
     </div>
-    <button class="btn btn-primary" (click)="loginAction(login.value, password.value);
-            login.value=''; password=''">
-        Zaloguj
-    </button>
-</form>-->
-
-<a href="/authentication/redirect/facebook"><img src="" alt="Login with your Facebook account." /></a>
+    <div>
+        <div>
+            GitHub
+        </div>
+        <a href="/authentication/redirect/github">
+            <img src="/Content/images/github64.png" />
+        </a>
+    </div>
+</div>

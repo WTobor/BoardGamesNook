@@ -238,11 +238,15 @@
     <Compile Include="ViewModels\GamerBoardGame\GamerBoardGameViewModel.cs" />
     <Compile Include="ViewModels\GameTable\GameTableViewModel.cs" />
     <Compile Include="ViewModels\GameTable\TableBoardGameViewModel.cs" />
+    <Compile Include="ViewModels\AuthenticateCallbackViewModel.cs" />
     <Compile Include="ViewModels\User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\facebok64.png" />
+    <Content Include="Content\images\github64.png" />
+    <Content Include="Content\images\google64.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
