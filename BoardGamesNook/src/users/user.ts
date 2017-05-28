@@ -1,7 +1,6 @@
-﻿import { Gamer } from "../gamers/gamer";
-
-export class User {
+﻿export class User {
     Id: number;
-    Login: string;
-    Password: string;
+    Name: string;
+    ImageUrl: string;
+    Email: string;
 }

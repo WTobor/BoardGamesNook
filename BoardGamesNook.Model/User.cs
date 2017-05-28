@@ -4,12 +4,9 @@ namespace BoardGamesNook.Model
 {
     public class User
     {
-        public int Id { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }
-        public DateTimeOffset ModifiedDate { get; set; }
-        public DateTimeOffset LastLoginDate { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }public bool IsConfirmed { get; set; }
-        public bool Active { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public string Email { get; set; }
     }
 }

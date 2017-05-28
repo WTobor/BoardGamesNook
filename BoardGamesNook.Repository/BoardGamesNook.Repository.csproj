@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountRepository.cs" />
     <Compile Include="GameParticipationRepository.cs" />
     <Compile Include="GameTableRepository.cs" />
     <Compile Include="Generators\BoardGameGenerator.cs" />
@@ -51,7 +50,6 @@
     <Compile Include="Generators\GamerGenerator.cs" />
     <Compile Include="GamerRepository.cs" />
     <Compile Include="Generators\GameTableGenerator.cs" />
-    <Compile Include="Generators\UserGenerator.cs" />
     <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\IBoardGameRepository .cs" />
     <Compile Include="Interfaces\IGameParticipationRepository.cs" />
@@ -60,7 +58,6 @@
     <Compile Include="Interfaces\IGameTableRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">

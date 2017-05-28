@@ -1,18 +1,11 @@
-﻿using System.Collections.Generic;
-using BoardGamesNook.Model;
+﻿using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Services.Interfaces
 {
-    interface IUserService
+    internal interface IUserService
     {
-        User Get(int id);
+        User GetUser();
 
-        IEnumerable<User> GetAll();
-
-        void Add(User user);
-
-        void Edit(User user);
-
-        void Delete(int id);
+        void SetUser(User user);
     }
 }

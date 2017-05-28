@@ -1,41 +1,69 @@
-﻿<nav class="navbar" style="margin: 5px">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br/>Kącik gier planszowych</a>
+﻿<div *ngIf="user">
+    <nav class="navbar" style="margin: 5px">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br />Kącik gier planszowych</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">Lista graczy</a>
+                    </li>
+                    <li>
+                        <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">Lista gier</a>
+                    </li>
+                    <li>
+                        <a href="" routerLink="/gameTables" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">Lista stołów do gier</a>
+                    </li>
+                </ul>
+                <div class="nav navbar navbar-right">
+                    Witaj {{user.Name}}
+                    <img src="{{ user.ImageUrl }}" />
+                </div>
+            </div>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">Lista graczy</a>
-                </li>
-                <li>
-                    <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">Lista gier</a>
-                </li>
-                <li>
-                    <a href="" routerLink="/gameTables" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">Lista stołów do gier</a>
-                </li>
-            </ul>
-            <ul class="nav navbar navbar-right">
-                <li>
-                    <a href="" routerLink="/register" routerLinkActive="active">
-                        <span class="glyphicon glyphicon-user" style="color: black; font-weight: bold"></span>
-                        <label style="color: black; font-weight: bold"> Zarejestruj się</label>
-                    </a>
-                </li>
-                <li>
-                    <a href="" routerLink="/login" routerLinkActive="active">
-                        <span class="glyphicon glyphicon-log-in" style="color: black; font-weight: bold"></span>
-                        <label style="color: black; font-weight: bold"> Zaloguj się</label>
-                    </a>
-                </li>
-            </ul>
+    </nav>
+</div>
+<div *ngIf="!user">
+    <nav class="navbar" style="margin: 5px">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br />Kącik gier planszowych</a>
+            </div>
+        </div>
+    </nav>
+    <div class="text-center">
+        <h2>Zaloguj się za pomocą konta:</h2>
+        <div>
+            <div>
+                Facebook
+            </div>
+            <a href="/authentication/redirect/facebook">
+                <img src="/Content/images/facebok64.png" />
+            </a>
+        </div>
+        <div>
+            <div>
+                Google
+            </div>
+            <a href="/authentication/redirect/google">
+                <img src="/Content/images/google64.png" />
+            </a>
+        </div>
+        <div>
+            <div>
+                GitHub
+            </div>
+            <a href="/authentication/redirect/github">
+                <img src="/Content/images/github64.png" />
+            </a>
         </div>
     </div>
-</nav>
+</div>
 <router-outlet></router-outlet>
 <router-outlet name="popup"></router-outlet>

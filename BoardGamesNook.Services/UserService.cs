@@ -1,42 +1,20 @@
-﻿using System.Collections.Generic;
-using BoardGamesNook.Model;
-using BoardGamesNook.Repository.Interfaces;
+﻿using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 
 namespace BoardGamesNook.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        public User _loggedUser = null;
 
-        public UserService(IUserRepository userRepository)
+        public User GetUser()
         {
-            _userRepository = userRepository;
+            return _loggedUser;
         }
 
-        public User Get(int id)
+        public void SetUser(User user)
         {
-            return _userRepository.Get(id);
-        }
-
-        public IEnumerable<User> GetAll()
-        {
-            return _userRepository.GetAll();
-        }
-
-        public void Add(User user)
-        {
-            _userRepository.Add(user);
-        }
-
-        public void Edit(User user)
-        {
-            _userRepository.Edit(user);
-        }
-
-        public void Delete(int id)
-        {
-            _userRepository.Delete(id);
+            _loggedUser = user;
         }
     }
 }
