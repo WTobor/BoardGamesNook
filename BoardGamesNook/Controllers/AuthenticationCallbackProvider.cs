@@ -32,16 +32,12 @@ namespace BoardGamesNook.Controllers
                 Email = email
             };
 
-            //userService.SetUser(loggedUser);
-            //context.Items.Add("User", loggedUser);
-
             return new RedirectToRouteResult(new RouteValueDictionary
             {
                 { "action", "SetUser" },
                 { "controller", "User" },
                 { "userJson", JsonConvert.SerializeObject(loggedUser) }
             });
-            //RedirectResult("/User/SetUser", true);
         }
 
         public ActionResult OnRedirectToAuthenticationProviderError(HttpContextBase context, string errorMessage)
