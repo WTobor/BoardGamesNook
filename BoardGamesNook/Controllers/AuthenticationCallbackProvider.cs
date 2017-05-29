@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Routing;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services;
 using BoardGamesNook.ViewModels.User;
+using Newtonsoft.Json;
 using SimpleAuthentication.Mvc;
 
 namespace BoardGamesNook.Controllers
@@ -30,9 +33,15 @@ namespace BoardGamesNook.Controllers
             };
 
             //userService.SetUser(loggedUser);
-            context.Items.Add("User", loggedUser);
+            //context.Items.Add("User", loggedUser);
 
-            return new RedirectResult("/", true);
+            return new RedirectToRouteResult(new RouteValueDictionary
+            {
+                { "action", "SetUser" },
+                { "controller", "User" },
+                { "userJson", JsonConvert.SerializeObject(loggedUser) }
+            });
+            //RedirectResult("/User/SetUser", true);
         }
 
         public ActionResult OnRedirectToAuthenticationProviderError(HttpContextBase context, string errorMessage)

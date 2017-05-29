@@ -1,7 +1,8 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using BoardGamesNook.Model;
 using BoardGamesNook.Services;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace BoardGamesNook.Controllers
 {
@@ -11,11 +12,22 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetUser()
         {
-            User.Identity.GetUserId();
-            var abc = System.Web.HttpContext.Current.Items["User"];
-            //((HttpContext)HttpContext).Current.Items.Add("User", loggedUser);
-            var loggedUser = userService.GetUser();
+            var loggedUser = Session["user"];
+
             return Json(loggedUser, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SetUser(string userJson)
+        {
+            var user = JsonConvert.DeserializeObject<User>(userJson);
+            Session["user"] = user;
+            return RedirectToAction("Index", "Home");
+        }
+
+        public JsonResult LogOutUser()
+        {
+            Session["user"] = null;
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }

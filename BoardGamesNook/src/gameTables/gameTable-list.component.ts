@@ -31,7 +31,6 @@ export class GameTableListComponent implements OnInit {
     }
 
     delete(gameTable: GameTable): void {
-        debugger
         this.gameTableService
             .delete(gameTable.Id)
             .then(() => {
