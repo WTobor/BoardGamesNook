@@ -216,6 +216,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AuthorizeCustomAttibute.cs" />
     <Compile Include="Controllers\AuthenticationCallbackProvider.cs" />
     <Compile Include="Controllers\BoardGameController.cs" />
     <Compile Include="Controllers\GameParticipationController.cs" />

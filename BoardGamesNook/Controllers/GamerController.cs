@@ -7,9 +7,10 @@ using System.Web.Mvc;
 
 namespace BoardGamesNook.Controllers
 {
+    [AuthorizeCustom]
     public class GamerController : Controller
     {
-        GamerService gamerService = new GamerService(new GamerRepository());
+        private GamerService gamerService = new GamerService(new GamerRepository());
 
         public JsonResult Get(int id)
         {

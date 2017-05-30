@@ -7,9 +7,10 @@ using BoardGamesNook.ViewModels.GameParticipation;
 
 namespace BoardGamesNook.Controllers
 {
+    [AuthorizeCustom]
     public class GameParticipationController : Controller
     {
-        GameParticipationService gameParticipationService = new GameParticipationService(new GameParticipationRepository());
+        private GameParticipationService gameParticipationService = new GameParticipationService(new GameParticipationRepository());
 
         public JsonResult Get(int id)
         {

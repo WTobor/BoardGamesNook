@@ -10,9 +10,10 @@ using BoardGameGeekIntegration.Models;
 
 namespace BoardGamesNook.Controllers
 {
+    [AuthorizeCustom]
     public class BoardGameController : Controller
     {
-        BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
+        private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
 
         public JsonResult Get(int id)
         {

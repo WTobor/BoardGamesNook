@@ -10,11 +10,12 @@ using BoardGamesNook.ViewModels.GamerBoardGame;
 
 namespace BoardGamesNook.Controllers
 {
+    [AuthorizeCustom]
     public class GamerBoardGameController : Controller
     {
-        GamerBoardGameService gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
-        BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
-        GamerService gamerService = new GamerService(new GamerRepository());
+        private GamerBoardGameService gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
+        private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
+        private GamerService gamerService = new GamerService(new GamerRepository());
 
         public JsonResult Get(int id)
         {
@@ -31,7 +32,7 @@ namespace BoardGamesNook.Controllers
 
             return Json(gamerListViewModel, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetGamerAvailableBoardGames(int id)
         {
             var gamerAvailableBoardGameListViewModel = GetGamerAvailableBoardGameList(id);
@@ -57,10 +58,10 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(int gamerBoardGameId) 
+        public JsonResult Edit(int gamerBoardGameId)
         {
-            GamerBoardGame dbGamerBoardGame= gamerBoardGameService.Get(gamerBoardGameId);
-            if (dbGamerBoardGame!= null)
+            GamerBoardGame dbGamerBoardGame = gamerBoardGameService.Get(gamerBoardGameId);
+            if (dbGamerBoardGame != null)
             {
                 dbGamerBoardGame.ModifiedDate = DateTimeOffset.Now;
                 dbGamerBoardGame.Active = false;

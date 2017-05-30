@@ -11,6 +11,7 @@ using BoardGamesNook.ViewModels.GameTable;
 
 namespace BoardGamesNook.Controllers
 {
+    [AuthorizeCustom]
     public class GameTableController : Controller
     {
         private GameTableService gameTableService = new GameTableService(new GameTableRepository());
