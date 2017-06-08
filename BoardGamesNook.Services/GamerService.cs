@@ -19,6 +19,11 @@ namespace BoardGamesNook.Services
             return _gamerRepository.Get(id);
         }
 
+        public Gamer GetByEmail(string userEmail)
+        {
+            return _gamerRepository.GetByEmail(userEmail);
+        }
+
         public IEnumerable<Gamer> GetAll()
         {
             return _gamerRepository.GetAll();

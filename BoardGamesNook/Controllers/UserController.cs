@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services;
-using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
 namespace BoardGamesNook.Controllers
@@ -13,7 +12,6 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetUser()
         {
             var loggedUser = Session["user"];
-
             return Json(loggedUser, JsonRequestBehavior.AllowGet);
         }
 

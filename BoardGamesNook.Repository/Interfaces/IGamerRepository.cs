@@ -7,6 +7,8 @@ namespace BoardGamesNook.Repository.Interfaces
     {
         Gamer Get(int id);
 
+        Gamer GetByEmail(string userEmail);
+
         IEnumerable<Gamer> GetAll();
 
         void Add(Gamer gamer);

@@ -14,7 +14,8 @@ namespace BoardGamesNook.Repository.Generators
             Name = "testName",
             Surname = "testSurname",
             City = "Wroc³aw",
-            Street = "tmp"
+            Street = "tmp",
+            Email = "test1@test.pl"
         };
 
         public static Gamer gamer2 = new Gamer()
@@ -26,7 +27,8 @@ namespace BoardGamesNook.Repository.Generators
             Name = "testName1",
             Surname = "testSurname1",
             City = "Wroc³aw1",
-            Street = "tmp1"
+            Street = "tmp1",
+            Email = "test2@test.pl"
         };
 
         public static List<Gamer> gamers = new List<Gamer>()

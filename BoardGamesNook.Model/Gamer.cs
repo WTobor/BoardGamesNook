@@ -14,5 +14,6 @@ namespace BoardGamesNook.Model
         public string City { get; set; }
         public string Street { get; set; }
         public bool Active { get; set; }
+        public string Email { get; set; }
     }
 }

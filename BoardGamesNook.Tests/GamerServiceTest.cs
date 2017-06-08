@@ -32,7 +32,7 @@ namespace BoardGamesNook.Tests
             gamerService.Add(GetTestGamer());
             var gamers = gamerService.GetAll();
             //Assert
-            Assert.AreEqual(generatedGamersCount+1, gamers.Count());
+            Assert.AreEqual(generatedGamersCount + 1, gamers.Count());
         }
 
         [TestMethod]
@@ -46,7 +46,21 @@ namespace BoardGamesNook.Tests
             gamerService.Add(GetTestGamer());
             var gamer = gamerService.Get(newGamerId);
             //Assert
-            Assert.AreEqual(generatedGamersCount+1, gamer.Id);
+            Assert.AreEqual(generatedGamersCount + 1, gamer.Id);
+        }
+
+        [TestMethod]
+        public void GetByEmail()
+        {
+            //Arrange
+            var gamerService = new GamerService(new GamerRepository());
+            var generatedGamersCount = GamerGenerator.gamers.Count;
+            var email = "test@test.pl";
+            //Act
+            gamerService.Add(GetTestGamer());
+            var gamer = gamerService.GetByEmail(email);
+            //Assert
+            Assert.AreEqual(generatedGamersCount + 1, gamer.Id);
         }
 
         [TestMethod]
@@ -80,14 +94,15 @@ namespace BoardGamesNook.Tests
             //Assert
             Assert.AreEqual(generatedGamersCount, gamers.Count());
         }
-        
+
         private static Gamer GetTestGamer()
         {
             var newGamerId = GamerGenerator.gamers.Max(x => x.Id) + 1;
             return new Gamer()
             {
                 Id = newGamerId,
-                Name = "test"
+                Name = "test",
+                Email = "test@test.pl"
             };
         }
     }

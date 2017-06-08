@@ -18,6 +18,12 @@ namespace BoardGamesNook.Controllers
             return Json(gamer, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetByEmail(string email)
+        {
+            var gamer = gamerService.GetByEmail(email);
+            return Json(gamer, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetAll()
         {
             var gamerList = gamerService.GetAll();

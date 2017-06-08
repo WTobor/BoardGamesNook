@@ -1,4 +1,7 @@
 ﻿using System.Web.Mvc;
+using BoardGamesNook.Model;
+using BoardGamesNook.Repository;
+using BoardGamesNook.Services;
 
 namespace BoardGamesNook.Controllers
 {

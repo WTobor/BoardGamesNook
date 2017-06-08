@@ -15,6 +15,11 @@ namespace BoardGamesNook.Repository
             return _gamers.Where(x => x.Id == id).FirstOrDefault();
         }
 
+        public Gamer GetByEmail(string userEmail)
+        {
+            return _gamers.Where(x => x.Email == userEmail).FirstOrDefault();
+        }
+
         public IEnumerable<Gamer> GetAll()
         {
             return _gamers;

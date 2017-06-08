@@ -11,6 +11,7 @@ import { Common } from "./../Common";
 export class GamerService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getGamerUrl = "Gamer/Get";
+    private _getByEmailUrl = "Gamer/GetByEmail";
     private _getGamerListUrl = "Gamer/GetAll";
     private _addGamerUrl = "Gamer/Add";
     private _editGamerUrl = "Gamer/Edit";
@@ -24,7 +25,7 @@ export class GamerService {
             .toPromise()
             .then(response => {
                 console.log(response.json());
-                 return response.json() as Gamer[];
+                return response.json() as Gamer[];
             })
             .catch(ex => { return new Common().handleError(ex); });
     }
@@ -32,6 +33,21 @@ export class GamerService {
     getGamer(id: number): Promise<Gamer> {
         if (id !== 0) {
             const url = `${this._getGamerUrl}/${id}`;
+            return this.http.get(url)
+                .toPromise()
+                .then(response => { return response.json() as Gamer; })
+                .catch(ex => { return new Common().handleError(ex); });
+        }
+        else {
+            var response = new Gamer;
+            return new Promise((resolve) => { resolve(response); })
+                .then(response => { return response; });
+        }
+    }
+
+    getByEmail(email: string): Promise<Gamer> {
+        if (email !== "") {
+            const url = `${this._getByEmailUrl}/${email}`;
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as Gamer; })
@@ -64,7 +80,7 @@ export class GamerService {
     update(gamer: Gamer): Promise<string> {
         const url = `${this._editGamerUrl}`;
         return this.http
-            .post(url, JSON.stringify(gamer) , { headers: this.headers })
+            .post(url, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex); });
