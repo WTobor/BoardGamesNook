@@ -15,7 +15,7 @@ import { GameTablesModule } from "./gameTables/gameTables.module";
 import { PageNotFoundComponent } from "./not-found.component";
 
 import { DialogService } from "./dialog.service";
-import {UserService} from "./users/user.service";
+import { UserService } from "./users/user.service";
 
 @NgModule({
     imports: [

@@ -30,6 +30,11 @@ namespace BoardGamesNook.Controllers
             return Json(gamerList, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Add()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult Add(string nick, string name, string surname, int age, string city, string street)
         {

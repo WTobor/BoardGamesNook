@@ -22,6 +22,7 @@ export class GamerAddComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        debugger
         this.route.params
             .switchMap((params: Params) => this.gamerService.getGamer(0))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
