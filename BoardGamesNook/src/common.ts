@@ -1,8 +1,10 @@
 ﻿import { Location } from "@angular/common";
+import { Router } from "@angular/router";
 
 export class Common  {
     constructor(
-        private location?: Location
+        private location?: Location,
+        private router?: Router
     ) { }
 
     goBack(): void {
@@ -16,6 +18,13 @@ export class Common  {
         } else {
             return this.goBack();
         }
+    }
+
+    showErrorOrReturn(errorMessage): void {
+        if (errorMessage !== "") {
+            alert(errorMessage);
+        }
+        return;
     }
 
     handleError(error: any, message?: any): Promise<string> {

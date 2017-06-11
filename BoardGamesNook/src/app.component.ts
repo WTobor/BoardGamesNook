@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        debugger
         this.userService.getUser().then((user: User) => {
             this.user = user;
             if (this.user != null) {

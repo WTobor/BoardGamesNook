@@ -1,42 +1,53 @@
 ﻿<div *ngIf="user">
-    <nav class="navbar" style="margin: 5px">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
-                    BoardGamesNook <br/>Kącik gier planszowych
-                </a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
-                            Lista graczy
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
-                            Lista gier
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" routerLink="/gameTables" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
-                            Lista stołów do gier
-                        </a>
-                    </li>
-                </ul>
-                <div class="nav navbar navbar-right">
-                    Witaj <b> {{user.Name}} </b>
-                    <img src="{{ user.ImageUrl }}" height="50" width="50"/>
-                    <button class="btn btn-default" (click)="logOut()">Wyloguj</button>
+    <div *ngIf="gamer && gamer.Id > 0">
+        <nav class="navbar" style="margin: 5px">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
+                        BoardGamesNook <br/>Kącik gier planszowych
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                                Lista graczy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                                Lista gier
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gameTables" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                                Lista stołów do gier
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="nav navbar navbar-right">
+                        Witaj <b> {{user.Name}} </b>
+                        <img src="{{ user.ImageUrl }}" height="50" width="50"/>
+                        <button class="btn btn-default" (click)="logOut()">Wyloguj</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
+    <div *ngIf="gamer && gamer.Id == 0">
+        <nav class="navbar" style="margin: 5px">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br/>Kącik gier planszowych</a>
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
 <div *ngIf="!user">
     <nav class="navbar" style="margin: 5px">

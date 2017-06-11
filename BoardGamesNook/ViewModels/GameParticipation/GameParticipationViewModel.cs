@@ -1,6 +1,4 @@
-﻿using BoardGamesNook.Model;
-
-namespace BoardGamesNook.ViewModels.GameParticipation
+﻿namespace BoardGamesNook.ViewModels.GameParticipation
 {
     public class GameParticipationViewModel
     {
@@ -10,7 +8,7 @@ namespace BoardGamesNook.ViewModels.GameParticipation
         public int GameTableId { get; set; }
         public Model.GameTable GameTable { get; set; }
         public int GamerId { get; set; }
-        public Gamer Gamer { get; set; }
+        public Model.Gamer Gamer { get; set; }
         public bool IsConfirmed { get; set; }
         public int Status { get; set; }
         public bool Active { get; set; }

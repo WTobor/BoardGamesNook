@@ -4,6 +4,7 @@ using BoardGamesNook.Services;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using BoardGamesNook.ViewModels.Gamer;
 
 namespace BoardGamesNook.Controllers
 {
@@ -30,27 +31,26 @@ namespace BoardGamesNook.Controllers
             return Json(gamerList, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Add()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public JsonResult Add(string nick, string name, string surname, int age, string city, string street)
+        public JsonResult Add(GamerViewModel gamer)
         {
-            Gamer gamer = new Gamer()
+            gamer.Email = "x";
+            Gamer dbGamer = new Gamer()
             {
                 Id = gamerService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
-                Nick = nick,
-                Name = name,
-                Surname = surname,
-                Age = age,
-                City = city,
-                Street = street,
+                Nick = gamer.Nick,
+                Name = gamer.Name,
+                Surname = gamer.Surname,
+                Email = gamer.Email,
+                Age = gamer.Age,
+                City = gamer.City,
+                Street = gamer.Street,
                 CreatedDate = DateTimeOffset.Now,
                 Active = true
             };
-            gamerService.Add(gamer);
+            gamerService.Add(dbGamer);
+
+            Session["gamer"] = dbGamer;
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

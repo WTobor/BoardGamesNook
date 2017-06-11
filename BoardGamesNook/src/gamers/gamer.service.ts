@@ -46,11 +46,14 @@ export class GamerService {
     }
 
     getByEmail(email: string): Promise<Gamer> {
+        debugger
         if (email !== "") {
             const url = `${this._getByEmailUrl}/${email}`;
             return this.http.get(url)
                 .toPromise()
-                .then(response => { return response.json() as Gamer; })
+                .then(response => {
+                    return response.json() as Gamer;
+                })
                 .catch(ex => { return new Common().handleError(ex); });
         }
         else {

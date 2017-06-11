@@ -19,7 +19,6 @@ export class UserService {
         return this.http.get(url)
             .toPromise()
             .then(response => {
-                debugger
                 if (response.text() === "") {
                     return null;
                 }
