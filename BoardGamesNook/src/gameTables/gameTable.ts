@@ -2,7 +2,7 @@
 
 export class GameTable {
     Id: number;
-    GamerId: number;
+    GamerId: string;
     GamerNick: string;
     TableBoardGameList: TableBoardGame[];
     MinPlayers: number;

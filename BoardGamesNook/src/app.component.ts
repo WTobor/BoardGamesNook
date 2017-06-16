@@ -23,15 +23,22 @@ export class AppComponent implements OnInit {
         this.userService.getUser().then((user: User) => {
             this.user = user;
             if (this.user != null) {
-                this.gamerService.getByEmail(this.user.Email).then((gamer: Gamer) => { this.gamer = gamer });
-                if (this.gamer == null) {
-                    this.router.navigate(["/gamer", 0]);
-                }
+                this.gamerService.getByEmail(this.user.Email)
+                    .then((gamer: Gamer) => {
+                        this.gamer = gamer;
+                        if (this.gamer == null) {
+                            this.router.navigate(["/gamer", "new"]);
+                        }
+                    });
             }
         });
-    }
+    };
 
     logOut(): void {
         this.userService.logOutUser();
+    }
+
+    getCurrentGamer(): void {
+        this.gamerService.getCurrentGamer();
     }
 }

@@ -5,9 +5,11 @@ namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IGamerRepository
     {
-        Gamer Get(int id);
+        Gamer Get(string id);
 
         Gamer GetByEmail(string userEmail);
+
+        bool NickExists(string nick);
 
         IEnumerable<Gamer> GetAll();
 
@@ -15,6 +17,6 @@ namespace BoardGamesNook.Repository.Interfaces
 
         void Edit(Gamer gamer);
 
-        void Delete(int id);
+        void Delete(string id);
     }
 }

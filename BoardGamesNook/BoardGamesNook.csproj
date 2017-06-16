@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="Mappers\BoardGameMapper.cs" />
     <Compile Include="Mappers\GamerBoardGameMapper.cs" />
+    <Compile Include="Mappers\GamerMapper.cs" />
     <Compile Include="Mappers\GameTableMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />
@@ -449,8 +450,6 @@
     <TypeScriptCompile Include="src\gameTables\tableBoardGame.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\not-found.component.ts" />
-    <TypeScriptCompile Include="src\userGamer\userGamer.service.ts" />
-    <TypeScriptCompile Include="src\userGamer\userGamer.ts" />
     <TypeScriptCompile Include="src\users\user.service.ts" />
     <TypeScriptCompile Include="src\users\user.ts" />
   </ItemGroup>

@@ -10,9 +10,9 @@ namespace BoardGamesNook.Mappers
 {
     public class GameTableMapper
     {
-        public static IEnumerable<GameTableViewModel> MapToGameTableViewModelList(IEnumerable<GameTable> gameTableList, int? gamerId = null)
+        public static IEnumerable<GameTableViewModel> MapToGameTableViewModelList(IEnumerable<GameTable> gameTableList, string gamerId = "")
         {
-            if (gamerId != null)
+            if (!String.IsNullOrEmpty(gamerId))
             {
                 return gameTableList.Where(x => x.CreatedGamerId == gamerId).Select(x => MapToGameTableViewModel(x)).ToList();
             }

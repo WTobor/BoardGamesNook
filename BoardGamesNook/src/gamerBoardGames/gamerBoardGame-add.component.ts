@@ -32,14 +32,9 @@ export class GamerBoardGameAddComponent implements OnInit {
             });
     }
 
-    add(gamerId: number, gamerNick: string): void {
-        this.gamerBoardGame = new GamerBoardGame();
-        this.gamerBoardGame.GamerId = gamerId;
-        this.gamerBoardGame.GamerNick = gamerNick;
-        this.gamerBoardGame.BoardGameId = this.selectedBoardGameId;
-        this.gamerBoardGame.BoardGameName = this.gamerBoardGames.filter(x => x.BoardGameId === this.selectedBoardGameId)[0].BoardGameName;
+    add(): void {
         var loc = this.location;
-        this.gamerBoardGameService.create(this.gamerBoardGame)
+        this.gamerBoardGameService.create(this.selectedBoardGameId)
             .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
 

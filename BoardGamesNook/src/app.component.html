@@ -1,5 +1,5 @@
 ﻿<div *ngIf="user">
-    <div *ngIf="gamer && gamer.Id > 0">
+    <div *ngIf="gamer && gamer.Id != 'new'">
         <nav class="navbar" style="margin: 5px">
             <div class="container">
                 <div class="navbar-header">
@@ -9,7 +9,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
-                        BoardGamesNook <br/>Kącik gier planszowych
+                        BoardGamesNook <br />Kącik gier planszowych
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
@@ -31,19 +31,23 @@
                         </li>
                     </ul>
                     <div class="nav navbar navbar-right">
-                        Witaj <b> {{user.Name}} </b>
-                        <img src="{{ user.ImageUrl }}" height="50" width="50"/>
-                        <button class="btn btn-default" (click)="logOut()">Wyloguj</button>
+                        Witaj <b>
+                            <a href="" routerLink="/gamers/{{gamer.Id}}" routerLinkActive="active" style="color: black; font-weight: bold">
+                                {{user.Name}}
+                            </a>
+                        </b>
+                        <img src="{{ user.ImageUrl }}" height="50" width="50" />
+                        <button classg="btn btn-default" (click)="logOut()">Wyloguj</button>
                     </div>
                 </div>
             </div>
         </nav>
     </div>
-    <div *ngIf="gamer && gamer.Id == 0">
+    <div *ngIf="gamer && gamer.Id == 'new'">
         <nav class="navbar" style="margin: 5px">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br/>Kącik gier planszowych</a>
+                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br />Kącik gier planszowych</a>
                 </div>
             </div>
         </nav>

@@ -9,8 +9,8 @@ import { User } from "./user";
 
 @Injectable()
 export class UserService {
-    private _getUserUrl = "User/GetUser";
-    private _logOutUserUrl = "User/LogOutUser";
+    private _getUserUrl = "User/Get";
+    private _logOutUserUrl = "User/LogOut";
 
     constructor(private http: Http, private router: Router) { }
 

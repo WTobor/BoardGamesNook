@@ -25,13 +25,14 @@ export class GamerService {
             .toPromise()
             .then(response => {
                 console.log(response.json());
-                return response.json() as Gamer[];
+                var result = response.json() as Gamer[];
+                return result.filter(x => !x.IsCurrentGamer);
             })
             .catch(ex => { return new Common().handleError(ex); });
     }
 
-    getGamer(id: number): Promise<Gamer> {
-        if (id !== 0) {
+    getGamer(id: string): Promise<Gamer> {
+        if (id !== "new") {
             const url = `${this._getGamerUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
@@ -45,16 +46,28 @@ export class GamerService {
         }
     }
 
+    getCurrentGamer(): Promise<Gamer> {
+        const url = `${this._getGamerUrl}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => { return response.json() as Gamer; })
+            .catch(ex => { return new Common().handleError(ex); });
+    }
+
     getByEmail(email: string): Promise<Gamer> {
-        debugger
         if (email !== "") {
-            const url = `${this._getByEmailUrl}/${email}`;
-            return this.http.get(url)
+            return this.http
+                .post(`${this._getByEmailUrl}`, JSON.stringify({ email: email }), { headers: this.headers })
                 .toPromise()
                 .then(response => {
+                    if (response.text() === "") {
+                        return null;
+                    }
                     return response.json() as Gamer;
                 })
-                .catch(ex => { return new Common().handleError(ex); });
+                .catch(ex => {
+                    return new Common().handleError(ex);
+                });
         }
         else {
             var response = new Gamer;
@@ -63,7 +76,7 @@ export class GamerService {
         }
     }
 
-    delete(id: number): Promise<string> {
+    delete(id: string): Promise<string> {
         const url = `${this._deleteGamerUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()

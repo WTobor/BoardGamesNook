@@ -24,15 +24,14 @@ export class GamerAddComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerService.getGamer(0))
+            .switchMap((params: Params) => this.gamerService.getGamer("new"))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 
-    add(nick: string, name: string, surname: string, email: string, age: number, city: string, street: string): void {
+    add(nick: string, name: string, surname: string, age: number, city: string, street: string): void {
         this.gamer.Nick = nick;
         this.gamer.Name = name;
         this.gamer.Surname = surname;
-        this.gamer.Email = email;
         this.gamer.Age = age;
         this.gamer.City = city;
         this.gamer.Street = street;
@@ -41,7 +40,7 @@ export class GamerAddComponent implements OnInit {
         this.gamerService.create(this.gamer)
             .then(errorMessage => {
                 new Common(null, this.router).showErrorOrReturn(errorMessage);
-                this.router.navigate(['']);
+                this.router.navigate([""]);
                 window.location.reload();
             });
     }

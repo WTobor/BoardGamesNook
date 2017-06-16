@@ -1,9 +1,8 @@
-﻿
-namespace BoardGamesNook.ViewModels.GamerBoardGame
+﻿namespace BoardGamesNook.ViewModels.GamerBoardGame
 {
     public class GamerBoardGameViewModel
     {
-        public int GamerId { get; set; }
+        public string GamerId { get; set; }
         public string GamerNick { get; set; }
         public int BoardGameId { get; set; }
         public int? BGGId { get; set; }

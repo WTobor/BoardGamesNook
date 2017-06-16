@@ -13,10 +13,6 @@
         <td><input #surname /></td>
     </tr>
     <tr>
-        <td><label>Email:</label></td>
-        <td><input #email /></td>
-    </tr>
-    <tr>
         <td><label>Wiek:</label></td>
         <td><input #age type="number" /></td>
     </tr>
@@ -30,8 +26,6 @@
     </tr>
 </table>
 <br />
-<button class="btn btn-default" (click)="goBack()">Powrót</button>
-<button class="btn btn-success" (click)="add(nick.value, name.value, surname.value, email.value, age.value, city.value, street.value);
-    nick.value='';name.value=''; surname.value=''; email.value=''; age.value='';city.value='';street.value='';">
+<button class="btn btn-success" (click)="add(nick.value, name.value, surname.value, age.value, city.value, street.value);">
     Dodaj
 </button>

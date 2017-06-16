@@ -1,5 +1,5 @@
 ﻿export class GamerBoardGame {
-    GamerId: number;
+    GamerId: string;
     GamerNick: string;
     BoardGameId: number;
     BoardGameName: string;

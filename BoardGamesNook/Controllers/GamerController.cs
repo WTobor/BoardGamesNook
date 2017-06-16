@@ -4,6 +4,7 @@ using BoardGamesNook.Services;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using BoardGamesNook.Mappers;
 using BoardGamesNook.ViewModels.Gamer;
 
 namespace BoardGamesNook.Controllers
@@ -13,35 +14,52 @@ namespace BoardGamesNook.Controllers
     {
         private GamerService gamerService = new GamerService(new GamerRepository());
 
-        public JsonResult Get(int id)
+        public JsonResult Get(string id)
         {
             var gamer = gamerService.Get(id);
-            return Json(gamer, JsonRequestBehavior.AllowGet);
+            var currentGamerId = GetCurrentGamerId();
+            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer, currentGamerId);
+            return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult GetByEmail(string email)
         {
             var gamer = gamerService.GetByEmail(email);
-            return Json(gamer, JsonRequestBehavior.AllowGet);
+            var currentGamerId = GetCurrentGamerId();
+            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer, currentGamerId);
+            return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
+            var currentGamerId = GetCurrentGamerId();
             var gamerList = gamerService.GetAll();
-            return Json(gamerList, JsonRequestBehavior.AllowGet);
+            var gamerViewModelList = GamerMapper.MapToGamerList(gamerList, currentGamerId);
+            return Json(gamerViewModelList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult Add(GamerViewModel gamer)
         {
-            gamer.Email = "x";
+            User loggedUser = Session["user"] as User;
+            if (loggedUser == null)
+            {
+                return Json("Nie znaleziono użytkownika", JsonRequestBehavior.AllowGet);
+            }
+
+            if (gamerService.NickExists(gamer.Nick))
+            {
+                return Json("Istnieje gracz o podanym nicku. Wybierz inny nick.", JsonRequestBehavior.AllowGet);
+            }
+
             Gamer dbGamer = new Gamer()
             {
-                Id = gamerService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
+                Id = Guid.NewGuid().ToString(),
                 Nick = gamer.Nick,
                 Name = gamer.Name,
                 Surname = gamer.Surname,
-                Email = gamer.Email,
+                Email = loggedUser.Email,
                 Age = gamer.Age,
                 City = gamer.City,
                 Street = gamer.Street,
@@ -49,8 +67,6 @@ namespace BoardGamesNook.Controllers
                 Active = true
             };
             gamerService.Add(dbGamer);
-
-            Session["gamer"] = dbGamer;
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -70,18 +86,25 @@ namespace BoardGamesNook.Controllers
             }
             else
             {
-                return Json("No gamer with Id=" + gamer.Id, JsonRequestBehavior.AllowGet);
+                return Json("Brak gracza o Id=" + gamer.Id, JsonRequestBehavior.AllowGet);
             }
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Delete(string id)
         {
             gamerService.Delete(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        private string GetCurrentGamerId()
+        {
+            var currentGamer = Session["gamer"] as Gamer;
+            var currentGamerId = currentGamer == null ? string.Empty : currentGamer.Id;
+            return currentGamerId;
         }
     }
 }

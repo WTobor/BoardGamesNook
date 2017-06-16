@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Generators;
@@ -55,7 +56,7 @@ namespace BoardGamesNook.Tests
             var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var generatedGamerBoardGamesCount = GamerBoardGameGenerator.gamerBoardGames.Count;
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
-            int gamerId = 2;
+            string gamerId = Guid.NewGuid().ToString();
             int boardGameId = 2;
             //Act
             gamerBoardGameService.Add(GetTestGamerBoardGame());
@@ -68,7 +69,6 @@ namespace BoardGamesNook.Tests
             Assert.AreEqual(gamerId, newBoardGame.GamerId);
             Assert.AreEqual(boardGameId, newBoardGame.BoardGameId);
         }
-
 
         [TestMethod]
         public void DeleteGamerBoardGame()
@@ -91,10 +91,9 @@ namespace BoardGamesNook.Tests
             return new GamerBoardGame()
             {
                 Id = newGamerBoardGameId,
-                GamerId = 1,
+                GamerId = "aqwsderfgt",
                 BoardGameId = 1
             };
         }
     }
 }
-

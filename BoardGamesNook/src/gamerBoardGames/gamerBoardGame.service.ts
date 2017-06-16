@@ -30,8 +30,8 @@ export class GamerBoardGameService {
             .catch(ex => { return new Common().handleError(ex); });
     }
 
-    getGamerBoardGame(id: number): Promise<GamerBoardGame> {
-        if (id !== 0) {
+    getGamerBoardGame(id: string): Promise<GamerBoardGame> {
+        if (id !== "new") {
             const url = `${this._getGamerBoardGameUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
@@ -68,12 +68,10 @@ export class GamerBoardGameService {
             .catch(ex => { return new Common().handleError(ex); });
     }
 
-    create(gamerBoardGame: GamerBoardGame): Promise<string> {
+    create(boardGameId: number): Promise<string> {
         const url = `${this._addGamerBoardGameUrl}`;
         return this.http
-            .post(url, JSON.stringify({
-                 gamerId: gamerBoardGame.GamerId, boardGameId: gamerBoardGame.BoardGameId
-            }), { headers: this.headers })
+            .post(url, JSON.stringify({ boardGameId: boardGameId }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex); });
@@ -82,7 +80,7 @@ export class GamerBoardGameService {
     update(gamerBoardGame: GamerBoardGame): Promise<string> {
         const url = `${this._editGamerBoardGameUrl}`;
         return this.http
-            .post(url, JSON.stringify({ gamerBoardGameId: gamerBoardGame.BoardGameId }) , { headers: this.headers })
+            .post(url, JSON.stringify({ gamerBoardGameId: gamerBoardGame.BoardGameId }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex); });

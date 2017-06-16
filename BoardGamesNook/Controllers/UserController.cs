@@ -9,22 +9,23 @@ namespace BoardGamesNook.Controllers
     {
         private UserService userService = new UserService();
 
-        public JsonResult GetUser()
+        public JsonResult Get()
         {
             var loggedUser = Session["user"];
             return Json(loggedUser, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SetUser(string userJson)
+        public ActionResult Set(string userJson)
         {
             var user = JsonConvert.DeserializeObject<User>(userJson);
             Session["user"] = user;
             return RedirectToAction("Index", "Home");
         }
 
-        public JsonResult LogOutUser()
+        public JsonResult LogOut()
         {
             Session["user"] = null;
+            Session["gamer"] = null;
             return Json(null, JsonRequestBehavior.AllowGet);
         }
     }

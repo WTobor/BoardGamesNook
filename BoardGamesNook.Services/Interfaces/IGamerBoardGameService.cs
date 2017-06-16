@@ -9,7 +9,7 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<GamerBoardGame> GetAll();
 
-        IEnumerable<GamerBoardGame> GetAllByGamerId(int gamerId);
+        IEnumerable<GamerBoardGame> GetAllByGamerId(string gamerId);
 
         void Add(GamerBoardGame boardGame);
 

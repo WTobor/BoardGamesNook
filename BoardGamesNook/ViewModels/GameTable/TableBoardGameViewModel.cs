@@ -7,7 +7,7 @@
         public string BoardGameName { get; set; }
         public string ImageUrl { get; set; }
         public int TableId { get; set; }
-        public int GamerId { get; set; }
+        public string GamerId { get; set; }
         public string GamerNick { get; set; }
     }
 }

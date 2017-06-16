@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
@@ -21,7 +20,7 @@ namespace BoardGamesNook.Repository
             return _gamerBoardGames;
         }
 
-        public IEnumerable<GamerBoardGame> GetAllByGamerId(int gamerId)
+        public IEnumerable<GamerBoardGame> GetAllByGamerId(string gamerId)
         {
             return _gamerBoardGames.Where(x => x.GamerId == gamerId);
         }

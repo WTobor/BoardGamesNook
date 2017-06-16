@@ -3,7 +3,7 @@ using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
 
-namespace BoardGamesNook.Services 
+namespace BoardGamesNook.Services
 {
     public class GameTableService : IGameTableService
     {
@@ -29,7 +29,7 @@ namespace BoardGamesNook.Services
             return _gameTableRepository.GetAvailableTableBoardGameList(table);
         }
 
-        public IEnumerable<GameTable> GetAllByGamerId(int gamerId)
+        public IEnumerable<GameTable> GetAllByGamerId(string gamerId)
         {
             return _gameTableRepository.GetAllByGamerId(gamerId);
         }

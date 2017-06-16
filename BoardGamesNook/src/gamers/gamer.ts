@@ -1,5 +1,5 @@
 ﻿export class Gamer {
-    Id: number;
+    Id: string;
     Nick: string;
     Name: string;
     Surname: string;
@@ -7,4 +7,5 @@
     Age: number;
     City: string;
     Street: string;
+    IsCurrentGamer: boolean;
 }

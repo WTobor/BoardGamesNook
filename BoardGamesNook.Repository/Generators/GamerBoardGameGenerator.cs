@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Repository.Generators
@@ -10,7 +9,7 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 1,
             Active = true,
-            GamerId = 1,
+            GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
             BoardGameId = 1,
             BoardGame = BoardGameGenerator.boardGame1
@@ -20,7 +19,7 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 2,
             Active = true,
-            GamerId = 1,
+            GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
             BoardGameId = 2,
             BoardGame = BoardGameGenerator.boardGame2
@@ -30,8 +29,8 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 3,
             Active = true,
-            GamerId = 2,
-            Gamer = GamerGenerator.gamer1,
+            GamerId = GamerGenerator.gamer2.Id,
+            Gamer = GamerGenerator.gamer2,
             BoardGameId = 2,
             BoardGame = BoardGameGenerator.boardGame2
         };

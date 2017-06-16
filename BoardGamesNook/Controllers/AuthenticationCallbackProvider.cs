@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services;
-using BoardGamesNook.ViewModels.User;
 using Newtonsoft.Json;
 using SimpleAuthentication.Mvc;
 
@@ -34,7 +30,7 @@ namespace BoardGamesNook.Controllers
 
             return new RedirectToRouteResult(new RouteValueDictionary
             {
-                { "action", "SetUser" },
+                { "action", "Set" },
                 { "controller", "User" },
                 { "userJson", JsonConvert.SerializeObject(loggedUser) }
             });

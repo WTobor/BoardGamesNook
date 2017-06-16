@@ -23,7 +23,7 @@ export class GamerBoardGameDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGame(Number(params["id"])))
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGame(params["id"]))
             .subscribe((gamerBoardGame: GamerBoardGame) => this.gamerBoardGame = gamerBoardGame);
     }
 

@@ -57,7 +57,7 @@ namespace BoardGamesNook.Controllers
             return Json(availableTableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAllByGamerId(int id)
+        public JsonResult GetAllByGamerId(string id)
         {
             var gameTableList = gameTableService.GetAllByGamerId(id);
             var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList, id);
@@ -98,7 +98,7 @@ namespace BoardGamesNook.Controllers
             }
 
             gameTable.CreatedDate = DateTimeOffset.Now;
-            gameTable.CreatedGamerId = 1;
+            gameTable.CreatedGamerId = GetCurrentGamerId();
 
             gameTableService.Add(gameTable);
 
@@ -150,6 +150,13 @@ namespace BoardGamesNook.Controllers
             gameTableService.Delete(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        private string GetCurrentGamerId()
+        {
+            var currentGamer = Session["gamer"] as Gamer;
+            var currentGamerId = currentGamer == null ? string.Empty : currentGamer.Id;
+            return currentGamerId;
         }
     }
 }

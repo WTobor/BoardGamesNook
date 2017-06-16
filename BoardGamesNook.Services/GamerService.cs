@@ -14,7 +14,7 @@ namespace BoardGamesNook.Services
             _gamerRepository = gamerRepository;
         }
 
-        public Gamer Get(int id)
+        public Gamer Get(string id)
         {
             return _gamerRepository.Get(id);
         }
@@ -22,6 +22,11 @@ namespace BoardGamesNook.Services
         public Gamer GetByEmail(string userEmail)
         {
             return _gamerRepository.GetByEmail(userEmail);
+        }
+
+        public bool NickExists(string nick)
+        {
+            return _gamerRepository.NickExists(nick);
         }
 
         public IEnumerable<Gamer> GetAll()
@@ -39,7 +44,7 @@ namespace BoardGamesNook.Services
             _gamerRepository.Edit(gamer);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _gamerRepository.Delete(id);
         }

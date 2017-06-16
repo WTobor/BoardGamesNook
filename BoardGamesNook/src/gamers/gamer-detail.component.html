@@ -1,34 +1,74 @@
 ﻿<div *ngIf="gamer">
-    <h2>Gracz</h2>
-    <h3>"{{ gamer.Nick }}"</h3>
-    <div hidden>
-        <label>Id: </label>{{ gamer.Id }}
+    <div *ngIf="!gamer.IsCurrentGamer">
+        <h2>Gracz</h2>
+        <h3>"{{ gamer.Nick }}"</h3>
+        <div hidden>
+            <label>Id: </label>{{ gamer.Id }}
+        </div>
+        <table>
+            <tr>
+                <td><label>Imię: </label></td>
+                <td>{{ gamer.Name}}</td>
+            </tr>
+            <tr>
+                <td><label>Nazwisko: </label></td>
+                <td>{{ gamer.Surname }}</td>
+            </tr>
+            <tr>
+                <td><label>Wiek: </label></td>
+                <td>{{ gamer.Age }} </td>
+            </tr>
+            <tr>
+                <td><label>Miasto: </label></td>
+                <td>{{ gamer.City }}</td>
+            </tr>
+            <tr>
+                <td><label>Ulica: </label></td>
+                <td>{{ gamer.Street }}</td>
+            </tr>
+        </table>
+        <p>
+            <button class="btn btn-default" (click)="goBack()">Powrót</button>
+        </p>
     </div>
-    <table>
-        <tr>
-            <td><label>Imię: </label></td>
-            <td><input [(ngModel)]="gamer.Name" /></td>
-        </tr>
-        <tr>
-            <td><label>Nazwisko: </label></td>
-            <td><input [(ngModel)]="gamer.Surname" /></td>
-        </tr>
-        <tr>
-            <td><label>Wiek: </label></td>
-            <td><input [(ngModel)]="gamer.Age" /></td>
-        </tr>
-        <tr>
-            <td><label>Miasto: </label></td>
-            <td><input [(ngModel)]="gamer.City" /></td>
-        </tr>
-        <tr>
-            <td><label>Ulica: </label></td>
-            <td><input [(ngModel)]="gamer.Street" /></td>
-        </tr>
-    </table>
+    <div *ngIf="gamer.IsCurrentGamer">
+        <h2>Edytuj konto </h2>
+        <div hidden>
+            <label>Id: </label>{{ gamer.Id }}
+        </div>
+        <table>
+            <tr>
+                <td><label>Nick: </label></td>
+                <td>{{ gamer.Nick }}</td>
+            </tr>
+            <tr>
+                <td><label>Email: </label></td>
+                <td>{{ gamer.Email }}</td>
+            </tr>
+            <tr>
+                <td><label>Imię: </label></td>
+                <td><input [(ngModel)]="gamer.Name"/></td>
+            </tr>
+            <tr>
+                <td><label>Nazwisko: </label></td>
+                <td><input [(ngModel)]="gamer.Surname"/></td>
+            </tr>
+            <tr>
+                <td><label>Wiek: </label></td>
+                <td><input [(ngModel)]="gamer.Age"/></td>
+            </tr>
+            <tr>
+                <td><label>Miasto: </label></td>
+                <td><input [(ngModel)]="gamer.City"/></td>
+            </tr>
+            <tr>
+                <td><label>Ulica: </label></td>
+                <td><input [(ngModel)]="gamer.Street"/></td>
+            </tr>
+        </table>
 
-    <p>
-        <button class="btn btn-default" (click)="goBack()">Powrót</button>
-        <button class="btn btn-success" (click)="save()">Zapisz</button>
-    </p>
+        <p>
+            <button class="btn btn-success" (click)="save()">Zapisz</button>
+        </p>
+    </div>
 </div>

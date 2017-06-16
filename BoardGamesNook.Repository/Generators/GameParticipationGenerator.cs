@@ -10,7 +10,7 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 1,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedUserId = GamerGenerator.gamer1.Id,
+            CreatedGamerId = GamerGenerator.gamer1.Id,
             GameTableId = GameTableGenerator.gameTable1.Id,
             GameTable = GameTableGenerator.gameTable1,
             GamerId = GamerGenerator.gamer1.Id,
@@ -23,7 +23,7 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 2,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedUserId = GamerGenerator.gamer2.Id,
+            CreatedGamerId = GamerGenerator.gamer2.Id,
             GameTableId = GameTableGenerator.gameTable2.Id,
             GameTable = GameTableGenerator.gameTable2,
             GamerId = GamerGenerator.gamer2.Id,
@@ -36,7 +36,7 @@ namespace BoardGamesNook.Repository.Generators
         {
             Id = 3,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedUserId = GamerGenerator.gamer1.Id,
+            CreatedGamerId = GamerGenerator.gamer1.Id,
             GameTableId = GameTableGenerator.gameTable3.Id,
             GameTable = GameTableGenerator.gameTable3,
             GamerId = GamerGenerator.gamer1.Id,

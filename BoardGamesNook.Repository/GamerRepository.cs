@@ -10,7 +10,7 @@ namespace BoardGamesNook.Repository
     {
         private List<Gamer> _gamers = GamerGenerator.gamers;
 
-        public Gamer Get(int id)
+        public Gamer Get(string id)
         {
             return _gamers.Where(x => x.Id == id).FirstOrDefault();
         }
@@ -18,6 +18,11 @@ namespace BoardGamesNook.Repository
         public Gamer GetByEmail(string userEmail)
         {
             return _gamers.Where(x => x.Email == userEmail).FirstOrDefault();
+        }
+
+        public bool NickExists(string nick)
+        {
+            return _gamers.Select(x => x.Nick).Contains(nick);
         }
 
         public IEnumerable<Gamer> GetAll()
@@ -40,7 +45,7 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var gamer = _gamers.Where(x => x.Id == id).FirstOrDefault();
             if (gamer != null)

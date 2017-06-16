@@ -23,14 +23,21 @@ export class GamerDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerService.getGamer(Number(params["id"])))
+            .switchMap((params: Params) => this.gamerService.getGamer(params["id"]))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 
     save(): void {
         var loc = this.location;
         this.gamerService.update(this.gamer)
-            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            .then(errorMessage => {
+                if (this.gamer.IsCurrentGamer) {
+                    new Common().showErrorOrReturn(errorMessage);
+                }
+                else {
+                    new Common(loc).showErrorOrGoBack(errorMessage);
+                }
+            });
     }
 
     goBack(): void {

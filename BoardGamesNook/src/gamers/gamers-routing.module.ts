@@ -7,7 +7,7 @@ import { GamerAddComponent } from "./gamer-add.component";
 
 const gamersRoutes: Routes = [
     { path: "gamers", component: GamerListComponent },
-    { path: "gamer/0", component: GamerAddComponent },
+    { path: "gamer/new", component: GamerAddComponent },
     { path: "gamers/:id", component: GamerDetailComponent }
 ];
 

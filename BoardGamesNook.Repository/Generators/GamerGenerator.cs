@@ -7,7 +7,7 @@ namespace BoardGamesNook.Repository.Generators
     {
         public static Gamer gamer1 = new Gamer()
         {
-            Id = 1,
+            Id = "aaaa",
             Active = true,
             Age = 5,
             Nick = "testNick",
@@ -20,7 +20,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static Gamer gamer2 = new Gamer()
         {
-            Id = 2,
+            Id = "bbb",
             Active = true,
             Age = 51,
             Nick = "testNick1",

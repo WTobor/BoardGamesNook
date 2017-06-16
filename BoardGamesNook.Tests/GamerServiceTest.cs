@@ -1,4 +1,5 @@
-﻿using BoardGamesNook.Model;
+﻿using System;
+using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -55,12 +56,25 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
             var generatedGamersCount = GamerGenerator.gamers.Count;
-            var email = "test@test.pl";
             //Act
             gamerService.Add(GetTestGamer());
-            var gamer = gamerService.GetByEmail(email);
+            var gamer = gamerService.GetByEmail(GetTestGamer().Email);
             //Assert
             Assert.AreEqual(generatedGamersCount + 1, gamer.Id);
+        }
+
+        [TestMethod]
+        public void ExistsGamerNick()
+        {
+            //Arrange
+            var gamerService = new GamerService(new GamerRepository());
+            var generatedGamersCount = GamerGenerator.gamers.Count;
+            var newGamerId = GamerGenerator.gamers.Max(x => x.Id) + 1;
+            //Act
+            gamerService.Add(GetTestGamer());
+            var nickExists = gamerService.NickExists(GetTestGamer().Nick);
+            //Assert
+            Assert.AreEqual(true, nickExists);
         }
 
         [TestMethod]
@@ -86,10 +100,10 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
             var generatedGamersCount = GamerGenerator.gamers.Count;
-            var newGamerId = GamerGenerator.gamers.Max(x => x.Id) + 1;
+            var newGamerId = Guid.NewGuid();
             //Act
             gamerService.Add(GetTestGamer());
-            gamerService.Delete(newGamerId);
+            gamerService.Delete(newGamerId.ToString());
             var gamers = gamerService.GetAll();
             //Assert
             Assert.AreEqual(generatedGamersCount, gamers.Count());
@@ -101,6 +115,7 @@ namespace BoardGamesNook.Tests
             return new Gamer()
             {
                 Id = newGamerId,
+                Nick = "test",
                 Name = "test",
                 Email = "test@test.pl"
             };

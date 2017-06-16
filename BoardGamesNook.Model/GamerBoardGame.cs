@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 
 namespace BoardGamesNook.Model
 {
     public class GamerBoardGame
     {
         public int Id { get; set; }
-        public int GamerId { get; set; }
+        public string GamerId { get; set; }
         public int BoardGameId { get; set; }
         public Gamer Gamer { get; set; }
         public BoardGame BoardGame { get; set; }
