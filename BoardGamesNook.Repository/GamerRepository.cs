@@ -20,6 +20,11 @@ namespace BoardGamesNook.Repository
             return _gamers.Where(x => x.Email == userEmail).FirstOrDefault();
         }
 
+        public Gamer GetByNick(string userNick)
+        {
+            return _gamers.Where(x => x.Nick == userNick).FirstOrDefault();
+        }
+
         public bool NickExists(string nick)
         {
             return _gamers.Select(x => x.Nick).Contains(nick);

@@ -2,7 +2,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
@@ -13,9 +13,11 @@ import { GamerBoardGamesModule } from "./gamerBoardGames/gamerBoardGames.module"
 import { GameTablesModule } from "./gameTables/gameTables.module";
 
 import { PageNotFoundComponent } from "./not-found.component";
+import { AboutComponent } from "./about/about.component";
 
 import { DialogService } from "./dialog.service";
 import { UserService } from "./users/user.service";
+import { AboutRoutingModule } from "./about/about-routing.module";
 
 @NgModule({
     imports: [
@@ -26,11 +28,13 @@ import { UserService } from "./users/user.service";
         BoardGamesModule,
         GamerBoardGamesModule,
         GameTablesModule,
-        AppRoutingModule
+        AppRoutingModule,
+        AboutRoutingModule
     ],
     declarations: [
         AppComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        AboutComponent
     ],
     providers: [
         DialogService,

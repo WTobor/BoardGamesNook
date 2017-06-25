@@ -7,5 +7,4 @@
     Age: number;
     City: string;
     Street: string;
-    IsCurrentGamer: boolean;
 }

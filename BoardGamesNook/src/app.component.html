@@ -1,9 +1,9 @@
 ﻿<div *ngIf="user">
-    <div *ngIf="gamer && gamer.Id != 'new'">
+    <div *ngIf="currentGamer && currentGamer.Id != 'new'">
         <nav class="navbar" style="margin: 5px">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -12,7 +12,7 @@
                         BoardGamesNook <br />Kącik gier planszowych
                     </a>
                 </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
+                <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
@@ -29,26 +29,33 @@
                                 Lista stołów do gier
                             </a>
                         </li>
+                        <li>
+                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="color: black; font-weight: bold">
+                                O stronie
+                            </a>
+                        </li>
                     </ul>
                     <div class="nav navbar navbar-right">
                         Witaj <b>
-                            <a href="" routerLink="/gamers/{{gamer.Id}}" routerLinkActive="active" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gamers/{{currentGamer.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold">
                                 {{user.Name}}
                             </a>
                         </b>
-                        <img src="{{ user.ImageUrl }}" height="50" width="50" />
-                        <button classg="btn btn-default" (click)="logOut()">Wyloguj</button>
+                        <img src="{{ user.ImageUrl }}" height="50" width="50"/>
+                        <button class="btn btn-default" (click)="logOut()">Wyloguj</button>
                     </div>
                 </div>
             </div>
         </nav>
     </div>
-    <div *ngIf="gamer && gamer.Id == 'new'">
+    <div *ngIf="currentGamer && currentGamer.Id == 'new'">
         <nav class="navbar" style="margin: 5px">
             <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br />Kącik gier planszowych</a>
-                </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
+                    BoardGamesNook <br />Kącik gier planszowych
+                </a>
+            </div>
             </div>
         </nav>
     </div>
@@ -57,7 +64,18 @@
     <nav class="navbar" style="margin: 5px">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">BoardGamesNook <br />Kącik gier planszowych</a>
+                <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
+                    BoardGamesNook <br />Kącik gier planszowych
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="" routerLink="/about" routerLinkActive="active"  class="btn btn-default" style="color: black; font-weight: bold">
+                            O stronie
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

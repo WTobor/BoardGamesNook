@@ -9,6 +9,8 @@ namespace BoardGamesNook.Services.Interfaces
 
         Gamer GetByEmail(string userEmail);
 
+        Gamer GetByNick(string userNick);
+
         bool NickExists(string nick);
 
         IEnumerable<Gamer> GetAll();

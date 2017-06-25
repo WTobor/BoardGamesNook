@@ -333,6 +333,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="src\about\about.component.html" />
     <Content Include="src\boardGames\boardGame-detail.component.html" />
     <Content Include="src\boardGames\boardGame-list.component.html" />
     <Content Include="src\gamers\gamer-detail.component.html" />
@@ -414,6 +415,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="src\about\about-routing.module.ts" />
+    <TypeScriptCompile Include="src\about\about.component.ts" />
     <TypeScriptCompile Include="src\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app.module.ts" />
     <TypeScriptCompile Include="src\app.component.ts" />

@@ -20,9 +20,9 @@ namespace BoardGamesNook.Repository
             return _gamerBoardGames;
         }
 
-        public IEnumerable<GamerBoardGame> GetAllByGamerId(string gamerId)
+        public IEnumerable<GamerBoardGame> GetAllByGamerNick(string gamerNick)
         {
-            return _gamerBoardGames.Where(x => x.GamerId == gamerId);
+            return _gamerBoardGames.Where(x => x.Gamer.Nick == gamerNick);
         }
 
         public void Add(GamerBoardGame gamerBoardGame)

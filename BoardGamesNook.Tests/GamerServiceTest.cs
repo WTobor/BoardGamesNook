@@ -64,6 +64,22 @@ namespace BoardGamesNook.Tests
         }
 
         [TestMethod]
+        public void GetByNick()
+        {
+            //Arrange
+            var gamerService = new GamerService(new GamerRepository());
+            var generatedGamersCount = GamerGenerator.gamers.Count;
+            var testGamer = GetTestGamer();
+            var testNick = Guid.NewGuid().ToString();
+            testGamer.Nick = testNick;
+            //Act
+            gamerService.Add(testGamer);
+            var gamer = gamerService.GetByNick(testNick);
+            //Assert
+            Assert.AreEqual(generatedGamersCount + 1, gamer.Id);
+        }
+
+        [TestMethod]
         public void ExistsGamerNick()
         {
             //Arrange

@@ -14,28 +14,26 @@ namespace BoardGamesNook.Controllers
     {
         private GamerService gamerService = new GamerService(new GamerRepository());
 
-        public JsonResult Get(string id)
-        {
-            var gamer = gamerService.Get(id);
-            var currentGamerId = GetCurrentGamerId();
-            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer, currentGamerId);
-            return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public JsonResult GetByEmail(string email)
         {
             var gamer = gamerService.GetByEmail(email);
-            var currentGamerId = GetCurrentGamerId();
-            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer, currentGamerId);
+            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer);
+            return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetByNick(string nick)
+        {
+            var gamer = gamerService.GetByNick(nick);
+            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer);
             return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
-            var currentGamerId = GetCurrentGamerId();
             var gamerList = gamerService.GetAll();
-            var gamerViewModelList = GamerMapper.MapToGamerList(gamerList, currentGamerId);
+            var gamerViewModelList = GamerMapper.MapToGamerList(gamerList);
             return Json(gamerViewModelList, JsonRequestBehavior.AllowGet);
         }
 
@@ -100,11 +98,11 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        private string GetCurrentGamerId()
+        public string GetCurrentGamerNick()
         {
             var currentGamer = Session["gamer"] as Gamer;
-            var currentGamerId = currentGamer == null ? string.Empty : currentGamer.Id;
-            return currentGamerId;
+            var currentGamerNick = currentGamer == null ? string.Empty : currentGamer.Nick;
+            return currentGamerNick;
         }
     }
 }

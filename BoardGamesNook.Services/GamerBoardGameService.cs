@@ -24,9 +24,9 @@ namespace BoardGamesNook.Services
             return _gamerBoardGameRepository.GetAll();
         }
 
-        public IEnumerable<GamerBoardGame> GetAllByGamerId(string gamerId)
+        public IEnumerable<GamerBoardGame> GetAllByGamerNick(string gamerNick)
         {
-            return _gamerBoardGameRepository.GetAllByGamerId(gamerId);
+            return _gamerBoardGameRepository.GetAllByGamerNick(gamerNick);
         }
 
         public void Add(GamerBoardGame gamerBoardGame)

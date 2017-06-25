@@ -11,7 +11,7 @@ import { Common } from "./../Common";
 export class GamerBoardGameService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getGamerBoardGameUrl = "GamerBoardGame/Get";
-    private _getGamerBoardGameListUrl = "GamerBoardGame/GetAllByGamerId";
+    private _getGamerBoardGameListUrl = "GamerBoardGame/GetAllByGamerNick";
     private _addGamerBoardGameUrl = "GamerBoardGame/Add";
     private _editGamerBoardGameUrl = "GamerBoardGame/Edit";
     private _deleteGamerBoardGameUrl = "GamerBoardGame/Delete";
@@ -19,8 +19,8 @@ export class GamerBoardGameService {
 
     constructor(private http: Http) { }
 
-    getGamerBoardGames(gamerId: number): Promise<GamerBoardGame[]> {
-        const url = `${this._getGamerBoardGameListUrl}/${gamerId}`;
+    getGamerBoardGames(gamerNick: string): Promise<GamerBoardGame[]> {
+        const url = `${this._getGamerBoardGameListUrl}/${gamerNick}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
@@ -45,19 +45,12 @@ export class GamerBoardGameService {
         }
     }
 
-    getGamerAvailableBoardGames(id: number): Promise<GamerBoardGame[]> {
-        if (id !== 0) {
-            const url = `${this._getGamerAvailableBoardGamesUrl}/${id}`;
-            return this.http.get(url)
-                .toPromise()
-                .then(response => { return response.json() as GamerBoardGame[]; })
-                .catch(ex => { return new Common().handleError(ex); });
-        }
-        else {
-            var response = new GamerBoardGame;
-            return new Promise((resolve) => { resolve(response); })
-                .then(response => { return response; });
-        }
+    getGamerAvailableBoardGames(gamerNick: string): Promise<GamerBoardGame[]> {
+        const url = `${this._getGamerAvailableBoardGamesUrl}/${gamerNick}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => { return response.json() as GamerBoardGame[]; })
+            .catch(ex => { return new Common().handleError(ex); });
     }
 
     delete(id: number): Promise<string> {

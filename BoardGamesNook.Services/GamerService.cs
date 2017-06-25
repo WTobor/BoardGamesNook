@@ -24,6 +24,11 @@ namespace BoardGamesNook.Services
             return _gamerRepository.GetByEmail(userEmail);
         }
 
+        public Gamer GetByNick(string userNick)
+        {
+            return _gamerRepository.GetByNick(userNick);
+        }
+
         public bool NickExists(string nick)
         {
             return _gamerRepository.NickExists(nick);

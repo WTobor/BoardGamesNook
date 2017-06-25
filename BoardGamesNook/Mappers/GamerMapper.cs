@@ -9,12 +9,12 @@ namespace BoardGamesNook.Mappers
 {
     public class GamerMapper
     {
-        public static IEnumerable<GamerViewModel> MapToGamerList(IEnumerable<Gamer> gamerList, string currentGamerId)
+        public static IEnumerable<GamerViewModel> MapToGamerList(IEnumerable<Gamer> gamerList)
         {
-            return gamerList.Select(x => MapToGamerViewModel(x, currentGamerId)).ToList();
+            return gamerList.Select(x => MapToGamerViewModel(x)).ToList();
         }
 
-        public static GamerViewModel MapToGamerViewModel(Gamer gamer, string currentGamerId)
+        public static GamerViewModel MapToGamerViewModel(Gamer gamer)
         {
             if (gamer == null)
             {
@@ -31,8 +31,7 @@ namespace BoardGamesNook.Mappers
                     Email = gamer.Email,
                     Age = gamer.Age,
                     City = gamer.City,
-                    Street = gamer.Street,
-                    IsCurrentGamer = currentGamerId == gamer.Id
+                    Street = gamer.Street
                 };
             }
         }

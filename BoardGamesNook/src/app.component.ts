@@ -11,7 +11,7 @@ import { GamerService } from "./gamers/gamer.service";
 })
 export class AppComponent implements OnInit {
     user: User;
-    gamer: Gamer;
+    currentGamer: Gamer;
 
     constructor(
         private userService: UserService,
@@ -25,8 +25,8 @@ export class AppComponent implements OnInit {
             if (this.user != null) {
                 this.gamerService.getByEmail(this.user.Email)
                     .then((gamer: Gamer) => {
-                        this.gamer = gamer;
-                        if (this.gamer == null) {
+                        this.currentGamer = gamer;
+                        if (this.currentGamer == null) {
                             this.router.navigate(["/gamer", "new"]);
                         }
                     });
@@ -36,9 +36,5 @@ export class AppComponent implements OnInit {
 
     logOut(): void {
         this.userService.logOutUser();
-    }
-
-    getCurrentGamer(): void {
-        this.gamerService.getCurrentGamer();
     }
 }

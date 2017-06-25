@@ -20,7 +20,7 @@ export class GamerBoardGameListComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(Number(params["gamerId"])))
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNick"]))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
     }
 
@@ -38,10 +38,10 @@ export class GamerBoardGameListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerId, this.selectedGamerBoardGame.BoardGameId]);
+        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNick, this.selectedGamerBoardGame.BoardGameId]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gamerBoardGame", this.gamerBoardGames[0].GamerId, 0]);
+        this.router.navigate(["/gamerBoardGame", this.gamerBoardGames[0].GamerNick, 0]);
     }
 }

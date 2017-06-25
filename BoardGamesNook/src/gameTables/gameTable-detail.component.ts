@@ -8,6 +8,7 @@ import { GameTable } from "./gameTable";
 
 import { Common } from "./../Common";
 import { TableBoardGame } from "./tableBoardGame";
+import { GamerService } from "../gamers/gamer.service";
 
 @Component({
     selector: "gameTable-detail",
@@ -17,9 +18,11 @@ export class GameTableDetailComponent implements OnInit {
     gameTable: GameTable;
     availableTableBoardGames: TableBoardGame[];
     selectedTableBoardGame: TableBoardGame;
+    isCurrentGamer: boolean = false;
 
     constructor(
         private gameTableService: GameTableService,
+        private gamerService: GamerService,
         private route: ActivatedRoute,
         private location: Location
     ) { }
@@ -30,6 +33,11 @@ export class GameTableDetailComponent implements OnInit {
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
                 this.getAvailableTableBoardGameList(this.gameTable.Id);
+                this.gamerService.getCurrentGamerNick().then(nick => {
+                    if (nick === this.gameTable.GamerNick) {
+                        this.isCurrentGamer = true;
+                    }
+                });
             });
     }
 

@@ -1,62 +1,123 @@
 ﻿<div *ngIf="gameTable">
-    <h2>STÓŁ</h2>
+    <div *ngIf="isCurrentGamer">
+        <h2>STÓŁ</h2>
 
-    <label>Twórca: </label> {{ gameTable.GamerNick }}
-    <div *ngIf="gameTable.TableBoardGameList">
-        <label>Wybrane pozycje:</label>
-        <ul>
-            <li *ngFor="let boardGame of gameTable.TableBoardGameList">
-                <span>{{boardGame.BoardGameName}}</span>
-                <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
-            </li>
-        </ul>
+        <div *ngIf="gameTable.TableBoardGameList">
+            <label>Wybrane pozycje:</label>
+            <ul>
+                <li *ngFor="let boardGame of gameTable.TableBoardGameList">
+                    <span>{{boardGame.BoardGameName}}</span>
+                    <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+                </li>
+            </ul>
+        </div>
+
+        <div hidden>
+            {{ gameTable.Id }}
+        </div>
+        <table>
+            <tr>
+                <td><label>Dodaj grę: </label></td>
+                <td>
+                    <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
+                        <select #selectedTableBoardGame>
+                            <option *ngFor="let tableBoardGame of availableTableBoardGames"
+                                    [value]="tableBoardGame.BoardGameId">
+                                {{tableBoardGame.BoardGameName}}
+                            </option>
+                        </select>
+                        <button class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">Dodaj</button>
+                    </div>
+                    <div *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
+                        Brak dostępnych gier dla tego stołu
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Minimalna liczba graczy: </label></td>
+                <td><input [(ngModel)]="gameTable.MinPlayers" type="number" /></td>
+            </tr>
+            <tr>
+                <td><label>Maksymalna liczba graczy: </label></td>
+                <td><input [(ngModel)]="gameTable.MaxPlayers" type="number" /></td>
+            </tr>
+            <tr>
+                <td><label>Miasto: </label></td>
+                <td><input [(ngModel)]="gameTable.City" type="text" /></td>
+            </tr>
+            <tr>
+                <td><label>Ulica: </label></td>
+                <td><input [(ngModel)]="gameTable.Street" type="text" /></td>
+            </tr>
+            <tr>
+                <td><label>Prywatny: </label></td>
+                <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" /></td>
+            </tr>
+        </table>
+
+        <p>
+            <button class="btn btn-default" (click)="goBack()">Powrót</button>
+            <button class="btn btn-success" (click)="save()">Zapisz</button>
+        </p>
     </div>
 
-    <div hidden>
-        {{ gameTable.Id }}
-    </div>
-    <table>
-        <tr>
-            <td><label>Dodaj grę: </label></td>
-            <td>
-                <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
-                    <select #selectedTableBoardGame>
-                        <option *ngFor="let tableBoardGame of availableTableBoardGames"
-                                [value]="tableBoardGame.BoardGameId">
-                            {{tableBoardGame.BoardGameName}}
-                        </option>
-                    </select>
-                    <button class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">Dodaj</button>
-                </div>
-                <div *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
-                    Brak dostępnych gier dla tego stołu
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Minimalna liczba graczy: </label></td>
-            <td><input [(ngModel)]="gameTable.MinPlayers" type="number" /></td>
-        </tr>
-        <tr>
-            <td><label>Maksymalna liczba graczy: </label></td>
-            <td><input [(ngModel)]="gameTable.MaxPlayers" type="number" /></td>
-        </tr>
-        <tr>
-            <td><label>Miasto: </label></td>
-            <td><input [(ngModel)]="gameTable.City" type="text" /></td>
-        </tr>
-        <tr>
-            <td><label>Ulica: </label></td>
-            <td><input [(ngModel)]="gameTable.Street" type="text" /></td>
-        </tr>
-        <tr>
-            <td><label>Prywatny: </label></td>
-            <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" /></td>
-        </tr>
-    </table>
+    <div *ngIf="!isCurrentGamer">
+        <h2>STÓŁ</h2>
 
-    <p>
-        <button class="btn btn-default" (click)="goBack()">Powrót</button>
-        <button class="btn btn-success" (click)="save()">Zapisz</button>
-    </p>
+        <label>Twórca: </label> {{ gameTable.GamerNick }}
+        <div *ngIf="gameTable.TableBoardGameList">
+            <label>Wybrane pozycje:</label>
+            <ul>
+                <li *ngFor="let boardGame of gameTable.TableBoardGameList">
+                    <span>{{boardGame.BoardGameName}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div hidden>
+            {{ gameTable.Id }}
+        </div>
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
+                        <select #selectedTableBoardGame>
+                            <option *ngFor="let tableBoardGame of availableTableBoardGames"
+                                    [value]="tableBoardGame.BoardGameId">
+                                {{tableBoardGame.BoardGameName}}
+                            </option>
+                        </select>
+                    </div>
+                    <div *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
+                        Brak dostępnych gier dla tego stołu
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Minimalna liczba graczy: </label></td>
+                <td>{{ gameTable.MinPlayers }}</td>
+            </tr>
+            <tr>
+                <td><label>Maksymalna liczba graczy: </label></td>
+                <td>{{ gameTable.MaxPlayers }}</td>
+            </tr>
+            <tr>
+                <td><label>Miasto: </label></td>
+                <td>{{ gameTable.City }}</td>
+            </tr>
+            <tr>
+                <td><label>Ulica: </label></td>
+                <td>{{ gameTable.Street }}</td>
+            </tr>
+            <tr>
+                <td><label>Prywatny: </label></td>
+                <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" readonly="readonly" /></td>
+            </tr>
+        </table>
+
+        <p>
+            <button class="btn btn-default" (click)="goBack()">Powrót</button>
+        </p>
+    </div>
 </div>

@@ -14,6 +14,7 @@ import { Common } from "./../Common";
 })
 export class GamerDetailComponent implements OnInit {
     gamer: Gamer;
+    isCurrentGamer: boolean = false;
 
     constructor(
         private gamerService: GamerService,
@@ -23,15 +24,22 @@ export class GamerDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerService.getGamer(params["id"]))
-            .subscribe((gamer: Gamer) => this.gamer = gamer);
+            .switchMap((params: Params) => this.gamerService.getByNick(params["nick"]))
+            .subscribe((gamer: Gamer) => {
+                this.gamer = gamer;
+                this.gamerService.getCurrentGamerNick().then(nick => {
+                    if (nick === this.gamer.Nick) {
+                        this.isCurrentGamer = true;
+                    }
+                });
+            });
     }
 
     save(): void {
         var loc = this.location;
         this.gamerService.update(this.gamer)
             .then(errorMessage => {
-                if (this.gamer.IsCurrentGamer) {
+                if (this.isCurrentGamer) {
                     new Common().showErrorOrReturn(errorMessage);
                 }
                 else {

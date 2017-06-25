@@ -14,7 +14,8 @@ export class GamerListComponent implements OnInit {
 
     constructor(
         private gamerService: GamerService,
-        private router: Router) { }
+        private router: Router
+    ) { }
 
     ngOnInit(): void {
         this.getGamers();
@@ -27,7 +28,11 @@ export class GamerListComponent implements OnInit {
     getGamers(): void {
         this.gamerService
             .getGamers()
-            .then(gamers => this.gamers = gamers);
+            .then(gamers => {
+                this.gamers = gamers;
+                this.gamerService.getCurrentGamerNick().then(nick =>
+                    this.gamers = this.gamers.filter(x => x.Nick !== nick));
+            });
     }
 
     delete(gamer: Gamer): void {
@@ -40,14 +45,14 @@ export class GamerListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamers", this.selectedGamer.Id]);
+        this.router.navigate(["/gamers", this.selectedGamer.Nick]);
     }
 
     gotoGamerBoardGames(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamer.Id]);
+        this.router.navigate(["/gamerBoardGames", this.selectedGamer.Nick]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gamer", 0]);
+        this.router.navigate(["/gamer", "new"]);
     }
 }
