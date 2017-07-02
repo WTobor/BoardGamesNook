@@ -11,7 +11,7 @@ namespace BoardGamesNook.Repository.Interfaces
 
         IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table);
 
-        IEnumerable<GameTable> GetAllByGamerId(string id);
+        IEnumerable<GameTable> GetAllByGamerNick(string nick);
 
         void Add(GameTable gameTable);
 

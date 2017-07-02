@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
@@ -14,20 +14,19 @@ export class BoardGameListComponent implements OnInit {
 
     constructor(
         private boardGameService: BoardGameService,
+        private route: ActivatedRoute,
         private router: Router) { }
 
     ngOnInit(): void {
-        this.getBoardGames();
+        this.route.params
+            .switchMap((params: Params) => this.boardGameService.getBoardGames())
+            .subscribe((boardGameList: BoardGame[]) => {
+                this.boardGames = boardGameList;
+            });
     }
 
     onSelect(boardGame: BoardGame): void {
         this.selectedBoardGame = boardGame;
-    }
-
-    getBoardGames(): void {
-        this.boardGameService
-            .getBoardGames()
-            .then(boardGames => this.boardGames = boardGames);
     }
 
     delete(boardGame: BoardGame): void {

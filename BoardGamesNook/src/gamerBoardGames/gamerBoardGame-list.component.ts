@@ -11,7 +11,7 @@ import { GamerBoardGame } from "./gamerBoardGame";
 export class GamerBoardGameListComponent implements OnInit {
     gamerBoardGames: GamerBoardGame[];
     selectedGamerBoardGame: GamerBoardGame;
-    selectedGamerId: number;
+    selectedGamerNick: string;
 
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
@@ -22,6 +22,9 @@ export class GamerBoardGameListComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNick"]))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
+
+        this.route.params
+            .subscribe((params: Params) => this.selectedGamerNick = params["gamerNick"]);
     }
 
     onSelect(gamerBoardGame: GamerBoardGame): void {
@@ -42,6 +45,6 @@ export class GamerBoardGameListComponent implements OnInit {
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gamerBoardGame", this.gamerBoardGames[0].GamerNick, 0]);
+        this.router.navigate(["/gamerBoardGame", this.selectedGamerNick, "new" ]);
     }
 }

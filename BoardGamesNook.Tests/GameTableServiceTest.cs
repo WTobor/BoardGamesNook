@@ -19,7 +19,7 @@ namespace BoardGamesNook.Tests
             var gameTableService = new GameTableService(new GameTableRepository());
             var generatedGameTablesCount = GameTableGenerator.gameTables.Count;
             //Act
-            var GameTables = gameTableService.GetAll();
+            var GameTables = gameTableService.GetAllByGamerNick("");
             //Assert
             Assert.AreEqual(generatedGameTablesCount, GameTables.Count());
         }
@@ -33,11 +33,11 @@ namespace BoardGamesNook.Tests
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
             //Act
             gameTableService.Add(GetTestGameTable());
-            var GameTables = gameTableService.GetAll();
+            var GameTables = gameTableService.GetAllByGamerNick("");
             //Assert
             Assert.AreEqual(generatedGameTablesCount + 1, GameTables.Count());
         }
-        
+
         [TestMethod]
         public void GetAvailableTableBoardGameList()
         {
@@ -93,7 +93,7 @@ namespace BoardGamesNook.Tests
             //Act
             gameTableService.Add(GetTestGameTable());
             gameTableService.Delete(newGameTableId);
-            var gameTables = gameTableService.GetAll();
+            var gameTables = gameTableService.GetAllByGamerNick("");
             //Assert
             Assert.AreEqual(generatedGameTablesCount, gameTables.Count());
         }

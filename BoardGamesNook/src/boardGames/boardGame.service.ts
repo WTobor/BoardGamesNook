@@ -11,7 +11,7 @@ import { Common } from "./../Common";
 export class BoardGameService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getBoardGameUrl = "BoardGame/Get";
-    private _getBoardGameListUrl = "BoardGame/GetAll";
+    private _getBoardGameListkUrl = "BoardGame/GetAll";
     private _addBoardGameUrl = "BoardGame/Add";
     private _addBoardGameByIdUrl = "BoardGame/AddById";
     private _editBoardGameUrl = "BoardGame/Edit";
@@ -20,11 +20,10 @@ export class BoardGameService {
     constructor(private http: Http) { }
 
     getBoardGames(): Promise<BoardGame[]> {
-        const url = `${this._getBoardGameListUrl}`;
+        const url = `${this._getBoardGameListkUrl}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
-                console.log(response.json());
                 return response.json() as BoardGame[];
             })
             .catch(ex => { return new Common(null).handleError(ex); });
@@ -76,5 +75,5 @@ export class BoardGameService {
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex); });
-    }  
+    }
 }

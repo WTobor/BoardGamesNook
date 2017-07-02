@@ -24,7 +24,6 @@ export class GamerBoardGameService {
         return this.http.get(url)
             .toPromise()
             .then(response => {
-                console.log(response.json());
                 return response.json() as GamerBoardGame[];
             })
             .catch(ex => { return new Common().handleError(ex); });
@@ -47,7 +46,7 @@ export class GamerBoardGameService {
 
     getGamerAvailableBoardGames(gamerNick: string): Promise<GamerBoardGame[]> {
         const url = `${this._getGamerAvailableBoardGamesUrl}/${gamerNick}`;
-        return this.http.get(url)
+        return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.json() as GamerBoardGame[]; })
             .catch(ex => { return new Common().handleError(ex); });

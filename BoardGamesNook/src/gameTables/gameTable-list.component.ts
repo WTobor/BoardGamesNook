@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
@@ -14,20 +14,19 @@ export class GameTableListComponent implements OnInit {
 
     constructor(
         private gameTableService: GameTableService,
+        private route: ActivatedRoute,
         private router: Router) { }
 
     ngOnInit(): void {
-        this.getGameTables();
+        this.route.params
+            .switchMap((params: Params) => this.gameTableService.getGameTablesByGamerNick(params["gamerNick"]))
+            .subscribe((gameTableList: GameTable[]) => {
+                this.gameTables = gameTableList;
+            });
     }
 
     onSelect(gameTable: GameTable): void {
         this.selectedGameTable = gameTable;
-    }
-
-    getGameTables(): void {
-        this.gameTableService
-            .getGameTables()
-            .then(gameTables => this.gameTables = gameTables);
     }
 
     delete(gameTable: GameTable): void {

@@ -12,7 +12,7 @@ import { TableBoardGame } from "./tableBoardGame";
 export class GameTableService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getGameTableUrl = "GameTable/Get";
-    private _getGameTableListUrl = "GameTable/GetAll";
+    private _getGameTableListByGamerNickUrl = "GameTable/GetAllByGamerNick";
     private _getAvailableTableBoardGameListUrl = "GameTable/GetAvailableTableBoardGameList";
     private _addGameTableUrl = "GameTable/Add";
     private _editGameTableUrl = "GameTable/Edit";
@@ -31,13 +31,12 @@ export class GameTableService {
             .catch(ex => { return new Common().handleError(ex); });
     }
 
-    getGameTables(): Promise<GameTable[]> {
-        const url = `${this._getGameTableListUrl}`;
+    getGameTablesByGamerNick(gamerNick: string): Promise<GameTable[]> {
+        const url = `${this._getGameTableListByGamerNickUrl}/${gamerNick}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
-                console.log(response.json());
-                 return response.json() as GameTable[];
+                return response.json() as GameTable[];
             })
             .catch(ex => { return new Common().handleError(ex); });
     }
@@ -71,7 +70,7 @@ export class GameTableService {
     update(gameTable: GameTable): Promise<string> {
         const url = `${this._editGameTableUrl}`;
         return this.http
-            .post(url, JSON.stringify(gameTable) , { headers: this.headers })
+            .post(url, JSON.stringify(gameTable), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(ex => { return new Common().handleError(ex); });
