@@ -7,7 +7,7 @@ namespace BoardGamesNook.Repository.Generators
     {
         public static BoardGame boardGame1 = new BoardGame()
         {
-            Id = 1,
+            Id = 150,
             Name = "Osadnicy z Catanu",
             Description = "Opis gry Osadnicy z Catanu",
             MinPlayers = 3,
@@ -25,7 +25,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static BoardGame boardGame2 = new BoardGame()
         {
-            Id = 2,
+            Id = 151,
             Name = "Dixit",
             Description = "Opis gry Dixit",
             MinPlayers = 3,
@@ -43,7 +43,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static BoardGame boardGame3 = new BoardGame()
         {
-            Id = 3,
+            Id = 152,
             Name = "Terra Mystica",
             Description = "Opis gry Terra Mystica",
             MinPlayers = 2,

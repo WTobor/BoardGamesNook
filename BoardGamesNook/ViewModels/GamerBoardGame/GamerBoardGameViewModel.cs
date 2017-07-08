@@ -2,6 +2,7 @@
 {
     public class GamerBoardGameViewModel
     {
+        public int Id { get; set; }
         public string GamerId { get; set; }
         public string GamerNick { get; set; }
         public int BoardGameId { get; set; }

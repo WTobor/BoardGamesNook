@@ -11,6 +11,7 @@ import { Gamer } from "./gamer";
 export class GamerListComponent implements OnInit {
     gamers: Gamer[];
     selectedGamer: Gamer;
+    isAdmin: boolean = false;
 
     constructor(
         private gamerService: GamerService,
@@ -50,9 +51,5 @@ export class GamerListComponent implements OnInit {
 
     gotoGamerBoardGames(): void {
         this.router.navigate(["/gamerBoardGames", this.selectedGamer.Nick]);
-    }
-
-    gotoAdd(): void {
-        this.router.navigate(["/gamer", "new"]);
     }
 }

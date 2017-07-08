@@ -11,7 +11,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true,
             GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
-            BoardGameId = 1,
+            BoardGameId = BoardGameGenerator.boardGame1.Id,
             BoardGame = BoardGameGenerator.boardGame1
         };
 
@@ -21,7 +21,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true,
             GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
-            BoardGameId = 2,
+            BoardGameId = BoardGameGenerator.boardGame2.Id,
             BoardGame = BoardGameGenerator.boardGame2
         };
 
@@ -31,7 +31,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true,
             GamerId = GamerGenerator.gamer2.Id,
             Gamer = GamerGenerator.gamer2,
-            BoardGameId = 2,
+            BoardGameId = BoardGameGenerator.boardGame2.Id,
             BoardGame = BoardGameGenerator.boardGame2
         };
 

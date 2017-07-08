@@ -16,6 +16,7 @@ namespace BoardGamesNook.Mappers
         {
             return new GamerBoardGameViewModel()
             {
+                Id = gamerBoardGame.Id,
                 BoardGameId = gamerBoardGame.BoardGameId,
                 GamerId = gamerBoardGame.GamerId,
                 BGGId = gamerBoardGame.BoardGame.BGGId,

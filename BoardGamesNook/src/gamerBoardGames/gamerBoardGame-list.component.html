@@ -4,13 +4,16 @@
     <br />
     <ul>
         <li *ngFor="let gamerBoardGame of gamerBoardGames" (click)="onSelect(gamerBoardGame)">
-            <span class="hidden">{{ gamerBoardGame.BoardGameId }}</span>
+            <span class="hidden">{{ gamerBoardGame.Id }}</span>
             <span>{{ gamerBoardGame.BoardGameName }}</span>
-            <button (click)="delete(gamerBoardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+            <div *ngIf="isCurrentGamer">
+                <button (click)="delete(gamerBoardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+            </div>
         </li>
     </ul>
-
-    <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę dla gracza</button>
+    <div *ngIf="isCurrentGamer">
+        <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>
+    </div>
     <div *ngIf="selectedGamerBoardGame">
         <h2>
             <a href="https://boardgamegeek.com/boardgame/{{selectedGamerBoardGame.BGGId}}" target="_blank"><img src="{{selectedGamerBoardGame.ImageUrl}}" /></a>

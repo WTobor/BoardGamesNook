@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 
 import { GamerBoardGameService } from "./gamerBoardGame.service";
 import { GamerBoardGame } from "./gamerBoardGame";
+import { GamerService } from "../gamers/gamer.service";
 
 @Component({
     selector: "gamerBoardGame-list",
@@ -12,9 +13,11 @@ export class GamerBoardGameListComponent implements OnInit {
     gamerBoardGames: GamerBoardGame[];
     selectedGamerBoardGame: GamerBoardGame;
     selectedGamerNick: string;
+    isCurrentGamer: boolean = false;
 
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
+        private gamerService: GamerService,
         private route: ActivatedRoute,
         private router: Router) { }
 
@@ -24,7 +27,14 @@ export class GamerBoardGameListComponent implements OnInit {
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
 
         this.route.params
-            .subscribe((params: Params) => this.selectedGamerNick = params["gamerNick"]);
+            .subscribe((params: Params) => {
+                this.selectedGamerNick = params["gamerNick"];
+                this.gamerService.getCurrentGamerNick().then(nick => {
+                    if (nick === this.selectedGamerNick) {
+                        this.isCurrentGamer = true;
+                    }
+                });
+            });
     }
 
     onSelect(gamerBoardGame: GamerBoardGame): void {
@@ -41,10 +51,10 @@ export class GamerBoardGameListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNick, this.selectedGamerBoardGame.BoardGameId]);
+        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNick, this.selectedGamerBoardGame.Id]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gamerBoardGame", this.selectedGamerNick, "new" ]);
+        this.router.navigate(["/gamerBoardGame", this.selectedGamerNick, "new"]);
     }
 }

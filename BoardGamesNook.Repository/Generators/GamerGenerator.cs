@@ -10,12 +10,12 @@ namespace BoardGamesNook.Repository.Generators
             Id = "aaaa",
             Active = true,
             Age = 5,
-            Nick = "testNick",
+            Nick = "programmer-girl",
             Name = "testName",
             Surname = "testSurname",
             City = "Wroc³aw",
             Street = "tmp",
-            Email = "test1@test.pl"
+            Email = "wero15@op.pl"
         };
 
         public static Gamer gamer2 = new Gamer()

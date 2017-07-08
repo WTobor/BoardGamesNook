@@ -5,11 +5,12 @@
     <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
         <span class="hidden">{{ gamer.Id }}</span>
         <span>{{ gamer.Nick }}</span>
-        <button (click)="delete(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
-    </li>
+        <div *ngIf="isAdmin">
+            <button (click)="delete(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
+        </div>
+</li>
 </ul>
 
-<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nowego gracza</button>
 <div *ngIf="selectedGamer">
     <h2>
         gracz ma na imię {{selectedGamer.Name | uppercase}}

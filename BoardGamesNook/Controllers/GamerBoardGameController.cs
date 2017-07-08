@@ -20,19 +20,23 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             var gamerBoardGame = gamerBoardGameService.Get(id);
+            if (gamerBoardGame == null)
+            {
+                return Json("Nie znaleziono gry dla gracza", JsonRequestBehavior.AllowGet);
+            }
             var gamerBoardGameViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModel(gamerBoardGame);
 
             return Json(gamerBoardGameViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAllByGamerNick(string gamerNick)
+        public JsonResult GetAllByGamerNick(string id)
         {
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
-            var gamerList = gamerBoardGameService.GetAllByGamerNick(gamerNick);
+            var gamerList = gamerBoardGameService.GetAllByGamerNick(id);
             var gamerListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerList);
 
             return Json(gamerListViewModel, JsonRequestBehavior.AllowGet);
