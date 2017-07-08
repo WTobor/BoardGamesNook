@@ -49,9 +49,9 @@ namespace BoardGamesNook.Services
             _gamerRepository.Edit(gamer);
         }
 
-        public void Delete(string id)
+        public void Deactivate(string id)
         {
-            _gamerRepository.Delete(id);
+            _gamerRepository.Deactivate(id);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace BoardGamesNook.Repository.Generators
     {
         public static GameTable gameTable1 = new GameTable()
         {
-            Id = 1,
+            Id = 300,
             CreatedDate = DateTimeOffset.UtcNow,
             CreatedGamerId = GamerGenerator.gamer1.Id,
             CreatedGamer = GamerGenerator.gamer1,
@@ -28,7 +28,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static GameTable gameTable2 = new GameTable()
         {
-            Id = 2,
+            Id = 301,
             CreatedDate = DateTimeOffset.UtcNow,
             CreatedGamerId = GamerGenerator.gamer2.Id,
             CreatedGamer = GamerGenerator.gamer2,
@@ -49,7 +49,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static GameTable gameTable3 = new GameTable()
         {
-            Id = 3,
+            Id = 302,
             CreatedDate = DateTimeOffset.UtcNow,
             CreatedGamerId = GamerGenerator.gamer1.Id,
             CreatedGamer = GamerGenerator.gamer1,

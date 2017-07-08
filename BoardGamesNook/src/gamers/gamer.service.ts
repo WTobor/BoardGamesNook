@@ -16,7 +16,7 @@ export class GamerService {
     private _getGamerListUrl = "Gamer/GetAll";
     private _addGamerUrl = "Gamer/Add";
     private _editGamerUrl = "Gamer/Edit";
-    private _deleteGamerUrl = "Gamer/Delete";
+    private _deactivateGamerUrl = "Gamer/Deactivate";
 
     constructor(private http: Http) { }
 
@@ -84,8 +84,8 @@ export class GamerService {
         }
     }
 
-    delete(id: string): Promise<string> {
-        const url = `${this._deleteGamerUrl}/${id}`;
+    deactivate(id: string): Promise<string> {
+        const url = `${this._deactivateGamerUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })

@@ -42,7 +42,7 @@ namespace BoardGamesNook.Repository
 
         public void Delete(int id)
         {
-            var gamerBoardGame = _gamerBoardGames.Where(x => x.BoardGameId == id).FirstOrDefault();
+            var gamerBoardGame = _gamerBoardGames.Where(x => x.Id == id).FirstOrDefault();
             if (gamerBoardGame != null)
             {
                 _gamerBoardGames.Remove(gamerBoardGame);

@@ -32,10 +32,10 @@ namespace BoardGamesNook.Repository
             return availableTableBoardGameList;
         }
 
-        public IEnumerable<GameTable> GetAllByGamerNick(string gamerId)
+        public IEnumerable<GameTable> GetAllByGamerNick(string gamerNick)
         {
             //temporaty solution, when no users
-            return _gameTables.Where(x => x.CreatedGamerId == gamerId).ToList();
+            return _gameTables.Where(x => x.CreatedGamer.Nick == gamerNick).ToList();
         }
 
         public void Add(GameTable gameTable)

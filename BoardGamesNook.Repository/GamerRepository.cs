@@ -50,12 +50,12 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void Delete(string id)
+        public void Deactivate(string id)
         {
             var gamer = _gamers.Where(x => x.Id == id).FirstOrDefault();
             if (gamer != null)
             {
-                _gamers.Remove(gamer);
+                gamer.Active = false;
             }
         }
     }

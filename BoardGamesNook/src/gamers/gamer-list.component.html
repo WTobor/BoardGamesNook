@@ -6,9 +6,9 @@
         <span class="hidden">{{ gamer.Id }}</span>
         <span>{{ gamer.Nick }}</span>
         <div *ngIf="isAdmin">
-            <button (click)="delete(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
+            <button (click)="deactivate(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
         </div>
-</li>
+    </li>
 </ul>
 
 <div *ngIf="selectedGamer">

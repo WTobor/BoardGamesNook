@@ -29,8 +29,9 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
             var generatedGamersCount = GamerGenerator.gamers.Count;
+            var newGamerId = Guid.NewGuid().ToString();
             //Act
-            gamerService.Add(GetTestGamer());
+            gamerService.Add(GetTestGamer(newGamerId));
             var gamers = gamerService.GetAll();
             //Assert
             Assert.AreEqual(generatedGamersCount + 1, gamers.Count());
@@ -41,13 +42,13 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
-            var newGamerId = GamerGenerator.gamers.Max(x => x.Id) + 1;
+            var newGamerId = Guid.NewGuid().ToString();
             //Act
-            gamerService.Add(GetTestGamer());
+            gamerService.Add(GetTestGamer(newGamerId));
             var gamer = gamerService.Get(newGamerId);
+            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
-            Assert.AreEqual(generatedGamersCount + 1, gamer.Id);
+            Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
         }
 
         [TestMethod]
@@ -55,12 +56,14 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
+            var newGamerId = Guid.NewGuid().ToString();
             //Act
-            gamerService.Add(GetTestGamer());
-            var gamer = gamerService.GetByEmail(GetTestGamer().Email);
+            var testGamer = GetTestGamer(newGamerId);
+            gamerService.Add(testGamer);
+            var gamer = gamerService.GetByEmail(testGamer.Email);
+            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
-            Assert.AreEqual(generatedGamersCount + 1, gamer.Id);
+            Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
         }
 
         [TestMethod]
@@ -68,15 +71,16 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
-            var testGamer = GetTestGamer();
+            var newGamerId = Guid.NewGuid().ToString();
+            var testGamer = GetTestGamer(newGamerId);
             var testNick = Guid.NewGuid().ToString();
             testGamer.Nick = testNick;
             //Act
             gamerService.Add(testGamer);
             var gamer = gamerService.GetByNick(testNick);
+            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
-            Assert.AreEqual(generatedGamersCount + 1, gamer.Id);
+            Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
         }
 
         [TestMethod]
@@ -84,11 +88,10 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
-            var newGamerId = GamerGenerator.gamers.Max(x => x.Id) + 1;
+            var newGamerId = Guid.NewGuid().ToString();
             //Act
-            gamerService.Add(GetTestGamer());
-            var nickExists = gamerService.NickExists(GetTestGamer().Nick);
+            gamerService.Add(GetTestGamer(newGamerId));
+            var nickExists = gamerService.NickExists(GetTestGamer(newGamerId)?.Nick);
             //Assert
             Assert.AreEqual(true, nickExists);
         }
@@ -99,9 +102,9 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
             string name = "test2";
-            var newGamerId = GamerGenerator.gamers.Max(x => x.Id) + 1;
+            var newGamerId = Guid.NewGuid().ToString();
             //Act
-            gamerService.Add(GetTestGamer());
+            gamerService.Add(GetTestGamer(newGamerId));
             var gamer = gamerService.Get(newGamerId);
             gamer.Name = name;
             gamerService.Edit(gamer);
@@ -111,26 +114,25 @@ namespace BoardGamesNook.Tests
         }
 
         [TestMethod]
-        public void DeleteGamer()
+        public void DeactivateGamer()
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
             var generatedGamersCount = GamerGenerator.gamers.Count;
-            var newGamerId = Guid.NewGuid();
+            var newGamerId = Guid.NewGuid().ToString();
             //Act
-            gamerService.Add(GetTestGamer());
-            gamerService.Delete(newGamerId.ToString());
-            var gamers = gamerService.GetAll();
+            gamerService.Add(GetTestGamer(newGamerId));
+            gamerService.Deactivate(newGamerId.ToString());
+            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
-            Assert.AreEqual(generatedGamersCount, gamers.Count());
+            Assert.AreEqual(false, lastAddedGamer.Active);
         }
 
-        private static Gamer GetTestGamer()
+        private static Gamer GetTestGamer(string gamerId)
         {
-            var newGamerId = GamerGenerator.gamers.Max(x => x.Id) + 1;
             return new Gamer()
             {
-                Id = newGamerId,
+                Id = gamerId,
                 Nick = "test",
                 Name = "test",
                 Email = "test@test.pl"

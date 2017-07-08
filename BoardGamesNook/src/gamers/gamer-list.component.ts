@@ -36,9 +36,9 @@ export class GamerListComponent implements OnInit {
             });
     }
 
-    delete(gamer: Gamer): void {
+    deactivate(gamer: Gamer): void {
         this.gamerService
-            .delete(gamer.Id)
+            .deactivate(gamer.Id)
             .then(() => {
                 this.gamers = this.gamers.filter(g => g !== gamer);
                 if (this.selectedGamer === gamer) { this.selectedGamer = null; }
