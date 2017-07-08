@@ -24,6 +24,11 @@ namespace BoardGamesNook.Services
             return _gameTableRepository.GetAvailableTableBoardGameList(table);
         }
 
+        public IEnumerable<GameTable> GetAll()
+        {
+            return _gameTableRepository.GetAll();
+        }
+
         public IEnumerable<GameTable> GetAllByGamerNick(string gamerNick)
         {
             return _gameTableRepository.GetAllByGamerNick(gamerNick);

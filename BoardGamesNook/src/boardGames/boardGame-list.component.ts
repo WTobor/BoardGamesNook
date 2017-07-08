@@ -11,6 +11,7 @@ import { BoardGame } from "./BoardGame";
 export class BoardGameListComponent implements OnInit {
     boardGames: BoardGame[];
     selectedBoardGame: BoardGame;
+    isAdmin: boolean = false;
 
     constructor(
         private boardGameService: BoardGameService,

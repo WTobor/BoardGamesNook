@@ -79,22 +79,6 @@
         </div>
         <table>
             <tr>
-                <td></td>
-                <td>
-                    <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
-                        <select #selectedTableBoardGame>
-                            <option *ngFor="let tableBoardGame of availableTableBoardGames"
-                                    [value]="tableBoardGame.BoardGameId">
-                                {{tableBoardGame.BoardGameName}}
-                            </option>
-                        </select>
-                    </div>
-                    <div *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
-                        Brak dostępnych gier dla tego stołu
-                    </div>
-                </td>
-            </tr>
-            <tr>
                 <td><label>Minimalna liczba graczy: </label></td>
                 <td>{{ gameTable.MinPlayers }}</td>
             </tr>
@@ -112,7 +96,7 @@
             </tr>
             <tr>
                 <td><label>Prywatny: </label></td>
-                <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" readonly="readonly" /></td>
+                <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" disabled="true" /></td>
             </tr>
         </table>
 

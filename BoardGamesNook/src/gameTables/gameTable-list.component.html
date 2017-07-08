@@ -19,7 +19,7 @@
     </li>
 </ul>
 
-<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
+<button *ngIf="isCurrentGamer" class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
 <div *ngIf="selectedGameTable">
     <h2>
         Stół gracza {{selectedGameTable.GamerNick | uppercase}}
@@ -35,5 +35,5 @@
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły stołu do gry</button>
     <!--TODO: wypisz się-->
     <!--<button class="btn btn-primary" (click)="gotoJoin()">Dołącz do stołu do gry</button>-->
-    <button class="btn btn-danger" (click)="delete(selectedGameTable); $event.stopPropagation()">Usuń stół</button>
+    <button *ngIf="isCurrentGamer" class="btn btn-danger" (click)="delete(selectedGameTable); $event.stopPropagation()">Usuń stół</button>
 </div>

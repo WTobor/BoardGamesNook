@@ -43,7 +43,7 @@ export class GamerBoardGameListComponent implements OnInit {
 
     delete(gamerBoardGame: GamerBoardGame): void {
         this.gamerBoardGameService
-            .delete(gamerBoardGame.BoardGameId)
+            .delete(gamerBoardGame.Id)
             .then(() => {
                 this.gamerBoardGames = this.gamerBoardGames.filter(g => g !== gamerBoardGame);
                 if (this.selectedGamerBoardGame === gamerBoardGame) { this.selectedGamerBoardGame = null; }

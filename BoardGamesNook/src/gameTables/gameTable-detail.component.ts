@@ -31,13 +31,20 @@ export class GameTableDetailComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.gameTableService.getGameTable(Number(params["id"])))
             .subscribe((gameTable: GameTable) => {
+                debugger
                 this.gameTable = gameTable;
-                this.getAvailableTableBoardGameList(this.gameTable.Id);
-                this.gamerService.getCurrentGamerNick().then(nick => {
-                    if (nick === this.gameTable.GamerNick) {
-                        this.isCurrentGamer = true;
-                    }
-                });
+                if (this.gameTable.Id == undefined) {
+                    this.getAvailableTableBoardGameList(0);
+                    this.isCurrentGamer = true;
+                }
+                else {
+                    this.getAvailableTableBoardGameList(this.gameTable.Id);
+                    this.gamerService.getCurrentGamerNick().then(nick => {
+                        if (nick === this.gameTable.GamerNick) {
+                            this.isCurrentGamer = true;
+                        }
+                    });
+                }
             });
     }
 
@@ -66,7 +73,7 @@ export class GameTableDetailComponent implements OnInit {
 
     save(): void {
         var loc = this.location;
-        if (this.gameTable.Id === 0) {
+        if (this.gameTable.Id === undefined) {
             this.gameTableService.create(this.gameTable)
                 .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
         }

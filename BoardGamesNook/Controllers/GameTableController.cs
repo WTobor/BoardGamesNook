@@ -20,10 +20,14 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult Get(int id)
         {
+            Gamer gamer = Session["gamer"] as Gamer;
+            if (gamer == null)
+            {
+                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+            }
             var gameTable = new GameTable();
-            //temporary solution
-            gameTable.CreatedGamer = GamerGenerator.gamer1;
-            gameTable.CreatedGamerId = GamerGenerator.gamer1.Id;
+            gameTable.CreatedGamer = gamer;
+            gameTable.CreatedGamerId = gamer.Id;
             if (id > 0)
             {
                 gameTable = gameTableService.Get(id);
@@ -35,13 +39,17 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAvailableTableBoardGameList(int id)
         {
+            Gamer gamer = Session["gamer"] as Gamer;
+            if (gamer == null)
+            {
+                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+            }
             var gameTable = gameTableService.Get(id);
             if (gameTable == null)
             {
                 gameTable = new GameTable();
-                //temporary solution
-                gameTable.CreatedGamer = GamerGenerator.gamer1;
-                gameTable.CreatedGamerId = GamerGenerator.gamer1.Id;
+                gameTable.CreatedGamer = gamer;
+                gameTable.CreatedGamerId = gamer.Id;
             }
             var availableTableBoardGameList = gameTableService.GetAvailableTableBoardGameList(gameTable);
             var availableTableBoardGameListViewModel = GameTableMapper.MapToTableBoardGameViewModelList(availableTableBoardGameList, gameTable);
@@ -49,10 +57,18 @@ namespace BoardGamesNook.Controllers
             return Json(availableTableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAllByGamerNick(string gamerNick)
+        public JsonResult GetAll()
         {
-            var gameTableList = gameTableService.GetAllByGamerNick(gamerNick);
-            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList, gamerNick);
+            var gameTableList = gameTableService.GetAll();
+            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList);
+
+            return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllByGamerNick(string id)
+        {
+            var gameTableList = gameTableService.GetAllByGamerNick(id);
+            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList, id);
 
             return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -60,6 +76,12 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(GameTableViewModel model)
         {
+            Gamer gamer = Session["gamer"] as Gamer;
+            if (gamer == null)
+            {
+                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+            }
+
             GameTable gameTable = new GameTable()
             {
                 City = model.City,
@@ -68,9 +90,9 @@ namespace BoardGamesNook.Controllers
                 MinPlayersNumber = model.MinPlayers,
                 MaxPlayersNumber = model.MaxPlayers,
                 IsFull = false,
-                Id = gameTableService.GetAllByGamerNick("").Select(x => x.Id).LastOrDefault() + 1,
-                CreatedGamerId = model.GamerId,
-                CreatedGamer = gamerService.Get(model.GamerId),
+                Id = gameTableService.GetAllByGamerNick(gamer.Nick).Select(x => x.Id).LastOrDefault() + 1,
+                CreatedGamerId = gamer.Id,
+                CreatedGamer = gamer,
                 CreatedDate = DateTimeOffset.Now
             };
             var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
@@ -88,9 +110,6 @@ namespace BoardGamesNook.Controllers
                     return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId, JsonRequestBehavior.AllowGet);
                 }
             }
-
-            gameTable.CreatedDate = DateTimeOffset.Now;
-            gameTable.CreatedGamerId = GetCurrentGamerId();
 
             gameTableService.Add(gameTable);
 

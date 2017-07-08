@@ -12,6 +12,7 @@ import { TableBoardGame } from "./tableBoardGame";
 export class GameTableService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getGameTableUrl = "GameTable/Get";
+    private _getGameTableListUrl = "GameTable/GetAll";
     private _getGameTableListByGamerNickUrl = "GameTable/GetAllByGamerNick";
     private _getAvailableTableBoardGameListUrl = "GameTable/GetAvailableTableBoardGameList";
     private _addGameTableUrl = "GameTable/Add";
@@ -32,7 +33,11 @@ export class GameTableService {
     }
 
     getGameTablesByGamerNick(gamerNick: string): Promise<GameTable[]> {
-        const url = `${this._getGameTableListByGamerNickUrl}/${gamerNick}`;
+        var url = `${this._getGameTableListUrl}`;
+        if (gamerNick != null && gamerNick !== "") {
+            url = `${this._getGameTableListByGamerNickUrl}/${gamerNick}`;
+        };
+        
         return this.http.get(url)
             .toPromise()
             .then(response => {
@@ -42,11 +47,18 @@ export class GameTableService {
     }
 
     getGameTable(id: number): Promise<GameTable> {
-        const url = `${this._getGameTableUrl}/${id}`;
-        return this.http.get(url)
-            .toPromise()
-            .then(response => { return response.json() as GameTable; })
-            .catch(ex => { return new Common().handleError(ex); });
+        if (id > 0) {
+            const url = `${this._getGameTableUrl}/${id}`;
+            return this.http.get(url)
+                .toPromise()
+                .then(response => { return response.json() as GameTable; })
+                .catch(ex => { return new Common().handleError(ex); });
+        }
+        else {
+            var response = new GameTable;
+            return new Promise((resolve) => { resolve(response); })
+                .then(response => { return response; });
+        }
     }
 
     delete(id: number): Promise<string> {

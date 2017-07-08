@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
+import {GamerService} from "../gamers/gamer.service";
 
 @Component({
     selector: "gameTable-list",
@@ -11,9 +12,12 @@ import { GameTable } from "./gameTable";
 export class GameTableListComponent implements OnInit {
     gameTables: GameTable[];
     selectedGameTable: GameTable;
+    selectedGamerNick: string;
+    isCurrentGamer: boolean = false;
 
     constructor(
         private gameTableService: GameTableService,
+        private gamerService: GamerService,
         private route: ActivatedRoute,
         private router: Router) { }
 
@@ -22,6 +26,16 @@ export class GameTableListComponent implements OnInit {
             .switchMap((params: Params) => this.gameTableService.getGameTablesByGamerNick(params["gamerNick"]))
             .subscribe((gameTableList: GameTable[]) => {
                 this.gameTables = gameTableList;
+            });
+
+        this.route.params
+            .subscribe((params: Params) => {
+                this.selectedGamerNick = params["gamerNick"];
+                this.gamerService.getCurrentGamerNick().then(nick => {
+                    if (nick === this.selectedGamerNick) {
+                        this.isCurrentGamer = true;
+                    }
+                });
             });
     }
 
@@ -39,7 +53,7 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gameTables", this.selectedGameTable.Id]);
+        this.router.navigate(["/gameTable", this.selectedGameTable.Id]);
     }
 
     gotoGameTableBoardGames(): void {
@@ -47,6 +61,6 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gameTables", 0]);
+        this.router.navigate(["/gameTable", 0]);
     }
 }
