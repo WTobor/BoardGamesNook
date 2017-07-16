@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BoardGamesNook.Model;
+using BoardGamesNook.Repository.Generators.Constants;
 
 namespace BoardGamesNook.Repository.Generators
 {
@@ -15,6 +16,7 @@ namespace BoardGamesNook.Repository.Generators
             GameTable = GameTableGenerator.gameTable1,
             GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
+            Status = (int)Enums.GameParticipationStatuses.Yes,
             IsConfirmed = false,
             Active = true
         };
@@ -24,10 +26,11 @@ namespace BoardGamesNook.Repository.Generators
             Id = 2,
             CreatedDate = DateTimeOffset.UtcNow,
             CreatedGamerId = GamerGenerator.gamer2.Id,
-            GameTableId = GameTableGenerator.gameTable2.Id,
-            GameTable = GameTableGenerator.gameTable2,
+            GameTableId = GameTableGenerator.gameTable1.Id,
+            GameTable = GameTableGenerator.gameTable1,
             GamerId = GamerGenerator.gamer2.Id,
             Gamer = GamerGenerator.gamer2,
+            Status = (int)Enums.GameParticipationStatuses.No,
             IsConfirmed = false,
             Active = true
         };
@@ -37,10 +40,11 @@ namespace BoardGamesNook.Repository.Generators
             Id = 3,
             CreatedDate = DateTimeOffset.UtcNow,
             CreatedGamerId = GamerGenerator.gamer1.Id,
-            GameTableId = GameTableGenerator.gameTable3.Id,
-            GameTable = GameTableGenerator.gameTable3,
+            GameTableId = GameTableGenerator.gameTable2.Id,
+            GameTable = GameTableGenerator.gameTable2,
             GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
+            Status = (int)Enums.GameParticipationStatuses.Maybe,
             IsConfirmed = false,
             Active = true
         };

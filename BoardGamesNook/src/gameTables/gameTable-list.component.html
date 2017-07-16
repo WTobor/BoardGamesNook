@@ -34,6 +34,6 @@
     </div>
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły stołu do gry</button>
     <!--TODO: wypisz się-->
-    <!--<button class="btn btn-primary" (click)="gotoJoin()">Dołącz do stołu do gry</button>-->
+    <button *ngIf="!isCurrentGamer" class="btn btn-primary" (click)="gotoJoin()">Dołącz do stołu do gry</button>
     <button *ngIf="isCurrentGamer" class="btn btn-danger" (click)="delete(selectedGameTable); $event.stopPropagation()">Usuń stół</button>
 </div>

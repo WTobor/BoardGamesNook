@@ -22,7 +22,7 @@ namespace BoardGamesNook.Repository.Generators
             },
             MinPlayersNumber = 2,
             MaxPlayersNumber = 4,
-            GameParticipationInfo = null,
+            GameParticipations = null,
             Active = true
         };
 
@@ -43,7 +43,7 @@ namespace BoardGamesNook.Repository.Generators
             },
             MinPlayersNumber = 2,
             MaxPlayersNumber = 4,
-            GameParticipationInfo = null,
+            GameParticipations = null,
             Active = true
         };
 
@@ -60,7 +60,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGames = null,
             MinPlayersNumber = 2,
             MaxPlayersNumber = 2,
-            GameParticipationInfo = null,
+            GameParticipations = null,
             Active = true
         };
 

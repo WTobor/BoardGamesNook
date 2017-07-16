@@ -20,6 +20,6 @@ namespace BoardGamesNook.Model
         public string Street { get; set; }
         public bool Active { get; set; }
         public List<BoardGame> BoardGames { get; set; }
-        public List<GameParticipation> GameParticipationInfo { get; set; }
+        public List<GameParticipation> GameParticipations { get; set; }
     }
 }

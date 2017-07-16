@@ -45,11 +45,13 @@
     <Compile Include="Generators\BoardGameGenerator.cs" />
     <Compile Include="BoardGameRepository.cs" />
     <Compile Include="GamerBoardGameRepository.cs" />
+    <Compile Include="Generators\Constants\Enums.cs" />
     <Compile Include="Generators\GameParticipationGenerator.cs" />
     <Compile Include="Generators\GamerBoardGameGenerator.cs" />
     <Compile Include="Generators\GamerGenerator.cs" />
     <Compile Include="GamerRepository.cs" />
     <Compile Include="Generators\GameTableGenerator.cs" />
+    <Compile Include="Generators\RelationsUpdateGenerator.cs" />
     <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\IBoardGameRepository .cs" />
     <Compile Include="Interfaces\IGameParticipationRepository.cs" />
@@ -60,6 +62,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BoardGameGeekIntegration\BoardGameGeekIntegration.csproj">
+      <Project>{3548FE01-A88F-47DA-ADBE-75271A65B08D}</Project>
+      <Name>BoardGameGeekIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">
       <Project>{0dbd4913-4f0c-4862-8b4d-addf21162e5e}</Project>
       <Name>BoardGamesNook.Model</Name>

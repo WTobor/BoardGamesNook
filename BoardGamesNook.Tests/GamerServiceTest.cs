@@ -135,7 +135,7 @@ namespace BoardGamesNook.Tests
                 Id = gamerId,
                 Nick = "test",
                 Name = "test",
-                Email = "test@test.pl"
+                Email = $"{gamerId}@test.pl"
             };
         }
     }

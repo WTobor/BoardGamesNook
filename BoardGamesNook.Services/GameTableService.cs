@@ -44,6 +44,11 @@ namespace BoardGamesNook.Services
             _gameTableRepository.Edit(gameTable);
         }
 
+        public void EditParticipations(List<GameParticipation> gameParticipations)
+        {
+            _gameTableRepository.EditParticipations(gameParticipations);
+        }
+
         public void Delete(int id)
         {
             _gameTableRepository.Delete(id);

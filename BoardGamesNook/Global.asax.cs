@@ -4,6 +4,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using BoardGamesNook.Controllers;
+using BoardGamesNook.Repository.Generators;
 using SimpleAuthentication.Core;
 using SimpleAuthentication.Mvc;
 using SimpleAuthentication.Mvc.Caching;
@@ -28,6 +29,8 @@ namespace BoardGamesNook
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            RelationsUpdateGenerator.FillRelationsForBoardGameTable();
         }
     }
 }

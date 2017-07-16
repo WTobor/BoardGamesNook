@@ -15,6 +15,8 @@ namespace BoardGamesNook.Repository.Interfaces
 
         void Add(GameTable gameTable);
 
+        void EditParticipations(List<GameParticipation> gameParticipations);
+
         void Edit(GameTable gameTable);
 
         void Delete(int id);

@@ -53,6 +53,16 @@ namespace BoardGamesNook.Repository
             }
         }
 
+        public void EditParticipations(List<GameParticipation> gameParticipations)
+        {
+            var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
+            var dbGameTable = Get(gameTableId);
+            if (dbGameTable != null)
+            {
+                dbGameTable.GameParticipations = gameParticipations;
+            }
+        }
+
         public void Delete(int id)
         {
             var gameTable = _gameTables.Where(x => x.Id == id).FirstOrDefault();

@@ -89,6 +89,27 @@ namespace BoardGamesNook.Tests
         }
 
         [TestMethod]
+        public void EditParticipations()
+        {
+            //Arrange
+            var gameTableService = new GameTableService(new GameTableRepository());
+            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+
+            //Act
+            gameTableService.Add(GetTestGameTable(testGamer));
+            var gameTable = gameTableService.Get(newGameTableId);
+
+            var testGameParticipations = GetTestGameParticipations(testGamer, gameTable);
+            gameTableService.EditParticipations(testGameParticipations);
+            var newGameTable = gameTableService.Get(newGameTableId);
+
+            //Assert
+            Assert.AreEqual(testGameParticipations, newGameTable.GameParticipations);
+        }
+
+        [TestMethod]
         public void DeleteGameTable()
         {
             //Arrange
@@ -112,10 +133,27 @@ namespace BoardGamesNook.Tests
             {
                 Id = newGameTableId,
                 BoardGames = new List<BoardGame>(),
-                GameParticipationInfo = null,
+                GameParticipations = null,
                 CreatedGamer = createdGamer,
                 Active = true
             };
+        }
+
+        private static List<GameParticipation> GetTestGameParticipations(Gamer createdGamer, GameTable gameTable)
+        {
+            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            return new List<GameParticipation>()
+            {
+                new GameParticipation()
+                {
+                    Id = newGameParticipationId,
+                    CreatedGamerId = createdGamer.Id,
+                    Gamer = createdGamer,
+                    GameTable = gameTable,
+                    GameTableId = gameTable.Id,
+                    Active = true
+                }
+             };
         }
     }
 }
