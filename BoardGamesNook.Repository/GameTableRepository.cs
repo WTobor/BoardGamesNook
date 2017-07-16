@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
@@ -53,13 +54,16 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void EditParticipations(List<GameParticipation> gameParticipations)
+        public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
         {
             var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
             var dbGameTable = Get(gameTableId);
             if (dbGameTable != null)
             {
                 dbGameTable.GameParticipations = gameParticipations;
+                dbGameTable.ModifiedGamerId = modifiedGamer.Id;
+                dbGameTable.ModifiedGamer = modifiedGamer;
+                dbGameTable.ModifiedDate = DateTimeOffset.Now;
             }
         }
 

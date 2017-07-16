@@ -16,7 +16,7 @@ namespace BoardGamesNook.Controllers
     {
         private GameTableService gameTableService = new GameTableService(new GameTableRepository());
         private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
-        private GamerService gamerService = new GamerService(new GamerRepository());
+        private GameParticipationService gameParticipationService = new GameParticipationService(new GameParticipationRepository());
 
         public JsonResult Get(int id)
         {
@@ -152,6 +152,41 @@ namespace BoardGamesNook.Controllers
             else
             {
                 return Json("Nie znaleziono stołu do gry o Id=" + gameTable.Id, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult EditParticipations(List<GameParticipation> gameParticipations)
+        {
+            Gamer gamer = Session["gamer"] as Gamer;
+            if (gamer == null)
+            {
+                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+            }
+            var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
+            GameTable dbGameTable = gameTableService.Get(gameTableId);
+            if (dbGameTable != null)
+            {
+                foreach (var gameParticipation in gameParticipations)
+                {
+                    var dbGameParticipation = gameParticipationService.Get(gameParticipation.Id);
+                    if (dbGameParticipation != null)
+                    {
+                        gameParticipationService.Edit(gameParticipation);
+                    }
+                    else
+                    {
+                        gameParticipationService.Add(gameParticipation);
+                    }
+                }
+
+                gameTableService.EditParticipations(gameParticipations, gamer);
+
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Nie znaleziono stołu do gry o Id=" + gameTableId, JsonRequestBehavior.AllowGet);
             }
         }
 

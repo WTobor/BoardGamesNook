@@ -230,6 +230,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappers\BoardGameMapper.cs" />
+    <Compile Include="Mappers\GameParticipationMapper.cs" />
     <Compile Include="Mappers\GamerBoardGameMapper.cs" />
     <Compile Include="Mappers\GamerMapper.cs" />
     <Compile Include="Mappers\GameTableMapper.cs" />

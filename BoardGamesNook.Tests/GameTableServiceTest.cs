@@ -102,7 +102,7 @@ namespace BoardGamesNook.Tests
             var gameTable = gameTableService.Get(newGameTableId);
 
             var testGameParticipations = GetTestGameParticipations(testGamer, gameTable);
-            gameTableService.EditParticipations(testGameParticipations);
+            gameTableService.EditParticipations(testGameParticipations, testGamer);
             var newGameTable = gameTableService.Get(newGameTableId);
 
             //Assert

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using BoardGamesNook.Mappers;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
@@ -15,42 +15,46 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             var gameParticipation = gameParticipationService.Get(id);
-            return Json(gameParticipation, JsonRequestBehavior.AllowGet);
+            var gameParticipationViewModel = GameParticipationMapper.MapToGameParticipationViewModel(gameParticipation);
+            return Json(gameParticipationViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
             var gameParticipationList = gameParticipationService.GetAll();
-            return Json(gameParticipationList, JsonRequestBehavior.AllowGet);
+            var gameParticipationViewModelList = GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
+            return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllByTableId(int id)
         {
             var gameParticipationList = gameParticipationService.GetAllByTableId(id);
-            return Json(gameParticipationList, JsonRequestBehavior.AllowGet);
+            var gameParticipationViewModelList = GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
+            return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Add(string name)
+        public JsonResult Add(GameParticipationViewModel gameParticipation)
         {
-            //...
+            var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipation);
+            gameParticipationService.Add(dbGameParticipation);
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult Edit(GameParticipationViewModel gameParticipation)
         {
-            GameParticipation dbGameParticipation = gameParticipationService.Get(gameParticipation.Id);
-            if (dbGameParticipation != null)
+            GameParticipation orgGameParticipation = gameParticipationService.Get(gameParticipation.Id);
+            if (orgGameParticipation != null)
             {
-                //...
-                dbGameParticipation.ModifiedDate = DateTimeOffset.Now;
+                var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipation);
+                gameParticipationService.Edit(dbGameParticipation);
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json("Nie znaleziono uczestnika o Id=" + gameParticipation.Id, JsonRequestBehavior.AllowGet);
+                return Json("Nie znaleziono uczestnika gry o Id=" + gameParticipation.Id, JsonRequestBehavior.AllowGet);
             }
         }
 
