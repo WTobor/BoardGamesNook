@@ -40,10 +40,10 @@ export class BoardGameListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/boardGames", this.selectedBoardGame.Id]);
+        this.router.navigate(["/boardgames", this.selectedBoardGame.Id]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/boardGame", 0]);
+        this.router.navigate(["/boardgame", 0]);
     }
 }

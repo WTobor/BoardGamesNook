@@ -6,9 +6,9 @@ import { BoardGameDetailComponent } from "./BoardGame-detail.component";
 import { BoardGameAddComponent } from "./BoardGame-add.component";
 
 const boardGamesRoutes: Routes = [
-    { path: "boardGames", component: BoardGameListComponent },
-    { path: "boardGame/0", component: BoardGameAddComponent },
-    { path: "boardGames/:id", component: BoardGameDetailComponent }
+    { path: "boardgames", component: BoardGameListComponent },
+    { path: "boardgame/0", component: BoardGameAddComponent },
+    { path: "boardgames/:id", component: BoardGameDetailComponent }
 ];
 
 @NgModule({

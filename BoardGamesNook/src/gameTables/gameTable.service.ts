@@ -11,13 +11,13 @@ import { TableBoardGame } from "./tableBoardGame";
 @Injectable()
 export class GameTableService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private _getGameTableUrl = "GameTable/Get";
-    private _getGameTableListUrl = "GameTable/GetAll";
-    private _getGameTableListByGamerNickUrl = "GameTable/GetAllByGamerNick";
-    private _getAvailableTableBoardGameListUrl = "GameTable/GetAvailableTableBoardGameList";
-    private _addGameTableUrl = "GameTable/Add";
-    private _editGameTableUrl = "GameTable/Edit";
-    private _deleteGameTableUrl = "GameTable/Delete";
+    private _getGameTableUrl = "gametable/Get";
+    private _getGameTableListUrl = "gametable/GetAll";
+    private _getGameTableListByGamerNickUrl = "gametable/GetAllByGamerNick";
+    private _getAvailableTableBoardGameListUrl = "gametable/GetAvailableTableBoardGameList";
+    private _addGameTableUrl = "gametable/Add";
+    private _editGameTableUrl = "gametable/Edit";
+    private _deleteGameTableUrl = "gametable/Delete";
 
     constructor(private http: Http) { }
 
@@ -32,10 +32,10 @@ export class GameTableService {
             .catch(ex => { return new Common().handleError(ex); });
     }
 
-    getGameTablesByGamerNick(gamerNick: string): Promise<GameTable[]> {
+    getGameTablesByGamerNick(gamernick: string): Promise<GameTable[]> {
         var url = `${this._getGameTableListUrl}`;
-        if (gamerNick != null && gamerNick !== "") {
-            url = `${this._getGameTableListByGamerNickUrl}/${gamerNick}`;
+        if (gamernick != null && gamernick !== "") {
+            url = `${this._getGameTableListByGamerNickUrl}/${gamernick}`;
         };
         
         return this.http.get(url)

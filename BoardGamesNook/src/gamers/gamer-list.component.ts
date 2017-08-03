@@ -50,6 +50,6 @@ export class GamerListComponent implements OnInit {
     }
 
     gotoGamerBoardGames(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamer.Nick]);
+        this.router.navigate(["/gamerboardgames", this.selectedGamer.Nick]);
     }
 }

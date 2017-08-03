@@ -6,7 +6,7 @@ import { ParticipationDetailComponent } from "./participation-detail.component";
 
 const participationsRoutes: Routes = [
     { path: "participations", component: ParticipationListComponent },
-    { path: "participations/:gamerNick", component: ParticipationListComponent },
+    { path: "participations/:gamernick", component: ParticipationListComponent },
     { path: "participation/:id", component: ParticipationDetailComponent }
     // TODO: add with gamerID
 ];

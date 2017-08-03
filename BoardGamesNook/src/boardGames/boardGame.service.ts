@@ -10,12 +10,12 @@ import { Common } from "./../Common";
 @Injectable()
 export class BoardGameService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private _getBoardGameUrl = "BoardGame/Get";
-    private _getBoardGameListkUrl = "BoardGame/GetAll";
-    private _addBoardGameUrl = "BoardGame/Add";
-    private _addBoardGameByIdUrl = "BoardGame/AddById";
-    private _editBoardGameUrl = "BoardGame/Edit";
-    private _deleteBoardGameUrl = "BoardGame/Delete";
+    private _getBoardGameUrl = "boardgame/Get";
+    private _getBoardGameListkUrl = "boardgame/GetAll";
+    private _addBoardGameUrl = "boardgame/Add";
+    private _addBoardGameByIdUrl = "boardgame/AddById";
+    private _editBoardGameUrl = "boardgame/Edit";
+    private _deleteBoardGameUrl = "boardgame/Delete";
 
     constructor(private http: Http) { }
 

@@ -10,19 +10,19 @@ import { Common } from "./../Common";
 @Injectable()
 export class ParticipationService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private _getParticipationUrl = "Participation/Get";
-    private _getParticipationListUrl = "Participation/GetAll";
-    private _getParticipationListByGamerNickUrl = "Participation/GetAllByGamerNick";
-    private _addParticipationUrl = "Participation/Add";
-    private _editParticipationUrl = "Participation/Edit";
-    private _deleteParticipationUrl = "Participation/Delete";
+    private _getParticipationUrl = "participation/Get";
+    private _getParticipationListUrl = "participation/GetAll";
+    private _getParticipationListByGamerNickUrl = "participation/GetAllByGamerNick";
+    private _addParticipationUrl = "participation/Add";
+    private _editParticipationUrl = "participation/Edit";
+    private _deleteParticipationUrl = "participation/Delete";
 
     constructor(private http: Http) { }
 
-    getParticipationsByGamerNick(gamerNick: string): Promise<Participation[]> {
+    getParticipationsByGamerNick(gamernick: string): Promise<Participation[]> {
         var url = `${this._getParticipationListUrl}`;
-        if (gamerNick != null && gamerNick !== "") {
-            url = `${this._getParticipationListByGamerNickUrl}/${gamerNick}`;
+        if (gamernick != null && gamernick !== "") {
+            url = `${this._getParticipationListByGamerNickUrl}/${gamernick}`;
         };
 
         return this.http.get(url)

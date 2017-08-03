@@ -10,13 +10,13 @@ import { Common } from "./../Common";
 @Injectable()
 export class GamerService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private _getCurrentGamerNickUrl = "Gamer/GetCurrentGamerNick";
-    private _getByEmailUrl = "Gamer/GetByEmail";
-    private _getByNickUrl = "Gamer/GetByNick";
-    private _getGamerListUrl = "Gamer/GetAll";
-    private _addGamerUrl = "Gamer/Add";
-    private _editGamerUrl = "Gamer/Edit";
-    private _deactivateGamerUrl = "Gamer/Deactivate";
+    private _getCurrentGamerNickUrl = "gamer/GetCurrentGamerNick";
+    private _getByEmailUrl = "gamer/GetByEmail";
+    private _getByNickUrl = "gamer/GetByNick";
+    private _getGamerListUrl = "gamer/GetAll";
+    private _addGamerUrl = "gamer/Add";
+    private _editGamerUrl = "gamer/Edit";
+    private _deactivateGamerUrl = "gamer/Deactivate";
 
     constructor(private http: Http) { }
 
