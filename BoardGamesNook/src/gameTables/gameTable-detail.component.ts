@@ -31,7 +31,6 @@ export class GameTableDetailComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.gameTableService.getGameTable(Number(params["id"])))
             .subscribe((gameTable: GameTable) => {
-                debugger
                 this.gameTable = gameTable;
                 if (this.gameTable.Id == undefined) {
                     this.getAvailableTableBoardGameList(0);
