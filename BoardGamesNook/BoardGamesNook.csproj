@@ -354,6 +354,7 @@
     <Content Include="src\gamerBoardGames\gamerBoardGame-list.component.html" />
     <Content Include="src\gameTables\gameTable-detail.component.html" />
     <Content Include="src\gameTables\gameTable-list.component.html" />
+    <Content Include="src\welcome\welcome.component.html" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -471,6 +472,8 @@
     <TypeScriptCompile Include="src\participations\participation.ts" />
     <TypeScriptCompile Include="src\users\user.service.ts" />
     <TypeScriptCompile Include="src\users\user.ts" />
+    <TypeScriptCompile Include="src\welcome\welcome-routing.module.ts" />
+    <TypeScriptCompile Include="src\welcome\welcome.component.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
