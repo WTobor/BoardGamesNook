@@ -7,8 +7,6 @@ namespace BoardGamesNook.Controllers
 {
     public class UserController : Controller
     {
-        private UserService userService = new UserService();
-
         public JsonResult Get()
         {
             var loggedUser = Session["user"];

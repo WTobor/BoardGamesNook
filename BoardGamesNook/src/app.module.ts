@@ -14,10 +14,12 @@ import { GameTablesModule } from "./gameTables/gameTables.module";
 
 import { PageNotFoundComponent } from "./not-found.component";
 import { AboutComponent } from "./about/about.component";
+import { WelcomeComponent } from "./welcome/welcome.component";
 
 import { DialogService } from "./dialog.service";
 import { UserService } from "./users/user.service";
 import { AboutRoutingModule } from "./about/about-routing.module";
+import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
 
 @NgModule({
     imports: [
@@ -29,12 +31,14 @@ import { AboutRoutingModule } from "./about/about-routing.module";
         GamerBoardGamesModule,
         GameTablesModule,
         AppRoutingModule,
-        AboutRoutingModule
+        AboutRoutingModule,
+        WelcomeRoutingModule
     ],
     declarations: [
         AppComponent,
         PageNotFoundComponent,
-        AboutComponent
+        AboutComponent,
+        WelcomeComponent
     ],
     providers: [
         DialogService,
