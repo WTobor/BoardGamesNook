@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
-import {GamerService} from "../gamers/gamer.service";
+import { GamerService } from "../gamers/gamer.service";
 
 @Component({
     selector: "gameTable-list",
@@ -11,6 +11,7 @@ import {GamerService} from "../gamers/gamer.service";
 })
 export class GameTableListComponent implements OnInit {
     gameTables: GameTable[];
+    loadedGameTables: GameTable[];
     selectedGameTable: GameTable;
     selectedGamerNick: string;
     isCurrentGamer: boolean = false;
@@ -25,7 +26,7 @@ export class GameTableListComponent implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.gameTableService.getGameTablesByGamerNick(params["gamerNick"]))
             .subscribe((gameTableList: GameTable[]) => {
-                this.gameTables = gameTableList;
+                this.loadedGameTables = gameTableList;
             });
 
         this.route.params
@@ -35,7 +36,12 @@ export class GameTableListComponent implements OnInit {
                     if (nick === this.selectedGamerNick) {
                         this.isCurrentGamer = true;
                     };
-                    this.gameTables = this.gameTables.filter(x => x.GamerNick !== nick);
+                    if (this.selectedGamerNick === undefined && this.loadedGameTables !== undefined) {
+                        this.gameTables = this.loadedGameTables.filter(x => x.GamerNick !== nick);
+                    }
+                    else {
+                        this.gameTables = this.loadedGameTables;
+                    }
                 });
             });
     }
