@@ -1,5 +1,8 @@
-﻿<div *ngIf="user">
-    <div *ngIf="currentGamer && currentGamer.Id != 'new'">
+﻿<div *ngIf="user; then afterLogin else beforeLogin"></div>
+
+<ng-template #afterLogin>
+    <div *ngIf="currentGamer?.Id != 'new'; then gamerExists else gamerNotExists"></div>
+    <ng-template #gamerExists>
         <nav class="navbar" style="margin: 5px">
             <div class="container">
                 <div class="navbar-header">
@@ -25,7 +28,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" routerLink="/gamerBoardGames/{{currentGamer.Nick}}" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gamerBoardGames/{{currentGamer?.Nick}}" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
                                 Moje Gry
                             </a>
                         </li>
@@ -35,7 +38,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="" routerLink="/gameTables/{{currentGamer.Nick}}" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gameTables/{{currentGamer?.Nick}}" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
                                 Moje stoły do gier
                             </a>
                         </li>
@@ -47,7 +50,7 @@
                     </ul>
                     <div class="nav navbar navbar-right">
                         Witaj <b>
-                            <a href="" routerLink="/gamers/{{currentGamer.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gamers/{{currentGamer?.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold">
                                 {{user.Name}}
                             </a>
                         </b>
@@ -57,19 +60,21 @@
                 </div>
             </div>
         </nav>
-    </div>
-    <div *ngIf="currentGamer && currentGamer.Id == 'new'">
-        <nav class="navbar" style="margin: 5px">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
-                        BoardGamesNook <br />Kącik gier planszowych
-                    </a>
+    </ng-template>
+    <ng-template #gamerNotExists>
+            <nav class="navbar" style="margin: 5px">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
+                            BoardGamesNook <br/>Kącik gier planszowych
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </div>
-</div>
+            </nav>
+    </ng-template>
+
+</ng-template>
+<ng-template #beforeLogin>
 <div *ngIf="!user">
     <nav class="navbar" style="margin: 5px">
         <div class="container">
@@ -117,5 +122,6 @@
         </div>
     </div>
 </div>
+</ng-template>
 <router-outlet></router-outlet>
 <router-outlet name="popup"></router-outlet>
