@@ -1,6 +1,8 @@
 ﻿<div *ngIf="gamer">
-    <div *ngIf="!isCurrentGamer">
-        <h2>Gracz</h2>
+    <div *ngIf="!isCurrentGamer; then notCurrentGamer else currentGamer"></div>
+    
+    <ng-template #notCurrentGamer>
+    <h2>Gracz</h2>
         <h3>"{{ gamer.Nick }}"</h3>
         <div hidden>
             <label>Id: </label>{{ gamer.Id }}
@@ -30,8 +32,9 @@
         <p>
             <button class="btn btn-default" (click)="goBack()">Powrót</button>
         </p>
-    </div>
-    <div *ngIf="isCurrentGamer">
+    </ng-template>
+    
+    <ng-template #currentGamer>
         <h2>Edytuj konto </h2>
         <div hidden>
             <label>Id: </label>{{ gamer.Id }}
@@ -70,5 +73,5 @@
         <p>
             <button class="btn btn-success" (click)="save()">Zapisz</button>
         </p>
-    </div>
+    </ng-template>
 </div>

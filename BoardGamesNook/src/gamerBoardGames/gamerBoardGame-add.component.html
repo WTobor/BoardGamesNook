@@ -1,4 +1,6 @@
-﻿<div *ngIf="gamerBoardGames?.length > 0">
+﻿<div *ngIf="gamerBoardGames?.length > 0; then gbgExists else gbgNotExists"></div>
+
+<ng-template #gbgExists>
     <h2>Nowa gra dla gracza {{ gamerBoardGames[0].GamerNick }}</h2>
 
     <select #boardGame (change)="selectBoardGame(boardGame.value)">
@@ -12,7 +14,8 @@
     <button class="btn btn-success" (click)="add();">
         Dodaj
     </button>
-</div>
-<div *ngIf="gamerBoardGames?.length == 0">
+</ng-template>
+
+<ng-template #gbgNotExists>
     Brak dostępnych gier
-</div>
+</ng-template>

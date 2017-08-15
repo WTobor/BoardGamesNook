@@ -25,7 +25,6 @@ export class GamerService {
         return this.http.get(url)
             .toPromise()
             .then(response => {
-                console.log(response.json());
                 var result = response.json() as Gamer[];
                 return result;
             })

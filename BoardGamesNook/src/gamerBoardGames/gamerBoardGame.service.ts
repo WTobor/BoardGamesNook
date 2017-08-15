@@ -29,7 +29,7 @@ export class GamerBoardGameService {
             .catch(ex => { return new Common().handleError(ex); });
     }
 
-    getGamerBoardGame(id: string): Promise<GamerBoardGame> {
+    getGamerBoardGame(id: string) {
         if (id !== "new") {
             const url = `${this._getGamerBoardGameUrl}/${id}`;
             return this.http.get(url)

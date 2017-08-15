@@ -1,5 +1,7 @@
 ﻿<div *ngIf="gameTable">
-    <div *ngIf="isCurrentGamer">
+    <div *ngIf="isCurrentGamer then currentGamer else notCurrentGamer"></div>
+
+    <ng-template #currentGamer>
         <h2>STÓŁ</h2>
 
         <div *ngIf="gameTable.TableBoardGameList">
@@ -59,9 +61,9 @@
             <button class="btn btn-default" (click)="goBack()">Powrót</button>
             <button class="btn btn-success" (click)="save()">Zapisz</button>
         </p>
-    </div>
+    </ng-template>
 
-    <div *ngIf="!isCurrentGamer">
+    <ng-template #notCurrentGamer>
         <h2>STÓŁ</h2>
 
         <label>Twórca: </label> {{ gameTable.GamerNick }}
@@ -103,5 +105,5 @@
         <p>
             <button class="btn btn-default" (click)="goBack()">Powrót</button>
         </p>
-    </div>
+    </ng-template>
 </div>

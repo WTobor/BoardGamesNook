@@ -1,5 +1,7 @@
 ﻿<h2>Nowa gra</h2>
-<div *ngIf="!boardGameNotFound">
+<div *ngIf="boardGameNotFound; then bgNotFound else bgFound"></div>
+
+<ng-template #bgFound>
     <table>
         <tr>
             <td><label>Nazwa:</label></td>
@@ -14,11 +16,10 @@
             name.value='';">
         Dodaj
     </button>
-</div>
+    <br />
+</ng-template>
 
-<br />
-
-<div *ngIf="boardGameNotFound">
+<ng-template #bgNotFound>
     Czy chodziło Ci o:
     <ul>
         <li *ngFor="let similarBoardGame of similarBoardGames">
@@ -30,4 +31,4 @@
             <button class="btn btn-success" (click)="onSelect(similarBoardGame)">Wybierz</button>
         </li>
     </ul>
-</div>
+    <ng-template>
