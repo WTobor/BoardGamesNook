@@ -34,7 +34,8 @@ export class GameTableListComponent implements OnInit {
                 this.gamerService.getCurrentGamerNick().then(nick => {
                     if (nick === this.selectedGamerNick) {
                         this.isCurrentGamer = true;
-                    }
+                    };
+                    this.gameTables = this.gameTables.filter(x => x.GamerNick !== nick);
                 });
             });
     }
