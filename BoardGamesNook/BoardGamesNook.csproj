@@ -354,6 +354,8 @@
     <Content Include="src\gamerBoardGames\gamerBoardGame-list.component.html" />
     <Content Include="src\gameTables\gameTable-detail.component.html" />
     <Content Include="src\gameTables\gameTable-list.component.html" />
+    <Content Include="src\popup\popup.component.css" />
+    <Content Include="src\popup\popup.component.html" />
     <Content Include="src\welcome\welcome.component.html" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config">
@@ -470,6 +472,7 @@
     <TypeScriptCompile Include="src\participations\participations-routing.module.ts" />
     <TypeScriptCompile Include="src\participations\participations.module.ts" />
     <TypeScriptCompile Include="src\participations\participation.ts" />
+    <TypeScriptCompile Include="src\popup\popup.component.ts" />
     <TypeScriptCompile Include="src\users\user.service.ts" />
     <TypeScriptCompile Include="src\users\user.ts" />
     <TypeScriptCompile Include="src\welcome\welcome-routing.module.ts" />

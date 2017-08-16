@@ -62,66 +62,66 @@
         </nav>
     </ng-template>
     <ng-template #gamerNotExists>
-            <nav class="navbar" style="margin: 5px">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
-                            BoardGamesNook <br/>Kącik gier planszowych
-                        </a>
-                    </div>
+        <nav class="navbar" style="margin: 5px">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
+                        BoardGamesNook <br />Kącik gier planszowych
+                    </a>
                 </div>
-            </nav>
+            </div>
+        </nav>
     </ng-template>
-
 </ng-template>
 <ng-template #beforeLogin>
-<div *ngIf="!user">
-    <nav class="navbar" style="margin: 5px">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
-                    BoardGamesNook <br />Kącik gier planszowych
+    <div *ngIf="!user">
+        <nav class="navbar" style="margin: 5px">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
+                        BoardGamesNook <br />Kącik gier planszowych
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="color: black; font-weight: bold">
+                                O stronie
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="text-center">
+            <h2>Zaloguj się za pomocą konta:</h2>
+            <div>
+                <div>
+                    Facebook
+                </div>
+                <a href="/authentication/redirect/facebook">
+                    <img src="/Content/images/facebok64.png" />
                 </a>
             </div>
-            <div class="collapse navbar-collapse" id="mainNavbar">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="color: black; font-weight: bold">
-                            O stronie
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="text-center">
-        <h2>Zaloguj się za pomocą konta:</h2>
-        <div>
             <div>
-                Facebook
+                <div>
+                    Google
+                </div>
+                <a href="/authentication/redirect/google">
+                    <img src="/Content/images/google64.png" />
+                </a>
             </div>
-            <a href="/authentication/redirect/facebook">
-                <img src="/Content/images/facebok64.png" />
-            </a>
-        </div>
-        <div>
             <div>
-                Google
+                <div>
+                    GitHub
+                </div>
+                <a href="/authentication/redirect/github">
+                    <img src="/Content/images/github64.png" />
+                </a>
             </div>
-            <a href="/authentication/redirect/google">
-                <img src="/Content/images/google64.png" />
-            </a>
-        </div>
-        <div>
-            <div>
-                GitHub
-            </div>
-            <a href="/authentication/redirect/github">
-                <img src="/Content/images/github64.png" />
-            </a>
         </div>
     </div>
-</div>
 </ng-template>
 <router-outlet></router-outlet>
 <router-outlet name="popup"></router-outlet>
+<!--<link href="~/node_modules/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">-->

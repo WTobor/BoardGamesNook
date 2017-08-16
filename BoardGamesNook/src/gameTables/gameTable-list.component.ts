@@ -5,6 +5,9 @@ import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
 import { GamerService } from "../gamers/gamer.service";
 
+import { MdDialog, MdDialogRef } from "@angular/material";
+import { PopupComponent } from "../popup/popup.component";
+
 @Component({
     selector: "gameTable-list",
     templateUrl: "./src/gameTables/gameTable-list.component.html"
@@ -16,11 +19,14 @@ export class GameTableListComponent implements OnInit {
     selectedGamerNick: string;
     isCurrentGamer: boolean = false;
 
+    dialogRef: MdDialogRef<PopupComponent>;
+
     constructor(
         private gameTableService: GameTableService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        public dialog: MdDialog) { }
 
     ngOnInit(): void {
         this.route.params
@@ -64,7 +70,7 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoJoin(): void {
-        this.router.navigate(["/gameTable/join/", this.selectedGameTable.Id]);
+        this.openDialog()
     }
 
     gotoGameTableBoardGames(): void {
@@ -73,5 +79,12 @@ export class GameTableListComponent implements OnInit {
 
     gotoAdd(): void {
         this.router.navigate(["/gameTable", 0]);
+    }
+
+    openDialog() {
+        this.dialogRef = this.dialog.open(PopupComponent);
+        this.dialogRef.afterClosed().subscribe((result) => {
+            console.log(result);
+        });
     }
 }

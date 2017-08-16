@@ -1,0 +1,11 @@
+﻿<div>
+    <label>Wpisz coś</label>
+    <md-input-container>
+        <input mdInput type="text" #test>
+    </md-input-container>
+</div>
+
+<div md-dialog-actions>
+    <button md-button class="popup-btn" (click)="dialogRef.close({test: test.value})">Zapisz</button>
+</div>
+<p id="err">{{errorMsg}}</p>

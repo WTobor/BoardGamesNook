@@ -20,6 +20,9 @@ import { DialogService } from "./dialog.service";
 import { UserService } from "./users/user.service";
 import { AboutRoutingModule } from "./about/about-routing.module";
 import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
+import { MaterialModule } from "@angular/material";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
     imports: [
@@ -32,13 +35,17 @@ import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
         GameTablesModule,
         AppRoutingModule,
         AboutRoutingModule,
-        WelcomeRoutingModule
+        WelcomeRoutingModule,
+        MaterialModule,
+        BrowserAnimationsModule
+        
     ],
     declarations: [
         AppComponent,
         PageNotFoundComponent,
         AboutComponent,
-        WelcomeComponent
+        WelcomeComponent,
+        PopupComponent
     ],
     providers: [
         DialogService,
@@ -47,6 +54,7 @@ import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
             provide: LocationStrategy, useClass: HashLocationStrategy
         }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents:[PopupComponent]
 })
 export class AppModule { }
