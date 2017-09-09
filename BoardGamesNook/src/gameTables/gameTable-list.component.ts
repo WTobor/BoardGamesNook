@@ -5,7 +5,7 @@ import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
 import { GamerService } from "../gamers/gamer.service";
 
-import { MdDialog, MdDialogRef } from "@angular/material";
+//import { MdDialog, MdDialogRef } from "@angular/material";
 import { PopupComponent } from "../popup/popup.component";
 
 @Component({
@@ -19,14 +19,15 @@ export class GameTableListComponent implements OnInit {
     selectedGamerNick: string;
     isCurrentGamer: boolean = false;
 
-    dialogRef: MdDialogRef<PopupComponent>;
+    //dialogRef: MdDialogRef<PopupComponent>;
 
     constructor(
         private gameTableService: GameTableService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router,
-        public dialog: MdDialog) { }
+        private router: Router
+        //public dialog: MdDialog
+    ) { }
 
     ngOnInit(): void {
         this.route.params
@@ -82,9 +83,9 @@ export class GameTableListComponent implements OnInit {
     }
 
     openDialog() {
-        this.dialogRef = this.dialog.open(PopupComponent);
-        this.dialogRef.afterClosed().subscribe((result) => {
-            console.log(result);
-        });
+        //this.dialogRef = this.dialog.open(PopupComponent);
+        //this.dialogRef.afterClosed().subscribe((result) => {
+        //    console.log(result);
+        //});
     }
 }

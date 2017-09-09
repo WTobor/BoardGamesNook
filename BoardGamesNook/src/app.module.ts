@@ -20,9 +20,9 @@ import { DialogService } from "./dialog.service";
 import { UserService } from "./users/user.service";
 import { AboutRoutingModule } from "./about/about-routing.module";
 import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
-import { MaterialModule } from "@angular/material";
+//import { MaterialModule } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { PopupComponent } from './popup/popup.component';
+//import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
     imports: [
@@ -36,7 +36,7 @@ import { PopupComponent } from './popup/popup.component';
         AppRoutingModule,
         AboutRoutingModule,
         WelcomeRoutingModule,
-        MaterialModule,
+        //MaterialModule,
         BrowserAnimationsModule
         
     ],
@@ -45,7 +45,7 @@ import { PopupComponent } from './popup/popup.component';
         PageNotFoundComponent,
         AboutComponent,
         WelcomeComponent,
-        PopupComponent
+        //PopupComponent
     ],
     providers: [
         DialogService,
@@ -54,7 +54,7 @@ import { PopupComponent } from './popup/popup.component';
             provide: LocationStrategy, useClass: HashLocationStrategy
         }
     ],
-    bootstrap: [AppComponent],
-    entryComponents:[PopupComponent]
+    bootstrap: [AppComponent]
+    //entryComponents:[PopupComponent]
 })
 export class AppModule { }
