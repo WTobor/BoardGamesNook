@@ -1,0 +1,19 @@
+﻿<h2>LISTA WYNIKÓW</h2>
+
+<br />
+<ul>
+    <li *ngFor="let result of results" (click)="onSelect(result)">
+        <span class="hidden">{{ result.Id }}</span>
+        <span>{{ result.Nick }}</span>
+        <div *ngIf="isAdmin">
+            <button (click)="deactivate(result); $event.stopPropagation()" class="btn delete-icon">x</button>
+        </div>
+    </li>
+</ul>
+
+<div *ngIf="selectedGameResult">
+    <h2>
+        wynik gracza {{selectedGameResult.GamerNick | uppercase}}
+    </h2>
+    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły wyniku</button>
+</div>

@@ -20,6 +20,9 @@ import { GamerBoardGameListComponent } from "./gamerBoardGames/gamerBoardGame-li
 import { GameTableDetailComponent } from "./gameTables/gameTable-detail.component";
 import { GameTableListComponent } from "./gameTables/gameTable-list.component";
 
+import { GameResultDetailComponent } from "./gameResults/gameResult-detail.component";
+import { GameResultListComponent } from "./gameResults/gameResult-list.component";
+
 const appRoutes: Routes = [];
 
 @NgModule({

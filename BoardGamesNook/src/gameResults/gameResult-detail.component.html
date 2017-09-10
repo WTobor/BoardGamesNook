@@ -1,0 +1,30 @@
+﻿<div *ngIf="gameResult">
+    <div *ngIf="!isCurrentResult; then notCurrentResult else currentGameResult"></div>
+
+    <ng-template #notCurrentResult>
+        <h2>Wynik</h2>
+        <h3> gracz "{{ result.GamerNick }}" gra "{{ result.BoardGameName }}" </h3>
+        <div hidden>
+            <label>Id: </label>{{ result.Id }}
+        </div>
+        <table>
+        </table>
+        <p>
+            <button class="btn btn-default" (click)="goBack()">Powrót</button>
+        </p>
+    </ng-template>
+
+    <ng-template #currentGameResult>
+        <h2>Edytuj wynik </h2>
+        <div hidden>
+            <label>Id: </label>{{ result.Id }}
+        </div>
+        <table>
+            
+        </table>
+
+        <p>
+            <button class="btn btn-success" (click)="save()">Zapisz</button>
+        </p>
+    </ng-template>
+</div>

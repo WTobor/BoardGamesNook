@@ -3,7 +3,7 @@
 <ng-template #afterLogin>
     <div *ngIf="currentGamer?.Id != 'new'; then gamerExists else gamerNotExists"></div>
     <ng-template #gamerExists>
-        <nav class="navbar" style="margin: 5px">
+        <nav class="navbar">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
@@ -30,6 +30,16 @@
                         <li>
                             <a href="" routerLink="/gamerBoardGames/{{currentGamer?.Nick}}" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
                                 Moje Gry
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gameResults" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                                Wyniki
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gameResults/{{currentGamer?.Nick}}" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                                Moje Wyniki
                             </a>
                         </li>
                         <li>

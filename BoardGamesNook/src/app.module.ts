@@ -11,6 +11,7 @@ import { GamersModule } from "./gamers/gamers.module";
 import { BoardGamesModule } from "./boardGames/boardGames.module";
 import { GamerBoardGamesModule } from "./gamerBoardGames/gamerBoardGames.module";
 import { GameTablesModule } from "./gameTables/gameTables.module";
+import { GameResultsModule } from "./gameResults/gameResults.module";
 
 import { PageNotFoundComponent } from "./not-found.component";
 import { AboutComponent } from "./about/about.component";
@@ -20,9 +21,7 @@ import { DialogService } from "./dialog.service";
 import { UserService } from "./users/user.service";
 import { AboutRoutingModule } from "./about/about-routing.module";
 import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
-//import { MaterialModule } from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-//import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
     imports: [
@@ -33,19 +32,17 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         BoardGamesModule,
         GamerBoardGamesModule,
         GameTablesModule,
+        GameResultsModule,
         AppRoutingModule,
         AboutRoutingModule,
         WelcomeRoutingModule,
-        //MaterialModule,
         BrowserAnimationsModule
-        
     ],
     declarations: [
         AppComponent,
         PageNotFoundComponent,
         AboutComponent,
-        WelcomeComponent,
-        //PopupComponent
+        WelcomeComponent
     ],
     providers: [
         DialogService,
@@ -55,6 +52,5 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         }
     ],
     bootstrap: [AppComponent]
-    //entryComponents:[PopupComponent]
 })
 export class AppModule { }
