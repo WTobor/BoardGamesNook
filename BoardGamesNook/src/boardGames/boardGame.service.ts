@@ -26,7 +26,7 @@ export class BoardGameService {
             .then(response => {
                 return response.json() as BoardGame[];
             })
-            .catch(ex => { return new Common(null).handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     getBoardGame(id: number): Promise<BoardGame> {
@@ -35,12 +35,13 @@ export class BoardGameService {
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as BoardGame; })
-                .catch(ex => { return new Common(null).handleError(ex); });
+                .catch (err => { return Promise.reject(err); });
         }
         else {
             var response = new BoardGame;
             return new Promise((resolve) => { resolve(response); })
-                .then(response => { return response; });
+            .then(response => { return response as BoardGame; })
+            .catch (err => { return Promise.reject(err); });
         }
     }
 
@@ -49,7 +50,7 @@ export class BoardGameService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     create(name: string): Promise<string> {
@@ -57,7 +58,7 @@ export class BoardGameService {
             .post(`${this._addBoardGameUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     addSimilar(id: number): Promise<string> {
@@ -65,7 +66,7 @@ export class BoardGameService {
             .post(`${this._addBoardGameByIdUrl}`, JSON.stringify({ id: id }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     update(boardGame: BoardGame): Promise<string> {
@@ -74,6 +75,6 @@ export class BoardGameService {
             .post(url, JSON.stringify(boardGame), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 }

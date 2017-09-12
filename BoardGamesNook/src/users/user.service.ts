@@ -24,7 +24,7 @@ export class UserService {
                 }
                 return response.json() as User || null;
             })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     logOutUser(): void {
@@ -35,6 +35,6 @@ export class UserService {
                 this.router.navigate(['/']);
                 window.location.reload();
             })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 }

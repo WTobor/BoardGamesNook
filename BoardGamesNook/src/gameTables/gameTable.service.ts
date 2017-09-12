@@ -29,7 +29,7 @@ export class GameTableService {
                 console.log(response.json());
                 return response.json() as TableBoardGame[];
             })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     getGameTablesByGamerNick(gamerNick: string): Promise<GameTable[]> {
@@ -43,7 +43,7 @@ export class GameTableService {
             .then(response => {
                 return response.json() as GameTable[];
             })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     getGameTable(id: number): Promise<GameTable> {
@@ -52,12 +52,13 @@ export class GameTableService {
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as GameTable; })
-                .catch(ex => { return new Common().handleError(ex); });
+                .catch (err => { return Promise.reject(err); });
         }
         else {
             var response = new GameTable;
             return new Promise((resolve) => { resolve(response); })
-                .then(response => { return response; });
+                .then(response => { return response as GameTable; })
+                .catch (err => { return Promise.reject(err); });
         }
     }
 
@@ -67,7 +68,7 @@ export class GameTableService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     create(gameTable: GameTable): Promise<string> {
@@ -76,7 +77,7 @@ export class GameTableService {
             .post(url, JSON.stringify(gameTable), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     update(gameTable: GameTable): Promise<string> {
@@ -85,6 +86,6 @@ export class GameTableService {
             .post(url, JSON.stringify(gameTable), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 }

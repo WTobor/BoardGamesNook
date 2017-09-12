@@ -30,7 +30,7 @@ export class ParticipationService {
             .then(response => {
                 return response.json() as Participation[];
             })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     getParticipation(id: number): Promise<Participation> {
@@ -39,12 +39,13 @@ export class ParticipationService {
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as Participation; })
-                .catch(ex => { return new Common().handleError(ex); });
+                .catch (err => { return Promise.reject(err); });
         }
         else {
             var response = new Participation;
             return new Promise((resolve) => { resolve(response); })
-                .then(response => { return response; });
+                .then(response => { return response as Participation; })
+                .catch (err => { return Promise.reject(err); });
         }
     }
 
@@ -54,7 +55,7 @@ export class ParticipationService {
             .post(url, JSON.stringify(participation), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     update(participation: Participation): Promise<string> {
@@ -63,7 +64,7 @@ export class ParticipationService {
             .post(url, JSON.stringify(participation), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     delete(id: number): Promise<string> {
@@ -72,6 +73,6 @@ export class ParticipationService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 }
