@@ -86,7 +86,7 @@ export class GameResultService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch(ex => { return new Common().handleError(ex); });
+            .catch (err => { return Promise.reject(err); });
     }
 
     create(gameResult: GameResult): Promise<string> {
