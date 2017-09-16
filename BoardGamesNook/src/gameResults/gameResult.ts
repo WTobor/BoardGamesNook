@@ -4,7 +4,7 @@
     GamerNick: string;
     BoardGameId: number;
     BoardGameName: string;
-    Points: number;
+    Points: number| null;
     Place: number | null;
-    NumberOfPlayers: number;
+    PlayersNumber: number;
 }

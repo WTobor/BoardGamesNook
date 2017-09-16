@@ -2,7 +2,13 @@
     <div *ngIf="isCurrentGamer then currentGamer else notCurrentGamer"></div>
 
     <ng-template #currentGamer>
-        <h2>STÓŁ</h2>
+        <div *ngIf="isCreated then existGameTable else notExistGameTable"></div>
+            <ng-template #existGameTable>
+                <h2>STÓŁ {{ gameTable.Name }}</h2>
+            </ng-template>
+            <ng-template #notExistGameTable>
+                <h2>STÓŁ</h2>
+            </ng-template>
 
         <div *ngIf="gameTable.TableBoardGameList">
             <label>Wybrane pozycje:</label>
@@ -18,6 +24,10 @@
             {{ gameTable.Id }}
         </div>
         <table>
+            <tr *ngIf="gameTable.Id == 0">
+                <td><label>Nazwa stołu: </label></td>
+                <td><input [(ngModel)]="gameTable.Name" type="string" /></td>
+            </tr>
             <tr>
                 <td><label>Dodaj grę: </label></td>
                 <td>

@@ -6,6 +6,7 @@ namespace BoardGamesNook.ViewModels.GameTable
     public class GameTableViewModel
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public string GamerId { get; set; }
         public string GamerNick { get; set; }
 

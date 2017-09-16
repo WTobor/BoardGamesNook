@@ -84,6 +84,7 @@ namespace BoardGamesNook.Controllers
 
             GameTable gameTable = new GameTable()
             {
+                Name = model.Name,
                 City = model.City,
                 Street = model.Street,
                 IsPrivate = model.IsPrivate,

@@ -6,6 +6,7 @@ namespace BoardGamesNook.Model
     public class GameTable
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
         public string CreatedGamerId { get; set; }
         public Gamer CreatedGamer { get; set; }

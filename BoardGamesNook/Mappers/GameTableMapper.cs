@@ -24,6 +24,7 @@ namespace BoardGamesNook.Mappers
             return new GameTableViewModel()
             {
                 Id = gameTable.Id,
+                Name = gameTable.Name,
                 IsPrivate = gameTable.IsPrivate,
                 City = gameTable.City,
                 Street = gameTable.Street,
@@ -50,7 +51,8 @@ namespace BoardGamesNook.Mappers
                 BoardGameName = boardGame.Name,
                 GamerId = table.CreatedGamer.Id,
                 GamerNick = table.CreatedGamer.Nick,
-                ImageUrl = boardGame.ImageUrl
+                ImageUrl = boardGame.ImageUrl,
+                TableName = table.Name
             };
         }
     }
