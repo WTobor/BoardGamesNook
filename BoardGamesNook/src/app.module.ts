@@ -23,8 +23,6 @@ import { AboutRoutingModule } from "./about/about-routing.module";
 import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import {BoardGameService} from "./boardGames/boardGame.service";
-
 @NgModule({
     imports: [
         BrowserModule,
@@ -51,8 +49,7 @@ import {BoardGameService} from "./boardGames/boardGame.service";
         UserService,
         {
             provide: LocationStrategy, useClass: HashLocationStrategy
-        },
-        BoardGameService
+        }
     ],
     bootstrap: [AppComponent]
 })

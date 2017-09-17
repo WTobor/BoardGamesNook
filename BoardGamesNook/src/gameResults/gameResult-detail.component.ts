@@ -7,14 +7,15 @@ import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
 
 import { Common } from "./../Common";
-import {BoardGame} from "../boardGames/boardGame";
-import {Gamer} from "../gamers/gamer";
-import {BoardGameService} from "../boardGames/boardGame.service";
-import {GamerService} from "../gamers/gamer.service";
+import { BoardGame } from "../boardGames/boardGame";
+import { Gamer } from "../gamers/gamer";
+import { BoardGameService } from "../boardGames/boardGame.service";
+import { GamerService } from "../gamers/gamer.service";
 
 @Component({
     selector: "gameResult-detail",
-    templateUrl: "./src/gameResults/gameResult-detail.component.html"
+    templateUrl: "./src/gameResults/gameResult-detail.component.html",
+    providers: [BoardGameService, GamerService]
 })
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
