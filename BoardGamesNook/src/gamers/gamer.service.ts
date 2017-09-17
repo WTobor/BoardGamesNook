@@ -28,7 +28,7 @@ export class GamerService {
                 var result = response.json() as Gamer[];
                 return result;
             })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     getCurrentGamerNick(): Promise<string> {
@@ -36,7 +36,7 @@ export class GamerService {
         return this.http.get(url)
             .toPromise()
             .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     getByEmail(email: string): Promise<Gamer> {
@@ -50,18 +50,18 @@ export class GamerService {
                     }
                     return response.json() as Gamer;
                 })
-                .catch (err => { return Promise.reject(err); });
+                .catch(err => { return Promise.reject(err); });
         }
         else {
             var response = new Gamer;
             return new Promise((resolve) => { resolve(response); })
                 .then(response => { return response as Gamer; })
-                .catch (err => { return Promise.reject(err); });
+                .catch(err => { return Promise.reject(err); });
         }
     }
 
     getByNick(nick: string): Promise<Gamer> {
-        if (nick !== "") {
+        if (nick !== "new") {
             return this.http
                 .post(`${this._getByNickUrl}`, JSON.stringify({ nick: nick }), { headers: this.headers })
                 .toPromise()
@@ -71,13 +71,13 @@ export class GamerService {
                     }
                     return response.json() as Gamer;
                 })
-                .catch (err => { return Promise.reject(err); });
+                .catch(err => { return Promise.reject(err); });
         }
         else {
             var response = new Gamer;
             return new Promise((resolve) => { resolve(response); })
                 .then(response => { return response as Gamer; })
-                .catch (err => { return Promise.reject(err); });
+                .catch(err => { return Promise.reject(err); });
         }
     }
 
@@ -86,7 +86,7 @@ export class GamerService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     create(gamer: Gamer): Promise<string> {
@@ -95,7 +95,7 @@ export class GamerService {
             .post(url, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     update(gamer: Gamer): Promise<string> {
@@ -104,6 +104,6 @@ export class GamerService {
             .post(url, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 }

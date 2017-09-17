@@ -7,6 +7,10 @@ import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
 
 import { Common } from "./../Common";
+import {BoardGame} from "../boardGames/boardGame";
+import {Gamer} from "../gamers/gamer";
+import {BoardGameService} from "../boardGames/boardGame.service";
+import {GamerService} from "../gamers/gamer.service";
 
 @Component({
     selector: "gameResult-detail",
@@ -15,24 +19,36 @@ import { Common } from "./../Common";
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
     isCurrentResult: boolean = false;
+    availableBoardGames: BoardGame[];
+    availableGamers: Gamer[];
 
     constructor(
         private gameResultService: GameResultService,
+        private boardGameService: BoardGameService,
+        private gamerService: GamerService,
         private route: ActivatedRoute,
         private location: Location
     ) { }
 
     ngOnInit() {
+        debugger
         this.route.params
             .switchMap((params: Params) => this.gameResultService.getByNick(params["nick"]))
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
-                this.gameResultService.getCurrentGameResultNick().then(nick => {
-                    if (nick === this.gameResult.GamerNick) {
-                        this.isCurrentResult = true;
-                    }
-                });
             });
+
+        this.boardGameService.getBoardGames().then(
+            (boardGames: BoardGame[]) => {
+                this.availableBoardGames = boardGames;
+            }
+        );
+
+        this.gamerService.getGamers().then(
+            (gamers: Gamer[]) => {
+                this.availableGamers = gamers;
+            }
+        );
     }
 
     save(): void {

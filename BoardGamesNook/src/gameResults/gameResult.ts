@@ -1,7 +1,9 @@
 ﻿export class GameResult {
-    Id: string;
+    Id: number;
     GamerId: string;
     GamerNick: string;
+    CreatedGamerId: string;
+    CreatedGamerNick: string;
     BoardGameId: number;
     BoardGameName: string;
     Points: number| null;

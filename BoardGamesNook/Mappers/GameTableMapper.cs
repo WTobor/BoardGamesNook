@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using BoardGamesNook.Model;
-using BoardGamesNook.ViewModels.GamerBoardGame;
 using BoardGamesNook.ViewModels.GameTable;
 
 namespace BoardGamesNook.Mappers

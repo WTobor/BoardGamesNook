@@ -24,7 +24,7 @@ export class ParticipationDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.participationService.getParticipation(Number(params["id"])))
+            .switchMap((params: Params) => this.participationService.getParticipation(params["id"]))
             .subscribe((participation: Participation) => {
                 this.participation = participation;
                 if (this.participation.Id == undefined) {

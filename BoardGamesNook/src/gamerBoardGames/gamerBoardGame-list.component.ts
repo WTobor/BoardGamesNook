@@ -55,6 +55,6 @@ export class GamerBoardGameListComponent implements OnInit {
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gamerBoardGame", this.selectedGamerNick, "new"]);
+        this.router.navigate(["/gamerBoardGame", this.selectedGamerNick, 0]);
     }
 }

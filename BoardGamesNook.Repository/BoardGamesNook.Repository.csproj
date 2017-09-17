@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameResultRepository.cs" />
     <Compile Include="GameParticipationRepository.cs" />
     <Compile Include="GameTableRepository.cs" />
     <Compile Include="Generators\BoardGameGenerator.cs" />
     <Compile Include="BoardGameRepository.cs" />
     <Compile Include="GamerBoardGameRepository.cs" />
     <Compile Include="Generators\Constants\Enums.cs" />
+    <Compile Include="Generators\GameResultGenerator.cs" />
     <Compile Include="Generators\GameParticipationGenerator.cs" />
     <Compile Include="Generators\GamerBoardGameGenerator.cs" />
     <Compile Include="Generators\GamerGenerator.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="Generators\RelationsUpdateGenerator.cs" />
     <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\IBoardGameRepository .cs" />
+    <Compile Include="Interfaces\IGameResultRepository.cs" />
     <Compile Include="Interfaces\IGameParticipationRepository.cs" />
     <Compile Include="Interfaces\IGamerBoardGameRepository.cs" />
     <Compile Include="Interfaces\IGamerRepository.cs" />

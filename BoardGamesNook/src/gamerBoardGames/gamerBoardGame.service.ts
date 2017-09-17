@@ -5,8 +5,6 @@ import "rxjs/add/operator/toPromise";
 
 import { GamerBoardGame } from "./gamerBoardGame";
 
-import { Common } from "./../Common";
-
 @Injectable()
 export class GamerBoardGameService {
     private headers = new Headers({ "Content-Type": "application/json" });
@@ -26,22 +24,22 @@ export class GamerBoardGameService {
             .then(response => {
                 return response.json() as GamerBoardGame[];
             })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
-    getGamerBoardGame(id: string) {
-        if (id !== "new") {
+    getGamerBoardGame(id: number): Promise<GamerBoardGame> {
+        if (id > 0) {
             const url = `${this._getGamerBoardGameUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as GamerBoardGame; })
-                .catch (err => { return Promise.reject(err); });
+                .catch(err => { return Promise.reject(err); });
         }
         else {
             var response = new GamerBoardGame;
             return new Promise((resolve) => { resolve(response); })
                 .then(response => { return response; })
-                .catch (err => { return Promise.reject(err); });
+                .catch(err => { return Promise.reject(err); });
         }
     }
 
@@ -50,7 +48,7 @@ export class GamerBoardGameService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.json() as GamerBoardGame[]; })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     delete(id: number): Promise<string> {
@@ -58,7 +56,7 @@ export class GamerBoardGameService {
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     create(boardGameId: number): Promise<string> {
@@ -67,7 +65,7 @@ export class GamerBoardGameService {
             .post(url, JSON.stringify({ boardGameId: boardGameId }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     update(gamerBoardGame: GamerBoardGame): Promise<string> {
@@ -76,6 +74,6 @@ export class GamerBoardGameService {
             .post(url, JSON.stringify({ gamerBoardGameId: gamerBoardGame.BoardGameId }), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 }

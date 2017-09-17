@@ -1,30 +1,47 @@
-﻿<div *ngIf="gameResult">
-    <div *ngIf="!isCurrentResult; then notCurrentResult else currentGameResult"></div>
+﻿<h2>Nowy wynik gry</h2>
+<table>
+    <tr>
+        <td><label>Gra:</label></td>
+        <td>
+            <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
+                {{availableBoardGames.length}}
+                <select #selectedBoardGame>
+                    <option *ngFor="let boardGame of availableBoardGames"
+                            [value]="selectedBoardGame.Id">
+                        {{selectedBoardGame.Name}}
+                    </option>
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><label>Gracz:</label></td>
+        <td>
+            <div *ngIf="availableGamers && availableGamers.length > 0">
+                {{availableGamers.length}}
+                <select #selectedGamer>
+                    <option *ngFor="let gamer of availableGamers"
+                            [value]="selectedGamer.Id">
+                        {{selectedGamer.Nick}}
+                    </option>
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><label>Punkty:</label></td>
+        <td><input #points /></td>
+    </tr>
+    <tr>
+        <td><label>Miejsce:</label></td>
+        <td><input #place /></td>
+    </tr>
+</table>
 
-    <ng-template #notCurrentResult>
-        <h2>Wynik</h2>
-        <h3> gracz "{{ result.GamerNick }}" gra "{{ result.BoardGameName }}" </h3>
-        <div hidden>
-            <label>Id: </label>{{ result.Id }}
-        </div>
-        <table>
-        </table>
-        <p>
-            <button class="btn btn-default" (click)="goBack()">Powrót</button>
-        </p>
-    </ng-template>
+<br />
 
-    <ng-template #currentGameResult>
-        <h2>Edytuj wynik </h2>
-        <div hidden>
-            <label>Id: </label>{{ result.Id }}
-        </div>
-        <table>
-            
-        </table>
-
-        <p>
-            <button class="btn btn-success" (click)="save()">Zapisz</button>
-        </p>
-    </ng-template>
-</div>
+<button class="btn btn-default" (click)="goBack()">Powrót</button>
+<button class="btn btn-success" (click)="add(selectedBoardGame.Id.value, selectedGamer.Id.value, points.value, place.value );
+        points.value=''; place.value=''">
+    Dodaj
+</button>

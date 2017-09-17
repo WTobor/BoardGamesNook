@@ -222,6 +222,7 @@
     <Compile Include="Controllers\GameParticipationController.cs" />
     <Compile Include="Controllers\GamerBoardGameController.cs" />
     <Compile Include="Controllers\GamerController.cs" />
+    <Compile Include="Controllers\GameResultController.cs" />
     <Compile Include="Controllers\GameTableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -229,12 +230,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\GameResultMapper.cs" />
     <Compile Include="Mappers\BoardGameMapper.cs" />
     <Compile Include="Mappers\GameParticipationMapper.cs" />
     <Compile Include="Mappers\GamerBoardGameMapper.cs" />
     <Compile Include="Mappers\GamerMapper.cs" />
     <Compile Include="Mappers\GameTableMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\GameResult\GameResultViewModel.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />
     <Compile Include="ViewModels\GameParticipation\GameParticipationViewModel.cs" />
     <Compile Include="ViewModels\GamerBoardGame\GamerBoardGameViewModel.cs" />
@@ -400,6 +403,9 @@
     <Content Include="src\participations\participation-list.component.html" />
     <Content Include="src\participations\participation-details.component.html" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\GameResult\Add.cshtml" />
+    <Content Include="Views\GameResult\Get.cshtml" />
+    <Content Include="Views\GameResult\GetAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

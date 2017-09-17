@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
                     .then((gamer: Gamer) => {
                         this.currentGamer = gamer;
                         if (this.currentGamer == null) {
-                            this.router.navigate(["/gamer", "new"]);
+                            this.router.navigate(["/gamer", 0]);
                         }
                     });
             }

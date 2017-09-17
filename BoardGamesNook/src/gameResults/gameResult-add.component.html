@@ -1,6 +1,45 @@
 ﻿<h2>Nowy wynik gry</h2>
-<table></table>
+<table>
+    <tr>
+        <td><label>Gra:</label></td>
+        <td>
+                <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
+                    <select #selectedBoardGame>
+                        <option *ngFor="let boardGame of availableBoardGames"
+                                [value]="selectedBoardGame.Id">
+                            {{selectedBoardGame.Name}}
+                        </option>
+                    </select>                    
+                </div>
+            </td>
+    </tr>
+    <tr>
+        <td><label>Gracz:</label></td>
+        <td>
+            <div *ngIf="availableGamers && availableGamers.length > 0">
+                <select #selectedGamer>
+                    <option *ngFor="let gamer of availableGamers"
+                            [value]="selectedGamer.Id">
+                        {{selectedGamer.Nick}}
+                    </option>
+                </select>                    
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><label>Punkty:</label></td>
+        <td><input #points /></td>
+    </tr>
+    <tr>
+        <td><label>Miejsce:</label></td>
+        <td><input #place /></td>
+    </tr>
+</table>
+
 <br />
-<button class="btn btn-success" (click)="add();">
+
+<button class="btn btn-default" (click)="goBack()">Powrót</button>
+<button class="btn btn-success" (click)="add(selectedBoardGame.Id.value, selectedGamer.Id.value, points.value, place.value );
+        points.value=''; place.value=''">
     Dodaj
 </button>

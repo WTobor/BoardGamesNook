@@ -31,21 +31,14 @@ export class GameResultListComponent implements OnInit {
             .getGameResults()
             .then(results => {
                 this.gameResults = results;
-                this.gameResultService.getCurrentGameResultNick().then(nick =>
-                    this.gameResults = this.gameResults.filter(x => x.GamerNick !== nick));
-            });
-    }
-
-    deactivate(gameResult: GameResult): void {
-        this.gameResultService
-            .deactivate(gameResult.Id)
-            .then(() => {
-                this.gameResults = this.gameResults.filter(g => g !== gameResult);
-                if (this.selectedGameResult === gameResult) { this.selectedGameResult = null; }
             });
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamResults", this.selectedGameResult.GamerNick]);
+        this.router.navigate(["/gameResults", this.selectedGameResult.Id]);
+    }
+
+    gotoAdd(): void {
+        this.router.navigate(["/gameResults", 0]);
     }
 }

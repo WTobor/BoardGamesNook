@@ -1,6 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
+﻿import { GamerService } from "../gamers/gamer.service";
+import { BoardGameService } from "../boardGames/boardGame.service";
+import { Gamer } from "../gamers/gamer";
+import { BoardGame } from "../boardGames/boardGame";
+import "rxjs/add/operator/switchMap";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, Params } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { GameResultService } from "./gameResult.service";
@@ -10,27 +14,50 @@ import { Common } from "./../Common";
 
 @Component({
     selector: "gameResult-add",
-    templateUrl: "./src/gameResults/gameResult-add.component.html"
+    templateUrl: "./src/gameResults/gameResult-add.component.html",
+    providers: [BoardGameService, GamerService]
 })
 export class GameResultAddComponent implements OnInit {
     gameResult: GameResult;
+    availableBoardGames: BoardGame[];
+    availableGamers: Gamer[];
 
     constructor(
         private gameResultService: GameResultService,
+        private boardGameService: BoardGameService,
+        private gamerService: GamerService,
         private route: ActivatedRoute,
         private location: Location,
         private router: Router
     ) { }
 
     ngOnInit() {
+        debugger
         this.route.params
             .switchMap(() => this.gameResultService.getByNick("new"))
-            .subscribe((gameResult: GameResult) => this.gameResult = gameResult);
+            .subscribe((gameResult: GameResult) => {
+                this.gameResult = gameResult;
+            });
+
+        this.boardGameService.getBoardGames().then(
+            response => {
+                this.availableBoardGames = response;
+            }
+        );
+        this.gamerService.getGamers().then(
+            response => {
+                this.availableGamers = response;
+            }
+        );
     }
 
-    add(): void {
+
+    add(boardGameId: number, gamerId: string, points: number, place: number): void {
         this.gameResult = new GameResult;
-        //TODO
+        this.gameResult.BoardGameId = boardGameId;
+        this.gameResult.GamerId = gamerId;
+        this.gameResult.Points = points;
+        this.gameResult.Place = place;
 
         this.gameResultService.create(this.gameResult)
             .then(errorMessage => {

@@ -41,12 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountService.cs" />
+    <Compile Include="GameResultService.cs" />
     <Compile Include="GameParticipationService.cs" />
     <Compile Include="GamerBoardGameService.cs" />
     <Compile Include="BoardGameService.cs" />
     <Compile Include="GamerService.cs" />
     <Compile Include="GameTableService.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />
+    <Compile Include="Interfaces\IGameResultService.cs" />
     <Compile Include="Interfaces\IGameParticipationService.cs" />
     <Compile Include="Interfaces\IGamerBoardGameService.cs" />
     <Compile Include="Interfaces\IBoardGameService.cs" />

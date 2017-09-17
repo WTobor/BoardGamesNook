@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BoardGameServiceTest.cs" />
+    <Compile Include="GameResultTest.cs" />
     <Compile Include="GameParticipationTest.cs" />
     <Compile Include="GamerBoardGameServiceTest.cs" />
     <Compile Include="GamerServiceTest.cs" />

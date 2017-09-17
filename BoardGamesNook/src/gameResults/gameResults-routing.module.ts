@@ -7,7 +7,7 @@ import { GameResultAddComponent } from "./gameResult-add.component";
 
 const resultsRoutes: Routes = [
     { path: "gameResults", component: GameResultListComponent },
-    { path: "gameResult/new", component: GameResultAddComponent },
+    { path: "gameResult/0", component: GameResultAddComponent },
     { path: "gameResults/:nick", component: GameResultDetailComponent }
 ];
 
