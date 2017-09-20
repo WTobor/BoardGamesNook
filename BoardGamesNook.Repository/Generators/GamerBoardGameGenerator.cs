@@ -35,11 +35,53 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame2
         };
 
+        public static GamerBoardGame gamerBoardGame4 = new GamerBoardGame()
+        {
+            Id = 4,
+            Active = true,
+            GamerId = GamerGenerator.gamer3.Id,
+            Gamer = GamerGenerator.gamer3,
+            BoardGameId = BoardGameGenerator.boardGame3.Id,
+            BoardGame = BoardGameGenerator.boardGame3
+        };
+
+        public static GamerBoardGame gamerBoardGame5 = new GamerBoardGame()
+        {
+            Id = 5,
+            Active = true,
+            GamerId = GamerGenerator.gamer3.Id,
+            Gamer = GamerGenerator.gamer3,
+            BoardGameId = BoardGameGenerator.boardGame4.Id,
+            BoardGame = BoardGameGenerator.boardGame4
+        };
+
+        public static GamerBoardGame gamerBoardGame6 = new GamerBoardGame()
+        {
+            Id = 6,
+            Active = true,
+            GamerId = GamerGenerator.gamer4.Id,
+            Gamer = GamerGenerator.gamer4,
+            BoardGameId = BoardGameGenerator.boardGame3.Id,
+            BoardGame = BoardGameGenerator.boardGame3
+        };
+
+        public static GamerBoardGame gamerBoardGame7 = new GamerBoardGame()
+        {
+            Id = 7,
+            Active = true,
+            GamerId = GamerGenerator.gamer3.Id,
+            Gamer = GamerGenerator.gamer3,
+            BoardGameId = BoardGameGenerator.boardGame5.Id,
+            BoardGame = BoardGameGenerator.boardGame5
+        };
+
         public static List<GamerBoardGame> gamerBoardGames = new List<GamerBoardGame>()
         {
             gamerBoardGame1,
             gamerBoardGame2,
-            gamerBoardGame3
+            gamerBoardGame3,
+            gamerBoardGame4,
+            gamerBoardGame5
         };
     }
 }
