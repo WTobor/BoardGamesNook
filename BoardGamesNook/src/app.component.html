@@ -38,18 +38,18 @@
                             </a>
                         </li>
                         <!--<li>
-                            <a href="" routerLink="/gameResults" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gameResults/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="btn btn-info" style="color: black; font-weight: bold">
                                 Moje Wyniki
                             </a>
                         </li>-->
                         <li>
                             <a href="" routerLink="/gameTables" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="color: black; font-weight: bold">
-                                Stoły
+                                Stoły do gier
                             </a>
                         </li>
                         <li>
                             <a href="" routerLink="/gameTables/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="color: black; font-weight: bold">
-                                Moje stoły
+                                Moje stoły do gier
                             </a>
                         </li>
                         <li>
@@ -59,9 +59,9 @@
                         </li>
                     </ul>
                     <div class="nav navbar navbar-right">
-                        Witaj <b>
-                            <a href="" routerLink="/gamers/{{currentGamer?.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold">
-                                {{user.Name}}
+                        <b>
+                            <a href="" routerLink="/gamers/{{currentGamer?.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold; text-decoration: underline; padding-right: 5px;">
+                                {{ user.Name }}
                             </a>
                         </b>
                         <img src="{{ user.ImageUrl }}" height="50" width="50" />
@@ -72,7 +72,7 @@
         </nav>
     </ng-template>
     <ng-template #gamerNotExists>
-        <nav class="navbar" style="margin: 5px">
+        <nav class="navbar" style="margin: 2px">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
@@ -85,7 +85,7 @@
 </ng-template>
 <ng-template #beforeLogin>
     <div *ngIf="!user">
-        <nav class="navbar" style="margin: 5px">
+        <nav class="navbar" style="margin: 2px">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">

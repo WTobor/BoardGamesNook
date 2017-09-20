@@ -2,7 +2,7 @@
 
 <br />
 <ul>
-    <li *ngFor="let gamer of gamers" (click)="onSelect(gamer)">
+    <li *ngFor="let gamer of gamers" (click)="onSelect(gamer);">
         <span class="hidden">{{ gamer.Id }}</span>
         <span>{{ gamer.Nick }}</span>
         <div *ngIf="isAdmin">
@@ -13,7 +13,7 @@
 
 <div *ngIf="selectedGamer">
     <h2>
-        gracz ma na imię {{selectedGamer.Name | uppercase}}
+        gracz {{selectedGamer.Nick }} ({{selectedGamer.Name | uppercase}} {{selectedGamer.Surname | uppercase}})
     </h2>
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły gracza</button>
     <button class="btn btn-primary" (click)="gotoGamerBoardGames()">Kolekcja gier gracza</button>

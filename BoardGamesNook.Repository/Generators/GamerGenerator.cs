@@ -7,34 +7,62 @@ namespace BoardGamesNook.Repository.Generators
     {
         public static Gamer gamer1 = new Gamer()
         {
-            Id = "aaaa",
+            Id = "a1s2d3f4",
             Active = true,
-            Age = 5,
+            Age = 25,
             Nick = "programmer-girl",
-            Name = "testName",
-            Surname = "testSurname",
+            Name = "Weronika",
+            Surname = "Tobor",
             City = "Wroc³aw",
-            Street = "tmp",
+            Street = "Testowa",
             Email = "wero15@op.pl"
         };
 
         public static Gamer gamer2 = new Gamer()
         {
-            Id = "bbb",
+            Id = "q1w2e3r4",
             Active = true,
-            Age = 51,
-            Nick = "testNick1",
-            Name = "testName1",
-            Surname = "testSurname1",
-            City = "Wroc³aw1",
-            Street = "tmp1",
-            Email = "test2@test.pl"
+            Age = 19,
+            Nick = "tomek_K",
+            Name = "Tomasz",
+            Surname = "Kowalski",
+            City = "Poznañ",
+            Street = "Kamieñskiego",
+            Email = "t.kowalski@gmail.com"
+        };
+
+        public static Gamer gamer3 = new Gamer()
+        {
+            Id = "z2x3c4v5",
+            Active = true,
+            Age = 27,
+            Nick = "anna90",
+            Name = "Anna",
+            Surname = "Kowalska",
+            City = "Gliwice",
+            Street = "Buforowa",
+            Email = "anna90@gmail.com"
+        };
+
+        public static Gamer gamer4 = new Gamer()
+        {
+            Id = "n7m8k9l0",
+            Active = true,
+            Age = 34,
+            Nick = "macius",
+            Name = "Maciej",
+            Surname = "Nowak",
+            City = "Warszawa",
+            Street = "",
+            Email = "nowak_maciej@onet.pl"
         };
 
         public static List<Gamer> gamers = new List<Gamer>()
         {
             gamer1,
-            gamer2
+            gamer2,
+            gamer3,
+            gamer4
         };
     }
 }
