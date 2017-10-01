@@ -21,6 +21,7 @@ export class GameResultAddComponent implements OnInit {
     gameResult: GameResult;
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
+    selectedBoardGame: BoardGame;
 
     constructor(
         private gameResultService: GameResultService,
@@ -34,7 +35,7 @@ export class GameResultAddComponent implements OnInit {
     ngOnInit() {
         debugger
         this.route.params
-            .switchMap(() => this.gameResultService.getByNick("new"))
+            .switchMap(() => this.gameResultService.getGameResult(0))
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
             });

@@ -39,6 +39,10 @@ export class GameResultListComponent implements OnInit {
     }
 
     gotoAdd(): void {
+<<<<<<< Updated upstream
         this.router.navigate(["/gameResults", 0]);
+=======
+        this.router.navigate(["/gameResult", 0]);
+>>>>>>> Stashed changes
     }
 }

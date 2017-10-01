@@ -10,6 +10,7 @@ import { Common } from "./../Common";
 @Injectable()
 export class GameResultService {
     private headers = new Headers({ "Content-Type": "application/json" });
+    private _getGameResultUrl = "GameResult/Get";
     private _getByTableUrl = "GameResult/GetByTable";
     private _getByNickUrl = "GameResult/GetAllByGamerNick";
     private _getGameResultListUrl = "GameResult/GetAll";
@@ -27,6 +28,22 @@ export class GameResultService {
                 return result;
             })
             .catch(err => { return Promise.reject(err); });
+    }
+
+    getGameResult(id: number): Promise<GameResult> {
+        if (id !== 0) {
+            const url = `${this._getGameResultUrl}/${id}`;
+            return this.http.get(url)
+                .toPromise()
+                .then(response => { return response.json() as GameResult; })
+                .catch (err => { return Promise.reject(err); });
+        }
+        else {
+            var response = new GameResult;
+            return new Promise((resolve) => { resolve(response); })
+            .then(response => { return response as GameResult; })
+            .catch (err => { return Promise.reject(err); });
+        }
     }
 
     getByTable(table: number): Promise<GameResult> {

@@ -6,10 +6,13 @@
                 <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
                     <select #selectedBoardGame>
                         <option *ngFor="let boardGame of availableBoardGames"
-                                [value]="selectedBoardGame.Id">
-                            {{selectedBoardGame.Name}}
+                                [value]="boardGame.Id">
+                            {{boardGame.Name}}
                         </option>
                     </select>                    
+                </div>
+                <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
+                    Brak dostępnych gier
                 </div>
             </td>
     </tr>
@@ -19,10 +22,13 @@
             <div *ngIf="availableGamers && availableGamers.length > 0">
                 <select #selectedGamer>
                     <option *ngFor="let gamer of availableGamers"
-                            [value]="selectedGamer.Id">
-                        {{selectedGamer.Nick}}
+                            [value]="gamer.Id">
+                        {{gamer.Nick}}
                     </option>
                 </select>                    
+            </div>
+            <div *ngIf="!availableGamers || availableGamers.length === 0">
+                Brak dostępnych graczy
             </div>
         </td>
     </tr>
@@ -39,7 +45,7 @@
 <br />
 
 <button class="btn btn-default" (click)="goBack()">Powrót</button>
-<button class="btn btn-success" (click)="add(selectedBoardGame.Id.value, selectedGamer.Id.value, points.value, place.value );
+<button class="btn btn-success" (click)="add(points.value, place.value );
         points.value=''; place.value=''">
     Dodaj
 </button>
