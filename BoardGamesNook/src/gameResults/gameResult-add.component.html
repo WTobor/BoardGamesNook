@@ -3,29 +3,29 @@
     <tr>
         <td><label>Gra:</label></td>
         <td>
-                <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
-                    <select #selectedBoardGame>
-                        <option *ngFor="let boardGame of availableBoardGames"
-                                [value]="boardGame.Id">
-                            {{boardGame.Name}}
-                        </option>
-                    </select>                    
-                </div>
-                <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
-                    Brak dostępnych gier
-                </div>
-            </td>
+            <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
+                <select #selectedBoardGame (change)="selectBoardGame(selectedBoardGame.value)">
+                    <option *ngFor="let boardGame of availableBoardGames"
+                            [value]="boardGame.Id">
+                        {{boardGame.Name}}
+                    </option>
+                </select>
+            </div>
+            <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
+                Brak dostępnych gier
+            </div>
+        </td>
     </tr>
     <tr>
         <td><label>Gracz:</label></td>
         <td>
             <div *ngIf="availableGamers && availableGamers.length > 0">
-                <select #selectedGamer>
+                <select #selectedGamer (change)="selectGamer(selectedGamer.value)">
                     <option *ngFor="let gamer of availableGamers"
                             [value]="gamer.Id">
                         {{gamer.Nick}}
                     </option>
-                </select>                    
+                </select>
             </div>
             <div *ngIf="!availableGamers || availableGamers.length === 0">
                 Brak dostępnych graczy

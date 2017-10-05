@@ -22,6 +22,8 @@ export class GameResultAddComponent implements OnInit {
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
     selectedBoardGame: BoardGame;
+    selectedBoardGameId: number;
+    selectedGamerId: string;
 
     constructor(
         private gameResultService: GameResultService,
@@ -33,7 +35,6 @@ export class GameResultAddComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        debugger
         this.route.params
             .switchMap(() => this.gameResultService.getGameResult(0))
             .subscribe((gameResult: GameResult) => {
@@ -52,11 +53,19 @@ export class GameResultAddComponent implements OnInit {
         );
     }
 
+    selectBoardGame(value): void {
+        this.selectedBoardGameId = Number(value);
+    }
 
-    add(boardGameId: number, gamerId: string, points: number, place: number): void {
+    selectGamer(value): void {
+        this.selectedGamerId = value;
+    }
+
+    add(points: number, place: number): void {
+        debugger
         this.gameResult = new GameResult;
-        this.gameResult.BoardGameId = boardGameId;
-        this.gameResult.GamerId = gamerId;
+        this.gameResult.BoardGameId = this.selectedBoardGameId;
+        this.gameResult.GamerId = this.selectedGamerId;
         this.gameResult.Points = points;
         this.gameResult.Place = place;
 

@@ -5,6 +5,7 @@ using BoardGamesNook.Mappers;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
+using BoardGamesNook.ViewModels.GameResult;
 
 namespace BoardGamesNook.Controllers
 {
@@ -66,7 +67,7 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(int boardGameId)
+        public JsonResult Add(GameResultViewModel model)
         {
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
@@ -78,10 +79,12 @@ namespace BoardGamesNook.Controllers
             {
                 Id = gameResultService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
                 CreatedGamerId = gamer.Id,
-                GamerId = gamer.Id,
-                Gamer = gamer,
-                BoardGameId = boardGameId,
-                BoardGame = boardGameService.Get(boardGameId),
+                GamerId = model.GamerId,
+                Gamer = gamerService.Get(model.GamerId),
+                BoardGameId = model.BoardGameId,
+                BoardGame = boardGameService.Get(model.BoardGameId),
+                Points = model.Points,
+                Place = model.Place,
                 CreatedDate = DateTimeOffset.Now
             };
             gameResultService.Add(gameResult);
