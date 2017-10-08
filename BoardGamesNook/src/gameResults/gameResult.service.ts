@@ -15,6 +15,7 @@ export class GameResultService {
     private _getByNickUrl = "GameResult/GetAllByGamerNick";
     private _getGameResultListUrl = "GameResult/GetAll";
     private _addGameResultUrl = "GameResult/Add";
+    private _addGameResultListUrl = "GameResult/AddMany";
     private _editGameResultUrl = "GameResult/Edit";
 
     constructor(private http: Http) { }
@@ -84,6 +85,15 @@ export class GameResultService {
         const url = `${this._addGameResultUrl}`;
         return this.http
             .post(url, JSON.stringify(gameResult), { headers: this.headers })
+            .toPromise()
+            .then(response => { return response.text(); })
+            .catch(err => { return Promise.reject(err); });
+    }
+
+    createMany(gameResults: GameResult[]): Promise<string> {
+        const url = `${this._addGameResultListUrl}`;
+        return this.http
+            .post(url, JSON.stringify(gameResults), { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(err => { return Promise.reject(err); });

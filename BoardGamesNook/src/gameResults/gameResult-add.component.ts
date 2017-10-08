@@ -22,6 +22,7 @@ import {TableBoardGame} from "../gameTables/tableBoardGame";
 })
 export class GameResultAddComponent implements OnInit {
     gameResult: GameResult;
+    gameResults: GameResult[];
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
     selectedBoardGame: BoardGame;
@@ -37,6 +38,9 @@ export class GameResultAddComponent implements OnInit {
     selectedTableGamer: Gamer;
     selectedTableGamerId: number;
     currentGamerNick: string;
+
+    pointList: number[];
+    placeList: number[];
 
     constructor(
         private gameResultService: GameResultService,
@@ -89,7 +93,12 @@ export class GameResultAddComponent implements OnInit {
                 this.tableBoardGames = tableBoardGames;
         });
         this.gameTableService.getGameTable(this.selectedGameTableId).then(gameTable => {
-            this.tableGamers = gameTable.TableGamerList;
+            //this.tableGamers = gameTable.TableGamerList;
+            this.gamerService.getGamers().then(gamers => {
+                this.tableGamers = gamers;
+                this.pointList = new Array<number>(gamers.length);
+                this.placeList = new Array<number>(gamers.length);
+            });
         });
     }
 
@@ -97,10 +106,7 @@ export class GameResultAddComponent implements OnInit {
         this.selectedTableBoardGameId = Number(value);
     }
 
-
-
     add(points: number, place: number, playersNumber: number): void {
-        debugger
         this.gameResult = new GameResult;
         this.gameResult.BoardGameId = this.selectedBoardGameId;
         this.gameResult.GamerId = this.selectedGamerId;
@@ -116,17 +122,20 @@ export class GameResultAddComponent implements OnInit {
             });
     }
 
-    addMany(gamerId: number[], points: number[], place: number[], playersNumber: number): void {
-        for (let i = 1; i < 100; i++)
+    addMany(): void {
         debugger
-        this.gameResult = new GameResult;
-        this.gameResult.BoardGameId = this.selectedBoardGameId;
-        this.gameResult.GamerId = this.selectedGamerId;
-        this.gameResult.Points = points;
-        this.gameResult.Place = place;
-        this.gameResult.PlayersNumber = playersNumber;
+        let playersNumber = this.tableGamers.length;
+        for (let i = 0; i < playersNumber; i++) {
+            debugger
+            this.gameResult = new GameResult;
+            this.gameResult.BoardGameId = this.selectedTableBoardGameId;
+            this.gameResult.GamerId = this.tableGamers[i].Id;
+            this.gameResult.Points = this.pointList[i];
+            this.gameResult.Place = this.placeList[i];
+            this.gameResult.PlayersNumber = playersNumber;
+        }
 
-        this.gameResultService.create(this.gameResult)
+        this.gameResultService.createMany(this.gameResults)
             .then(errorMessage => {
                 new Common(null, this.router).showErrorOrReturn(errorMessage);
                 this.router.navigate([""]);
