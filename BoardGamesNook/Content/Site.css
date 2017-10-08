@@ -26,3 +26,12 @@ textarea {
 .delete-icon {
     cursor: pointer;
 }
+
+
+input.ng-valid[required] {
+    border-left: 5px solid #42A948;
+}
+
+input.ng-invalid {
+    border-left: 5px solid #a94442;
+}

@@ -11,11 +11,14 @@ import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
 
 import { Common } from "./../Common";
+import {GameTableService} from "../gameTables/gameTable.service";
+import {GameTable} from "../gameTables/gameTable";
+import {TableBoardGame} from "../gameTables/tableBoardGame";
 
 @Component({
     selector: "gameResult-add",
     templateUrl: "./src/gameResults/gameResult-add.component.html",
-    providers: [BoardGameService, GamerService]
+    providers: [BoardGameService, GamerService, GameTableService]
 })
 export class GameResultAddComponent implements OnInit {
     gameResult: GameResult;
@@ -24,10 +27,21 @@ export class GameResultAddComponent implements OnInit {
     selectedBoardGame: BoardGame;
     selectedBoardGameId: number;
     selectedGamerId: string;
+    gamerGameTables: GameTable[];
+    selectedGameTable: GameTable;
+    selectedGameTableId: number;
+    tableBoardGames: TableBoardGame[];
+    selectedTableBoardGame: BoardGame;
+    selectedTableBoardGameId: number;
+    tableGamers: Gamer[];
+    selectedTableGamer: Gamer;
+    selectedTableGamerId: number;
+    currentGamerNick: string;
 
     constructor(
         private gameResultService: GameResultService,
         private boardGameService: BoardGameService,
+        private gameTableService: GameTableService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private location: Location,
@@ -51,6 +65,14 @@ export class GameResultAddComponent implements OnInit {
                 this.availableGamers = response;
             }
         );
+        this.gamerService.getCurrentGamerNick().then(nick => {
+            this.currentGamerNick = nick;
+        });
+
+        this.gameTableService.getGameTablesByGamerNick(this.currentGamerNick).then(gamerGameTables => {
+                this.gamerGameTables = gamerGameTables;
+            }
+        );
     }
 
     selectBoardGame(value): void {
@@ -61,13 +83,48 @@ export class GameResultAddComponent implements OnInit {
         this.selectedGamerId = value;
     }
 
-    add(points: number, place: number): void {
+    selectBoardGameTable(value): void {
+        this.selectedGameTableId = Number(value);
+        this.gameTableService.getAvailableTableBoardGameList(this.selectedGameTableId).then(tableBoardGames => {
+                this.tableBoardGames = tableBoardGames;
+        });
+        this.gameTableService.getGameTable(this.selectedGameTableId).then(gameTable => {
+            this.tableGamers = gameTable.TableGamerList;
+        });
+    }
+
+    selectTableBoardGame(value): void {
+        this.selectedTableBoardGameId = Number(value);
+    }
+
+
+
+    add(points: number, place: number, playersNumber: number): void {
         debugger
         this.gameResult = new GameResult;
         this.gameResult.BoardGameId = this.selectedBoardGameId;
         this.gameResult.GamerId = this.selectedGamerId;
         this.gameResult.Points = points;
         this.gameResult.Place = place;
+        this.gameResult.PlayersNumber = playersNumber;
+
+        this.gameResultService.create(this.gameResult)
+            .then(errorMessage => {
+                new Common(null, this.router).showErrorOrReturn(errorMessage);
+                this.router.navigate([""]);
+                window.location.reload();
+            });
+    }
+
+    addMany(gamerId: number[], points: number[], place: number[], playersNumber: number): void {
+        for (let i = 1; i < 100; i++)
+        debugger
+        this.gameResult = new GameResult;
+        this.gameResult.BoardGameId = this.selectedBoardGameId;
+        this.gameResult.GamerId = this.selectedGamerId;
+        this.gameResult.Points = points;
+        this.gameResult.Place = place;
+        this.gameResult.PlayersNumber = playersNumber;
 
         this.gameResultService.create(this.gameResult)
             .then(errorMessage => {

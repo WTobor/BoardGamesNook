@@ -1,51 +1,135 @@
-﻿<h2>Nowy wynik gry</h2>
-<table>
-    <tr>
-        <td><label>Gra:</label></td>
-        <td>
-            <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
-                <select #selectedBoardGame (change)="selectBoardGame(selectedBoardGame.value)">
-                    <option *ngFor="let boardGame of availableBoardGames"
-                            [value]="boardGame.Id">
-                        {{boardGame.Name}}
-                    </option>
-                </select>
-            </div>
-            <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
-                Brak dostępnych gier
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td><label>Gracz:</label></td>
-        <td>
-            <div *ngIf="availableGamers && availableGamers.length > 0">
-                <select #selectedGamer (change)="selectGamer(selectedGamer.value)">
-                    <option *ngFor="let gamer of availableGamers"
-                            [value]="gamer.Id">
-                        {{gamer.Nick}}
-                    </option>
-                </select>
-            </div>
-            <div *ngIf="!availableGamers || availableGamers.length === 0">
-                Brak dostępnych graczy
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td><label>Punkty:</label></td>
-        <td><input #points /></td>
-    </tr>
-    <tr>
-        <td><label>Miejsce:</label></td>
-        <td><input #place /></td>
-    </tr>
-</table>
+﻿<div *ngIf="gamerGameTables?.length > 0; then gamerGameTableExists else gamerGameTableNotExists"></div>
 
-<br />
+<ng-template #gamerGameTableNotExists>
+    <h2>Nowy wynik gry</h2>
+    <table>
+        <tr>
+            <td><label>Gra:</label></td>
+            <td>
+                <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
+                    <select #selectedBoardGame (change)="selectBoardGame(selectedBoardGame.value)">
+                        <option *ngFor="let boardGame of availableBoardGames"
+                                [value]="boardGame.Id">
+                            {{boardGame.Name}}
+                        </option>
+                    </select>
+                </div>
+                <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
+                    Brak dostępnych gier
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Gracz:</label></td>
+            <td>
+                <div *ngIf="availableGamers && availableGamers.length > 0">
+                    <select #selectedGamer (change)="selectGamer(selectedGamer.value)">
+                        <option *ngFor="let gamer of availableGamers"
+                                [value]="gamer.Id">
+                            {{gamer.Nick}}
+                        </option>
+                    </select>
+                </div>
+                <div *ngIf="!availableGamers || availableGamers.length === 0">
+                    Brak dostępnych graczy
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Punkty:</label></td>
+            <td><input #points type="number" required /></td>
+            
+        </tr>
+        <tr>
+            <td><label>Miejsce:</label></td>
+            <td><input #place type="number" required /></td>
+        </tr>
+        <tr>
+            <td><label>Liczba graczy:</label></td>
+            <td><input #playersNumber type="number" required /></td>
+        </tr>
+    </table>
+    
+    <br />
 
-<button class="btn btn-default" (click)="goBack()">Powrót</button>
-<button class="btn btn-success" (click)="add(points.value, place.value );
-        points.value=''; place.value=''">
-    Dodaj
-</button>
+    <button class="btn btn-default" (click)="goBack()">Powrót</button>
+    <button class="btn btn-success" (click)="add(points.value, place.value, playersNumber.value );
+    points.value=''; place.value=''; playersNumber.value=''">
+        Dodaj
+    </button>
+</ng-template>
+
+<ng-template #gamerGameTableExists>
+    <h2>Nowy wynik gry stołu:</h2>
+    <table>
+        <tr>
+            <td><label>Stół:</label></td>
+            <td>
+                <div *ngIf="gamerGameTables && gamerGameTables.length > 0">
+                    <select #selectedBoardGameTable (change)="selectBoardGameTable(selectedBoardGameTable.value)">
+                        <option *ngFor="let gamerGameTable of gamerGameTables"
+                                [value]="gamerGameTable.Id">
+                            {{gamerGameTable.Name}}
+                        </option>
+                    </select>
+                </div>
+                <div *ngIf="!gamerGameTables || gamerGameTables.length === 0">
+                    Brak dostępnych stołów do gier
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Gra:</label></td>
+            <td>
+                <div *ngIf="tableBoardGames && tableBoardGames.length > 0">
+                    <select #selectedTabledBoardGame (change)="selectTableBoardGame(selectedTableBoardGame.value)">
+                        <option *ngFor="let tableBoardGame of tableBoardGames"
+                                [value]="tableBoardGame.Id">
+                            {{tableBoardGame.Name}}
+                        </option>
+                    </select>
+                </div>
+                <div *ngIf="!tableBoardGames || tableBoardGames.length === 0">
+                    Brak dostępnych gier dla stołu
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Lista graczy:</label></td>
+            <td>
+                <div *ngIf="tableGamers && tableGamers.length > 0">
+                    <table *ngFor="let tableGamer of tableGamers">
+                        <tr>
+                            <td><label>Gracz:</label></td>
+                            <td>{{tableGamer.Nick}}</td>
+                        </tr>
+                        <tr>
+                            <td><label>Punkty:</label></td>
+                            <td><input #points type="number" required/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Miejsce:</label></td>
+                            <td><input #place type="number" required/></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div *ngIf="!availableTableGamers || availableTableGamers.length === 0">
+                    Brak dostępnych graczy dla stołu
+                </div>
+                <div hidden>
+                    {{ tableGamers?.length }}
+                </div>
+            </td>
+        </tr>       
+    </table>
+    
+    <br />
+
+    <button class="btn btn-default" (click)="goBack()">Powrót</button>
+    <button class="btn btn-success" (click)="addMany(points.value, place.value, playersNumber.value );
+    points.value=''; place.value=''; playersNumber.value=''">
+        Dodaj
+    </button>
+</ng-template>
+
