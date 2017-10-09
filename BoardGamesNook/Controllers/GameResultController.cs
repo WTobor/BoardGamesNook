@@ -93,6 +93,35 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
+        public JsonResult AddMany(GameResultViewModel[] model)
+        {
+            Gamer gamer = Session["gamer"] as Gamer;
+            if (gamer == null)
+            {
+                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+            }
+
+            foreach (var gameResultViewModel in model)
+            {
+                GameResult gameResult = new GameResult()
+                {
+                    Id = gameResultService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
+                    CreatedGamerId = gamer.Id,
+                    GamerId = gameResultViewModel.GamerId,
+                    Gamer = gamerService.Get(gameResultViewModel.GamerId),
+                    BoardGameId = gameResultViewModel.BoardGameId,
+                    BoardGame = boardGameService.Get(gameResultViewModel.BoardGameId),
+                    Points = gameResultViewModel.Points,
+                    Place = gameResultViewModel.Place,
+                    CreatedDate = DateTimeOffset.Now
+                };
+                gameResultService.Add(gameResult);
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult Edit(int gameResultId)
         {
             Gamer gamer = Session["gamer"] as Gamer;

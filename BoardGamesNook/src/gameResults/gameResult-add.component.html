@@ -38,7 +38,6 @@
         <tr>
             <td><label>Punkty:</label></td>
             <td><input #points type="number" required /></td>
-            
         </tr>
         <tr>
             <td><label>Miejsce:</label></td>
@@ -49,7 +48,7 @@
             <td><input #playersNumber type="number" required /></td>
         </tr>
     </table>
-    
+
     <br />
 
     <button class="btn btn-default" (click)="goBack()">Powrót</button>
@@ -108,27 +107,25 @@
                     <td><label>Punkty:</label></td>
                     <td>
                         <div *ngIf="pointList">
-                        <input [(ngModel)]="pointList[i]" type="number" required />
-                            </div>
+                            <input [(ngModel)]="pointList[i]" type="number" required />
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td><label>Miejsce:</label></td>
                     <td>
                         <div *ngIf="placeList">
-                            <input [(ngModel)]="placeList[i]" type="number" required/>
+                            <input [(ngModel)]="placeList[i]" type="number" required />
                         </div>
                     </td>
                 </tr>
-
             </table>
         </div>
         <div *ngIf="!tableGamers || tableGamers.length === 0">
             Brak dostępnych graczy dla stołu
         </div>
-
     </table>
-    
+
     <br />
 
     <button class="btn btn-default" (click)="goBack()">Powrót</button>
@@ -136,4 +133,3 @@
         Dodaj
     </button>
 </ng-template>
-
