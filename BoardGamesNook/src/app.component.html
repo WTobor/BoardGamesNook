@@ -3,7 +3,7 @@
 <ng-template #afterLogin>
     <div *ngIf="currentGamer?.Id != 'new'; then gamerExists else gamerNotExists"></div>
     <ng-template #gamerExists>
-        <nav class="navbar">
+        <nav>
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
@@ -18,22 +18,22 @@
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="font-weight: bold">
                                 Gracze
                             </a>
                         </li>
                         <li>
-                            <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="font-weight: bold">
                                 Gry
                             </a>
                         </li>
                         <li>
-                            <a href="" routerLink="/gamerBoardGames/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gamerBoardGames/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style=" font-weight: bold">
                                 Moje Gry
                             </a>
                         </li>
                         <li>
-                            <a href="" routerLink="/gameResults" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gameResults" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="font-weight: bold">
                                 Wyniki
                             </a>
                         </li>
@@ -43,36 +43,36 @@
                             </a>
                         </li>-->
                         <li>
-                            <a href="" routerLink="/gameTables" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gameTables" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style=" font-weight: bold">
                                 Stoły do gier
                             </a>
                         </li>
                         <li>
-                            <a href="" routerLink="/gameTables/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/gameTables/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style=" font-weight: bold">
                                 Moje stoły do gier
                             </a>
                         </li>
                         <li>
-                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="font-weight: bold">
                                 O stronie
                             </a>
                         </li>
                     </ul>
-                    <div class="nav navbar navbar-right">
+                    <div class="navbar-right">
                         <b>
                             <a href="" routerLink="/gamers/{{currentGamer?.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold; text-decoration: underline; padding-right: 5px;">
                                 {{ user.Name }}
                             </a>
                         </b>
                         <img src="{{ user.ImageUrl }}" height="50" width="50" />
-                        <button class="btn btn-default" (click)="logOut()">Wyloguj</button>
+                        <button class="btn btn-default" (click)="logOut()" style="font-weight: bold">Wyloguj</button>
                     </div>
                 </div>
             </div>
         </nav>
     </ng-template>
     <ng-template #gamerNotExists>
-        <nav class="navbar" style="margin: 2px">
+        <nav style="margin: 2px">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
@@ -85,7 +85,7 @@
 </ng-template>
 <ng-template #beforeLogin>
     <div *ngIf="!user">
-        <nav class="navbar" style="margin: 2px">
+        <nav style="margin: 2px">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
@@ -95,7 +95,7 @@
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="color: black; font-weight: bold">
+                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style=" font-weight: bold">
                                 O stronie
                             </a>
                         </li>
