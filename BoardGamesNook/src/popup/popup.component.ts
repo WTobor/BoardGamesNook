@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialog, MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material";
 
 @Component({
     selector: 'popup',
@@ -8,6 +8,6 @@ import { MdDialog, MdDialogRef } from "@angular/material";
 })
 export class PopupComponent {
     constructor(
-        public dialogRef: MdDialogRef<PopupComponent>) {
+        public dialogRef: MatDialogRef<PopupComponent>) {
     }
 }

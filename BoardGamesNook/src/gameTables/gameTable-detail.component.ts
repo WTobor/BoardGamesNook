@@ -2,6 +2,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from "@angular/common";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
@@ -14,27 +15,36 @@ import { GamerService } from "../gamers/gamer.service";
     selector: "gameTable-detail",
     templateUrl: "./src/gameTables/gameTable-detail.component.html"
 })
-export class GameTableDetailComponent implements OnInit {
+export class GameTableDetailComponent {
+    form: FormGroup;
+
     gameTable: GameTable;
     availableTableBoardGames: TableBoardGame[];
     selectedTableBoardGame: TableBoardGame;
     isCurrentGamer: boolean = false;
+    isCreated: boolean = false;
 
     constructor(
+        private fb: FormBuilder, 
         private gameTableService: GameTableService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private location: Location
-    ) { }
+        private location: Location) {
 
-    ngOnInit() {
+        this.form = fb.group({
+            gameTableName: ['', [Validators.required]],
+            gameTableMinPlayers: [1, [Validators.required]]
+        });
+
         this.route.params
             .switchMap((params: Params) => this.gameTableService.getGameTable(Number(params["id"])))
             .subscribe((gameTable: GameTable) => {
+                debugger
                 this.gameTable = gameTable;
                 if (this.gameTable.Id == undefined) {
                     this.getAvailableTableBoardGameList(0);
                     this.isCurrentGamer = true;
+                    this.isCreated = false;
                 }
                 else {
                     this.getAvailableTableBoardGameList(this.gameTable.Id);
@@ -43,6 +53,7 @@ export class GameTableDetailComponent implements OnInit {
                             this.isCurrentGamer = true;
                         }
                     });
+                    this.isCreated = true;
                 }
             });
     }
@@ -71,14 +82,15 @@ export class GameTableDetailComponent implements OnInit {
     }
 
     save(): void {
-        var loc = this.location;
-        if (this.gameTable.Id === undefined) {
-            this.gameTableService.create(this.gameTable)
-                .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
-        }
-        else {
-            this.gameTableService.update(this.gameTable)
-                .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+        if (this.form.valid) {
+            var loc = this.location;
+            if (this.gameTable.Id === undefined) {
+                this.gameTableService.create(this.gameTable)
+                    .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            } else {
+                this.gameTableService.update(this.gameTable)
+                    .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            }
         }
     }
 

@@ -1,6 +1,5 @@
 ﻿import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 
@@ -21,12 +20,15 @@ import { DialogService } from "./dialog.service";
 import { UserService } from "./users/user.service";
 import { AboutRoutingModule } from "./about/about-routing.module";
 import { WelcomeRoutingModule } from "./welcome/welcome-routing.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ValidationErrorsComponent } from './validation-errors/validation-errors.component';
 
 @NgModule({
     imports: [
         BrowserModule,
-        FormsModule,
         HttpModule,
         GamersModule,
         BoardGamesModule,
@@ -36,13 +38,16 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         AppRoutingModule,
         AboutRoutingModule,
         WelcomeRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        MaterialModule
     ],
     declarations: [
         AppComponent,
         PageNotFoundComponent,
         AboutComponent,
-        WelcomeComponent
+        WelcomeComponent,
+        ValidationErrorsComponent
     ],
     providers: [
         DialogService,

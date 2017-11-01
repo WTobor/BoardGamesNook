@@ -363,6 +363,7 @@
     <Content Include="src\gameResults\gameResult-add.component.html" />
     <Content Include="src\gameResults\gameResult-detail.component.html" />
     <Content Include="src\gameResults\gameResult-list.component.html" />
+    <Content Include="src\validation-errors\validation-errors.component.html" />
     <Content Include="src\welcome\welcome.component.html" />
     <Content Include="systemjs.config.js" />
     <Content Include="Web.config">
@@ -475,6 +476,7 @@
     <TypeScriptCompile Include="src\gameTables\gameTables.module.ts" />
     <TypeScriptCompile Include="src\gameTables\tableBoardGame.ts" />
     <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\material.module.ts" />
     <TypeScriptCompile Include="src\not-found.component.ts" />
     <TypeScriptCompile Include="src\participations\participation-detail.component.ts" />
     <TypeScriptCompile Include="src\participations\participation-list.component.ts" />
@@ -492,6 +494,7 @@
     <TypeScriptCompile Include="src\gameResults\gameResults.module.ts" />
     <TypeScriptCompile Include="src\users\user.service.ts" />
     <TypeScriptCompile Include="src\users\user.ts" />
+    <TypeScriptCompile Include="src\validation-errors\validation-errors.component.ts" />
     <TypeScriptCompile Include="src\welcome\welcome-routing.module.ts" />
     <TypeScriptCompile Include="src\welcome\welcome.component.ts" />
   </ItemGroup>
