@@ -1,11 +1,11 @@
 ﻿<div *ngIf="gamerBoardGame">
-    <h2>Gra {{gamerBoardGame.BoardGameName}} gracza {{gamerBoardGame.GamerNick}}</h2>
+    <h3>Gra {{gamerBoardGame.BoardGameName}} gracza {{gamerBoardGame.GamerNick}}</h3>
     <div hidden>
         <label>Id: </label>{{ gamerBoardGame.Id }}
     </div>
-    <h2>
+    <h4>
         <a href="https://boardgamegeek.com/boardgame/{{gamerBoardGame.BGGId}}" target="_blank"><img src="{{gamerBoardGame.ImageUrl}}" /></a>
-    </h2>
+    </h4>
     <p>
         <button class="btn btn-default" (click)="goBack()">Powrót</button>
     </p>

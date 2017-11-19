@@ -5,8 +5,6 @@ import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
 import { GamerService } from "../gamers/gamer.service";
 
-import { PopupComponent } from "../popup/popup.component";
-
 @Component({
     selector: "gameTable-list",
     templateUrl: "./src/gameTables/gameTable-list.component.html"

@@ -1,4 +1,4 @@
-﻿<h2>LISTA GIER</h2>
+﻿<h3>LISTA GIER</h3>
 
 <br />
 <ul>
@@ -11,8 +11,8 @@
 
 <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>
 <div *ngIf="selectedBoardGame">
-    <h2>
+    <h4>
         <a href="https://boardgamegeek.com/boardgame/{{selectedBoardGame.BGGId}}" target="_blank"><img src="{{selectedBoardGame.ImageUrl}}" /></a>
-    </h2>
+    </h4>
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
 </div>
