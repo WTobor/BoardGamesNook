@@ -1,72 +1,72 @@
-﻿<div *ngIf="user; then afterLogin else beforeLogin"></div>
+﻿
+<div *ngIf="user; then afterLogin else beforeLogin"></div>
 
 <ng-template #afterLogin>
     <div *ngIf="currentGamer?.Id != 'new'; then gamerExists else gamerNotExists"></div>
     <ng-template #gamerExists>
-        <nav>
+        <nav style="margin-bottom: 10px;">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
-                        BoardGamesNook <br />Kącik gier planszowych
+                <div class="navbar">
+                    <a class="navbar" href="" style="color: black; font-weight: bold; text-align: left">
+                        <h3 align="center">
+                            BoardGamesNook <br />Kącik gier planszowych
+                        </h3>
                     </a>
-                </div>
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="font-weight: bold">
-                                Gracze
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="font-weight: bold">
-                                Gry
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" routerLink="/gamerBoardGames/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style=" font-weight: bold">
-                                Moje Gry
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" routerLink="/gameResults" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="font-weight: bold">
-                                Wyniki
-                            </a>
-                        </li>
-                        <!--<li>
-                            <a href="" routerLink="/gameResults/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="btn btn-info" style="color: black; font-weight: bold">
-                                Moje Wyniki
-                            </a>
-                        </li>-->
-                        <li>
-                            <a href="" routerLink="/gameTables" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style=" font-weight: bold">
-                                Stoły do gier
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" routerLink="/gameTables/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style=" font-weight: bold">
-                                Moje stoły do gier
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="font-weight: bold">
-                                O stronie
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="navbar-right">
+                    <div style="align-content: right">
                         <b>
-                            <a href="" routerLink="/gamers/{{currentGamer?.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold; text-decoration: underline; padding-right: 5px;">
+                            <a href="" routerLink="/gamers/{{currentGamer?.Nick}}" routerLinkActive="active" style="color: black; font-weight: bold; text-decoration: underline; font-size: 15px; padding-right: 5px;">
                                 {{ user.Name }}
                             </a>
                         </b>
                         <img src="{{ user.ImageUrl }}" height="50" width="50" />
                         <button class="btn btn-default" (click)="logOut()" style="font-weight: bold">Wyloguj</button>
                     </div>
+                    
+                </div>
+                <div class="navbar" id="mainNavbar" align="center">
+                    <ul class="nav">
+                        <li>
+                            <a href="" routerLink="/gamers" routerLinkActive="active" class="btn btn-info" style="margin: 5px; font-weight: bold;">
+                                Gracze
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/boardGames" routerLinkActive="active" class="btn btn-info" style="margin: 5px; font-weight: bold;">
+                                Gry
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gamerBoardGames/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="margin: 5px; font-weight: bold;">
+                                Moje Gry
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gameResults" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="margin: 5px; font-weight: bold;">
+                                Wyniki
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gameResults/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="btn btn-info" style="margin: 5px; font-weight: bold;">
+                                Moje Wyniki
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gameTables" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="margin: 5px; font-weight: bold; ">
+                                Stoły do gier
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/gameTables/{{currentGamer?.Nick}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="btn btn-info" style="margin: 5px; font-weight: bold; ">
+                                Moje stoły do gier
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style="margin: 5px; font-weight: bold;">
+                                O stronie
+                            </a>
+                        </li>
+                    </ul>
+                    
                 </div>
             </div>
         </nav>
@@ -74,7 +74,7 @@
     <ng-template #gamerNotExists>
         <nav style="margin: 2px">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar">
                     <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
                         BoardGamesNook <br />Kącik gier planszowych
                     </a>
@@ -87,13 +87,13 @@
     <div *ngIf="!user">
         <nav style="margin: 2px">
             <div class="container">
-                <div class="navbar-header">
+                <div class="navbar">
                     <a class="navbar-brand" href="" style="color: black; font-weight: bold; text-align: center">
                         BoardGamesNook <br />Kącik gier planszowych
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav">
                         <li>
                             <a href="" routerLink="/about" routerLinkActive="active" class="btn btn-default" style=" font-weight: bold">
                                 O stronie
@@ -104,7 +104,7 @@
             </div>
         </nav>
         <div class="text-center">
-            <h2>Zaloguj się za pomocą konta:</h2>
+            <h3>Zaloguj się za pomocą konta:</h3>
             <div>
                 <div>
                     Facebook
@@ -133,5 +133,4 @@
     </div>
 </ng-template>
 <router-outlet></router-outlet>
-<router-outlet name="popup"></router-outlet>
 <!--<link href="~/node_modules/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">-->

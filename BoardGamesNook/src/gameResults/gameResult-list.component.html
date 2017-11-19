@@ -1,4 +1,4 @@
-﻿<h2>LISTA WYNIKÓW</h2>
+﻿<h3>LISTA WYNIKÓW</h3>
 
 <br />
 <ul>
@@ -14,8 +14,8 @@
 <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy wynik</button>
 
 <div *ngIf="selectedGameResult">
-    <h2>
+    <h4>
         Wynik gracza {{selectedGameResult.GamerNick | uppercase}}
-    </h2>
+    </h4>
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły wyniku</button>
 </div>

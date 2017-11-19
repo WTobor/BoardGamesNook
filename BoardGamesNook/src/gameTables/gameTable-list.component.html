@@ -1,4 +1,4 @@
-﻿<h2>LISTA STOŁÓW DO GRY</h2>
+﻿<h3>LISTA STOŁÓW DO GRY</h3>
 
 <br />
 <ul>
@@ -22,9 +22,9 @@
 
 <button *ngIf="isCurrentGamer" class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
 <div *ngIf="selectedGameTable">
-    <h2>
+    <h3>
         Stół {{selectedGameTable.Name | uppercase}} gracza {{selectedGameTable.GamerNick | uppercase}}
-    </h2>
+    </h3>
     <div *ngIf="selectedGameTable.TableBoardGameList">
         Wybrane pozycje:
         <ul>
