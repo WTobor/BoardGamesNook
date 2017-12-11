@@ -11,6 +11,7 @@ namespace BoardGamesNook.Controllers
 {
     public class GameResultController : Controller
     {
+        // Tutaj również wstrzykiaanie zależności przez konstruktor
         private GameResultService gameResultService = new GameResultService(new GameResultRepository());
         private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
         private GamerService gamerService = new GamerService(new GamerRepository());
@@ -20,8 +21,10 @@ namespace BoardGamesNook.Controllers
             var gameResult = gameResultService.Get(id);
             if (gameResult == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie znaleziono wyniku dla gracza", JsonRequestBehavior.AllowGet);
             }
+            // Użycie AutoMappera
             var gameResultViewModel = GameResultMapper.MapToGameResultViewModel(gameResult, gamerService.Get(gameResult.CreatedGamerId));
 
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);

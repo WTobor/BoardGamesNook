@@ -2,7 +2,7 @@
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
-using Newtonsoft.Json;
+using Newtonsoft.Json; // ten namespace nie jest nigdzie używany
 
 namespace BoardGamesNook.Controllers
 {
@@ -19,7 +19,7 @@ namespace BoardGamesNook.Controllers
         //
         // Dodatkowo zmienne prywatne powinnaś dodawać z pokreślnikiem, czyli w tym przypadku:
         // private GamerService _gamerService;
-        // Tak defaultowo podpowiada ReSharper (używasz operacji Cleanup-Code?)
+        // Tak defaultowo podpowiada ReSharper - patrzysz na sugestię od niego? używasz operacji Cleanup Code (z reguły skrót Ctrl+E, Ctrl+C)?
         //
         // Dodatkowo skoro masz interface to ich używaj, tutaj zamiast private GamerService gamerService, powinno być:
         // private IGamerService gamerService
@@ -32,11 +32,11 @@ namespace BoardGamesNook.Controllers
         // private IGamerService _gamerService;
         //
         // Aby to działało, będziesz musiała dodać w Global.asax rejestrację tych typów.
-        // Powinnaś to zrobić podobnie jak dla clasy CookieCache, czyli:
+        // Powinnaś to zrobić podobnie jak dla klasy CookieCache, czyli:
         // builder.RegisterType<GamerService>().As<IGamerService>();
         // Albo coś w tym stylu - na pewno jest tego mnóstwo na google.
         //
-        // Uzycie DI powinno być we wszystkich klasa, czyli dla tego przypadku aby działało,
+        // Uzycie DI powinno być we wszystkich klasach, czyli dla tego przypadku aby działało,
         // to jeszcze musisz zmienić klasę GamerService oraz zarejestrować GamerRepository
 
         private GamerService gamerService = new GamerService(new GamerRepository());
