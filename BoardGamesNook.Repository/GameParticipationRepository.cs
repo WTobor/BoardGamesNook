@@ -8,7 +8,7 @@ namespace BoardGamesNook.Repository
 {
     public class GameParticipationRepository : IGameParticipationRepository
     {
-        private List<GameParticipation> _gameParticipations = GameParticipationGenerator.gameParticipations;
+        private readonly List<GameParticipation> _gameParticipations = GameParticipationGenerator.gameParticipations;
 
         public GameParticipation Get(int id)
         {
@@ -44,9 +44,7 @@ namespace BoardGamesNook.Repository
         {
             var gameParticipation = _gameParticipations.Where(x => x.Id == id).FirstOrDefault();
             if (gameParticipation != null)
-            {
                 _gameParticipations.Remove(gameParticipation);
-            }
         }
     }
 }

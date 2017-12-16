@@ -9,8 +9,7 @@ namespace BoardGamesNook
         {
             if (httpContext.Session["user"] != null)
                 return true;
-            else
-                return false;
+            return false;
         }
     }
 }

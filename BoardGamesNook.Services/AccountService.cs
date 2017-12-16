@@ -17,9 +17,8 @@ namespace BoardGamesNook.Services
         }
 
         public bool IsLoginAllowed(string login)
-        {    
+        {
             return _accountRepository.IsLoginAllowed(login);
         }
     }
 }
-   

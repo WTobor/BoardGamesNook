@@ -20,7 +20,7 @@ namespace BoardGamesNook.Controllers
             var userName = model.AuthenticatedClient.UserInformation.UserName;
             var picture = model.AuthenticatedClient.UserInformation.Picture;
 
-            var loggedUser = new User()
+            var loggedUser = new User
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = name,
@@ -30,9 +30,9 @@ namespace BoardGamesNook.Controllers
 
             return new RedirectToRouteResult(new RouteValueDictionary
             {
-                { "action", "Set" },
-                { "controller", "User" },
-                { "userJson", JsonConvert.SerializeObject(loggedUser) }
+                {"action", "Set"},
+                {"controller", "User"},
+                {"userJson", JsonConvert.SerializeObject(loggedUser)}
             });
         }
 

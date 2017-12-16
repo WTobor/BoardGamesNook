@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
+using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using BoardGamesNook.Repository.Generators;
 
 namespace BoardGamesNook.Tests
 {
@@ -101,7 +101,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            string name = "test2";
+            var name = "test2";
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.Add(GetTestGamer(newGamerId));
@@ -122,7 +122,7 @@ namespace BoardGamesNook.Tests
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.Add(GetTestGamer(newGamerId));
-            gamerService.Deactivate(newGamerId.ToString());
+            gamerService.Deactivate(newGamerId);
             var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
             Assert.AreEqual(false, lastAddedGamer.Active);
@@ -130,7 +130,7 @@ namespace BoardGamesNook.Tests
 
         private static Gamer GetTestGamer(string gamerId)
         {
-            return new Gamer()
+            return new Gamer
             {
                 Id = gamerId,
                 Nick = "test",

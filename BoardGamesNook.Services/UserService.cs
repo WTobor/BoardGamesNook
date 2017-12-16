@@ -5,7 +5,7 @@ namespace BoardGamesNook.Services
 {
     public class UserService : IUserService
     {
-        public User _loggedUser = null;
+        public User _loggedUser;
 
         public User GetUser()
         {

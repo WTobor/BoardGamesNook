@@ -5,7 +5,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class BoardGameGenerator
     {
-        public static BoardGame boardGame1 = new BoardGame()
+        public static BoardGame boardGame1 = new BoardGame
         {
             Id = 150,
             Name = "Osadnicy z Catanu",
@@ -23,7 +23,7 @@ namespace BoardGamesNook.Repository.Generators
             ImageUrl = "http://cf.geekdo-images.com/images/pic2419375_t.jpg"
         };
 
-        public static BoardGame boardGame2 = new BoardGame()
+        public static BoardGame boardGame2 = new BoardGame
         {
             Id = 151,
             Name = "Dixit",
@@ -41,7 +41,7 @@ namespace BoardGamesNook.Repository.Generators
             ImageUrl = "http://cf.geekdo-images.com/images/pic3483909_t.jpg"
         };
 
-        public static BoardGame boardGame3 = new BoardGame()
+        public static BoardGame boardGame3 = new BoardGame
         {
             Id = 152,
             Name = "Scythe",
@@ -59,7 +59,7 @@ namespace BoardGamesNook.Repository.Generators
             ImageUrl = "https://cf.geekdo-images.com/images/pic3163924_t.jpg"
         };
 
-        public static BoardGame boardGame4 = new BoardGame()
+        public static BoardGame boardGame4 = new BoardGame
         {
             Id = 153,
             Name = "Sabotażysta",
@@ -77,7 +77,7 @@ namespace BoardGamesNook.Repository.Generators
             ImageUrl = "https://cf.geekdo-images.com/images/pic2602139_t.jpg"
         };
 
-        public static BoardGame boardGame5 = new BoardGame()
+        public static BoardGame boardGame5 = new BoardGame
         {
             Id = 154,
             Name = "Splendor",
@@ -95,7 +95,7 @@ namespace BoardGamesNook.Repository.Generators
             ImageUrl = "https://cf.geekdo-images.com/images/pic1904079_t.jpg"
         };
 
-        public static List<BoardGame> boardGames = new List<BoardGame>()
+        public static List<BoardGame> boardGames = new List<BoardGame>
         {
             boardGame1,
             boardGame2,

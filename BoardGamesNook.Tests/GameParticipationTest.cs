@@ -55,7 +55,7 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
-            DateTimeOffset now = DateTimeOffset.UtcNow;
+            var now = DateTimeOffset.UtcNow;
             //Act
             gameParticipationService.Add(GetTestGameParticipation());
             var gameParticipation = gameParticipationService.Get(newGameParticipationId);
@@ -84,7 +84,7 @@ namespace BoardGamesNook.Tests
         private static GameParticipation GetTestGameParticipation()
         {
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
-            return new GameParticipation()
+            return new GameParticipation
             {
                 Id = newGameParticipationId,
                 GameTableId = GameTableGenerator.gameTable1.Id,

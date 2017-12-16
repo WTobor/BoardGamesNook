@@ -1,19 +1,17 @@
-﻿using BoardGamesNook.Model;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
+using BoardGameGeekIntegration;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
 using BoardGamesNook.ViewModels.BoardGame;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using BoardGameGeekIntegration.Models;
 
 namespace BoardGamesNook.Controllers
 {
     [AuthorizeCustom]
     public class BoardGameController : Controller
     {
-        private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
+        private readonly BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
 
         public JsonResult Get(int id)
         {
@@ -30,27 +28,18 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(string name)
         {
-            int boardGameId = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameId(name);
+            var boardGameId = BGGBoardGame.GetBoardGameId(name);
             if (boardGameId != 0)
             {
-                BoardGame boardGame = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameById(boardGameId);
+                var boardGame = BGGBoardGame.GetBoardGameById(boardGameId);
                 boardGame.Id = boardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1;
                 boardGameService.Add(boardGame);
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                List<SimilarBoardGame> similarBoardGameList = BoardGameGeekIntegration.BGGBoardGame.GetSimilarBoardGameList(name);
-                if (similarBoardGameList.Count > 0)
-                {
-                    //temporary - get only first 10 boardGames
-                    return Json(similarBoardGameList.Take(10), JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json("Nie znaleziono gry o nazwie " + name, JsonRequestBehavior.AllowGet);
-                }
-            }
+            var similarBoardGameList = BGGBoardGame.GetSimilarBoardGameList(name);
+            if (similarBoardGameList.Count > 0)
+                return Json(similarBoardGameList.Take(10), JsonRequestBehavior.AllowGet);
+            return Json("Nie znaleziono gry o nazwie " + name, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -58,7 +47,7 @@ namespace BoardGamesNook.Controllers
         {
             if (id != 0)
             {
-                BoardGame boardGame = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameById(id);
+                var boardGame = BGGBoardGame.GetBoardGameById(id);
                 boardGame.Id = boardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1;
                 boardGameService.Add(boardGame);
                 return Json(null, JsonRequestBehavior.AllowGet);
@@ -69,7 +58,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(BoardGameViewModel boardGame)
         {
-            BoardGame dbBoardGame = boardGameService.Get(boardGame.Id);
+            var dbBoardGame = boardGameService.Get(boardGame.Id);
             if (dbBoardGame != null)
             {
                 dbBoardGame.Name = boardGame.Name;
@@ -82,10 +71,7 @@ namespace BoardGamesNook.Controllers
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return Json("Nie znaleziono gry o Id=" + boardGame.Id, JsonRequestBehavior.AllowGet);
-            }
+            return Json("Nie znaleziono gry o Id=" + boardGame.Id, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

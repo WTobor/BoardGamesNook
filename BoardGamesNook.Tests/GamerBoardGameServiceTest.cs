@@ -55,8 +55,8 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
-            string gamerId = Guid.NewGuid().ToString();
-            int boardGameId = 2;
+            var gamerId = Guid.NewGuid().ToString();
+            var boardGameId = 2;
             //Act
             gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
             var boardGame = gamerBoardGameService.Get(newGamerBoardGameId);
@@ -86,7 +86,7 @@ namespace BoardGamesNook.Tests
 
         private static GamerBoardGame GetTestGamerBoardGame(int newGamerBoardGameId)
         {
-            return new GamerBoardGame()
+            return new GamerBoardGame
             {
                 Id = newGamerBoardGameId,
                 GamerId = "aqwsderfgt",

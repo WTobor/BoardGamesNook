@@ -9,9 +9,9 @@ namespace BoardGamesNook.Repository
 {
     public class GameTableRepository : IGameTableRepository
     {
-        private List<GameTable> _gameTables = GameTableGenerator.gameTables;
+        private readonly List<GameTable> _gameTables = GameTableGenerator.gameTables;
 
-        private BoardGameRepository boardGameRepository = new BoardGameRepository();
+        private readonly BoardGameRepository boardGameRepository = new BoardGameRepository();
 
         public GameTable Get(int id)
         {
@@ -27,9 +27,8 @@ namespace BoardGamesNook.Repository
         {
             var availableTableBoardGameList = boardGameRepository.GetAll();
             if (table != null && table.BoardGames != null)
-            {
-                availableTableBoardGameList = availableTableBoardGameList.Where(x => !table.BoardGames.Contains(x)).ToList();
-            }
+                availableTableBoardGameList =
+                    availableTableBoardGameList.Where(x => !table.BoardGames.Contains(x)).ToList();
             return availableTableBoardGameList;
         }
 
@@ -71,9 +70,7 @@ namespace BoardGamesNook.Repository
         {
             var gameTable = _gameTables.Where(x => x.Id == id).FirstOrDefault();
             if (gameTable != null)
-            {
                 _gameTables.Remove(gameTable);
-            }
         }
     }
 }

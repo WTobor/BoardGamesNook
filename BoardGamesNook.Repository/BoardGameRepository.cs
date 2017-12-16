@@ -1,14 +1,14 @@
-﻿using BoardGamesNook.Model;
-using BoardGamesNook.Repository.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
+using BoardGamesNook.Repository.Interfaces;
 
 namespace BoardGamesNook.Repository
 {
     public class BoardGameRepository : IBoardGameRepository
     {
-        private List<BoardGame> _boardGames = BoardGameGenerator.boardGames;
+        private readonly List<BoardGame> _boardGames = BoardGameGenerator.boardGames;
 
         public BoardGame Get(int id)
         {
@@ -39,9 +39,7 @@ namespace BoardGamesNook.Repository
         {
             var boardGame = _boardGames.Where(x => x.Id == id).FirstOrDefault();
             if (boardGame != null)
-            {
                 _boardGames.Remove(boardGame);
-            }
         }
     }
 }

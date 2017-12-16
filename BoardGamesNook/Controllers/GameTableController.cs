@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using BoardGamesNook.Mappers;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
-using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Services;
 using BoardGamesNook.ViewModels.GameTable;
 
@@ -14,24 +13,23 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GameTableController : Controller
     {
-        private GameTableService gameTableService = new GameTableService(new GameTableRepository());
-        private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
-        private GameParticipationService gameParticipationService = new GameParticipationService(new GameParticipationRepository());
+        private readonly BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
+
+        private readonly GameParticipationService gameParticipationService =
+            new GameParticipationService(new GameParticipationRepository());
+
+        private readonly GameTableService gameTableService = new GameTableService(new GameTableRepository());
 
         public JsonResult Get(int id)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
             var gameTable = new GameTable();
             gameTable.CreatedGamer = gamer;
             gameTable.CreatedGamerId = gamer.Id;
             if (id > 0)
-            {
                 gameTable = gameTableService.Get(id);
-            }
             var gameTableViewModel = GameTableMapper.MapToGameTableViewModel(gameTable);
 
             return Json(gameTableViewModel, JsonRequestBehavior.AllowGet);
@@ -39,11 +37,9 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAvailableTableBoardGameList(int id)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
             var gameTable = gameTableService.Get(id);
             if (gameTable == null)
             {
@@ -52,7 +48,8 @@ namespace BoardGamesNook.Controllers
                 gameTable.CreatedGamerId = gamer.Id;
             }
             var availableTableBoardGameList = gameTableService.GetAvailableTableBoardGameList(gameTable);
-            var availableTableBoardGameListViewModel = GameTableMapper.MapToTableBoardGameViewModelList(availableTableBoardGameList, gameTable);
+            var availableTableBoardGameListViewModel =
+                GameTableMapper.MapToTableBoardGameViewModelList(availableTableBoardGameList, gameTable);
 
             return Json(availableTableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -76,13 +73,11 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(GameTableViewModel model)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
 
-            GameTable gameTable = new GameTable()
+            var gameTable = new GameTable
             {
                 Name = model.Name,
                 City = model.City,
@@ -103,13 +98,10 @@ namespace BoardGamesNook.Controllers
             {
                 var boardGame = boardGameService.Get(boardGameId);
                 if (boardGame != null)
-                {
                     gameTable.BoardGames.Add(boardGame);
-                }
                 else
-                {
-                    return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId, JsonRequestBehavior.AllowGet);
-                }
+                    return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId,
+                        JsonRequestBehavior.AllowGet);
             }
 
             gameTableService.Add(gameTable);
@@ -120,7 +112,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(GameTableViewModel gameTable)
         {
-            GameTable dbGameTable = gameTableService.Get(gameTable.Id);
+            var dbGameTable = gameTableService.Get(gameTable.Id);
             if (dbGameTable != null)
             {
                 dbGameTable.City = gameTable.City;
@@ -135,13 +127,10 @@ namespace BoardGamesNook.Controllers
                 {
                     var boardGame = boardGameService.Get(boardGameId);
                     if (boardGame != null)
-                    {
                         dbGameTable.BoardGames.Add(boardGame);
-                    }
                     else
-                    {
-                        return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId, JsonRequestBehavior.AllowGet);
-                    }
+                        return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId,
+                            JsonRequestBehavior.AllowGet);
                 }
 
                 dbGameTable.ModifiedDate = DateTimeOffset.Now;
@@ -150,45 +139,33 @@ namespace BoardGamesNook.Controllers
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return Json("Nie znaleziono stołu do gry o Id=" + gameTable.Id, JsonRequestBehavior.AllowGet);
-            }
+            return Json("Nie znaleziono stołu do gry o Id=" + gameTable.Id, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult EditParticipations(List<GameParticipation> gameParticipations)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
             var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
-            GameTable dbGameTable = gameTableService.Get(gameTableId);
+            var dbGameTable = gameTableService.Get(gameTableId);
             if (dbGameTable != null)
             {
                 foreach (var gameParticipation in gameParticipations)
                 {
                     var dbGameParticipation = gameParticipationService.Get(gameParticipation.Id);
                     if (dbGameParticipation != null)
-                    {
                         gameParticipationService.Edit(gameParticipation);
-                    }
                     else
-                    {
                         gameParticipationService.Add(gameParticipation);
-                    }
                 }
 
                 gameTableService.EditParticipations(gameParticipations, gamer);
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return Json("Nie znaleziono stołu do gry o Id=" + gameTableId, JsonRequestBehavior.AllowGet);
-            }
+            return Json("Nie znaleziono stołu do gry o Id=" + gameTableId, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

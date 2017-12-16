@@ -1,10 +1,9 @@
-﻿using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Services;
-using System;
-using System.Linq;
+﻿using System;
 using System.Web.Mvc;
 using BoardGamesNook.Mappers;
+using BoardGamesNook.Model;
+using BoardGamesNook.Repository;
+using BoardGamesNook.Services;
 using BoardGamesNook.ViewModels.Gamer;
 
 namespace BoardGamesNook.Controllers
@@ -12,7 +11,7 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerController : Controller
     {
-        private GamerService gamerService = new GamerService(new GamerRepository());
+        private readonly GamerService gamerService = new GamerService(new GamerRepository());
 
         [HttpPost]
         public JsonResult GetByEmail(string email)
@@ -40,18 +39,14 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(GamerViewModel gamer)
         {
-            User loggedUser = Session["user"] as User;
+            var loggedUser = Session["user"] as User;
             if (loggedUser == null)
-            {
                 return Json("Nie znaleziono użytkownika", JsonRequestBehavior.AllowGet);
-            }
 
             if (gamerService.NickExists(gamer.Nick))
-            {
                 return Json("Istnieje gracz o podanym nicku. Wybierz inny nick.", JsonRequestBehavior.AllowGet);
-            }
 
-            Gamer dbGamer = new Gamer()
+            var dbGamer = new Gamer
             {
                 Id = Guid.NewGuid().ToString(),
                 Nick = gamer.Nick,
@@ -72,7 +67,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(Gamer gamer)
         {
-            Gamer dbGamer = gamerService.Get(gamer.Id);
+            var dbGamer = gamerService.Get(gamer.Id);
             if (dbGamer != null)
             {
                 dbGamer.Name = gamer.Name;

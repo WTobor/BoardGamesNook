@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
+using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using BoardGamesNook.Repository.Generators;
-using BoardGamesNook.Repository.Interfaces;
 
 namespace BoardGamesNook.Tests
 {
@@ -57,7 +55,7 @@ namespace BoardGamesNook.Tests
             //Arrange
             var boardGameService = new BoardGameService(new BoardGameRepository());
             var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
-            string name = "test2";
+            var name = "test2";
             //Act
             boardGameService.Add(GetTestBoardGame());
             var boardGame = boardGameService.Get(newBoardGameId);
@@ -82,11 +80,11 @@ namespace BoardGamesNook.Tests
             //Assert
             Assert.AreEqual(generatedBoardGamesCount, boardGames.Count());
         }
-        
+
         private static BoardGame GetTestBoardGame()
         {
             var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
-            return new BoardGame()
+            return new BoardGame
             {
                 Id = newBoardGameId,
                 Name = "test"

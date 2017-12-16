@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using BoardGamesNook.Mappers;
-using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
 using BoardGamesNook.ViewModels.GameParticipation;
@@ -10,7 +9,8 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GameParticipationController : Controller
     {
-        private GameParticipationService gameParticipationService = new GameParticipationService(new GameParticipationRepository());
+        private readonly GameParticipationService gameParticipationService =
+            new GameParticipationService(new GameParticipationRepository());
 
         public JsonResult Get(int id)
         {
@@ -22,14 +22,16 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAll()
         {
             var gameParticipationList = gameParticipationService.GetAll();
-            var gameParticipationViewModelList = GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
+            var gameParticipationViewModelList =
+                GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
             return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllByTableId(int id)
         {
             var gameParticipationList = gameParticipationService.GetAllByTableId(id);
-            var gameParticipationViewModelList = GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
+            var gameParticipationViewModelList =
+                GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
             return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
@@ -44,7 +46,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(GameParticipationViewModel gameParticipation)
         {
-            GameParticipation orgGameParticipation = gameParticipationService.Get(gameParticipation.Id);
+            var orgGameParticipation = gameParticipationService.Get(gameParticipation.Id);
             if (orgGameParticipation != null)
             {
                 var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipation);
@@ -52,10 +54,7 @@ namespace BoardGamesNook.Controllers
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return Json("Nie znaleziono uczestnika gry o Id=" + gameParticipation.Id, JsonRequestBehavior.AllowGet);
-            }
+            return Json("Nie znaleziono uczestnika gry o Id=" + gameParticipation.Id, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

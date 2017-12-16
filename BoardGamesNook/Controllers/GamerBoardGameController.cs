@@ -1,11 +1,11 @@
-﻿using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using BoardGamesNook.Mappers;
+using BoardGamesNook.Model;
+using BoardGamesNook.Repository;
+using BoardGamesNook.Services;
 using BoardGamesNook.ViewModels.GamerBoardGame;
 
 namespace BoardGamesNook.Controllers
@@ -13,17 +13,18 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerBoardGameController : Controller
     {
-        private GamerBoardGameService gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
-        private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
-        private GamerService gamerService = new GamerService(new GamerRepository());
+        private readonly BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
+
+        private readonly GamerBoardGameService gamerBoardGameService =
+            new GamerBoardGameService(new GamerBoardGameRepository());
+
+        private readonly GamerService gamerService = new GamerService(new GamerRepository());
 
         public JsonResult Get(int id)
         {
             var gamerBoardGame = gamerBoardGameService.Get(id);
             if (gamerBoardGame == null)
-            {
                 return Json("Nie znaleziono gry dla gracza", JsonRequestBehavior.AllowGet);
-            }
             var gamerBoardGameViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModel(gamerBoardGame);
 
             return Json(gamerBoardGameViewModel, JsonRequestBehavior.AllowGet);
@@ -31,11 +32,9 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAllByGamerNick(string id)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
             var gamerList = gamerBoardGameService.GetAllByGamerNick(id);
             var gamerListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerList);
 
@@ -52,13 +51,11 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(int boardGameId)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
 
-            GamerBoardGame gamerBoardGame = new GamerBoardGame()
+            var gamerBoardGame = new GamerBoardGame
             {
                 Id = gamerBoardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
                 GamerId = gamer.Id,
@@ -76,13 +73,11 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(int gamerBoardGameId)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
 
-            GamerBoardGame dbGamerBoardGame = gamerBoardGameService.Get(gamerBoardGameId);
+            var dbGamerBoardGame = gamerBoardGameService.Get(gamerBoardGameId);
             if (dbGamerBoardGame != null)
             {
                 dbGamerBoardGame.ModifiedDate = DateTimeOffset.Now;
@@ -99,11 +94,9 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            Gamer gamer = Session["gamer"] as Gamer;
+            var gamer = Session["gamer"] as Gamer;
             if (gamer == null)
-            {
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
 
             gamerBoardGameService.Delete(id);
 
@@ -112,13 +105,14 @@ namespace BoardGamesNook.Controllers
 
         public IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(string id)
         {
-            Gamer gamer = gamerService.GetByNick(id);
+            var gamer = gamerService.GetByNick(id);
             var availableBoardGameList = boardGameService.GetAll();
             var gamerBoardGameList = gamerBoardGameService.GetAllByGamerNick(id);
             var gamerAvailableBoardGameList = availableBoardGameList
                 .Where(x => gamerBoardGameList.All(y => y.BoardGameId != x.Id)).ToList();
 
-            var availableBoardGameListViewModel = BoardGameMapper.MapToGamerBoardGameViewModelList(gamerAvailableBoardGameList, gamer);
+            var availableBoardGameListViewModel =
+                BoardGameMapper.MapToGamerBoardGameViewModelList(gamerAvailableBoardGameList, gamer);
 
             return availableBoardGameListViewModel;
         }

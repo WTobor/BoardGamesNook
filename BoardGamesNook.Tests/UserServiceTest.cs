@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Repository.Generators;
-using BoardGamesNook.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BoardGamesNook.Tests
 {
