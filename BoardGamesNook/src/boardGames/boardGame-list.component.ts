@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
@@ -11,16 +11,17 @@ import { BoardGame } from "./BoardGame";
 export class BoardGameListComponent implements OnInit {
     boardGames: BoardGame[];
     selectedBoardGame: BoardGame;
-    isAdmin: boolean = false;
+    isAdmin = false;
 
     constructor(
         private boardGameService: BoardGameService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router) {
+    }
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.boardGameService.getBoardGames())
+            .switchMap(() => this.boardGameService.getBoardGames())
             .subscribe((boardGameList: BoardGame[]) => {
                 this.boardGames = boardGameList;
             });
@@ -35,7 +36,9 @@ export class BoardGameListComponent implements OnInit {
             .delete(boardGame.Id)
             .then(() => {
                 this.boardGames = this.boardGames.filter(g => g !== boardGame);
-                if (this.selectedBoardGame === boardGame) { this.selectedBoardGame = null; }
+                if (this.selectedBoardGame === boardGame) {
+                    this.selectedBoardGame = null;
+                }
             });
     }
 

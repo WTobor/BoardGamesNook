@@ -28,7 +28,6 @@ namespace BoardGamesNook.Tests
             //Arrange
             var boardGameService = new BoardGameService(new BoardGameRepository());
             var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
-            var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
             //Act
             boardGameService.Add(GetTestBoardGame());
             var boardGames = boardGameService.GetAll();

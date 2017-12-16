@@ -21,4 +21,5 @@ import { GameTableRoutingModule } from "./gameTables-routing.module";
     ],
     providers: [GameTableService]
 })
-export class GameTablesModule { }
+export class GameTablesModule {
+}

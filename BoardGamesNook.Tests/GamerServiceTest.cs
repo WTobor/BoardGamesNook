@@ -118,14 +118,13 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.Add(GetTestGamer(newGamerId));
             gamerService.Deactivate(newGamerId);
             var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
-            Assert.AreEqual(false, lastAddedGamer.Active);
+            Assert.AreEqual(false, lastAddedGamer != null && lastAddedGamer.Active);
         }
 
         private static Gamer GetTestGamer(string gamerId)

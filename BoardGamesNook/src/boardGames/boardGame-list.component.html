@@ -1,6 +1,6 @@
 ﻿<h3>LISTA GIER</h3>
 
-<br />
+<br/>
 <ul>
     <li *ngFor="let boardGame of boardGames" (click)="onSelect(boardGame)">
         <span class="hidden">{{ boardGame.Id }}</span>
@@ -12,7 +12,9 @@
 <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>
 <div *ngIf="selectedBoardGame">
     <h4>
-        <a href="https://boardgamegeek.com/boardgame/{{selectedBoardGame.BGGId}}" target="_blank"><img src="{{selectedBoardGame.ImageUrl}}" /></a>
+        <a href="https://boardgamegeek.com/boardgame/{{selectedBoardGame.BGGId}}" target="_blank">
+            <img src="{{selectedBoardGame.ImageUrl}}"/>
+        </a>
     </h4>
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
 </div>

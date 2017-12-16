@@ -23,4 +23,5 @@ import { GamerRoutingModule } from "./gamers-routing.module";
     ],
     providers: [GamerService]
 })
-export class GamersModule { }
+export class GamersModule {
+}

@@ -11,12 +11,13 @@ import { Gamer } from "./gamer";
 export class GamerListComponent implements OnInit {
     gamers: Gamer[];
     selectedGamer: Gamer;
-    isAdmin: boolean = false;
+    isAdmin = false;
 
     constructor(
         private gamerService: GamerService,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit(): void {
         this.getGamers();
@@ -41,7 +42,9 @@ export class GamerListComponent implements OnInit {
             .deactivate(gamer.Id)
             .then(() => {
                 this.gamers = this.gamers.filter(g => g !== gamer);
-                if (this.selectedGamer === gamer) { this.selectedGamer = null; }
+                if (this.selectedGamer === gamer) {
+                    this.selectedGamer = null;
+                }
             });
     }
 

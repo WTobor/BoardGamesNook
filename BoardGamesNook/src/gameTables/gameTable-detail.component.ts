@@ -18,14 +18,15 @@ export class GameTableDetailComponent implements OnInit {
     gameTable: GameTable;
     availableTableBoardGames: TableBoardGame[];
     selectedTableBoardGame: TableBoardGame;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private gameTableService: GameTableService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private location: Location
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.params
@@ -35,8 +36,7 @@ export class GameTableDetailComponent implements OnInit {
                 if (this.gameTable.Id == undefined) {
                     this.getAvailableTableBoardGameList(0);
                     this.isCurrentGamer = true;
-                }
-                else {
+                } else {
                     this.getAvailableTableBoardGameList(this.gameTable.Id);
                     this.gamerService.getCurrentGamerNick().then(nick => {
                         if (nick === this.gameTable.GamerNick) {
@@ -51,15 +51,16 @@ export class GameTableDetailComponent implements OnInit {
         this.gameTableService
             .getAvailableTableBoardGameList(tableId)
             .then(
-            availableTableBoardGames => this.availableTableBoardGames = availableTableBoardGames
+                availableTableBoardGames => this.availableTableBoardGames = availableTableBoardGames
             );
     }
 
     addTableBoardGame(selectedTableBoardGameId: number): void {
-        this.selectedTableBoardGame = this.availableTableBoardGames.filter(x => x.BoardGameId === Number(selectedTableBoardGameId))[0];
+        this.selectedTableBoardGame =
+            this.availableTableBoardGames.filter(x => x.BoardGameId === Number(selectedTableBoardGameId))[0];
         this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList || [];
         this.gameTable.TableBoardGameList.push(this.selectedTableBoardGame);
-        var index = this.availableTableBoardGames.indexOf(this.selectedTableBoardGame, 0);
+        const index = this.availableTableBoardGames.indexOf(this.selectedTableBoardGame, 0);
         this.availableTableBoardGames.splice(index, 1);
         //TODO: count minPlayers and maxPlayers by boardGames
     }
@@ -67,7 +68,9 @@ export class GameTableDetailComponent implements OnInit {
     delete(tableBoardGame: TableBoardGame): void {
         this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList.filter(t => t !== tableBoardGame);
         this.availableTableBoardGames.push(tableBoardGame);
-        if (this.selectedTableBoardGame === tableBoardGame) { this.selectedTableBoardGame = null; }
+        if (this.selectedTableBoardGame === tableBoardGame) {
+            this.selectedTableBoardGame = null;
+        }
     }
 
     save(): void {
@@ -75,15 +78,14 @@ export class GameTableDetailComponent implements OnInit {
         if (this.gameTable.Id === undefined) {
             this.gameTableService.create(this.gameTable)
                 .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
-        }
-        else {
+        } else {
             this.gameTableService.update(this.gameTable)
                 .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
         }
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 }

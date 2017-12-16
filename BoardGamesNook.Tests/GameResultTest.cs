@@ -55,7 +55,6 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var gamerService = new GamerService(new GamerRepository());
             var newGamerId = Guid.NewGuid().ToString();
             var testGamer = GetTestGamer(newGamerId);
             var testNick = Guid.NewGuid().ToString();
@@ -76,7 +75,7 @@ namespace BoardGamesNook.Tests
             var gameTableService = new GameTableService(new GameTableRepository());
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
             gameTableService.Add(GetTestGameTable(newGameTableId));
-            var testGameTable = GameTableGenerator.gameTables.Where(x => x.Id == newGameTableId).FirstOrDefault();
+            var testGameTable = GameTableGenerator.gameTables.FirstOrDefault(x => x.Id == newGameTableId);
             //Act
             gameResultService.Add(GetTestGameResult(null, testGameTable));
             var gameResults = gameResultService.GetAllByTableId(newGameTableId);

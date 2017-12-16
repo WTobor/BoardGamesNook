@@ -4,7 +4,9 @@
     <h3>Nowy wynik gry</h3>
     <table>
         <tr>
-            <td><label>Gra:</label></td>
+            <td>
+                <label>Gra:</label>
+            </td>
             <td>
                 <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
                     <select #selectedBoardGame (change)="selectBoardGame(selectedBoardGame.value)">
@@ -20,7 +22,9 @@
             </td>
         </tr>
         <tr>
-            <td><label>Gracz:</label></td>
+            <td>
+                <label>Gracz:</label>
+            </td>
             <td>
                 <div *ngIf="availableGamers && availableGamers.length > 0">
                     <select #selectedGamer (change)="selectGamer(selectedGamer.value)">
@@ -36,20 +40,32 @@
             </td>
         </tr>
         <tr>
-            <td><label>Punkty:</label></td>
-            <td><input #points type="number" required /></td>
+            <td>
+                <label>Punkty:</label>
+            </td>
+            <td>
+                <input #points type="number" required/>
+            </td>
         </tr>
         <tr>
-            <td><label>Miejsce:</label></td>
-            <td><input #place type="number" required /></td>
+            <td>
+                <label>Miejsce:</label>
+            </td>
+            <td>
+                <input #place type="number" required/>
+            </td>
         </tr>
         <tr>
-            <td><label>Liczba graczy:</label></td>
-            <td><input #playersNumber type="number" required /></td>
+            <td>
+                <label>Liczba graczy:</label>
+            </td>
+            <td>
+                <input #playersNumber type="number" required/>
+            </td>
         </tr>
     </table>
 
-    <br />
+    <br/>
 
     <button class="btn btn-default" (click)="goBack()">Powrót</button>
     <button class="btn btn-success" (click)="add(points.value, place.value, playersNumber.value );
@@ -62,7 +78,9 @@
     <h3>Nowy wynik gry stołu:</h3>
     <table>
         <tr>
-            <td><label>Stół:</label></td>
+            <td>
+                <label>Stół:</label>
+            </td>
             <td>
                 <div *ngIf="gamerGameTables && gamerGameTables.length > 0">
                     <select #selectedBoardGameTable (change)="selectBoardGameTable(selectedBoardGameTable.value)">
@@ -78,7 +96,9 @@
             </td>
         </tr>
         <tr>
-            <td><label>Gra:</label></td>
+            <td>
+                <label>Gra:</label>
+            </td>
             <td>
                 <div *ngIf="tableBoardGames && tableBoardGames.length > 0">
                     <select #selectedTableBoardGame (change)="selectTableBoardGame(selectedTableBoardGame.value)">
@@ -94,28 +114,36 @@
             </td>
         </tr>
         <tr>
-            <td><label>Lista graczy:</label></td>
+            <td>
+                <label>Lista graczy:</label>
+            </td>
             <td></td>
         </tr>
         <div *ngIf="tableGamers && tableGamers.length > 0">
             <table *ngFor="let tableGamer of tableGamers; let i = index;">
                 <tr>
-                    <td><label>Gracz:</label></td>
+                    <td>
+                        <label>Gracz:</label>
+                    </td>
                     <td>{{tableGamers[i].Nick}}</td>
                 </tr>
                 <tr>
-                    <td><label>Punkty:</label></td>
+                    <td>
+                        <label>Punkty:</label>
+                    </td>
                     <td>
                         <div *ngIf="pointList">
-                            <input [(ngModel)]="pointList[i]" type="number" required />
+                            <input [(ngModel)]="pointList[i]" type="number" required/>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Miejsce:</label></td>
+                    <td>
+                        <label>Miejsce:</label>
+                    </td>
                     <td>
                         <div *ngIf="placeList">
-                            <input [(ngModel)]="placeList[i]" type="number" required />
+                            <input [(ngModel)]="placeList[i]" type="number" required/>
                         </div>
                     </td>
                 </tr>
@@ -126,7 +154,7 @@
         </div>
     </table>
 
-    <br />
+    <br/>
 
     <button class="btn btn-default" (click)="goBack()">Powrót</button>
     <button class="btn btn-success" (click)="addMany();">

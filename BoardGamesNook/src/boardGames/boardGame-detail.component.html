@@ -6,20 +6,32 @@
     </div>
     <table>
         <tr>
-            <td><label>Minimalna liczba graczy: </label></td>
-            <td><input [(ngModel)]="boardGame.MinPlayers" /></td>
+            <td>
+                <label>Minimalna liczba graczy: </label>
+            </td>
+            <td>
+                <input [(ngModel)]="boardGame.MinPlayers"/>
+            </td>
         </tr>
         <tr>
-            <td><label>Maksymalna liczba graczy: </label></td>
-            <td><input [(ngModel)]="boardGame.MaxPlayers" /></td>
+            <td>
+                <label>Maksymalna liczba graczy: </label>
+            </td>
+            <td>
+                <input [(ngModel)]="boardGame.MaxPlayers"/>
+            </td>
         </tr>
         <tr></tr>
         <tr>
-            <td><label>Maksymalny czas gry: </label></td>
-            <td><input [(ngModel)]="boardGame.MaxTime" /></td>
+            <td>
+                <label>Maksymalny czas gry: </label>
+            </td>
+            <td>
+                <input [(ngModel)]="boardGame.MaxTime"/>
+            </td>
         </tr>
     </table>
-    <br />
+    <br/>
     <p>
         <button class="btn btn-default" (click)="goBack()">Powrót</button>
         <button class="btn btn-success" (click)="save()">Zapisz</button>

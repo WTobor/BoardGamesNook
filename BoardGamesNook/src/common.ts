@@ -1,11 +1,12 @@
 ﻿import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 
-export class Common  {
+export class Common {
     constructor(
         private location?: Location,
         private router?: Router
-    ) { }
+    ) {
+    }
 
     goBack(): void {
         this.location.back();

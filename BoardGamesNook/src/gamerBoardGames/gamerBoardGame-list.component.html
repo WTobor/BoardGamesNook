@@ -1,12 +1,12 @@
 ﻿<div *ngIf="gamerBoardGames">
     <h3>LISTA GIER GRACZA {{ gamerBoardGames.GamerNick }}</h3>
 
-    <br />
+    <br/>
     <ul>
         <li *ngFor="let gamerBoardGame of gamerBoardGames" (click)="onSelect(gamerBoardGame)">
             <span class="hidden">{{ gamerBoardGame.Id }}</span>
             <span>{{ gamerBoardGame.BoardGameName }}</span>
-                <button *ngIf="isCurrentGamer" (click)="delete(gamerBoardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+            <button *ngIf="isCurrentGamer" (click)="delete(gamerBoardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
         </li>
     </ul>
     <div *ngIf="isCurrentGamer">
@@ -14,7 +14,9 @@
     </div>
     <div *ngIf="selectedGamerBoardGame">
         <h4>
-            <a href="https://boardgamegeek.com/boardgame/{{selectedGamerBoardGame.BGGId}}" target="_blank"><img src="{{selectedGamerBoardGame.ImageUrl}}" /></a>
+            <a href="https://boardgamegeek.com/boardgame/{{selectedGamerBoardGame.BGGId}}" target="_blank">
+                <img src="{{selectedGamerBoardGame.ImageUrl}}"/>
+            </a>
         </h4>
         <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
     </div>

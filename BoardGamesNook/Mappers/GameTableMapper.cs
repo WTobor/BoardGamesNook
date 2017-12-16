@@ -12,9 +12,9 @@ namespace BoardGamesNook.Mappers
         {
             if (!String.IsNullOrEmpty(gamerNick))
             {
-                return gameTableList.Where(x => x.CreatedGamer.Nick == gamerNick).Select(x => MapToGameTableViewModel(x)).ToList();
+                return gameTableList.Where(x => x.CreatedGamer.Nick == gamerNick).Select(MapToGameTableViewModel).ToList();
             }
-            return gameTableList.Select(x => MapToGameTableViewModel(x)).ToList();
+            return gameTableList.Select(MapToGameTableViewModel).ToList();
         }
 
         public static GameTableViewModel MapToGameTableViewModel(GameTable gameTable)

@@ -19,7 +19,7 @@ import { GamerService } from "../gamers/gamer.service";
 })
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
-    isCurrentResult: boolean = false;
+    isCurrentResult = false;
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
 
@@ -32,7 +32,6 @@ export class GameResultDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        debugger
         this.route.params
             .switchMap((params: Params) => this.gameResultService.getByNick(params["nick"]))
             .subscribe((gameResult: GameResult) => {
@@ -66,7 +65,7 @@ export class GameResultDetailComponent implements OnInit {
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 }

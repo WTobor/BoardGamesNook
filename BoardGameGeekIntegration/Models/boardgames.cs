@@ -7,43 +7,24 @@ namespace BoardGameGeekIntegration.Models
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
     public  class boardgames
     {
-
-        private boardgamesBoardgame[] boardgameField;
-
         private string termsofuseField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("boardgame")]
-        public boardgamesBoardgame[] boardgame
-        {
-            get
-            {
-                return this.boardgameField;
-            }
-            set
-            {
-                this.boardgameField = value;
-            }
-        }
+        public boardgamesBoardgame[] boardgame { get; set; }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string termsofuse
         {
-            get
-            {
-                return this.termsofuseField;
-            }
-            set
-            {
-                this.termsofuseField = value;
-            }
+            get => termsofuseField;
+            set => termsofuseField = value;
         }
     }
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class boardgamesBoardgame
+    public class boardgamesBoardgame
     {
 
         private boardgamesBoardgameName nameField;
@@ -55,47 +36,29 @@ namespace BoardGameGeekIntegration.Models
         /// <remarks/>
         public boardgamesBoardgameName name
         {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
+            get => nameField;
+            set => nameField = value;
         }
 
         /// <remarks/>
         public ushort yearpublished
         {
-            get
-            {
-                return this.yearpublishedField;
-            }
-            set
-            {
-                this.yearpublishedField = value;
-            }
+            get => yearpublishedField;
+            set => yearpublishedField = value;
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public uint objectid
         {
-            get
-            {
-                return this.objectidField;
-            }
-            set
-            {
-                this.objectidField = value;
-            }
+            get => objectidField;
+            set => objectidField = value;
         }
     }
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class boardgamesBoardgameName
+    public class boardgamesBoardgameName
     {
 
         private bool primaryField;
@@ -106,28 +69,16 @@ namespace BoardGameGeekIntegration.Models
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public bool primary
         {
-            get
-            {
-                return this.primaryField;
-            }
-            set
-            {
-                this.primaryField = value;
-            }
+            get => primaryField;
+            set => primaryField = value;
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlTextAttribute()]
         public string Value
         {
-            get
-            {
-                return this.valueField;
-            }
-            set
-            {
-                this.valueField = value;
-            }
+            get => valueField;
+            set => valueField = value;
         }
     }
 

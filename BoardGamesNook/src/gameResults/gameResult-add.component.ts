@@ -4,7 +4,7 @@ import { Gamer } from "../gamers/gamer";
 import { BoardGame } from "../boardGames/boardGame";
 import "rxjs/add/operator/switchMap";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router, Params } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { GameResultService } from "./gameResult.service";
@@ -50,7 +50,8 @@ export class GameResultAddComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.params
@@ -74,11 +75,11 @@ export class GameResultAddComponent implements OnInit {
         });
 
         this.gameTableService.getGameTablesByGamerNick(this.currentGamerNick).then(gamerGameTables => {
-            this.gamerGameTables = gamerGameTables;
-            if (this.gamerGameTables != null && this.gamerGameTables.length > 0) {
-                this.selectBoardGameTable(this.gamerGameTables.map(x => x.Id)[0]);
+                this.gamerGameTables = gamerGameTables;
+                if (this.gamerGameTables != null && this.gamerGameTables.length > 0) {
+                    this.selectBoardGameTable(this.gamerGameTables.map(x => x.Id)[0]);
+                }
             }
-        }
         );
     }
 
@@ -128,7 +129,7 @@ export class GameResultAddComponent implements OnInit {
     }
 
     addMany(): void {
-        let playersNumber = this.tableGamers.length;
+        const playersNumber = this.tableGamers.length;
         this.gameResults = [];
         for (let i = 0; i < playersNumber; i++) {
             this.gameResult = new GameResult;

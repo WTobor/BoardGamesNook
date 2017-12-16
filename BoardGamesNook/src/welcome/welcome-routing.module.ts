@@ -15,4 +15,5 @@ const welcomeRoutes: Routes = [
         RouterModule
     ]
 })
-export class WelcomeRoutingModule { }
+export class WelcomeRoutingModule {
+}

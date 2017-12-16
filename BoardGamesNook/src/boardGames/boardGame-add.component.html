@@ -4,31 +4,35 @@
 <ng-template #bgFound>
     <table>
         <tr>
-            <td><label>Nazwa:</label></td>
-            <td><input #name /></td>
+            <td>
+                <label>Nazwa:</label>
+            </td>
+            <td>
+                <input #name/>
+            </td>
         </tr>
     </table>
 
-    <br />
+    <br/>
 
     <button class="btn btn-default" (click)="goBack()">Powrót</button>
     <button class="btn btn-success" (click)="add(name.value);
             name.value='';">
         Dodaj
     </button>
-    <br />
+    <br/>
 </ng-template>
 
 <ng-template #bgNotFound>
-    Czy chodziło Ci o:
-    <ul>
-        <li *ngFor="let similarBoardGame of similarBoardGames">
-            <span>
-                <a href="https://boardgamegeek.com/boardgame/{{similarBoardGame.Id}}" target="_blank">
-                    {{ similarBoardGame.Name }}
-                </a>
-            </span>
-            <button class="btn btn-success" (click)="onSelect(similarBoardGame)">Wybierz</button>
-        </li>
-    </ul>
-    <ng-template>
+Czy chodziło Ci o:
+<ul>
+    <li *ngFor="let similarBoardGame of similarBoardGames">
+        <span>
+            <a href="https://boardgamegeek.com/boardgame/{{similarBoardGame.Id}}" target="_blank">
+                {{ similarBoardGame.Name }}
+            </a>
+        </span>
+        <button class="btn btn-success" (click)="onSelect(similarBoardGame)">Wybierz</button>
+    </li>
+</ul>
+<ng-template>

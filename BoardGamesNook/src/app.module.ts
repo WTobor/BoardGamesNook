@@ -48,9 +48,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         DialogService,
         UserService,
         {
-            provide: LocationStrategy, useClass: HashLocationStrategy
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy
         }
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

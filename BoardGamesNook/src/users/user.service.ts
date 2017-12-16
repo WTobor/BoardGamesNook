@@ -1,21 +1,18 @@
 ﻿import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 import { Router } from "@angular/router";
-
 import "rxjs/add/operator/toPromise";
-
-import { Common } from "./../Common";
 import { User } from "./user";
 
 @Injectable()
 export class UserService {
-    private _getUserUrl = "User/Get";
-    private _logOutUserUrl = "User/LogOut";
+    private getUserUrl = "User/Get";
+    private logOutUserUrl = "User/LogOut";
 
-    constructor(private http: Http, private router: Router) { }
+    constructor(private http: Http, private router: Router) {}
 
     getUser(): Promise<User> {
-        const url = `${this._getUserUrl}`;
+        const url = `${this.getUserUrl}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
@@ -24,17 +21,17 @@ export class UserService {
                 }
                 return response.json() as User || null;
             })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 
     logOutUser(): void {
-        const url = `${this._logOutUserUrl}`;
+        const url = `${this.logOutUserUrl}`;
         this.http.get(url)
             .toPromise()
             .then(() => {
-                this.router.navigate(['/']);
+                this.router.navigate(["/"]);
                 window.location.reload();
             })
-            .catch (err => { return Promise.reject(err); });
+            .catch(err => { return Promise.reject(err); });
     }
 }

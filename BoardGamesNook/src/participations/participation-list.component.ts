@@ -13,13 +13,14 @@ export class ParticipationListComponent implements OnInit {
     participations: Participation[];
     selectedParticipation: Participation;
     selectedGamerNick: string;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private participationService: ParticipationService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router) {
+    }
 
     ngOnInit(): void {
         this.route.params
@@ -48,7 +49,9 @@ export class ParticipationListComponent implements OnInit {
             .delete(participation.Id)
             .then(() => {
                 this.participations = this.participations.filter(g => g !== participation);
-                if (this.selectedParticipation === participation) { this.selectedParticipation = null; }
+                if (this.selectedParticipation === participation) {
+                    this.selectedParticipation = null;
+                }
             });
     }
 

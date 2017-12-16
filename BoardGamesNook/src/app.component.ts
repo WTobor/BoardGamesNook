@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
         private userService: UserService,
         private gamerService: GamerService,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.userService.getUser().then((user: User) => {

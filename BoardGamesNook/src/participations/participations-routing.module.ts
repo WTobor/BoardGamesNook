@@ -19,4 +19,5 @@ const participationsRoutes: Routes = [
         RouterModule
     ]
 })
-export class ParticipationRoutingModule { }
+export class ParticipationRoutingModule {
+}

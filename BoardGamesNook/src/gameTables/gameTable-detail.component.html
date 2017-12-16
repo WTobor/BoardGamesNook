@@ -3,12 +3,12 @@
 
     <ng-template #currentGamer>
         <div *ngIf="isCreated then existGameTable else notExistGameTable"></div>
-            <ng-template #existGameTable>
-                <h3>STÓŁ {{ gameTable.Name }}</h3>
-            </ng-template>
-            <ng-template #notExistGameTable>
-                <h3>STÓŁ</h3>
-            </ng-template>
+        <ng-template #existGameTable>
+            <h3>STÓŁ {{ gameTable.Name }}</h3>
+        </ng-template>
+        <ng-template #notExistGameTable>
+            <h3>STÓŁ</h3>
+        </ng-template>
 
         <div *ngIf="gameTable.TableBoardGameList">
             <label>Wybrane pozycje:</label>
@@ -25,11 +25,17 @@
         </div>
         <table>
             <tr *ngIf="gameTable.Id == 0">
-                <td><label>Nazwa stołu: </label></td>
-                <td><input [(ngModel)]="gameTable.Name" type="text" /></td>
+                <td>
+                    <label>Nazwa stołu: </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="gameTable.Name" type="text"/>
+                </td>
             </tr>
             <tr>
-                <td><label>Dodaj grę: </label></td>
+                <td>
+                    <label>Dodaj grę: </label>
+                </td>
                 <td>
                     <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
                         <select #selectedTableBoardGame>
@@ -46,24 +52,44 @@
                 </td>
             </tr>
             <tr>
-                <td><label>Minimalna liczba graczy: </label></td>
-                <td><input [(ngModel)]="gameTable.MinPlayers" type="number" /></td>
+                <td>
+                    <label>Minimalna liczba graczy: </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="gameTable.MinPlayers" type="number"/>
+                </td>
             </tr>
             <tr>
-                <td><label>Maksymalna liczba graczy: </label></td>
-                <td><input [(ngModel)]="gameTable.MaxPlayers" type="number" /></td>
+                <td>
+                    <label>Maksymalna liczba graczy: </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="gameTable.MaxPlayers" type="number"/>
+                </td>
             </tr>
             <tr>
-                <td><label>Miasto: </label></td>
-                <td><input [(ngModel)]="gameTable.City" type="text" /></td>
+                <td>
+                    <label>Miasto: </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="gameTable.City" type="text"/>
+                </td>
             </tr>
             <tr>
-                <td><label>Ulica: </label></td>
-                <td><input [(ngModel)]="gameTable.Street" type="text" /></td>
+                <td>
+                    <label>Ulica: </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="gameTable.Street" type="text"/>
+                </td>
             </tr>
             <tr>
-                <td><label>Prywatny: </label></td>
-                <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" /></td>
+                <td>
+                    <label>Prywatny: </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="gameTable.IsPrivate" type="checkbox"/>
+                </td>
             </tr>
         </table>
 
@@ -91,24 +117,36 @@
         </div>
         <table>
             <tr>
-                <td><label>Minimalna liczba graczy: </label></td>
+                <td>
+                    <label>Minimalna liczba graczy: </label>
+                </td>
                 <td>{{ gameTable.MinPlayers }}</td>
             </tr>
             <tr>
-                <td><label>Maksymalna liczba graczy: </label></td>
+                <td>
+                    <label>Maksymalna liczba graczy: </label>
+                </td>
                 <td>{{ gameTable.MaxPlayers }}</td>
             </tr>
             <tr>
-                <td><label>Miasto: </label></td>
+                <td>
+                    <label>Miasto: </label>
+                </td>
                 <td>{{ gameTable.City }}</td>
             </tr>
             <tr>
-                <td><label>Ulica: </label></td>
+                <td>
+                    <label>Ulica: </label>
+                </td>
                 <td>{{ gameTable.Street }}</td>
             </tr>
             <tr>
-                <td><label>Prywatny: </label></td>
-                <td><input [(ngModel)]="gameTable.IsPrivate" type="checkbox" disabled="true" /></td>
+                <td>
+                    <label>Prywatny: </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="gameTable.IsPrivate" type="checkbox" disabled="true"/>
+                </td>
             </tr>
         </table>
 

@@ -12,17 +12,17 @@ namespace BoardGamesNook.Repository
 
         public Gamer Get(string id)
         {
-            return _gamers.Where(x => x.Id == id).FirstOrDefault();
+            return _gamers.FirstOrDefault(x => x.Id == id);
         }
 
         public Gamer GetByEmail(string userEmail)
         {
-            return _gamers.Where(x => x.Email == userEmail).FirstOrDefault();
+            return _gamers.FirstOrDefault(x => x.Email == userEmail);
         }
 
         public Gamer GetByNick(string userNick)
         {
-            return _gamers.Where(x => x.Nick == userNick).FirstOrDefault();
+            return _gamers.FirstOrDefault(x => x.Nick == userNick);
         }
 
         public bool NickExists(string nick)
@@ -42,7 +42,7 @@ namespace BoardGamesNook.Repository
 
         public void Edit(Gamer gamer)
         {
-            var oldGamer = _gamers.Where(x => x.Id == gamer.Id).FirstOrDefault();
+            var oldGamer = _gamers.FirstOrDefault(x => x.Id == gamer.Id);
             if (oldGamer != null)
             {
                 _gamers.Remove(oldGamer);
@@ -52,7 +52,7 @@ namespace BoardGamesNook.Repository
 
         public void Deactivate(string id)
         {
-            var gamer = _gamers.Where(x => x.Id == id).FirstOrDefault();
+            var gamer = _gamers.FirstOrDefault(x => x.Id == id);
             if (gamer != null)
                 gamer.Active = false;
         }

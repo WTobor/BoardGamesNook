@@ -14,13 +14,14 @@ import { Common } from "./../Common";
 })
 export class ParticipationDetailComponent implements OnInit {
     participation: Participation;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private participationService: ParticipationService,
         private route: ActivatedRoute,
         private location: Location
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.params
@@ -40,15 +41,14 @@ export class ParticipationDetailComponent implements OnInit {
         if (this.participation.Id === undefined) {
             this.participationService.create(this.participation)
                 .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
-        }
-        else {
+        } else {
             this.participationService.update(this.participation)
                 .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
         }
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 }

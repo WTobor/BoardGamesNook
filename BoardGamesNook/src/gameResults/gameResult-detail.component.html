@@ -1,7 +1,9 @@
 ﻿<h3>Nowy wynik gry</h3>
 <table>
     <tr>
-        <td><label>Gra:</label></td>
+        <td>
+            <label>Gra:</label>
+        </td>
         <td>
             <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
                 {{availableBoardGames.length}}
@@ -15,7 +17,9 @@
         </td>
     </tr>
     <tr>
-        <td><label>Gracz:</label></td>
+        <td>
+            <label>Gracz:</label>
+        </td>
         <td>
             <div *ngIf="availableGamers && availableGamers.length > 0">
                 {{availableGamers.length}}
@@ -29,16 +33,24 @@
         </td>
     </tr>
     <tr>
-        <td><label>Punkty:</label></td>
-        <td><input #points /></td>
+        <td>
+            <label>Punkty:</label>
+        </td>
+        <td>
+            <input #points/>
+        </td>
     </tr>
     <tr>
-        <td><label>Miejsce:</label></td>
-        <td><input #place /></td>
+        <td>
+            <label>Miejsce:</label>
+        </td>
+        <td>
+            <input #place/>
+        </td>
     </tr>
 </table>
 
-<br />
+<br/>
 
 <button class="btn btn-default" (click)="goBack()">Powrót</button>
 <button class="btn btn-success" (click)="add(selectedBoardGame.Id.value, selectedGamer.Id.value, points.value, place.value );

@@ -21,4 +21,5 @@ import { ParticipationRoutingModule } from "./participations-routing.module";
     ],
     providers: [ParticipationService]
 })
-export class ParticipationsModule { }
+export class ParticipationsModule {
+}

@@ -1,6 +1,6 @@
 ﻿<h3>LISTA STOŁÓW DO GRY</h3>
 
-<br />
+<br/>
 <ul>
     <li *ngFor="let gameTable of gameTables" (click)="onSelect(gameTable)">
         <div *ngIf="gameTable">
@@ -17,7 +17,7 @@
                 </ul>
             </div>
         </div>
-</li>
+    </li>
 </ul>
 
 <button *ngIf="isCurrentGamer" class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>

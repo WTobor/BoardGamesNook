@@ -11,11 +11,11 @@ namespace BoardGamesNook.Repository
     {
         private readonly List<GameTable> _gameTables = GameTableGenerator.gameTables;
 
-        private readonly BoardGameRepository boardGameRepository = new BoardGameRepository();
+        private readonly BoardGameRepository _boardGameRepository = new BoardGameRepository();
 
         public GameTable Get(int id)
         {
-            return _gameTables.Where(x => x.Id == id).FirstOrDefault();
+            return _gameTables.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<GameTable> GetAll()
@@ -25,8 +25,8 @@ namespace BoardGamesNook.Repository
 
         public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
         {
-            var availableTableBoardGameList = boardGameRepository.GetAll();
-            if (table != null && table.BoardGames != null)
+            var availableTableBoardGameList = _boardGameRepository.GetAll();
+            if (table?.BoardGames != null)
                 availableTableBoardGameList =
                     availableTableBoardGameList.Where(x => !table.BoardGames.Contains(x)).ToList();
             return availableTableBoardGameList;
@@ -45,7 +45,7 @@ namespace BoardGamesNook.Repository
 
         public void Edit(GameTable gameTable)
         {
-            var oldGameTable = _gameTables.Where(x => x.Id == gameTable.Id).FirstOrDefault();
+            var oldGameTable = _gameTables.FirstOrDefault(x => x.Id == gameTable.Id);
             if (oldGameTable != null)
             {
                 _gameTables.Remove(oldGameTable);
@@ -68,7 +68,7 @@ namespace BoardGamesNook.Repository
 
         public void Delete(int id)
         {
-            var gameTable = _gameTables.Where(x => x.Id == id).FirstOrDefault();
+            var gameTable = _gameTables.FirstOrDefault(x => x.Id == id);
             if (gameTable != null)
                 _gameTables.Remove(gameTable);
         }

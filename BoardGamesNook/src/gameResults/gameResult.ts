@@ -6,7 +6,7 @@
     CreatedGamerNick: string;
     BoardGameId: number;
     BoardGameName: string;
-    Points: number| null;
+    Points: number | null;
     Place: number | null;
     PlayersNumber: number;
 }

@@ -8,17 +8,17 @@ import { GamerBoardGame } from "./gamerBoardGame";
 @Injectable()
 export class GamerBoardGameService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private _getGamerBoardGameUrl = "GamerBoardGame/Get";
-    private _getGamerBoardGameListUrl = "GamerBoardGame/GetAllByGamerNick";
-    private _addGamerBoardGameUrl = "GamerBoardGame/Add";
-    private _editGamerBoardGameUrl = "GamerBoardGame/Edit";
-    private _deleteGamerBoardGameUrl = "GamerBoardGame/Delete";
-    private _getGamerAvailableBoardGamesUrl = "GamerBoardGame/GetGamerAvailableBoardGames";
+    private getGamerBoardGameUrl = "GamerBoardGame/Get";
+    private getGamerBoardGameListUrl = "GamerBoardGame/GetAllByGamerNick";
+    private addGamerBoardGameUrl = "GamerBoardGame/Add";
+    private editGamerBoardGameUrl = "GamerBoardGame/Edit";
+    private deleteGamerBoardGameUrl = "GamerBoardGame/Delete";
+    private getGamerAvailableBoardGamesUrl = "GamerBoardGame/GetGamerAvailableBoardGames";
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {}
 
     getGamerBoardGames(gamerNick: string): Promise<GamerBoardGame[]> {
-        const url = `${this._getGamerBoardGameListUrl}/${gamerNick}`;
+        const url = `${this.getGamerBoardGameListUrl}/${gamerNick}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
@@ -29,13 +29,12 @@ export class GamerBoardGameService {
 
     getGamerBoardGame(id: number): Promise<GamerBoardGame> {
         if (id > 0) {
-            const url = `${this._getGamerBoardGameUrl}/${id}`;
+            const url = `${this.getGamerBoardGameUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as GamerBoardGame; })
                 .catch(err => { return Promise.reject(err); });
-        }
-        else {
+        } else {
             var response = new GamerBoardGame;
             return new Promise((resolve) => { resolve(response); })
                 .then(response => { return response; })
@@ -44,7 +43,7 @@ export class GamerBoardGameService {
     }
 
     getGamerAvailableBoardGames(gamerNick: string): Promise<GamerBoardGame[]> {
-        const url = `${this._getGamerAvailableBoardGamesUrl}/${gamerNick}`;
+        const url = `${this.getGamerAvailableBoardGamesUrl}/${gamerNick}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.json() as GamerBoardGame[]; })
@@ -52,7 +51,7 @@ export class GamerBoardGameService {
     }
 
     delete(id: number): Promise<string> {
-        const url = `${this._deleteGamerBoardGameUrl}/${id}`;
+        const url = `${this.deleteGamerBoardGameUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
@@ -60,7 +59,7 @@ export class GamerBoardGameService {
     }
 
     create(boardGameId: number): Promise<string> {
-        const url = `${this._addGamerBoardGameUrl}`;
+        const url = `${this.addGamerBoardGameUrl}`;
         return this.http
             .post(url, JSON.stringify({ boardGameId: boardGameId }), { headers: this.headers })
             .toPromise()
@@ -69,7 +68,7 @@ export class GamerBoardGameService {
     }
 
     update(gamerBoardGame: GamerBoardGame): Promise<string> {
-        const url = `${this._editGamerBoardGameUrl}`;
+        const url = `${this.editGamerBoardGameUrl}`;
         return this.http
             .post(url, JSON.stringify({ gamerBoardGameId: gamerBoardGame.BoardGameId }), { headers: this.headers })
             .toPromise()

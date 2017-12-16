@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BoardGamesNook.ViewModels.User
+﻿namespace BoardGamesNook.ViewModels.User
 {
     public class UserViewModel
     {

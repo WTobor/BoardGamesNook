@@ -11,12 +11,12 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerController : Controller
     {
-        private readonly GamerService gamerService = new GamerService(new GamerRepository());
+        private readonly GamerService _gamerService = new GamerService(new GamerRepository());
 
         [HttpPost]
         public JsonResult GetByEmail(string email)
         {
-            var gamer = gamerService.GetByEmail(email);
+            var gamer = _gamerService.GetByEmail(email);
             var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer);
             return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -24,14 +24,14 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult GetByNick(string nick)
         {
-            var gamer = gamerService.GetByNick(nick);
+            var gamer = _gamerService.GetByNick(nick);
             var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer);
             return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
-            var gamerList = gamerService.GetAll();
+            var gamerList = _gamerService.GetAll();
             var gamerViewModelList = GamerMapper.MapToGamerList(gamerList);
             return Json(gamerViewModelList, JsonRequestBehavior.AllowGet);
         }
@@ -39,11 +39,12 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(GamerViewModel gamer)
         {
-            var loggedUser = Session["user"] as User;
-            if (loggedUser == null)
+            if (!(Session["user"] is User loggedUser))
+            {
                 return Json("Nie znaleziono użytkownika", JsonRequestBehavior.AllowGet);
+            }
 
-            if (gamerService.NickExists(gamer.Nick))
+            if (_gamerService.NickExists(gamer.Nick))
                 return Json("Istnieje gracz o podanym nicku. Wybierz inny nick.", JsonRequestBehavior.AllowGet);
 
             var dbGamer = new Gamer
@@ -59,7 +60,7 @@ namespace BoardGamesNook.Controllers
                 CreatedDate = DateTimeOffset.Now,
                 Active = true
             };
-            gamerService.Add(dbGamer);
+            _gamerService.Add(dbGamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -67,7 +68,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(Gamer gamer)
         {
-            var dbGamer = gamerService.Get(gamer.Id);
+            var dbGamer = _gamerService.Get(gamer.Id);
             if (dbGamer != null)
             {
                 dbGamer.Name = gamer.Name;
@@ -88,15 +89,14 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Deactivate(string id)
         {
-            gamerService.Deactivate(id);
+            _gamerService.Deactivate(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         public string GetCurrentGamerNick()
         {
-            var currentGamer = Session["gamer"] as Gamer;
-            var currentGamerNick = currentGamer == null ? string.Empty : currentGamer.Nick;
+            var currentGamerNick = !(Session["gamer"] is Gamer currentGamer) ? string.Empty : currentGamer.Nick;
             return currentGamerNick;
         }
     }

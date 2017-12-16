@@ -11,12 +11,13 @@ import { GameResult } from "./gameResult";
 export class GameResultListComponent implements OnInit {
     gameResults: GameResult[];
     selectedGameResult: GameResult;
-    isAdmin: boolean = false;
+    isAdmin = false;
 
     constructor(
-        private gameResultService: GameResultService,
-        private router: Router
-    ) { }
+        private readonly gameResultService: GameResultService,
+        private readonly router: Router
+    ) {
+    }
 
     ngOnInit(): void {
         this.getResults();

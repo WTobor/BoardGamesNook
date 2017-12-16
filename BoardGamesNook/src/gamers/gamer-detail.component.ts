@@ -14,13 +14,14 @@ import { Common } from "./../Common";
 })
 export class GamerDetailComponent implements OnInit {
     gamer: Gamer;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private location: Location
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.params
@@ -41,15 +42,14 @@ export class GamerDetailComponent implements OnInit {
             .then(errorMessage => {
                 if (this.isCurrentGamer) {
                     new Common().showErrorOrReturn(errorMessage);
-                }
-                else {
+                } else {
                     new Common(loc).showErrorOrGoBack(errorMessage);
                 }
             });
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 }

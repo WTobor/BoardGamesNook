@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { BoardGameService } from "./BoardGame.service";
@@ -14,18 +14,19 @@ import { Common } from "./../Common";
 })
 export class BoardGameAddComponent implements OnInit {
     boardGame: BoardGame;
-    boardGameNotFound: boolean = false;
+    boardGameNotFound = false;
     similarBoardGames: SimilarBoardGame[];
 
     constructor(
         private boardGameService: BoardGameService,
         private route: ActivatedRoute,
         private location: Location
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.boardGameService.getBoardGame(0))
+            .switchMap(() => this.boardGameService.getBoardGame(0))
             .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
@@ -36,8 +37,7 @@ export class BoardGameAddComponent implements OnInit {
                 try {
                     this.similarBoardGames = JSON.parse(result);
                     this.boardGameNotFound = true;
-                }
-                catch (e) {
+                } catch (e) {
                     new Common(loc).showErrorOrGoBack(result);
                 }
             });
@@ -47,12 +47,12 @@ export class BoardGameAddComponent implements OnInit {
         var loc = this.location;
         this.boardGameService.addSimilar(similarBoardGame.Id)
             .then(result => {
-                    new Common(loc).showErrorOrGoBack(result);
+                new Common(loc).showErrorOrGoBack(result);
             });
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 }

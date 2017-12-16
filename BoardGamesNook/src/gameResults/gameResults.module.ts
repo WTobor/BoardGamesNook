@@ -23,4 +23,5 @@ import { GameResultRoutingModule } from "./gameResults-routing.module";
     ],
     providers: [GameResultService]
 })
-export class GameResultsModule { }
+export class GameResultsModule {
+}

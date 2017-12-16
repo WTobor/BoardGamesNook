@@ -13,13 +13,14 @@ export class GamerBoardGameListComponent implements OnInit {
     gamerBoardGames: GamerBoardGame[];
     selectedGamerBoardGame: GamerBoardGame;
     selectedGamerNick: string;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router) {
+    }
 
     ngOnInit() {
         this.route.params
@@ -46,12 +47,15 @@ export class GamerBoardGameListComponent implements OnInit {
             .delete(gamerBoardGame.Id)
             .then(() => {
                 this.gamerBoardGames = this.gamerBoardGames.filter(g => g !== gamerBoardGame);
-                if (this.selectedGamerBoardGame === gamerBoardGame) { this.selectedGamerBoardGame = null; }
+                if (this.selectedGamerBoardGame === gamerBoardGame) {
+                    this.selectedGamerBoardGame = null;
+                }
             });
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNick, this.selectedGamerBoardGame.Id]);
+        this.router.navigate(
+            ["/gamerBoardGames", this.selectedGamerBoardGame.GamerNick, this.selectedGamerBoardGame.Id]);
     }
 
     gotoAdd(): void {

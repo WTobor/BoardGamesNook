@@ -12,7 +12,7 @@ namespace BoardGamesNook.Repository
 
         public GameParticipation Get(int id)
         {
-            return _gameParticipations.Where(x => x.Id == id).FirstOrDefault();
+            return _gameParticipations.FirstOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<GameParticipation> GetAll()
@@ -32,7 +32,7 @@ namespace BoardGamesNook.Repository
 
         public void Edit(GameParticipation gameParticipation)
         {
-            var oldGamer = _gameParticipations.Where(x => x.Id == gameParticipation.Id).FirstOrDefault();
+            var oldGamer = _gameParticipations.FirstOrDefault(x => x.Id == gameParticipation.Id);
             if (oldGamer != null)
             {
                 _gameParticipations.Remove(oldGamer);
@@ -42,7 +42,7 @@ namespace BoardGamesNook.Repository
 
         public void Delete(int id)
         {
-            var gameParticipation = _gameParticipations.Where(x => x.Id == id).FirstOrDefault();
+            var gameParticipation = _gameParticipations.FirstOrDefault(x => x.Id == id);
             if (gameParticipation != null)
                 _gameParticipations.Remove(gameParticipation);
         }

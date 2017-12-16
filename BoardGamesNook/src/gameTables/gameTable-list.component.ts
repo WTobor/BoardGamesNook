@@ -14,14 +14,15 @@ export class GameTableListComponent implements OnInit {
     loadedGameTables: GameTable[];
     selectedGameTable: GameTable;
     selectedGamerNick: string;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private gameTableService: GameTableService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit(): void {
         this.route.params
@@ -39,8 +40,7 @@ export class GameTableListComponent implements OnInit {
                     };
                     if (this.selectedGamerNick === undefined && this.loadedGameTables !== undefined) {
                         this.gameTables = this.loadedGameTables.filter(x => x.GamerNick !== nick);
-                    }
-                    else {
+                    } else {
                         this.gameTables = this.loadedGameTables;
                     }
                 });
@@ -56,7 +56,9 @@ export class GameTableListComponent implements OnInit {
             .delete(gameTable.Id)
             .then(() => {
                 this.gameTables = this.gameTables.filter(g => g !== gameTable);
-                if (this.selectedGameTable === gameTable) { this.selectedGameTable = null; }
+                if (this.selectedGameTable === gameTable) {
+                    this.selectedGameTable = null;
+                }
             });
     }
 
@@ -65,7 +67,7 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoJoin(): void {
-        this.openDialog()
+        this.openDialog();
     }
 
     gotoGameTableBoardGames(): void {
@@ -77,6 +79,6 @@ export class GameTableListComponent implements OnInit {
     }
 
     openDialog() {
-        
+
     }
 }

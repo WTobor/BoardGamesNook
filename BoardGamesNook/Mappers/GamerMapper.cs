@@ -9,7 +9,7 @@ namespace BoardGamesNook.Mappers
     {
         public static IEnumerable<GamerViewModel> MapToGamerList(IEnumerable<Gamer> gamerList)
         {
-            return gamerList.Select(x => MapToGamerViewModel(x)).ToList();
+            return gamerList.Select(MapToGamerViewModel).ToList();
         }
 
         public static GamerViewModel MapToGamerViewModel(Gamer gamer)
@@ -22,7 +22,7 @@ namespace BoardGamesNook.Mappers
             {
                 return new GamerViewModel()
                 {
-                    Id = gamer.Id.ToString(),
+                    Id = gamer.Id,
                     Nick = gamer.Nick,
                     Name = gamer.Name,
                     Surname = gamer.Surname,

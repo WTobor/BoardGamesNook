@@ -18,15 +18,15 @@ namespace BoardGameGeekIntegration
 
             string url = String.Format(Constants.getXMLBoardGameObjectByName, name);
             string BGGBoardGameObjectStr = GetStringResponse(url);
-            object boardGamesObject = new Models.boardgames();
+            object boardGamesObject;
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Models.boardgames));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(boardgames));
             using (TextReader textReader = new StringReader(BGGBoardGameObjectStr))
             {
                 boardGamesObject = xmlSerializer.Deserialize(textReader);
             }
 
-            var boardGames = (Models.boardgames)boardGamesObject;
+            var boardGames = (boardgames)boardGamesObject;
 
             if (boardGames.boardgame != null && boardGames.boardgame.Length > 0)
             {
@@ -40,15 +40,15 @@ namespace BoardGameGeekIntegration
         {
             string url = String.Format(Constants.getXMLBoardGameObjectListByName, name);
             string BGGBoardGameObjectStr = GetStringResponse(url);
-            object boardGamesObject = new Models.boardgames();
+            object boardGamesObject;
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Models.boardgames));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(boardgames));
             using (TextReader textReader = new StringReader(BGGBoardGameObjectStr))
             {
                 boardGamesObject = xmlSerializer.Deserialize(textReader);
             }
 
-            var boardGames = (Models.boardgames)boardGamesObject;
+            var boardGames = (boardgames)boardGamesObject;
 
             if (boardGames.boardgame != null && boardGames.boardgame.Length > 0)
             {
@@ -65,14 +65,12 @@ namespace BoardGameGeekIntegration
 
         public static BoardGame GetBoardGameById(int id)
         {
-            BoardGame boardGame = null;
-
             string url = String.Format(Constants.getJSONBoardGameObjectDetailsById, id);
             string BGGBoardGameObjectDetailsStr = GetStringResponse(url);
 
             BoardGameDetails boardGameDetails = JsonConvert.DeserializeObject<BoardGameDetails>(BGGBoardGameObjectDetailsStr);
 
-            boardGame = new BoardGame()
+            var boardGame = new BoardGame()
             {
                 Name = boardGameDetails.name,
                 Description = boardGameDetails.description,

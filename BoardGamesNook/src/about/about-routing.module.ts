@@ -15,4 +15,5 @@ const aboutRoutes: Routes = [
         RouterModule
     ]
 })
-export class AboutRoutingModule { }
+export class AboutRoutingModule {
+}

@@ -9,7 +9,7 @@ namespace BoardGamesNook.Mappers
     {
         public static IEnumerable<GamerBoardGameViewModel> MapToGamerBoardGameViewModelList(IEnumerable<GamerBoardGame> gamerBoardGameList)
         {
-            return gamerBoardGameList.Select(x => MapToGamerBoardGameViewModel(x)).ToList();
+            return gamerBoardGameList.Select(MapToGamerBoardGameViewModel).ToList();
         }
 
         public static GamerBoardGameViewModel MapToGamerBoardGameViewModel(GamerBoardGame gamerBoardGame)

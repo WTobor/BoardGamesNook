@@ -19,4 +19,5 @@ const gamersRoutes: Routes = [
         RouterModule
     ]
 })
-export class GamerBoardGamesRoutingModule { }
+export class GamerBoardGamesRoutingModule {
+}

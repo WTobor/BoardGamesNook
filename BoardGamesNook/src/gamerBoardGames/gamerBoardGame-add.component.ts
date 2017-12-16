@@ -21,7 +21,8 @@ export class GamerBoardGameAddComponent implements OnInit {
         private gamerBoardGameService: GamerBoardGameService,
         private route: ActivatedRoute,
         private location: Location
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.route.params
@@ -39,7 +40,7 @@ export class GamerBoardGameAddComponent implements OnInit {
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 

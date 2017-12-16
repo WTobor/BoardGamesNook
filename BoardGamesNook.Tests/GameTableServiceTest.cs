@@ -95,7 +95,6 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gameTableService = new GameTableService(new GameTableRepository());
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            var now = DateTimeOffset.UtcNow;
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
 
             //Act
