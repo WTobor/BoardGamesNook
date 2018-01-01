@@ -13,6 +13,7 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class BoardGameController : Controller
     {
+        // Tutaj również wstrzykiaanie zależności przez konstruktor
         private BoardGameService boardGameService = new BoardGameService(new BoardGameRepository());
 
         public JsonResult Get(int id)
@@ -30,6 +31,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(string name)
         {
+            // Tutaj również jakaś logika biznesowa, która powinna być w serwisie.
             int boardGameId = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameId(name);
             if (boardGameId != 0)
             {
@@ -48,6 +50,7 @@ namespace BoardGamesNook.Controllers
                 }
                 else
                 {
+                    // Komunikat błedu do resources
                     return Json("Nie znaleziono gry o nazwie " + name, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -56,6 +59,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult AddById(int id)
         {
+            // Tutaj również jakaś logika biznesowa, która powinna być w serwisie.
             if (id != 0)
             {
                 BoardGame boardGame = BoardGameGeekIntegration.BGGBoardGame.GetBoardGameById(id);
@@ -63,6 +67,7 @@ namespace BoardGamesNook.Controllers
                 boardGameService.Add(boardGame);
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
+            // Komunikat błedu do resources
             return Json("Nie znaleziono gry o podanym Id " + id, JsonRequestBehavior.AllowGet);
         }
 
@@ -70,6 +75,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult Edit(BoardGameViewModel boardGame)
         {
             BoardGame dbBoardGame = boardGameService.Get(boardGame.Id);
+            // Controller nie powinien edytować obiektu, to powinno odbywać się w serwisie.
             if (dbBoardGame != null)
             {
                 dbBoardGame.Name = boardGame.Name;
@@ -84,6 +90,7 @@ namespace BoardGamesNook.Controllers
             }
             else
             {
+                // Komunikat błedu do resources
                 return Json("Nie znaleziono gry o Id=" + boardGame.Id, JsonRequestBehavior.AllowGet);
             }
         }

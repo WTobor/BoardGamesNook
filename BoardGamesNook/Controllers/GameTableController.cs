@@ -24,6 +24,8 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Nie powinnaś mieć na sztywno nigdzie stringów (komunikatów błędów).
+                // Takie rzecze wrzuca się do Resources - taki dokument można dodać z poziomu Visual Studio, tak jak dodaje się klasę.
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
             var gameTable = new GameTable();
@@ -43,6 +45,7 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
             // W repozytoriach metoda "Get" jest dość jednoznaczna, w serwisie już nie.
@@ -97,6 +100,7 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
 
@@ -128,6 +132,7 @@ namespace BoardGamesNook.Controllers
                 }
                 else
                 {
+                    // Komunikat błedu do resources
                     return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -168,8 +173,7 @@ namespace BoardGamesNook.Controllers
                     }
                     else
                     {
-                        // Nie powinnaś mieć na sztywno nigdzie stringów (komunikatów błędów).
-                        // Takie rzecze wrzuca się do Resources - taki dokument można dodać z poziomu Visual Studio, tak jak dodaje się klasę.
+                        // Komunikat błedu do resources
                         return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId, JsonRequestBehavior.AllowGet);
                     }
                 }
@@ -182,6 +186,7 @@ namespace BoardGamesNook.Controllers
             }
             else
             {
+                // Komunikat błedu do resources
                 return Json("Nie znaleziono stołu do gry o Id=" + gameTable.Id, JsonRequestBehavior.AllowGet);
             }
         }
@@ -192,6 +197,7 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
             // Kolejna logika biznesowa zawarta w kontrolerze zamiast w serwisie.
@@ -218,6 +224,7 @@ namespace BoardGamesNook.Controllers
             }
             else
             {
+                // Komunikat błedu do resources
                 return Json("Nie znaleziono stołu do gry o Id=" + gameTableId, JsonRequestBehavior.AllowGet);
             }
         }

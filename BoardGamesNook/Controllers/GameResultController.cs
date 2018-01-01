@@ -35,35 +35,46 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
             var gameResultList = gameResultService.GetAll();
+            // Użycie AutoMappera
+            // GameResult ma w sobie Gamera, to dlaczego go pobierasz dodatkowo osobno?
             var gameResultListViewModel = GameResultMapper.MapToGameResultViewModelList(gameResultList, gamerService.Get(gameResultList.Select(x => x.GamerId).FirstOrDefault()));
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        // Jeśli pobierasz po "nick" (nie wiem czy jest w ogóle takie słowo w języku angielskim, chyba powinno być "nickname") to czemu parametr nazywa się "id"?
         public JsonResult GetAllByGamerNick(string id)
         {
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
             var gameResultList = gameResultService.GetAllByGamerNick(id);
+            // Użycie AutoMappera
+            // GameResult ma w sobie Gamera, to dlaczego go pobierasz dodatkowo osobno?
             var gameResultListViewModel = GameResultMapper.MapToGameResultViewModelList(gameResultList, gamerService.Get(gameResultList.Select(x => x.GamerId).FirstOrDefault()));
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        // Tutaj parametr powinien nazywać się "tableId", bo samo "id" to nie wiadomo o jakie id chodzi
         public JsonResult GetAllByTableId(int id)
         {
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
             var gameResultList = gameResultService.GetAllByTableId(id);
+            // Użycie AutoMappera
+            // GameResult ma w sobie Gamera, to dlaczego go pobierasz dodatkowo osobno?
             var gameResultListViewModel = GameResultMapper.MapToGameResultViewModelList(gameResultList, gamerService.Get(gameResultList.Select(x => x.GamerId).FirstOrDefault()));
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
@@ -75,9 +86,14 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
 
+            // Tworzenie obietku gameResult powinno być w osobnej metodzie.
+            // Dodatkowo zauważyłem, że czasemi używasz "var", a czasami konkretnego typu - można sobie ustawić w ReSharper jak powinno być.
+            // Domyślnie używa się "var", bo jak się coś rekfaktoruje (np. zmienia typ zwracany przez metodę), to jest potem mniej do zmiany.
+            // A sam typ powinien jednoznacznie wynikać z nazwy metody, np. w tym przypadku "GetGameResult".
             GameResult gameResult = new GameResult()
             {
                 Id = gameResultService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
@@ -101,9 +117,12 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
 
+            // Twój serwis (i repozytorium) powinien mieć metodę, która umożliwania dodanie wielu GameResult.
+            // Dodatkowo masz powtórzenie (w tej i poprzedniej metodzie) kodu tworzącego GameResult.
             foreach (var gameResultViewModel in model)
             {
                 GameResult gameResult = new GameResult()
@@ -130,12 +149,14 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
 
             GameResult dbGameResult = gameResultService.Get(gameResultId);
             if (dbGameResult != null)
             {
+                // Kontroler nie powinien zmieniać obiektu, takie rzeczy powinny odbywać się w serwisie.
                 dbGameResult.ModifiedDate = DateTimeOffset.Now;
             }
             else
@@ -152,6 +173,7 @@ namespace BoardGamesNook.Controllers
             Gamer gamer = Session["gamer"] as Gamer;
             if (gamer == null)
             {
+                // Komunikat błedu do resources
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             }
 

@@ -2,7 +2,7 @@
 using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
 using System;
-using System.Linq;
+using System.Linq; // ten namespace nie jest nigdzie używany
 using System.Web.Mvc;
 using BoardGamesNook.Mappers;
 using BoardGamesNook.ViewModels.Gamer;
@@ -12,6 +12,7 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerController : Controller
     {
+        // Tutaj również wstrzykiaanie zależności przez konstruktor
         private GamerService gamerService = new GamerService(new GamerRepository());
 
         [HttpPost]
@@ -51,6 +52,11 @@ namespace BoardGamesNook.Controllers
                 return Json("Istnieje gracz o podanym nicku. Wybierz inny nick.", JsonRequestBehavior.AllowGet);
             }
 
+            // Tworzenie obiektu Gamer powinno być w osobnej metodzie.
+            // Masz również lekką niespójność w nazwach zmiennych. Czasami parametr metody nazywa się u Ciebie "model", a czasami tak jak konkretny typ.
+            // Powinno być to jednolite.
+            // Dodatkowo jeśli już chcesz, aby nazywało się tak jak konkretny typ, to nazwa powinna być "gamerViewModel",
+            // aby zmienna typu "Gamer" mogła nazywać się "gamer".
             Gamer dbGamer = new Gamer()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -73,6 +79,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult Edit(Gamer gamer)
         {
             Gamer dbGamer = gamerService.Get(gamer.Id);
+            // Controller nie powinien zajmować się edycją obiektu, to powinno odbywać się w serwisie.
             if (dbGamer != null)
             {
                 dbGamer.Name = gamer.Name;
@@ -84,6 +91,7 @@ namespace BoardGamesNook.Controllers
             }
             else
             {
+                // Komunikat błedu do resources
                 return Json("Brak gracza o Id=" + gamer.Id, JsonRequestBehavior.AllowGet);
             }
 
@@ -98,6 +106,7 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        // Tutaj również chyba chodziło Ci o "Nickname"
         public string GetCurrentGamerNick()
         {
             var currentGamer = Session["gamer"] as Gamer;
