@@ -40,23 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountService.cs" />
     <Compile Include="GameResultService.cs" />
     <Compile Include="GameParticipationService.cs" />
     <Compile Include="GamerBoardGameService.cs" />
     <Compile Include="BoardGameService.cs" />
     <Compile Include="GamerService.cs" />
     <Compile Include="GameTableService.cs" />
-    <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\IGameResultService.cs" />
     <Compile Include="Interfaces\IGameParticipationService.cs" />
     <Compile Include="Interfaces\IGamerBoardGameService.cs" />
     <Compile Include="Interfaces\IBoardGameService.cs" />
     <Compile Include="Interfaces\IGamerService.cs" />
     <Compile Include="Interfaces\IGameTableService.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">

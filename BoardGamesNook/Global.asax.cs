@@ -4,7 +4,11 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using BoardGamesNook.Controllers;
+using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Generators;
+using BoardGamesNook.Repository.Interfaces;
+using BoardGamesNook.Services;
+using BoardGamesNook.Services.Interfaces;
 using SimpleAuthentication.Core;
 using SimpleAuthentication.Mvc;
 using SimpleAuthentication.Mvc.Caching;
@@ -26,6 +30,20 @@ namespace BoardGamesNook
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterControllers(typeof(SimpleAuthenticationController).Assembly);
             builder.RegisterType<CookieCache>().As<ICache>();
+            
+            builder.RegisterType<BoardGameService>().As<IBoardGameService>();
+            builder.RegisterType<GamerService>().As<IGamerService>();
+            builder.RegisterType<GameParticipationService>().As<IGameParticipationService>();
+            builder.RegisterType<GamerBoardGameService>().As<IGamerBoardGameService>();
+            builder.RegisterType<GameResultService>().As<IGameResultService>();
+            builder.RegisterType<GameTableService>().As<IGameTableService>();
+            
+            builder.RegisterType<GamerRepository>().As<IGamerRepository>();
+            builder.RegisterType<BoardGameRepository>().As<IBoardGameRepository>();
+            builder.RegisterType<GameParticipationRepository>().As<IGameParticipationRepository>();
+            builder.RegisterType<GamerBoardGameRepository>().As<IGamerBoardGameRepository>();
+            builder.RegisterType<GameResultRepository>().As<IGameResultRepository>();
+            builder.RegisterType<GameTableRepository>().As<IGameTableRepository>();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

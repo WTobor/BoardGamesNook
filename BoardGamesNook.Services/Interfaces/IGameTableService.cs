@@ -9,6 +9,8 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<GameTable> GetAllByGamerNick(string nick);
 
+        IEnumerable<GameTable> GetAll();
+
         IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table);
 
         void Add(GameTable gameTable);

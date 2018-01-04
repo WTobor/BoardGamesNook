@@ -1,8 +1,7 @@
 ﻿using System.Web.Mvc;
 using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
 using BoardGamesNook.Services;
-using Newtonsoft.Json; // ten namespace nie jest nigdzie używany
+using BoardGamesNook.Services.Interfaces;
 
 namespace BoardGamesNook.Controllers
 {
@@ -39,18 +38,21 @@ namespace BoardGamesNook.Controllers
         // Uzycie DI powinno być we wszystkich klasach, czyli dla tego przypadku aby działało,
         // to jeszcze musisz zmienić klasę GamerService oraz zarejestrować GamerRepository
 
-        private GamerService gamerService = new GamerService(new GamerRepository());
+        private readonly IGamerService _gamerService;
+
+        public HomeController(IGamerService gamerService)
+        {
+            _gamerService = gamerService;
+        }
 
         public ActionResult Index()
         {
-            User loggedUser = (User)Session["user"];
+            var loggedUser = (User) Session["user"];
             if (loggedUser != null)
             {
-                Gamer gamer = gamerService.GetByEmail(loggedUser.Email);
+                var gamer = _gamerService.GetByEmail(loggedUser.Email);
                 if (gamer != null)
-                {
                     Session["gamer"] = gamer;
-                }
             }
             return View();
         }

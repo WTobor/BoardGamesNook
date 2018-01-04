@@ -1,13 +1,11 @@
 ﻿using System.Web.Mvc;
 using BoardGamesNook.Model;
-using BoardGamesNook.Services; // ten namespace nie jest nigdzie używany
 using Newtonsoft.Json;
 
 namespace BoardGamesNook.Controllers
 {
     public class UserController : Controller
     {
-        // Nic do dodania, wydaje się ok.
         public JsonResult Get()
         {
             var loggedUser = Session["user"];
