@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using BoardGamesNook.Mappers;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
@@ -35,7 +36,7 @@ namespace BoardGamesNook.Controllers
             };
             if (id > 0)
                 gameTable = _gameTableService.GetGameTable(id);
-            var gameTableViewModel = GameTableMapper.MapToGameTableViewModel(gameTable);
+            var gameTableViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTable);
 
             return Json(gameTableViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -55,18 +56,11 @@ namespace BoardGamesNook.Controllers
                 CreatedGamer = gamer,
                 CreatedGamerId = gamer.Id
             };
-            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(gameTable);
-            // Polecam zapoznać się z biblioteką AutoMapper - dość popularna i dobrze znać, bo często pojawia się na rozmowach rekrutacyjnych.
-            // Możesz za pomocą niej stworzyć coś podobnego do GameTableMapper, tylko będzie zajmować dużo mniej kodu.
-            // W internecie można znaleźć dość sporo przykładów jak używać AutoMappera.
-            // Z reguły sprowadza się to do zarejstrowania go w Global.asax, stworzenia odpowiedniego Profilu, np. GameTableProfile,
-            // A potem w kodzie używasz:
-            // var availableTableBoardGameListViewModel = Mapper.Map<IEnumerable<TableBoardGameViewModel>>(availableTableBoardGameList).
-            // Można mapować kilka obiektów na jeden, wtedy dodajesz chyba kolejną linijkę:
-            // availableTableBoardGameListViewModel = Mapper.Map<IEnumerable<TableBoardGameViewModel>>(gameTableViewModel),
-            // ale to już musiałabyś sprawdzić, bo nie pamiętam do końca.
+            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(gameTable).ToList();
+            var tempObj =
+               Mapper.Map<List<BoardGame>, List<TableBoardGameViewModel>>(availableTableBoardGameList);
             var availableTableBoardGameListViewModel =
-                GameTableMapper.MapToTableBoardGameViewModelList(availableTableBoardGameList, gameTable);
+               Mapper.Map( gameTable, tempObj);
 
             return Json(availableTableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -74,15 +68,17 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAll()
         {
             var gameTableList = _gameTableService.GetAllGameTables();
-            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList);
+            var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
 
             return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllByGamerNickname(string nickname)
         {
-            var gameTableList = _gameTableService.GetAllGameTablesByGamerNick(nickname);
-            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList, nickname);
+            var gameTableList = _gameTableService.GetAllGameTablesByGamerNickname(nickname);
+            var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
+            //double mapper
+            gameTableListViewModel.ForEach(x => x.GamerNickname = nickname);
 
             return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -126,7 +122,7 @@ namespace BoardGamesNook.Controllers
                 MinPlayersNumber = gameTableViewModel.MinPlayers,
                 MaxPlayersNumber = gameTableViewModel.MaxPlayers,
                 IsFull = false,
-                Id = _gameTableService.GetAllGameTablesByGamerNick(gamer.Nick).Select(x => x.Id).LastOrDefault() + 1,
+                Id = _gameTableService.GetAllGameTablesByGamerNickname(gamer.Nickname).Select(x => x.Id).LastOrDefault() + 1,
                 CreatedGamerId = gamer.Id,
                 CreatedGamer = gamer,
                 CreatedDate = DateTimeOffset.Now

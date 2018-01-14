@@ -1,8 +1,8 @@
 ﻿<h3>Nowy gracz</h3>
 <table>
     <tr>
-        <td><label>Nick:</label></td>
-        <td><input #nick /></td>
+        <td><label>Nickname:</label></td>
+        <td><input #nickname /></td>
     </tr>
     <tr>
         <td><label>Imię:</label></td>
@@ -26,6 +26,6 @@
     </tr>
 </table>
 <br />
-<button class="btn btn-success" (click)="add(nick.value, name.value, surname.value, age.value, city.value, street.value);">
+<button class="btn btn-success" (click)="add(nickname.value, name.value, surname.value, age.value, city.value, street.value);">
     Dodaj
 </button>

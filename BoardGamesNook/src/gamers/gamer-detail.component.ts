@@ -24,11 +24,11 @@ export class GamerDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerService.getByNick(params["nick"]))
+            .switchMap((params: Params) => this.gamerService.getByNickname(params["nickname"]))
             .subscribe((gamer: Gamer) => {
                 this.gamer = gamer;
-                this.gamerService.getCurrentGamerNick().then(nick => {
-                    if (nick === this.gamer.Nick) {
+                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                    if (nickname === this.gamer.Nickname) {
                         this.isCurrentGamer = true;
                     }
                 });

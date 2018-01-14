@@ -8,7 +8,7 @@ import { GamerAddComponent } from "./gamer-add.component";
 const gamersRoutes: Routes = [
     { path: "gamers", component: GamerListComponent },
     { path: "gamer/new", component: GamerAddComponent },
-    { path: "gamers/:nick", component: GamerDetailComponent }
+    { path: "gamers/:nickname", component: GamerDetailComponent }
 ];
 
 @NgModule({

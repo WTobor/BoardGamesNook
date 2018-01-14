@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace BoardGamesNook.Model
 {
@@ -22,6 +21,6 @@ namespace BoardGamesNook.Model
         public bool Active { get; set; }
         public string ImageUrl { get; set; }
 
-    public virtual BoardGame ParentBoardGame { get; set; }
+        public virtual BoardGame ParentBoardGame { get; set; }
     }
 }

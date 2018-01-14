@@ -30,9 +30,10 @@ export class GamerListComponent implements OnInit {
         this.gamerService
             .getGamers()
             .then(gamers => {
+                debugger
                 this.gamers = gamers;
-                this.gamerService.getCurrentGamerNick().then(nick =>
-                    this.gamers = this.gamers.filter(x => x.Nick !== nick));
+                this.gamerService.getCurrentGamerNickname().then(nickname =>
+                    this.gamers = this.gamers.filter(x => x.Nickname !== nickname));
             });
     }
 
@@ -46,10 +47,10 @@ export class GamerListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamers", this.selectedGamer.Nick]);
+        this.router.navigate(["/gamers", this.selectedGamer.Nickname]);
     }
 
     gotoGamerBoardGames(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamer.Nick]);
+        this.router.navigate(["/gamerBoardGames", this.selectedGamer.Nickname]);
     }
 }

@@ -13,15 +13,15 @@ namespace BoardGamesNook.Tests
     public class GameTableServiceTest
     {
         [TestMethod]
-        public void GetGameTableListByGamerNick()
+        public void GetGameTableListByGamerNickname()
         {
             //Arrange
             var gameTableService = new GameTableService(new GameTableRepository());
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
-            var generatedByTestGamerGameTablesCount = GameTableGenerator.gameTables.Count(x => x.CreatedGamer?.Nick == testGamer?.Nick);
+            var generatedByTestGamerGameTablesCount = GameTableGenerator.gameTables.Count(x => x.CreatedGamer?.Nickname == testGamer?.Nickname);
 
             //Act
-            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNick(testGamer?.Nick);
+            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNickname(testGamer?.Nickname);
             //Assert
             Assert.AreEqual(generatedByTestGamerGameTablesCount, gamerGameTableList.Count());
         }
@@ -36,7 +36,7 @@ namespace BoardGamesNook.Tests
 
             //Act
             gameTableService.AddGameTable(GetTestGameTable(testGamer));
-            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNick(testGamer?.Nick);
+            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNickname(testGamer?.Nickname);
             //Assert
             Assert.AreEqual(generatedGamerGameTablesCount + 1, gamerGameTableList.Count());
         }
@@ -121,7 +121,7 @@ namespace BoardGamesNook.Tests
             //Act
             gameTableService.AddGameTable(GetTestGameTable(testGamer));
             gameTableService.DeleteGameTable(newGameTableId);
-            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNick(testGamer?.Nick);
+            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNickname(testGamer?.Nickname);
             //Assert
             Assert.AreEqual(generatedGamerGameTablesCount, gamerGameTableList.Count());
         }

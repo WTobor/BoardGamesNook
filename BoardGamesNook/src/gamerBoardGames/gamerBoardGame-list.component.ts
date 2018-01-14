@@ -12,7 +12,7 @@ import { GamerService } from "../gamers/gamer.service";
 export class GamerBoardGameListComponent implements OnInit {
     gamerBoardGames: GamerBoardGame[];
     selectedGamerBoardGame: GamerBoardGame;
-    selectedGamerNick: string;
+    selectedGamerNickname: string;
     isCurrentGamer: boolean = false;
 
     constructor(
@@ -22,15 +22,17 @@ export class GamerBoardGameListComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
+        debugger
         this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNick"]))
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNickname"]))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
-
+        debugger
         this.route.params
             .subscribe((params: Params) => {
-                this.selectedGamerNick = params["gamerNick"];
-                this.gamerService.getCurrentGamerNick().then(nick => {
-                    if (nick === this.selectedGamerNick) {
+                this.selectedGamerNickname = params["gamerNickname"];
+                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                    debugger
+                    if (nickname === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     }
                 });
@@ -51,10 +53,10 @@ export class GamerBoardGameListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNick, this.selectedGamerBoardGame.Id]);
+        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNickname, this.selectedGamerBoardGame.Id]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gamerBoardGame", this.selectedGamerNick, 0]);
+        this.router.navigate(["/gamerBoardGame", this.selectedGamerNickname, 0]);
     }
 }

@@ -45,7 +45,7 @@ namespace BoardGamesNook.Tests
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.AddGamer(GetTestGamer(newGamerId));
-            var gamer = gamerService.Get(newGamerId);
+            var gamer = gamerService.GetGamer(newGamerId);
             var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
             Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
@@ -67,33 +67,33 @@ namespace BoardGamesNook.Tests
         }
 
         [TestMethod]
-        public void GetByNick()
+        public void GetByNickname()
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
             var newGamerId = Guid.NewGuid().ToString();
             var testGamer = GetTestGamer(newGamerId);
-            var testNick = Guid.NewGuid().ToString();
-            testGamer.Nick = testNick;
+            var testNickname = Guid.NewGuid().ToString();
+            testGamer.Nickname = testNickname;
             //Act
             gamerService.AddGamer(testGamer);
-            var gamer = gamerService.GetByNick(testNick);
+            var gamer = gamerService.GetGamerBoardGameByNickname(testNickname);
             var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
             //Assert
             Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
         }
 
         [TestMethod]
-        public void ExistsGamerNick()
+        public void ExistsGamerNickname()
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.AddGamer(GetTestGamer(newGamerId));
-            var nickExists = gamerService.NickExists(GetTestGamer(newGamerId)?.Nick);
+            var nicknameExists = gamerService.NicknameExists(GetTestGamer(newGamerId)?.Nickname);
             //Assert
-            Assert.AreEqual(true, nickExists);
+            Assert.AreEqual(true, nicknameExists);
         }
 
         [TestMethod]
@@ -105,10 +105,10 @@ namespace BoardGamesNook.Tests
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.AddGamer(GetTestGamer(newGamerId));
-            var gamer = gamerService.Get(newGamerId);
+            var gamer = gamerService.GetGamer(newGamerId);
             gamer.Name = name;
             gamerService.EditGamer(gamer);
-            var newGamer = gamerService.Get(newGamerId);
+            var newGamer = gamerService.GetGamer(newGamerId);
             //Assert
             Assert.AreEqual(name, newGamer.Name);
         }
@@ -133,7 +133,7 @@ namespace BoardGamesNook.Tests
             return new Gamer()
             {
                 Id = gamerId,
-                Nick = "test",
+                Nickname = "test",
                 Name = "test",
                 Email = $"{gamerId}@test.pl"
             };

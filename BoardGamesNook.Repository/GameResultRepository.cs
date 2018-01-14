@@ -25,9 +25,9 @@ namespace BoardGamesNook.Repository
             return _gameResults.Where(x => x.GameTableId == tableId).ToList();
         }
 
-        public IEnumerable<GameResult> GetAllGameResultsByGamerNick(string nick)
+        public IEnumerable<GameResult> GetAllGameResultsByGamerNickname(string nickname)
         {
-            return _gameResults.Where(x => x.Gamer != null && x.Gamer.Nick == nick).ToList();
+            return _gameResults.Where(x => x.Gamer != null && x.Gamer.Nickname == nickname).ToList();
         }
 
         public void AddGameResult(GameResult gameResult)

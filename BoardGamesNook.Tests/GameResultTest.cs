@@ -51,18 +51,17 @@ namespace BoardGamesNook.Tests
         }
 
         [TestMethod]
-        public void GetByNick()
+        public void GetByNickname()
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var gamerService = new GamerService(new GamerRepository());
             var newGamerId = Guid.NewGuid().ToString();
             var testGamer = GetTestGamer(newGamerId);
-            var testNick = Guid.NewGuid().ToString();
-            testGamer.Nick = testNick;
+            var testNickname = Guid.NewGuid().ToString();
+            testGamer.Nickname = testNickname;
             //Act
             gameResultService.AddGameResult(GetTestGameResult(testGamer));
-            var gameResults = gameResultService.GetAllByGamerNick(testNick);
+            var gameResults = gameResultService.GetAllByGamerNickname(testNickname);
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
@@ -135,7 +134,7 @@ namespace BoardGamesNook.Tests
             return new Gamer()
             {
                 Id = gamerId,
-                Nick = "test",
+                Nickname = "test",
                 Name = "test",
                 Email = $"{gamerId}@test.pl"
             };

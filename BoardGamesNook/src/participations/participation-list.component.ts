@@ -12,7 +12,7 @@ import { GamerService } from "../gamers/gamer.service";
 export class ParticipationListComponent implements OnInit {
     participations: Participation[];
     selectedParticipation: Participation;
-    selectedGamerNick: string;
+    selectedGamerNickname: string;
     isCurrentGamer: boolean = false;
 
     constructor(
@@ -23,16 +23,16 @@ export class ParticipationListComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.participationService.getParticipationsByGamerNick(params["gamerNick"]))
+            .switchMap((params: Params) => this.participationService.getParticipationsByGamerNickname(params["gamerNickname"]))
             .subscribe((participationList: Participation[]) => {
                 this.participations = participationList;
             });
 
         this.route.params
             .subscribe((params: Params) => {
-                this.selectedGamerNick = params["gamerNick"];
-                this.gamerService.getCurrentGamerNick().then(nick => {
-                    if (nick === this.selectedGamerNick) {
+                this.selectedGamerNickname = params["gamerNickname"];
+                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                    if (nickname === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     }
                 });

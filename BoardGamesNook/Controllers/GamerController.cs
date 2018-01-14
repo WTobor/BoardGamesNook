@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using BoardGamesNook.Mappers;
+using AutoMapper;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.Gamer;
@@ -18,25 +19,25 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetGamerByEmail(string email)
+        public JsonResult GetByEmail(string email)
         {
             var gamer = _gamerService.GetGamerByEmail(email);
-            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer);
+            var gamerViewModel = Mapper.Map<GamerViewModel>(gamer);
             return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult GetByNick(string nick)
+        public JsonResult GetByNickname(string nickname)
         {
-            var gamer = _gamerService.GetByNick(nick);
-            var gamerViewModel = GamerMapper.MapToGamerViewModel(gamer);
+            var gamer = _gamerService.GetGamerBoardGameByNickname(nickname);
+            var gamerViewModel = Mapper.Map<GamerViewModel>(gamer);
             return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
             var gamerList = _gamerService.GetAllGamers();
-            var gamerViewModelList = GamerMapper.MapToGamerList(gamerList);
+            var gamerViewModelList = Mapper.Map<List<GamerViewModel>>(gamerList);
             return Json(gamerViewModelList, JsonRequestBehavior.AllowGet);
         }
 
@@ -46,8 +47,8 @@ namespace BoardGamesNook.Controllers
             if (!(Session["user"] is User loggedUser))
                 return Json("Nie znaleziono użytkownika", JsonRequestBehavior.AllowGet);
 
-            if (_gamerService.NickExists(gamerViewModel.Nick))
-                return Json("Istnieje gracz o podanym nicku. Wybierz inny nick.", JsonRequestBehavior.AllowGet);
+            if (_gamerService.NicknameExists(gamerViewModel.Nickname))
+                return Json("Istnieje gracz o podanym nicku. Wybierz inny nickname.", JsonRequestBehavior.AllowGet);
             var gamer = GetGamerObj(gamerViewModel, loggedUser);
             _gamerService.AddGamer(gamer);
 
@@ -70,12 +71,18 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        public string GetCurrentGamerNickname()
+        {
+            var currentGamerNick = !(Session["gamer"] is Gamer currentGamer) ? string.Empty : currentGamer.Nickname;
+            return currentGamerNick;
+        }
+
         private static Gamer GetGamerObj(GamerViewModel gamerViewModel, User loggedUser)
         {
             return new Gamer
             {
                 Id = Guid.NewGuid().ToString(),
-                Nick = gamerViewModel.Nick,
+                Nickname = gamerViewModel.Nickname,
                 Name = gamerViewModel.Name,
                 Surname = gamerViewModel.Surname,
                 Email = loggedUser.Email,

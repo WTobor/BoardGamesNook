@@ -26,7 +26,7 @@
                     <select #selectedGamer (change)="selectGamer(selectedGamer.value)">
                         <option *ngFor="let gamer of availableGamers"
                                 [value]="gamer.Id">
-                            {{gamer.Nick}}
+                            {{gamer.Nickname}}
                         </option>
                     </select>
                 </div>
@@ -101,7 +101,7 @@
             <table *ngFor="let tableGamer of tableGamers; let i = index;">
                 <tr>
                     <td><label>Gracz:</label></td>
-                    <td>{{tableGamers[i].Nick}}</td>
+                    <td>{{tableGamers[i].Nickname}}</td>
                 </tr>
                 <tr>
                     <td><label>Punkty:</label></td>

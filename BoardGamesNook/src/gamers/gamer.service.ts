@@ -10,9 +10,9 @@ import { Common } from "./../Common";
 @Injectable()
 export class GamerService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private _getCurrentGamerNickUrl = "Gamer/GetCurrentGamerNick";
+    private _getCurrentGamerNicknameUrl = "Gamer/GetCurrentGamerNickname";
     private _getByEmailUrl = "Gamer/GetByEmail";
-    private _getByNickUrl = "Gamer/GetByNick";
+    private _getByNicknameUrl = "Gamer/GetByNickname";
     private _getGamerListUrl = "Gamer/GetAll";
     private _addGamerUrl = "Gamer/Add";
     private _editGamerUrl = "Gamer/Edit";
@@ -31,8 +31,8 @@ export class GamerService {
             .catch(err => { return Promise.reject(err); });
     }
 
-    getCurrentGamerNick(): Promise<string> {
-        const url = `${this._getCurrentGamerNickUrl}`;
+    getCurrentGamerNickname(): Promise<string> {
+        const url = `${this._getCurrentGamerNicknameUrl}`;
         return this.http.get(url)
             .toPromise()
             .then(response => { return response.text(); })
@@ -60,10 +60,10 @@ export class GamerService {
         }
     }
 
-    getByNick(nick: string): Promise<Gamer> {
-        if (nick !== "new") {
+    getByNickname(nickname: string): Promise<Gamer> {
+        if (nickname !== "new") {
             return this.http
-                .post(`${this._getByNickUrl}`, JSON.stringify({ nick: nick }), { headers: this.headers })
+                .post(`${this._getByNicknameUrl}`, JSON.stringify({ nickname: nickname }), { headers: this.headers })
                 .toPromise()
                 .then(response => {
                     if (response.text() === "") {

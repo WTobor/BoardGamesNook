@@ -1,6 +1,6 @@
 ﻿export class Gamer {
     Id: string;
-    Nick: string;
+    Nickname: string;
     Name: string;
     Surname: string;
     Email: string;

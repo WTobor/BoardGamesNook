@@ -12,7 +12,7 @@ export class GameResultService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getGameResultUrl = "GameResult/Get";
     private _getByTableUrl = "GameResult/GetByTable";
-    private _getByNickUrl = "GameResult/GetAllByGamerNick";
+    private _getByNickUrl = "GameResult/GetAllByGamerNickname";
     private _getGameResultListUrl = "GameResult/GetAll";
     private _addGameResultUrl = "GameResult/Add";
     private _addGameResultListUrl = "GameResult/AddMany";
@@ -60,10 +60,10 @@ export class GameResultService {
             .catch(err => { return Promise.reject(err); });
     }
 
-    getByNick(nick: string): Promise<GameResult> {
-        if (nick !== "new") {
+    getByNickname(nickname: string): Promise<GameResult> {
+        if (nickname !== "new") {
             return this.http
-                .post(`${this._getByNickUrl}`, JSON.stringify({ nick: nick }), { headers: this.headers })
+                .post(`${this._getByNickUrl}`, JSON.stringify({ nickname: nickname }), { headers: this.headers })
                 .toPromise()
                 .then(response => {
                     if (response.text() === "") {

@@ -9,7 +9,7 @@ import { GamerBoardGame } from "./gamerBoardGame";
 export class GamerBoardGameService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getGamerBoardGameUrl = "GamerBoardGame/Get";
-    private _getGamerBoardGameListUrl = "GamerBoardGame/GetAllByGamerNick";
+    private _getGamerBoardGameListUrl = "GamerBoardGame/GetAllByGamerNickname";
     private _addGamerBoardGameUrl = "GamerBoardGame/Add";
     private _editGamerBoardGameUrl = "GamerBoardGame/Edit";
     private _deleteGamerBoardGameUrl = "GamerBoardGame/Delete";
@@ -17,8 +17,8 @@ export class GamerBoardGameService {
 
     constructor(private http: Http) { }
 
-    getGamerBoardGames(gamerNick: string): Promise<GamerBoardGame[]> {
-        const url = `${this._getGamerBoardGameListUrl}/${gamerNick}`;
+    getGamerBoardGames(gamerNickname: string): Promise<GamerBoardGame[]> {
+        const url = `${this._getGamerBoardGameListUrl}/${gamerNickname}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
@@ -43,8 +43,8 @@ export class GamerBoardGameService {
         }
     }
 
-    getGamerAvailableBoardGames(gamerNick: string): Promise<GamerBoardGame[]> {
-        const url = `${this._getGamerAvailableBoardGamesUrl}/${gamerNick}`;
+    getGamerAvailableBoardGames(gamerNickname: string): Promise<GamerBoardGame[]> {
+        const url = `${this._getGamerAvailableBoardGamesUrl}/${gamerNickname}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.json() as GamerBoardGame[]; })

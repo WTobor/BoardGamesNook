@@ -5,7 +5,7 @@ export class GameTable {
     Id: number;
     Name: string;
     GamerId: string;
-    GamerNick: string;
+    GamerNickname: string;
     TableBoardGameList: TableBoardGame[];
     TableGamerList: Gamer[];
     MinPlayers: number;

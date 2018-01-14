@@ -38,8 +38,8 @@ export class GameTableDetailComponent implements OnInit {
                 }
                 else {
                     this.getAvailableTableBoardGameList(this.gameTable.Id);
-                    this.gamerService.getCurrentGamerNick().then(nick => {
-                        if (nick === this.gameTable.GamerNick) {
+                    this.gamerService.getCurrentGamerNickname().then(nickname => {
+                        if (nickname === this.gameTable.GamerNickname) {
                             this.isCurrentGamer = true;
                         }
                     });

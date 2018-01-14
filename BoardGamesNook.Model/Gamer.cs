@@ -7,7 +7,7 @@ namespace BoardGamesNook.Model
         public string Id { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
         public DateTimeOffset ModifiedDate { get; set; }
-        public string Nick { get; set; }
+        public string Nickname { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int? Age { get; set; }

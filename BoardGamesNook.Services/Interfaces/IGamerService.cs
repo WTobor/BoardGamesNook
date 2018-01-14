@@ -5,13 +5,13 @@ namespace BoardGamesNook.Services.Interfaces
 {
     public interface IGamerService
     {
-        Gamer Get(string id);
+        Gamer GetGamer(string id);
 
         Gamer GetGamerByEmail(string userEmail);
 
-        Gamer GetByNick(string userNick);
+        Gamer GetGamerBoardGameByNickname(string userNickname);
 
-        bool NickExists(string nick);
+        bool NicknameExists(string nickname);
 
         IEnumerable<Gamer> GetAllGamers();
 

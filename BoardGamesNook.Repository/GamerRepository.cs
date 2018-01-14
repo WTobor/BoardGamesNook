@@ -21,14 +21,14 @@ namespace BoardGamesNook.Repository
             return _gamers.FirstOrDefault(x => x.Email == userEmail);
         }
 
-        public Gamer GetGamerByNick(string userNick)
+        public Gamer GetGamerByNickname(string userNickname)
         {
-            return _gamers.FirstOrDefault(x => x.Nick == userNick);
+            return _gamers.FirstOrDefault(x => x.Nickname == userNickname);
         }
 
-        public bool NickExists(string nick)
+        public bool NicknameExists(string nickname)
         {
-            return _gamers.Select(x => x.Nick).Contains(nick);
+            return _gamers.Select(x => x.Nickname).Contains(nickname);
         }
 
         public IEnumerable<Gamer> GetAllGamers()

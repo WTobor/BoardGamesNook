@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string GamerId { get; set; }
-        public string GamerNick { get; set; }
+        public string GamerNickname { get; set; }
         public int BoardGameId { get; set; }
         public int? BGGId { get; set; }
         public string BoardGameName { get; set; }

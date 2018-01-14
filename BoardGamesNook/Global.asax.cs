@@ -3,7 +3,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using AutoMapper;
 using BoardGamesNook.Controllers;
+using BoardGamesNook.Mappers;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Repository.Interfaces;
@@ -45,10 +47,33 @@ namespace BoardGamesNook
             builder.RegisterType<GameResultRepository>().As<IGameResultRepository>();
             builder.RegisterType<GameTableRepository>().As<IGameTableRepository>();
 
+            builder.RegisterType<GameParticipationProfile>().SingleInstance();
+            builder.RegisterType<GamerProfile>().SingleInstance();
+            builder.RegisterType<GamerBoardGameProfile>().SingleInstance();
+            builder.RegisterType<GameResultProfile>().SingleInstance();
+            builder.RegisterType<BoardGameProfile>().SingleInstance();
+            builder.RegisterType<GameTableProfile>().SingleInstance();
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             RelationsUpdateGenerator.FillRelationsForBoardGameTable();
+
+            InitializeAutoMapper();
+        }
+
+        public static void InitializeAutoMapper()
+        {
+            Mapper.Initialize(x =>
+                {
+                    x.AddProfile<GameParticipationProfile>();
+                    x.AddProfile<GamerProfile>();
+                    x.AddProfile<GamerBoardGameProfile>();
+                    x.AddProfile<GameResultProfile>();
+                    x.AddProfile<BoardGameProfile>();
+                    x.AddProfile<GameTableProfile>();
+                }
+            );
         }
     }
 }

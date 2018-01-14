@@ -9,9 +9,9 @@ namespace BoardGamesNook.Repository.Interfaces
 
         Gamer GetGamerByEmail(string userEmail);
 
-        Gamer GetGamerByNick(string userEmail);
+        Gamer GetGamerByNickname(string userNickname);
 
-        bool NickExists(string nick);
+        bool NicknameExists(string nickname);
 
         IEnumerable<Gamer> GetAllGamers();
 

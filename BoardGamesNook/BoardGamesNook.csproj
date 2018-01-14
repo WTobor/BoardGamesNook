@@ -226,12 +226,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappers\GameResultMapper.cs" />
-    <Compile Include="Mappers\BoardGameMapper.cs" />
-    <Compile Include="Mappers\GameParticipationMapper.cs" />
-    <Compile Include="Mappers\GamerBoardGameMapper.cs" />
-    <Compile Include="Mappers\GamerMapper.cs" />
-    <Compile Include="Mappers\GameTableMapper.cs" />
+    <Compile Include="Profiles\GameResultProfile.cs" />
+    <Compile Include="Profiles\BoardGameProfile.cs" />
+    <Compile Include="Profiles\GameParticipationProfile.cs" />
+    <Compile Include="Profiles\GamerBoardGameProfile.cs" />
+    <Compile Include="Profiles\GamerProfile.cs" />
+    <Compile Include="Profiles\GameTableProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\GameResult\GameResultViewModel.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />
@@ -282,10 +282,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\TypeLite.Net4.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TypeLite.Net4.d.ts</LastGenOutput>
-    </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="src\about\about.component.html" />
     <Content Include="src\boardGames\boardGame-detail.component.html" />
@@ -374,11 +370,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\TypeLite.Net4.d.ts">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TypeLite.Net4.tt</DependentUpon>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\about\about-routing.module.ts" />
     <TypeScriptCompile Include="src\about\about.component.ts" />
     <TypeScriptCompile Include="src\app-routing.module.ts" />

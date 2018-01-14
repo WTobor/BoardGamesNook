@@ -8,7 +8,7 @@ import { GameResultAddComponent } from "./gameResult-add.component";
 const resultsRoutes: Routes = [
     { path: "gameResults", component: GameResultListComponent },
     { path: "gameResult/0", component: GameResultAddComponent },
-    { path: "gameResults/:nick", component: GameResultDetailComponent }
+    { path: "gameResults/:nickname", component: GameResultDetailComponent }
 ];
 
 @NgModule({
