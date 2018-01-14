@@ -17,7 +17,7 @@ namespace BoardGamesNook.Tests
         //    var userService = new UserService(new UserRepository());
         //    var generatedUsersCount = UserGenerator.users.Count;
         //    //Act
-        //    var users = userService.GetAll();
+        //    var users = userService.GetAllGameTables();
         //    //Assert
         //    Assert.AreEqual(generatedUsersCount, users.Count());
         //}
@@ -29,8 +29,8 @@ namespace BoardGamesNook.Tests
         //    var userService = new UserService(new UserRepository());
         //    var generatedUsersCount = UserGenerator.users.Count;
         //    //Act
-        //    userService.Add(GetTestUser());
-        //    var users = userService.GetAll();
+        //    userService.AddGameTable(GetTestUser());
+        //    var users = userService.GetAllGameTables();
         //    //Assert
         //    Assert.AreEqual(generatedUsersCount + 1, users.Count());
         //}
@@ -43,8 +43,8 @@ namespace BoardGamesNook.Tests
         //    var generatedUsersCount = UserGenerator.users.Count;
         //    var newUserId = UserGenerator.users.Max(x => x.Id) + 1;
         //    //Act
-        //    userService.Add(GetTestUser());
-        //    var user = userService.Get(newUserId);
+        //    userService.AddGameTable(GetTestUser());
+        //    var user = userService.GetGameTable(newUserId);
         //    //Assert
         //    Assert.AreEqual(generatedUsersCount + 1, user.Id);
         //}
@@ -57,11 +57,11 @@ namespace BoardGamesNook.Tests
         //    string login = "cde";
         //    var newUserId = UserGenerator.users.Max(x => x.Id) + 1;
         //    //Act
-        //    userService.Add(GetTestUser());
-        //    var user = userService.Get(newUserId);
+        //    userService.AddGameTable(GetTestUser());
+        //    var user = userService.GetGameTable(newUserId);
         //    user.Login = login;
-        //    userService.Edit(user);
-        //    var newUser = userService.Get(newUserId);
+        //    userService.EditGameTable(user);
+        //    var newUser = userService.GetGameTable(newUserId);
         //    //Assert
         //    Assert.AreEqual(login, newUser.Login);
         //}
@@ -74,9 +74,9 @@ namespace BoardGamesNook.Tests
         //    var generatedUsersCount = UserGenerator.users.Count;
         //    var newUserId = UserGenerator.users.Max(x => x.Id) + 1;
         //    //Act
-        //    userService.Add(GetTestUser());
-        //    userService.Delete(newUserId);
-        //    var users = userService.GetAll();
+        //    userService.AddGameTable(GetTestUser());
+        //    userService.DeleteGameTable(newUserId);
+        //    var users = userService.GetAllGameTables();
         //    //Assert
         //    Assert.AreEqual(generatedUsersCount, users.Count());
         //}

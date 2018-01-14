@@ -8,31 +8,31 @@ namespace BoardGamesNook.Repository
 {
     public class GameParticipationRepository : IGameParticipationRepository
     {
-        private List<GameParticipation> _gameParticipations = GameParticipationGenerator.gameParticipations;
+        private readonly List<GameParticipation> _gameParticipations = GameParticipationGenerator.gameParticipations;
 
-        public GameParticipation Get(int id)
+        public GameParticipation GetGameParticipation(int id)
         {
-            return _gameParticipations.Where(x => x.Id == id).FirstOrDefault();
+            return _gameParticipations.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<GameParticipation> GetAll()
+        public IEnumerable<GameParticipation> GetAllGameParticipations()
         {
             return _gameParticipations;
         }
 
-        public IEnumerable<GameParticipation> GetAllByTableId(int tableId)
+        public IEnumerable<GameParticipation> GetAllGameParticipationsByTableId(int tableId)
         {
             return _gameParticipations.Where(x => x.GameTableId == tableId).ToList();
         }
 
-        public void Add(GameParticipation gameParticipation)
+        public void AddGameParticipation(GameParticipation gameParticipation)
         {
             _gameParticipations.Add(gameParticipation);
         }
 
-        public void Edit(GameParticipation gameParticipation)
+        public void EditGameParticipation(GameParticipation gameParticipation)
         {
-            var oldGamer = _gameParticipations.Where(x => x.Id == gameParticipation.Id).FirstOrDefault();
+            var oldGamer = _gameParticipations.FirstOrDefault(x => x.Id == gameParticipation.Id);
             if (oldGamer != null)
             {
                 _gameParticipations.Remove(oldGamer);
@@ -40,13 +40,11 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void Delete(int id)
+        public void DeleteGameParticipation(int id)
         {
-            var gameParticipation = _gameParticipations.Where(x => x.Id == id).FirstOrDefault();
+            var gameParticipation = _gameParticipations.FirstOrDefault(x => x.Id == id);
             if (gameParticipation != null)
-            {
                 _gameParticipations.Remove(gameParticipation);
-            }
         }
     }
 }

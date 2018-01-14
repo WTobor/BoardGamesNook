@@ -5,16 +5,16 @@ namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IGamerBoardGameRepository
     {
-        GamerBoardGame Get(int id);
+        GamerBoardGame GetGamerBoardGame(int id);
 
-        IEnumerable<GamerBoardGame> GetAll();
+        IEnumerable<GamerBoardGame> GetAllGamerBoardGames();
 
-        IEnumerable<GamerBoardGame> GetAllByGamerNick(string gamerNick);
+        IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNick(string gamerNick);
 
-        void Add(GamerBoardGame gamerBoardGame);
+        void AddGamerBoardGame(GamerBoardGame gamerBoardGame);
 
-        void Edit(GamerBoardGame gamerBoardGame);
+        void EditGamerBoardGame(GamerBoardGame gamerBoardGame);
 
-        void Delete(int id);
+        void DeleteGamerBoardGame(int id);
     }
 }

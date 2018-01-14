@@ -17,7 +17,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult Get(int id)
         {
-            var gameParticipation = _gameParticipationService.Get(id);
+            var gameParticipation = _gameParticipationService.GetGameParticipation(id);
             // Użycie AutoMappera
             var gameParticipationViewModel = GameParticipationMapper.MapToGameParticipationViewModel(gameParticipation);
             return Json(gameParticipationViewModel, JsonRequestBehavior.AllowGet);
@@ -25,7 +25,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAll()
         {
-            var gameParticipationList = _gameParticipationService.GetAll();
+            var gameParticipationList = _gameParticipationService.GetAllGameParticipations();
             // Użycie AutoMappera
             var gameParticipationViewModelList =
                 GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
@@ -34,7 +34,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAllByTableId(int id)
         {
-            var gameParticipationList = _gameParticipationService.GetAllByTableId(id);
+            var gameParticipationList = _gameParticipationService.GetAllGameParticipationsByTableId(id);
             // Użycie AutoMappera
             var gameParticipationViewModelList =
                 GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
@@ -42,29 +42,30 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(GameParticipationViewModel gameParticipation)
+        public JsonResult Add(GameParticipationViewModel gameParticipationViewModel)
         {
             // Użycie AutoMappera
-            var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipation);
-            _gameParticipationService.Add(dbGameParticipation);
+            var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipationViewModel);
+            _gameParticipationService.AddGameParticipation(dbGameParticipation);
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Edit(GameParticipationViewModel gameParticipation)
+        public JsonResult Edit(GameParticipationViewModel gameParticipationViewModel)
         {
             // To również wygląda na jakąś logikę biznesową, która powinna być w serwisie
-            var orgGameParticipation = _gameParticipationService.Get(gameParticipation.Id);
+            var orgGameParticipation = _gameParticipationService.GetGameParticipation(gameParticipationViewModel.Id);
             if (orgGameParticipation != null)
             {
                 // Użycie AutoMappera
-                var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipation);
+                var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipationViewModel);
                 _gameParticipationService.Edit(dbGameParticipation);
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
             // Komunikat błedu do resources
-            return Json("Nie znaleziono uczestnika gry o Id=" + gameParticipation.Id, JsonRequestBehavior.AllowGet);
+            return Json("Nie znaleziono uczestnika gry o Id=" + gameParticipationViewModel.Id,
+                JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

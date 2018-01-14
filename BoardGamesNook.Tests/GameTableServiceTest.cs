@@ -21,7 +21,7 @@ namespace BoardGamesNook.Tests
             var generatedByTestGamerGameTablesCount = GameTableGenerator.gameTables.Count(x => x.CreatedGamer?.Nick == testGamer?.Nick);
 
             //Act
-            var gamerGameTableList = gameTableService.GetAllByGamerNick(testGamer?.Nick);
+            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNick(testGamer?.Nick);
             //Assert
             Assert.AreEqual(generatedByTestGamerGameTablesCount, gamerGameTableList.Count());
         }
@@ -35,8 +35,8 @@ namespace BoardGamesNook.Tests
             var generatedGamerGameTablesCount = GameTableGenerator.gameTables.Count(x => x.CreatedGamer == testGamer);
 
             //Act
-            gameTableService.Add(GetTestGameTable(testGamer));
-            var gamerGameTableList = gameTableService.GetAllByGamerNick(testGamer?.Nick);
+            gameTableService.AddGameTable(GetTestGameTable(testGamer));
+            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNick(testGamer?.Nick);
             //Assert
             Assert.AreEqual(generatedGamerGameTablesCount + 1, gamerGameTableList.Count());
         }
@@ -50,7 +50,7 @@ namespace BoardGamesNook.Tests
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             var newTable = GetTestGameTable(testGamer);
             //Act
-            gameTableService.Add(newTable);
+            gameTableService.AddGameTable(newTable);
             var availableTableBoardGameList = gameTableService.GetAvailableTableBoardGameList(newTable);
             //Assert
             Assert.AreEqual(generatedBoardGamesCount, availableTableBoardGameList.Count());
@@ -64,8 +64,8 @@ namespace BoardGamesNook.Tests
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             //Act
-            gameTableService.Add(GetTestGameTable(testGamer));
-            var gameTable = gameTableService.Get(newGameTableId);
+            gameTableService.AddGameTable(GetTestGameTable(testGamer));
+            var gameTable = gameTableService.GetGameTable(newGameTableId);
             //Assert
             Assert.AreEqual(newGameTableId, gameTable.Id);
         }
@@ -79,11 +79,11 @@ namespace BoardGamesNook.Tests
             DateTimeOffset now = DateTimeOffset.UtcNow;
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             //Act
-            gameTableService.Add(GetTestGameTable(testGamer));
-            var gameTable = gameTableService.Get(newGameTableId);
+            gameTableService.AddGameTable(GetTestGameTable(testGamer));
+            var gameTable = gameTableService.GetGameTable(newGameTableId);
             gameTable.ModifiedDate = now;
-            gameTableService.Edit(gameTable);
-            var newGameTable = gameTableService.Get(newGameTableId);
+            gameTableService.EditGameTable(gameTable);
+            var newGameTable = gameTableService.GetGameTable(newGameTableId);
             //Assert
             Assert.AreEqual(now, newGameTable.ModifiedDate);
         }
@@ -98,12 +98,12 @@ namespace BoardGamesNook.Tests
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
 
             //Act
-            gameTableService.Add(GetTestGameTable(testGamer));
-            var gameTable = gameTableService.Get(newGameTableId);
+            gameTableService.AddGameTable(GetTestGameTable(testGamer));
+            var gameTable = gameTableService.GetGameTable(newGameTableId);
 
             var testGameParticipations = GetTestGameParticipations(testGamer, gameTable);
             gameTableService.EditParticipations(testGameParticipations, testGamer);
-            var newGameTable = gameTableService.Get(newGameTableId);
+            var newGameTable = gameTableService.GetGameTable(newGameTableId);
 
             //Assert
             Assert.AreEqual(testGameParticipations, newGameTable.GameParticipations);
@@ -119,9 +119,9 @@ namespace BoardGamesNook.Tests
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
 
             //Act
-            gameTableService.Add(GetTestGameTable(testGamer));
-            gameTableService.Delete(newGameTableId);
-            var gamerGameTableList = gameTableService.GetAllByGamerNick(testGamer?.Nick);
+            gameTableService.AddGameTable(GetTestGameTable(testGamer));
+            gameTableService.DeleteGameTable(newGameTableId);
+            var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNick(testGamer?.Nick);
             //Assert
             Assert.AreEqual(generatedGamerGameTablesCount, gamerGameTableList.Count());
         }

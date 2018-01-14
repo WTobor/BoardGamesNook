@@ -5,16 +5,16 @@ namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IGameParticipationRepository
     {
-        GameParticipation Get(int id);
+        GameParticipation GetGameParticipation(int id);
 
-        IEnumerable<GameParticipation> GetAll();
+        IEnumerable<GameParticipation> GetAllGameParticipations();
 
-        IEnumerable<GameParticipation> GetAllByTableId(int id);
+        IEnumerable<GameParticipation> GetAllGameParticipationsByTableId(int id);
 
-        void Add(GameParticipation gameParticipation);
+        void AddGameParticipation(GameParticipation gameParticipation);
 
-        void Edit(GameParticipation gameParticipation);
+        void EditGameParticipation(GameParticipation gameParticipation);
 
-        void Delete(int id);
+        void DeleteGameParticipation(int id);
     }
 }

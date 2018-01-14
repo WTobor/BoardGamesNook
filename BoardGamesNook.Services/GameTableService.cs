@@ -14,9 +14,9 @@ namespace BoardGamesNook.Services
             _gameTableRepository = gameTableRepository;
         }
 
-        public GameTable Get(int id)
+        public GameTable GetGameTable(int id)
         {
-            return _gameTableRepository.Get(id);
+            return _gameTableRepository.GetGameTable(id);
         }
 
         public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
@@ -24,24 +24,24 @@ namespace BoardGamesNook.Services
             return _gameTableRepository.GetAvailableTableBoardGameList(table);
         }
 
-        public IEnumerable<GameTable> GetAll()
+        public IEnumerable<GameTable> GetAllGameTables()
         {
-            return _gameTableRepository.GetAll();
+            return _gameTableRepository.GetAllGameTables();
         }
 
-        public IEnumerable<GameTable> GetAllByGamerNick(string gamerNick)
+        public IEnumerable<GameTable> GetAllGameTablesByGamerNick(string gamerNick)
         {
-            return _gameTableRepository.GetAllByGamerNick(gamerNick);
+            return _gameTableRepository.GetAllGameTablesByGamerNick(gamerNick);
         }
 
-        public void Add(GameTable gameTable)
+        public void AddGameTable(GameTable gameTable)
         {
-            _gameTableRepository.Add(gameTable);
+            _gameTableRepository.AddGameTable(gameTable);
         }
 
-        public void Edit(GameTable gameTable)
+        public void EditGameTable(GameTable gameTable)
         {
-            _gameTableRepository.Edit(gameTable);
+            _gameTableRepository.EditGameTable(gameTable);
         }
 
         public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
@@ -49,9 +49,9 @@ namespace BoardGamesNook.Services
             _gameTableRepository.EditParticipations(gameParticipations, modifiedGamer);
         }
 
-        public void Delete(int id)
+        public void DeleteGameTable(int id)
         {
-            _gameTableRepository.Delete(id);
+            _gameTableRepository.DeleteGameTable(id);
         }
     }
 }

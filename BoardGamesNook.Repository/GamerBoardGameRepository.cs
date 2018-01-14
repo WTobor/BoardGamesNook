@@ -8,31 +8,31 @@ namespace BoardGamesNook.Repository
 {
     public class GamerBoardGameRepository : IGamerBoardGameRepository
     {
-        private List<GamerBoardGame> _gamerBoardGames = GamerBoardGameGenerator.gamerBoardGames;
+        private readonly List<GamerBoardGame> _gamerBoardGames = GamerBoardGameGenerator.gamerBoardGames;
 
-        public GamerBoardGame Get(int id)
+        public GamerBoardGame GetGamerBoardGame(int id)
         {
-            return _gamerBoardGames.Where(x => x.Id == id).FirstOrDefault();
+            return _gamerBoardGames.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<GamerBoardGame> GetAll()
+        public IEnumerable<GamerBoardGame> GetAllGamerBoardGames()
         {
             return _gamerBoardGames;
         }
 
-        public IEnumerable<GamerBoardGame> GetAllByGamerNick(string gamerNick)
+        public IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNick(string gamerNick)
         {
             return _gamerBoardGames.Where(x => x.Gamer.Nick == gamerNick);
         }
 
-        public void Add(GamerBoardGame gamerBoardGame)
+        public void AddGamerBoardGame(GamerBoardGame gamerBoardGame)
         {
             _gamerBoardGames.Add(gamerBoardGame);
         }
 
-        public void Edit(GamerBoardGame gamerBoardGame)
+        public void EditGamerBoardGame(GamerBoardGame gamerBoardGame)
         {
-            var oldGamer = _gamerBoardGames.Where(x => x.Id == gamerBoardGame.Id).FirstOrDefault();
+            var oldGamer = _gamerBoardGames.FirstOrDefault(x => x.Id == gamerBoardGame.Id);
             if (oldGamer != null)
             {
                 _gamerBoardGames.Remove(oldGamer);
@@ -40,13 +40,11 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void Delete(int id)
+        public void DeleteGamerBoardGame(int id)
         {
-            var gamerBoardGame = _gamerBoardGames.Where(x => x.Id == id).FirstOrDefault();
+            var gamerBoardGame = _gamerBoardGames.FirstOrDefault(x => x.Id == id);
             if (gamerBoardGame != null)
-            {
                 _gamerBoardGames.Remove(gamerBoardGame);
-            }
         }
     }
 }

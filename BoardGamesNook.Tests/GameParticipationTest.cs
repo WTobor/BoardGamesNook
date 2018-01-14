@@ -18,7 +18,7 @@ namespace BoardGamesNook.Tests
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
             var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
             //Act
-            var gameParticipations = gameParticipationService.GetAll();
+            var gameParticipations = gameParticipationService.GetAllGameParticipations();
             //Assert
             Assert.AreEqual(generatedGameParticipationsCount, gameParticipations.Count());
         }
@@ -30,8 +30,8 @@ namespace BoardGamesNook.Tests
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
             var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
             //Act
-            gameParticipationService.Add(GetTestGameParticipation());
-            var gameParticipations = gameParticipationService.GetAll();
+            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
+            var gameParticipations = gameParticipationService.GetAllGameParticipations();
             //Assert
             Assert.AreEqual(generatedGameParticipationsCount + 1, gameParticipations.Count());
         }
@@ -43,8 +43,8 @@ namespace BoardGamesNook.Tests
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
             //Act
-            gameParticipationService.Add(GetTestGameParticipation());
-            var boardGame = gameParticipationService.Get(newGameParticipationId);
+            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
+            var boardGame = gameParticipationService.GetGameParticipation(newGameParticipationId);
             //Assert
             Assert.AreEqual(newGameParticipationId, boardGame.Id);
         }
@@ -57,11 +57,11 @@ namespace BoardGamesNook.Tests
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
             DateTimeOffset now = DateTimeOffset.UtcNow;
             //Act
-            gameParticipationService.Add(GetTestGameParticipation());
-            var gameParticipation = gameParticipationService.Get(newGameParticipationId);
+            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
+            var gameParticipation = gameParticipationService.GetGameParticipation(newGameParticipationId);
             gameParticipation.ModifiedDate = now;
             gameParticipationService.Edit(gameParticipation);
-            var newGameParticipation = gameParticipationService.Get(newGameParticipationId);
+            var newGameParticipation = gameParticipationService.GetGameParticipation(newGameParticipationId);
             //Assert
             Assert.AreEqual(now, newGameParticipation.ModifiedDate);
         }
@@ -74,9 +74,9 @@ namespace BoardGamesNook.Tests
             var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
             //Act
-            gameParticipationService.Add(GetTestGameParticipation());
+            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
             gameParticipationService.Delete(newGameParticipationId);
-            var gameParticipations = gameParticipationService.GetAll();
+            var gameParticipations = gameParticipationService.GetAllGameParticipations();
             //Assert
             Assert.AreEqual(generatedGameParticipationsCount, gameParticipations.Count());
         }

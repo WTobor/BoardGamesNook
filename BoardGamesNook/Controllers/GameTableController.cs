@@ -34,7 +34,7 @@ namespace BoardGamesNook.Controllers
                 CreatedGamerId = gamer.Id
             };
             if (id > 0)
-                gameTable = _gameTableService.Get(id);
+                gameTable = _gameTableService.GetGameTable(id);
             var gameTableViewModel = GameTableMapper.MapToGameTableViewModel(gameTable);
 
             return Json(gameTableViewModel, JsonRequestBehavior.AllowGet);
@@ -44,21 +44,17 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            // W repozytoriach metoda "Get" jest dość jednoznaczna, w serwisie już nie.
-            // Zmieniłbym tutaj "Get" na "GetGameTable"
             // 
             // Ponadto cały ten kod poniżej (te 7 albo 8 linijek, bez mappera) wygląda mi na jakąś logikę biznesową,
             // więc powinno to wszystko być w serwisie.
-            // W tym przypadku metoda Get, mogłaby przyjmować jeszcze obiekt gamer,
-            // albo metoda GetAvailableTableBoardGameList przyjmowałaby id gameTable i gamer - nie znam dokładnie biznesu tutaj,
+            // W tym przypadku metoda GetGameTable, mogłaby przyjmować jeszcze obiekt gamer,
+            // albo metoda GetAvailableTableBoardGameList przyjmowałaby nickname gameTableViewModel i gamer - nie znam dokładnie biznesu tutaj,
             // więc na szybko nie powiem co lepsze.
-            var gameTable = _gameTableService.Get(id);
-            if (gameTable == null)
-                gameTable = new GameTable
-                {
-                    CreatedGamer = gamer,
-                    CreatedGamerId = gamer.Id
-                };
+            var gameTable = _gameTableService.GetGameTable(id) ?? new GameTable
+            {
+                CreatedGamer = gamer,
+                CreatedGamerId = gamer.Id
+            };
             var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(gameTable);
             // Polecam zapoznać się z biblioteką AutoMapper - dość popularna i dobrze znać, bo często pojawia się na rozmowach rekrutacyjnych.
             // Możesz za pomocą niej stworzyć coś podobnego do GameTableMapper, tylko będzie zajmować dużo mniej kodu.
@@ -67,7 +63,7 @@ namespace BoardGamesNook.Controllers
             // A potem w kodzie używasz:
             // var availableTableBoardGameListViewModel = Mapper.Map<IEnumerable<TableBoardGameViewModel>>(availableTableBoardGameList).
             // Można mapować kilka obiektów na jeden, wtedy dodajesz chyba kolejną linijkę:
-            // availableTableBoardGameListViewModel = Mapper.Map<IEnumerable<TableBoardGameViewModel>>(gameTable),
+            // availableTableBoardGameListViewModel = Mapper.Map<IEnumerable<TableBoardGameViewModel>>(gameTableViewModel),
             // ale to już musiałabyś sprawdzić, bo nie pamiętam do końca.
             var availableTableBoardGameListViewModel =
                 GameTableMapper.MapToTableBoardGameViewModelList(availableTableBoardGameList, gameTable);
@@ -77,16 +73,16 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAll()
         {
-            var gameTableList = _gameTableService.GetAll();
+            var gameTableList = _gameTableService.GetAllGameTables();
             var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList);
 
             return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAllByGamerNick(string id)
+        public JsonResult GetAllByGamerNickname(string nickname)
         {
-            var gameTableList = _gameTableService.GetAllByGamerNick(id);
-            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList, id);
+            var gameTableList = _gameTableService.GetAllGameTablesByGamerNick(nickname);
+            var gameTableListViewModel = GameTableMapper.MapToGameTableViewModelList(gameTableList, nickname);
 
             return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -96,23 +92,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-
-            // O jejku, to też (tworzenie gameTable) można załatwić Mappera, a jeśli nie, to na pewno powinno takto być w osobnej metodzie,
-            // bo aż oczka bolą od takiego czegoś :(
-            var gameTable = new GameTable
-            {
-                Name = model.Name,
-                City = model.City,
-                Street = model.Street,
-                IsPrivate = model.IsPrivate,
-                MinPlayersNumber = model.MinPlayers,
-                MaxPlayersNumber = model.MaxPlayers,
-                IsFull = false,
-                Id = _gameTableService.GetAllByGamerNick(gamer.Nick).Select(x => x.Id).LastOrDefault() + 1,
-                CreatedGamerId = gamer.Id,
-                CreatedGamer = gamer,
-                CreatedDate = DateTimeOffset.Now
-            };
+            var gameTable = GetGameTableObj(model, gamer);
             var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
 
             gameTable.BoardGames = new List<BoardGame>();
@@ -126,33 +106,52 @@ namespace BoardGamesNook.Controllers
                         JsonRequestBehavior.AllowGet);
             }
             // Nie wiem czy tutaj nie lepiej byłoby metodę nazwać Create.
-            // Add jest dobre do repozytorium, ale w servisie to nie wygląda na jednoznaczną metodę.
-            _gameTableService.Add(gameTable);
-            // Widzę, że w kodzie powyżej masz wołaną metodę "Add" z dwóch serwisów.
+            // AddGameTable jest dobre do repozytorium, ale w servisie to nie wygląda na jednoznaczną metodę.
+            _gameTableService.AddGameTable(gameTable);
+            // Widzę, że w kodzie powyżej masz wołaną metodę "AddGameTable" z dwóch serwisów.
             // Ponownie wygląda mi to na jaąś logikę biznesową, która powinna być w serwisie,
-            // a nie kontrolerze. Wydaje mi się, że cały kod od linijki 104 do 132 powinien być zawarty w moedzie Add w gameTableService.
+            // a nie kontrolerze. Wydaje mi się, że cały kod od linijki 104 do 132 powinien być zawarty w moedzie AddGameTable w gameTableService.
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        private GameTable GetGameTableObj(GameTableViewModel gameTableViewModel, Gamer gamer)
+        {
+            return new GameTable
+            {
+                Name = gameTableViewModel.Name,
+                City = gameTableViewModel.City,
+                Street = gameTableViewModel.Street,
+                IsPrivate = gameTableViewModel.IsPrivate,
+                MinPlayersNumber = gameTableViewModel.MinPlayers,
+                MaxPlayersNumber = gameTableViewModel.MaxPlayers,
+                IsFull = false,
+                Id = _gameTableService.GetAllGameTablesByGamerNick(gamer.Nick).Select(x => x.Id).LastOrDefault() + 1,
+                CreatedGamerId = gamer.Id,
+                CreatedGamer = gamer,
+                CreatedDate = DateTimeOffset.Now
+            };
+        }
+
         [HttpPost]
-        public JsonResult Edit(GameTableViewModel gameTable)
+        public JsonResult Edit(GameTableViewModel gameTableViewModel)
         {
             // Dwie rzeczy:
             // po pierwsze do tych przypisać użyć mappera, albo przenieść je do osobnej metody
             // po drugie - ponownie to jakaś logika biznesowa i powinna być zapewne w metodzie
-            // Edit klasy gameTableService.
+            // EditGameTable klasy gameTableService.
             var dbGameTable =
-                _gameTableService.Get(gameTable
-                    .Id); // ten obiekt powinien nazywać się gameTable, a ten z metody gameTableVM albo po prostu gameTableViewModel
+                _gameTableService.GetGameTable(gameTableViewModel
+                    .Id); // ten obiekt powinien nazywać się gameTableViewModel, a ten z metody gameTableVM albo po prostu gameTableViewModel
+
             if (dbGameTable != null)
             {
-                dbGameTable.City = gameTable.City;
-                dbGameTable.Street = gameTable.Street;
-                dbGameTable.IsPrivate = gameTable.IsPrivate;
-                dbGameTable.MinPlayersNumber = gameTable.MinPlayers;
-                dbGameTable.MaxPlayersNumber = gameTable.MaxPlayers;
-                var tableBoardGameIdList = gameTable.TableBoardGameList.Select(x => x.BoardGameId).ToList();
+                dbGameTable.City = gameTableViewModel.City;
+                dbGameTable.Street = gameTableViewModel.Street;
+                dbGameTable.IsPrivate = gameTableViewModel.IsPrivate;
+                dbGameTable.MinPlayersNumber = gameTableViewModel.MinPlayers;
+                dbGameTable.MaxPlayersNumber = gameTableViewModel.MaxPlayers;
+                var tableBoardGameIdList = gameTableViewModel.TableBoardGameList.Select(x => x.BoardGameId).ToList();
 
                 dbGameTable.BoardGames = new List<BoardGame>();
                 foreach (var boardGameId in tableBoardGameIdList)
@@ -167,12 +166,12 @@ namespace BoardGamesNook.Controllers
 
                 dbGameTable.ModifiedDate = DateTimeOffset.Now;
 
-                _gameTableService.Edit(dbGameTable);
+                _gameTableService.EditGameTable(dbGameTable);
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
             // Komunikat błedu do resources
-            return Json("Nie znaleziono stołu do gry o Id=" + gameTable.Id, JsonRequestBehavior.AllowGet);
+            return Json("Nie znaleziono stołu do gry o Id=" + gameTableViewModel.Id, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -182,16 +181,16 @@ namespace BoardGamesNook.Controllers
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
             // Kolejna logika biznesowa zawarta w kontrolerze zamiast w serwisie.
             var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
-            var dbGameTable = _gameTableService.Get(gameTableId);
+            var dbGameTable = _gameTableService.GetGameTable(gameTableId);
             if (dbGameTable != null)
             {
                 foreach (var gameParticipation in gameParticipations)
                 {
-                    var dbGameParticipation = _gameParticipationService.Get(gameParticipation.Id);
+                    var dbGameParticipation = _gameParticipationService.GetGameParticipation(gameParticipation.Id);
                     if (dbGameParticipation != null)
                         _gameParticipationService.Edit(gameParticipation);
                     else
-                        _gameParticipationService.Add(gameParticipation);
+                        _gameParticipationService.AddGameParticipation(gameParticipation);
                 }
 
                 _gameTableService.EditParticipations(gameParticipations, gamer);
@@ -205,16 +204,10 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            _gameTableService.Delete(id);
+            _gameTableService.DeleteGameTable(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
-
-        // Ta metoda nie jest nigdzie używana, co ona tutaj robi?
-        private string GetCurrentGamerId()
-        {
-            var currentGamerId = !(Session["gamer"] is Gamer currentGamer) ? string.Empty : currentGamer.Id;
-            return currentGamerId;
-        }
+        
     }
 }

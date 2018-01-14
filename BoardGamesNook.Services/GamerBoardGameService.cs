@@ -14,34 +14,34 @@ namespace BoardGamesNook.Services
             _gamerBoardGameRepository = gamerBoardGameRepository;
         }
 
-        public GamerBoardGame Get(int id)
+        public GamerBoardGame GetGamerBoardGame(int id)
         {
-            return _gamerBoardGameRepository.Get(id);
+            return _gamerBoardGameRepository.GetGamerBoardGame(id);
         }
 
-        public IEnumerable<GamerBoardGame> GetAll()
+        public IEnumerable<GamerBoardGame> GetAllGamerBoardGames()
         {
-            return _gamerBoardGameRepository.GetAll();
+            return _gamerBoardGameRepository.GetAllGamerBoardGames();
         }
 
-        public IEnumerable<GamerBoardGame> GetAllByGamerNick(string gamerNick)
+        public IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNick(string gamerNick)
         {
-            return _gamerBoardGameRepository.GetAllByGamerNick(gamerNick);
+            return _gamerBoardGameRepository.GetAllGamerBoardGamesByGamerNick(gamerNick);
         }
 
         public void Add(GamerBoardGame gamerBoardGame)
         {
-            _gamerBoardGameRepository.Add(gamerBoardGame);
+            _gamerBoardGameRepository.AddGamerBoardGame(gamerBoardGame);
         }
 
         public void Edit(GamerBoardGame gamerBoardGame)
         {
-            _gamerBoardGameRepository.Edit(gamerBoardGame);
+            _gamerBoardGameRepository.EditGamerBoardGame(gamerBoardGame);
         }
 
-        public void Delete(int id)
+        public void DeleteGamerBoardGame(int id)
         {
-            _gamerBoardGameRepository.Delete(id);
+            _gamerBoardGameRepository.DeleteGamerBoardGame(id);
         }
     }
 }

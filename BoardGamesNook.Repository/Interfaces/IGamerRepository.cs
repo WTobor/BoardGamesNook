@@ -1,24 +1,24 @@
-﻿using BoardGamesNook.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IGamerRepository
     {
-        Gamer Get(string id);
+        Gamer GetGamer(string id);
 
-        Gamer GetByEmail(string userEmail);
+        Gamer GetGamerByEmail(string userEmail);
 
-        Gamer GetByNick(string userEmail);
+        Gamer GetGamerByNick(string userEmail);
 
         bool NickExists(string nick);
 
-        IEnumerable<Gamer> GetAll();
+        IEnumerable<Gamer> GetAllGamers();
 
-        void Add(Gamer gamer);
+        void AddGamer(Gamer gamer);
 
-        void Edit(Gamer gamer);
+        void EditGamer(Gamer gamer);
 
-        void Deactivate(string id);
+        void DeactivateGamer(string id);
     }
 }

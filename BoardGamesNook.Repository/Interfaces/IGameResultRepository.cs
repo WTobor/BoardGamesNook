@@ -5,18 +5,18 @@ namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IGameResultRepository
     {
-        GameResult Get(int id);
+        GameResult GetGameResult(int id);
 
-        IEnumerable<GameResult> GetAll();
+        IEnumerable<GameResult> GetAllGameResults();
 
-        IEnumerable<GameResult> GetAllByTableId(int id);
+        IEnumerable<GameResult> GetAllGameResultsByTableId(int id);
 
-        IEnumerable<GameResult> GetAllByGamerNick(string nick);
+        IEnumerable<GameResult> GetAllGameResultsByGamerNick(string nick);
 
-        void Add(GameResult gameResult);
+        void AddGameResult(GameResult gameResult);
 
-        void Edit(GameResult gameResult);
+        void EditGameResult(GameResult gameResult);
 
-        void Delete(int id);
+        void DeleteGameResult(int id);
     }
 }

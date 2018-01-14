@@ -5,14 +5,14 @@ namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IBoardGameRepository
     {
-        BoardGame Get(int id);
+        BoardGame GetGamerBoardGame(int id);
 
-        IEnumerable<BoardGame> GetAll();
+        IEnumerable<BoardGame> GetAllGamerBoardGames();
 
         void Add(BoardGame boardGame);
 
-        void Edit(BoardGame boardGame);
+        void EditGamerBoardGame(BoardGame boardGame);
 
-        void Delete(int id);
+        void DeleteGamerBoardGame(int id);
     }
 }

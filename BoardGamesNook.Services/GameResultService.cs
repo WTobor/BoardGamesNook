@@ -14,39 +14,39 @@ namespace BoardGamesNook.Services
             _gameResultRepository = gameResultRepository;
         }
 
-        public GameResult Get(int id)
+        public GameResult GetGameResult(int id)
         {
-            return _gameResultRepository.Get(id);
+            return _gameResultRepository.GetGameResult(id);
         }
 
-        public IEnumerable<GameResult> GetAll()
+        public IEnumerable<GameResult> GetAllGameResults()
         {
-            return _gameResultRepository.GetAll();
+            return _gameResultRepository.GetAllGameResults();
         }
 
-        public IEnumerable<GameResult> GetAllByTableId(int id)
+        public IEnumerable<GameResult> GetAllGameResultsByTableId(int id)
         {
-            return _gameResultRepository.GetAllByTableId(id);
+            return _gameResultRepository.GetAllGameResultsByTableId(id);
         }
 
         public IEnumerable<GameResult> GetAllByGamerNick(string nick)
         {
-            return _gameResultRepository.GetAllByGamerNick(nick);
+            return _gameResultRepository.GetAllGameResultsByGamerNick(nick);
         }
 
-        public void Add(GameResult gameResult)
+        public void AddGameResult(GameResult gameResult)
         {
-            _gameResultRepository.Add(gameResult);
+            _gameResultRepository.AddGameResult(gameResult);
         }
 
         public void Edit(GameResult gameResult)
         {
-            _gameResultRepository.Edit(gameResult);
+            _gameResultRepository.EditGameResult(gameResult);
         }
 
-        public void Delete(int id)
+        public void DeleteGameResult(int id)
         {
-            _gameResultRepository.Delete(id);
+            _gameResultRepository.DeleteGameResult(id);
         }
     }
 }

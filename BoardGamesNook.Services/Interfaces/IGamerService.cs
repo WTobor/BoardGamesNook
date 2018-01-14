@@ -7,18 +7,18 @@ namespace BoardGamesNook.Services.Interfaces
     {
         Gamer Get(string id);
 
-        Gamer GetByEmail(string userEmail);
+        Gamer GetGamerByEmail(string userEmail);
 
         Gamer GetByNick(string userNick);
 
         bool NickExists(string nick);
 
-        IEnumerable<Gamer> GetAll();
+        IEnumerable<Gamer> GetAllGamers();
 
-        void Add(Gamer gamer);
+        void AddGamer(Gamer gamer);
 
-        void Edit(Gamer gamer);
+        void EditGamer(Gamer gamer);
 
-        void Deactivate(string id);
+        void DeactivateGamer(string id);
     }
 }

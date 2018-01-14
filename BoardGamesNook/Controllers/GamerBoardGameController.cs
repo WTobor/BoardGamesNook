@@ -27,7 +27,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult Get(int id)
         {
-            var gamerBoardGame = _gamerBoardGameService.Get(id);
+            var gamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(id);
             if (gamerBoardGame == null)
                 return Json("Nie znaleziono gry dla gracza", JsonRequestBehavior.AllowGet);
             var gamerBoardGameViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModel(gamerBoardGame);
@@ -39,7 +39,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            var gamerList = _gamerBoardGameService.GetAllByGamerNick(id);
+            var gamerList = _gamerBoardGameService.GetAllGamerBoardGamesByGamerNick(id);
             // Użycie AutoMappera
             var gamerListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerList);
 
@@ -62,7 +62,7 @@ namespace BoardGamesNook.Controllers
             // Tworzenie obiektu GamerBoardGame powinno być w osobnej metodzie.
             var gamerBoardGame = new GamerBoardGame
             {
-                Id = _gamerBoardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
+                Id = _gamerBoardGameService.GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1,
                 GamerId = gamer.Id,
                 Gamer = gamer,
                 BoardGameId = boardGameId,
@@ -81,7 +81,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
 
-            var dbGamerBoardGame = _gamerBoardGameService.Get(gamerBoardGameId);
+            var dbGamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(gamerBoardGameId);
             if (dbGamerBoardGame != null)
             {
                 // Controller nie powinien edytować obiektu, to powinno odbywać się w serwisie.
@@ -103,7 +103,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
 
-            _gamerBoardGameService.Delete(id);
+            _gamerBoardGameService.DeleteGamerBoardGame(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -112,8 +112,8 @@ namespace BoardGamesNook.Controllers
         {
             // Tutaj również jakaś logika biznesowa, która powinna być w serwisie.
             var gamer = _gamerService.GetByNick(id);
-            var availableBoardGameList = _boardGameService.GetAll();
-            var gamerBoardGameList = _gamerBoardGameService.GetAllByGamerNick(id);
+            var availableBoardGameList = _boardGameService.GetAllGamerBoardGames();
+            var gamerBoardGameList = _gamerBoardGameService.GetAllGamerBoardGamesByGamerNick(id);
             var gamerAvailableBoardGameList = availableBoardGameList
                 .Where(x => gamerBoardGameList.All(y => y.BoardGameId != x.Id)).ToList();
 

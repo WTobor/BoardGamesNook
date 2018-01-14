@@ -1,21 +1,22 @@
-﻿using BoardGamesNook.Model;
-using BoardGamesNook.Repository.Interfaces;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
+using BoardGamesNook.Repository.Interfaces;
 
 namespace BoardGamesNook.Repository
 {
     public class BoardGameRepository : IBoardGameRepository
     {
-        private List<BoardGame> _boardGames = BoardGameGenerator.boardGames;
+        private readonly List<BoardGame> _boardGames = BoardGameGenerator.boardGames;
 
-        public BoardGame Get(int id)
+        public BoardGame GetGamerBoardGame(int id)
         {
-            return _boardGames.Where(x => x.Id == id).FirstOrDefault();
+            return _boardGames.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<BoardGame> GetAll()
+        public IEnumerable<BoardGame> GetAllGamerBoardGames()
         {
             return _boardGames;
         }
@@ -25,23 +26,26 @@ namespace BoardGamesNook.Repository
             _boardGames.Add(boardGame);
         }
 
-        public void Edit(BoardGame boardGame)
+        public void EditGamerBoardGame(BoardGame boardGame)
         {
-            var oldGamer = _boardGames.Where(x => x.Id == boardGame.Id).FirstOrDefault();
-            if (oldGamer != null)
+            var dbBoardGame = _boardGames.FirstOrDefault(x => x.Id == boardGame.Id);
+            if (dbBoardGame != null)
             {
-                _boardGames.Remove(oldGamer);
-                _boardGames.Add(boardGame);
+                dbBoardGame.Name = boardGame.Name;
+                dbBoardGame.Description = boardGame.Description;
+                dbBoardGame.MinPlayers = boardGame.MinPlayers;
+                dbBoardGame.MaxPlayers = boardGame.MaxPlayers;
+                dbBoardGame.MinTime = boardGame.MinTime;
+                dbBoardGame.MaxTime = boardGame.MaxTime;
+                dbBoardGame.ModifiedDate = DateTimeOffset.Now;
             }
         }
 
-        public void Delete(int id)
+        public void DeleteGamerBoardGame(int id)
         {
-            var boardGame = _boardGames.Where(x => x.Id == id).FirstOrDefault();
+            var boardGame = _boardGames.FirstOrDefault(x => x.Id == id);
             if (boardGame != null)
-            {
                 _boardGames.Remove(boardGame);
-            }
         }
     }
 }

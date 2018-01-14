@@ -19,7 +19,7 @@ namespace BoardGamesNook.Tests
             var gameResultService = new GameResultService(new GameResultRepository());
             var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
             //Act
-            var gameResults = gameResultService.GetAll();
+            var gameResults = gameResultService.GetAllGameResults();
             //Assert
             Assert.AreEqual(generatedGameResultsCount, gameResults.Count());
         }
@@ -31,8 +31,8 @@ namespace BoardGamesNook.Tests
             var gameResultService = new GameResultService(new GameResultRepository());
             var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            var gameResults = gameResultService.GetAll();
+            gameResultService.AddGameResult(GetTestGameResult());
+            var gameResults = gameResultService.GetAllGameResults();
             //Assert
             Assert.AreEqual(generatedGameResultsCount + 1, gameResults.Count());
         }
@@ -44,8 +44,8 @@ namespace BoardGamesNook.Tests
             var gameResultService = new GameResultService(new GameResultRepository());
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            var boardGame = gameResultService.Get(newGameResultId);
+            gameResultService.AddGameResult(GetTestGameResult());
+            var boardGame = gameResultService.GetGameResult(newGameResultId);
             //Assert
             Assert.AreEqual(newGameResultId, boardGame.Id);
         }
@@ -61,7 +61,7 @@ namespace BoardGamesNook.Tests
             var testNick = Guid.NewGuid().ToString();
             testGamer.Nick = testNick;
             //Act
-            gameResultService.Add(GetTestGameResult(testGamer));
+            gameResultService.AddGameResult(GetTestGameResult(testGamer));
             var gameResults = gameResultService.GetAllByGamerNick(testNick);
 
             //Assert
@@ -75,11 +75,11 @@ namespace BoardGamesNook.Tests
             var gameResultService = new GameResultService(new GameResultRepository());
             var gameTableService = new GameTableService(new GameTableRepository());
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            gameTableService.Add(GetTestGameTable(newGameTableId));
+            gameTableService.AddGameTable(GetTestGameTable(newGameTableId));
             var testGameTable = GameTableGenerator.gameTables.Where(x => x.Id == newGameTableId).FirstOrDefault();
             //Act
-            gameResultService.Add(GetTestGameResult(null, testGameTable));
-            var gameResults = gameResultService.GetAllByTableId(newGameTableId);
+            gameResultService.AddGameResult(GetTestGameResult(null, testGameTable));
+            var gameResults = gameResultService.GetAllGameResultsByTableId(newGameTableId);
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
@@ -93,11 +93,11 @@ namespace BoardGamesNook.Tests
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
             DateTimeOffset now = DateTimeOffset.UtcNow;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            var gameResult = gameResultService.Get(newGameResultId);
+            gameResultService.AddGameResult(GetTestGameResult());
+            var gameResult = gameResultService.GetGameResult(newGameResultId);
             gameResult.ModifiedDate = now;
             gameResultService.Edit(gameResult);
-            var newGameResult = gameResultService.Get(newGameResultId);
+            var newGameResult = gameResultService.GetGameResult(newGameResultId);
             //Assert
             Assert.AreEqual(now, newGameResult.ModifiedDate);
         }
@@ -110,9 +110,9 @@ namespace BoardGamesNook.Tests
             var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            gameResultService.Delete(newGameResultId);
-            var gameResults = gameResultService.GetAll();
+            gameResultService.AddGameResult(GetTestGameResult());
+            gameResultService.DeleteGameResult(newGameResultId);
+            var gameResults = gameResultService.GetAllGameResults();
             //Assert
             Assert.AreEqual(generatedGameResultsCount, gameResults.Count());
         }

@@ -1,4 +1,5 @@
-﻿using BoardGamesNook.Model;
+﻿using System;
+using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,19 @@ namespace BoardGamesNook.Repository
     {
         private List<Gamer> _gamers = GamerGenerator.gamers;
 
-        public Gamer Get(string id)
+        public Gamer GetGamer(string id)
         {
-            return _gamers.Where(x => x.Id == id).FirstOrDefault();
+            return _gamers.FirstOrDefault(x => x.Id == id);
         }
 
-        public Gamer GetByEmail(string userEmail)
+        public Gamer GetGamerByEmail(string userEmail)
         {
-            return _gamers.Where(x => x.Email == userEmail).FirstOrDefault();
+            return _gamers.FirstOrDefault(x => x.Email == userEmail);
         }
 
-        public Gamer GetByNick(string userNick)
+        public Gamer GetGamerByNick(string userNick)
         {
-            return _gamers.Where(x => x.Nick == userNick).FirstOrDefault();
+            return _gamers.FirstOrDefault(x => x.Nick == userNick);
         }
 
         public bool NickExists(string nick)
@@ -30,29 +31,33 @@ namespace BoardGamesNook.Repository
             return _gamers.Select(x => x.Nick).Contains(nick);
         }
 
-        public IEnumerable<Gamer> GetAll()
+        public IEnumerable<Gamer> GetAllGamers()
         {
             return _gamers;
         }
 
-        public void Add(Gamer gamer)
+        public void AddGamer(Gamer gamer)
         {
             _gamers.Add(gamer);
         }
 
-        public void Edit(Gamer gamer)
+        public void EditGamer(Gamer gamer)
         {
-            var oldGamer = _gamers.Where(x => x.Id == gamer.Id).FirstOrDefault();
-            if (oldGamer != null)
+            var dbGamer = _gamers.FirstOrDefault(x => x.Id == gamer.Id);
+            if (dbGamer != null)
             {
-                _gamers.Remove(oldGamer);
-                _gamers.Add(gamer);
+                dbGamer.Name = gamer.Name;
+                dbGamer.Surname = gamer.Surname;
+                dbGamer.Age = gamer.Age;
+                dbGamer.City = gamer.City;
+                dbGamer.Street = gamer.Street;
+                dbGamer.ModifiedDate = DateTimeOffset.Now;
             }
         }
 
-        public void Deactivate(string id)
+        public void DeactivateGamer(string id)
         {
-            var gamer = _gamers.Where(x => x.Id == id).FirstOrDefault();
+            var gamer = _gamers.FirstOrDefault(x => x.Id == id);
             if (gamer != null)
             {
                 gamer.Active = false;
