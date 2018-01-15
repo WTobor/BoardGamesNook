@@ -47,13 +47,6 @@ namespace BoardGamesNook
             builder.RegisterType<GameResultRepository>().As<IGameResultRepository>();
             builder.RegisterType<GameTableRepository>().As<IGameTableRepository>();
 
-            builder.RegisterType<GameParticipationProfile>().SingleInstance();
-            builder.RegisterType<GamerProfile>().SingleInstance();
-            builder.RegisterType<GamerBoardGameProfile>().SingleInstance();
-            builder.RegisterType<GameResultProfile>().SingleInstance();
-            builder.RegisterType<BoardGameProfile>().SingleInstance();
-            builder.RegisterType<GameTableProfile>().SingleInstance();
-
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
