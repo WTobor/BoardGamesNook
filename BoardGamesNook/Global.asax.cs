@@ -5,7 +5,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using AutoMapper;
 using BoardGamesNook.Controllers;
-using BoardGamesNook.Mappers;
+using BoardGamesNook.Profiles;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Repository.Interfaces;

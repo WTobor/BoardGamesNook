@@ -2,7 +2,7 @@
 using BoardGamesNook.Model;
 using BoardGamesNook.ViewModels.Gamer;
 
-namespace BoardGamesNook.Mappers
+namespace BoardGamesNook.Profiles
 {
     public class GamerProfile : Profile
     {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
-using BoardGamesNook.Mappers;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.GameParticipation;
@@ -29,14 +28,16 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAll()
         {
             var gameParticipationList = _gameParticipationService.GetAllGameParticipations();
-            var gameParticipationViewModelList = Mapper.Map<IEnumerable<GameParticipationViewModel>>(gameParticipationList);
+            var gameParticipationViewModelList =
+                Mapper.Map<IEnumerable<GameParticipationViewModel>>(gameParticipationList);
             return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllByTableId(int id)
         {
             var gameParticipationList = _gameParticipationService.GetAllGameParticipationsByTableId(id);
-            var gameParticipationViewModelList = Mapper.Map<IEnumerable<GameParticipationViewModel>>(gameParticipationList);
+            var gameParticipationViewModelList =
+                Mapper.Map<IEnumerable<GameParticipationViewModel>>(gameParticipationList);
             return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 

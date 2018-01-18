@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using BoardGamesNook.Mappers;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.GameTable;
@@ -57,10 +56,13 @@ namespace BoardGamesNook.Controllers
                 CreatedGamerId = gamer.Id
             };
             var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(gameTable).ToList();
-            var tempObj =
-               Mapper.Map<List<BoardGame>, List<TableBoardGameViewModel>>(availableTableBoardGameList);
             var availableTableBoardGameListViewModel =
-               Mapper.Map( gameTable, tempObj);
+               Mapper.Map<List<BoardGame>, List<TableBoardGameViewModel>>(availableTableBoardGameList);
+            availableTableBoardGameListViewModel.ForEach(x =>
+            {
+                x.GamerId = gamer.Id;
+                x.GamerNickname = gamer.Nickname;
+            });
 
             return Json(availableTableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }

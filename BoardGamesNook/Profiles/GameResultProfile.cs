@@ -2,13 +2,15 @@
 using BoardGamesNook.Model;
 using BoardGamesNook.ViewModels.GameResult;
 
-namespace BoardGamesNook.Mappers
+namespace BoardGamesNook.Profiles
 {
     public class GameResultProfile : Profile
     {
         public GameResultProfile()
         {
-            CreateMap<GameResult, GameResultViewModel>().ForMember(x => x.CreatedGamerId, map => map.MapFrom(y => y.Gamer.Id)).ForMember(x => x.CreatedGamerNickname, map => map.MapFrom(y => y.Gamer.Nickname));
+            CreateMap<GameResult, GameResultViewModel>()
+                .ForMember(x => x.CreatedGamerId, map => map.MapFrom(y => y.Gamer.Id))
+                .ForMember(x => x.CreatedGamerNickname, map => map.MapFrom(y => y.Gamer.Nickname));
         }
     }
 }
