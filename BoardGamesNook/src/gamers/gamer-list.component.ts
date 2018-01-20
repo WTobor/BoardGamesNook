@@ -30,7 +30,6 @@ export class GamerListComponent implements OnInit {
         this.gamerService
             .getGamers()
             .then(gamers => {
-                debugger
                 this.gamers = gamers;
                 this.gamerService.getCurrentGamerNickname().then(nickname =>
                     this.gamers = this.gamers.filter(x => x.Nickname !== nickname));

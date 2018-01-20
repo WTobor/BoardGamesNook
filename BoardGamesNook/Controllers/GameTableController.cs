@@ -57,21 +57,27 @@ namespace BoardGamesNook.Controllers
             };
             var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(gameTable).ToList();
             var availableTableBoardGameListViewModel =
-               Mapper.Map<List<BoardGame>, List<TableBoardGameViewModel>>(availableTableBoardGameList);
-            availableTableBoardGameListViewModel.ForEach(x =>
-            {
-                x.GamerId = gamer.Id;
-                x.GamerNickname = gamer.Nickname;
-            });
+                Mapper.Map<List<BoardGame>, List<TableBoardGameViewModel>>(availableTableBoardGameList);
+            foreach (var obj in availableTableBoardGameListViewModel)
+                Mapper.Map(gamer, obj);
 
             return Json(availableTableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
+            var gameTableListViewModel = new List<TableBoardGameViewModel>();
             var gameTableList = _gameTableService.GetAllGameTables();
-            var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
 
+            foreach (var gameTable in gameTableList)
+                if (gameTable.BoardGames != null)
+                    foreach (var boardGame in gameTable.BoardGames)
+                    {
+                        var gameTableViewModel = Mapper.Map<TableBoardGameViewModel>(boardGame);
+                        Mapper.Map(gameTable, gameTableViewModel);
+                        gameTableListViewModel.Add(gameTableViewModel);
+                    }
+            //poprawić wyświetlanie, bo nie działa
             return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
 
@@ -124,7 +130,8 @@ namespace BoardGamesNook.Controllers
                 MinPlayersNumber = gameTableViewModel.MinPlayers,
                 MaxPlayersNumber = gameTableViewModel.MaxPlayers,
                 IsFull = false,
-                Id = _gameTableService.GetAllGameTablesByGamerNickname(gamer.Nickname).Select(x => x.Id).LastOrDefault() + 1,
+                Id = _gameTableService.GetAllGameTablesByGamerNickname(gamer.Nickname).Select(x => x.Id)
+                         .LastOrDefault() + 1,
                 CreatedGamerId = gamer.Id,
                 CreatedGamer = gamer,
                 CreatedDate = DateTimeOffset.Now
@@ -206,6 +213,5 @@ namespace BoardGamesNook.Controllers
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
-        
     }
 }

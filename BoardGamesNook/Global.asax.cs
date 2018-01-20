@@ -1,11 +1,12 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using AutoMapper;
 using BoardGamesNook.Controllers;
-using BoardGamesNook.Profiles;
+using BoardGamesNook.MapperProfiles;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Repository.Interfaces;
@@ -17,7 +18,7 @@ using SimpleAuthentication.Mvc.Caching;
 
 namespace BoardGamesNook
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -32,14 +33,14 @@ namespace BoardGamesNook
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterControllers(typeof(SimpleAuthenticationController).Assembly);
             builder.RegisterType<CookieCache>().As<ICache>();
-            
+
             builder.RegisterType<BoardGameService>().As<IBoardGameService>();
             builder.RegisterType<GamerService>().As<IGamerService>();
             builder.RegisterType<GameParticipationService>().As<IGameParticipationService>();
             builder.RegisterType<GamerBoardGameService>().As<IGamerBoardGameService>();
             builder.RegisterType<GameResultService>().As<IGameResultService>();
             builder.RegisterType<GameTableService>().As<IGameTableService>();
-            
+
             builder.RegisterType<GamerRepository>().As<IGamerRepository>();
             builder.RegisterType<BoardGameRepository>().As<IBoardGameRepository>();
             builder.RegisterType<GameParticipationRepository>().As<IGameParticipationRepository>();
@@ -57,14 +58,14 @@ namespace BoardGamesNook
 
         public static void InitializeAutoMapper()
         {
-            Mapper.Initialize(x =>
+            Mapper.Initialize(cfg =>
                 {
-                    x.AddProfile<GameParticipationProfile>();
-                    x.AddProfile<GamerProfile>();
-                    x.AddProfile<GamerBoardGameProfile>();
-                    x.AddProfile<GameResultProfile>();
-                    x.AddProfile<BoardGameProfile>();
-                    x.AddProfile<GameTableProfile>();
+                    cfg.AddProfile<GamerBoardGameProfile>();
+                    cfg.AddProfile<GamerProfile>();
+                    cfg.AddProfile<GamerBoardGameProfile>();
+                    cfg.AddProfile<GameResultProfile>();
+                    cfg.AddProfile<BoardGameProfile>();
+                    cfg.AddProfile<GameTableProfile>();
                 }
             );
         }

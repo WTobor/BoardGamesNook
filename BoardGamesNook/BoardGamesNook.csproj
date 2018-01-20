@@ -226,12 +226,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Profiles\GameResultProfile.cs" />
-    <Compile Include="Profiles\BoardGameProfile.cs" />
-    <Compile Include="Profiles\GameParticipationProfile.cs" />
-    <Compile Include="Profiles\GamerBoardGameProfile.cs" />
-    <Compile Include="Profiles\GamerProfile.cs" />
-    <Compile Include="Profiles\GameTableProfile.cs" />
+    <Compile Include="MapperProfiles\GameResultProfile.cs" />
+    <Compile Include="MapperProfiles\BoardGameProfile.cs" />
+    <Compile Include="MapperProfiles\GameParticipationProfile.cs" />
+    <Compile Include="MapperProfiles\GamerBoardGameProfile.cs" />
+    <Compile Include="MapperProfiles\GamerProfile.cs" />
+    <Compile Include="MapperProfiles\GameTableProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\GameResult\GameResultViewModel.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />

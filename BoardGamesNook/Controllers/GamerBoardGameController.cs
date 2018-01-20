@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using AutoMapper;
 using BoardGamesNook.Model;
@@ -107,12 +106,10 @@ namespace BoardGamesNook.Controllers
             var gamerAvailableBoardGameList = availableBoardGameList
                 .Where(x => gamerBoardGameList.All(y => y.BoardGameId != x.Id)).ToList();
 
-            var availableBoardGameListViewModel = Mapper.Map<List<GamerBoardGameViewModel>>(gamerAvailableBoardGameList);
-            availableBoardGameListViewModel.ForEach(x =>
-            {
-                x.GamerId = gamer.Id;
-                x.GamerNickname = gamer.Nickname;
-            });
+            var availableBoardGameListViewModel =
+                Mapper.Map<List<GamerBoardGameViewModel>>(gamerAvailableBoardGameList);
+            foreach (var obj in availableBoardGameListViewModel)
+                Mapper.Map(gamer, obj);
 
             return availableBoardGameListViewModel;
         }
