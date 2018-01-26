@@ -61,8 +61,8 @@ namespace BoardGamesNook.Controllers
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            // Komunikat błedu do resources
-            return Json("Nie znaleziono uczestnika gry o Id=" + gameParticipationViewModel.Id,
+
+            return Json(string.Format(Errors.GameParticipationWithIdNotFound, gameParticipationViewModel.Id),
                 JsonRequestBehavior.AllowGet);
         }
 

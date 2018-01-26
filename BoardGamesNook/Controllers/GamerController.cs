@@ -45,10 +45,11 @@ namespace BoardGamesNook.Controllers
         public JsonResult Add(GamerViewModel gamerViewModel)
         {
             if (!(Session["user"] is User loggedUser))
-                return Json("Nie znaleziono użytkownika", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             if (_gamerService.NicknameExists(gamerViewModel.Nickname))
-                return Json("Istnieje gracz o podanym nicku. Wybierz inny nickname.", JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.GamerNicknameExists, gamerViewModel.Nickname),
+                    JsonRequestBehavior.AllowGet);
             var gamer = GetGamerObj(gamerViewModel, loggedUser);
             _gamerService.AddGamer(gamer);
 

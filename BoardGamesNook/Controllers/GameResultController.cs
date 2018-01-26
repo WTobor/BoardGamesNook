@@ -27,8 +27,8 @@ namespace BoardGamesNook.Controllers
         {
             var gameResult = _gameResultService.GetGameResult(id);
             if (gameResult == null)
-                return Json("Nie znaleziono wyniku dla gracza", JsonRequestBehavior.AllowGet);
-            
+                return Json(string.Format(Errors.BoardGameResultWithIdNotFound, id), JsonRequestBehavior.AllowGet);
+
             var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResult);
 
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
@@ -37,9 +37,9 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAll()
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllGameResults().ToList();
-            
+
             var gameResultListViewModel = Mapper.Map<List<GameResult>, List<GameResultViewModel>>(gameResultList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
@@ -48,7 +48,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAllByGamerNickname(string nickname)
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
             var gameResultListViewModel = Mapper.Map<List<GameResult>, List<GameResultViewModel>>(gameResultList);
@@ -59,7 +59,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAllByTableId(int tableId)
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllGameResultsByTableId(tableId).ToList();
 
             var gameResultListViewModel = Mapper.Map<List<GameResultViewModel>>(gameResultList);
@@ -71,7 +71,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult Add(GameResultViewModel gameResultViewModel)
         {
             if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameResult = GetGameResultObj(gameResultViewModel, gamer);
             _gameResultService.AddGameResult(gameResult);
 
@@ -82,7 +82,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult AddMany(GameResultViewModel[] gameResultViewModels)
         {
             if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             // Twój serwis (i repozytorium) powinien mieć metodę, która umożliwania dodanie wielu GameResult.
             foreach (var gameResultViewModel in gameResultViewModels)
@@ -99,13 +99,14 @@ namespace BoardGamesNook.Controllers
         public JsonResult Edit(int gameResultId)
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var dbGameResult = _gameResultService.GetGameResult(gameResultId);
             if (dbGameResult != null)
                 dbGameResult.ModifiedDate = DateTimeOffset.Now;
             else
-                return Json("Nie ma takiego wyniku dla gracza", JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.BoardGameResultWithIdNotFound, gameResultId),
+                    JsonRequestBehavior.AllowGet);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -114,7 +115,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult Delete(int id)
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             _gameResultService.DeleteGameResult(id);
 

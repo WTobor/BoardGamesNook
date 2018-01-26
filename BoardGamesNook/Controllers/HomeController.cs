@@ -22,6 +22,7 @@ namespace BoardGamesNook.Controllers
                 if (gamer != null)
                     Session["gamer"] = gamer;
             }
+
             return View();
         }
     }

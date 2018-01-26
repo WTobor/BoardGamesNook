@@ -41,11 +41,12 @@ namespace BoardGamesNook.Controllers
                 _boardGameService.Add(boardGame);
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
+
             var similarBoardGameList = BGGBoardGame.GetSimilarBoardGameList(name);
             if (similarBoardGameList.Count > 0)
                 return Json(similarBoardGameList.Take(10), JsonRequestBehavior.AllowGet);
-            // Komunikat błedu do resources
-            return Json("Nie znaleziono gry o nazwie " + name, JsonRequestBehavior.AllowGet);
+
+            return Json(string.Format(Errors.BoardGameWithNameNotFound, name), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -53,7 +54,7 @@ namespace BoardGamesNook.Controllers
         {
             var boardGame = BGGBoardGame.GetBoardGameById(id);
             if (boardGame == null)
-                return Json("Nie znaleziono gry o podanym Id " + id, JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.BoardGameWithIdNotFound, id), JsonRequestBehavior.AllowGet);
             _boardGameService.Add(boardGame);
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -63,8 +64,8 @@ namespace BoardGamesNook.Controllers
         {
             var dbBoardGame = _boardGameService.Get(boardGameViewModel.Id);
             if (dbBoardGame == null)
-                // Komunikat błedu do resources
-                return Json("Nie znaleziono gry o Id=" + boardGameViewModel.Id, JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.BoardGameWithIdNotFound, boardGameViewModel.Id),
+                    JsonRequestBehavior.AllowGet);
             _boardGameService.Edit(dbBoardGame);
 
             return Json(null, JsonRequestBehavior.AllowGet);

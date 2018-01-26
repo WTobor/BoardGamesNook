@@ -27,7 +27,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameTable = new GameTable
             {
                 CreatedGamer = gamer,
@@ -43,7 +43,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAvailableTableBoardGameList(int id)
         {
             if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             // 
             // Ponadto cały ten kod poniżej (te 7 albo 8 linijek, bez mappera) wygląda mi na jakąś logikę biznesową,
             // więc powinno to wszystko być w serwisie.
@@ -77,6 +77,7 @@ namespace BoardGamesNook.Controllers
                         Mapper.Map(gameTable, gameTableViewModel);
                         gameTableListViewModel.Add(gameTableViewModel);
                     }
+
             //poprawić wyświetlanie, bo nie działa
             return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -95,7 +96,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult Add(GameTableViewModel model)
         {
             if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameTable = GetGameTableObj(model, gamer);
             var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
 
@@ -106,9 +107,10 @@ namespace BoardGamesNook.Controllers
                 if (boardGame != null)
                     gameTable.BoardGames.Add(boardGame);
                 else
-                    return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId,
+                    return Json(string.Format(Errors.TableBoardGameWithIdNotFound, boardGameId),
                         JsonRequestBehavior.AllowGet);
             }
+
             // Nie wiem czy tutaj nie lepiej byłoby metodę nazwać Create.
             // AddGameTable jest dobre do repozytorium, ale w servisie to nie wygląda na jednoznaczną metodę.
             _gameTableService.AddGameTable(gameTable);
@@ -165,7 +167,7 @@ namespace BoardGamesNook.Controllers
                     if (boardGame != null)
                         dbGameTable.BoardGames.Add(boardGame);
                     else
-                        return Json("Nie znaleziono gry dodanej do stołu o Id=" + boardGameId,
+                        return Json(string.Format(Errors.TableBoardGameWithIdNotFound, boardGameId),
                             JsonRequestBehavior.AllowGet);
                 }
 
@@ -175,15 +177,16 @@ namespace BoardGamesNook.Controllers
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            // Komunikat błedu do resources
-            return Json("Nie znaleziono stołu do gry o Id=" + gameTableViewModel.Id, JsonRequestBehavior.AllowGet);
+
+            return Json(string.Format(Errors.BoardGameTableWithIdNotFound, gameTableViewModel.Id),
+                JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult EditParticipations(List<GameParticipation> gameParticipations)
         {
             if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             // Kolejna logika biznesowa zawarta w kontrolerze zamiast w serwisie.
             var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
             var dbGameTable = _gameTableService.GetGameTable(gameTableId);
@@ -202,8 +205,8 @@ namespace BoardGamesNook.Controllers
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            // Komunikat błedu do resources
-            return Json("Nie znaleziono stołu do gry o Id=" + gameTableId, JsonRequestBehavior.AllowGet);
+
+            return Json(string.Format(Errors.BoardGameTableWithIdNotFound, gameTableId), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
