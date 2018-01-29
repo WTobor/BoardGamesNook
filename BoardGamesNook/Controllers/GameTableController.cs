@@ -12,52 +12,34 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GameTableController : Controller
     {
-        private readonly IBoardGameService _boardGameService;
-        private readonly IGameParticipationService _gameParticipationService;
         private readonly IGameTableService _gameTableService;
 
-        public GameTableController(IGameTableService gameTableService, IBoardGameService boardGameService,
-            IGameParticipationService gameParticipationService)
+        public GameTableController(IGameTableService gameTableService)
         {
             _gameTableService = gameTableService;
-            _boardGameService = boardGameService;
-            _gameParticipationService = gameParticipationService;
         }
 
         public JsonResult Get(int id)
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            var gameTable = new GameTable
-            {
-                CreatedGamer = gamer,
-                CreatedGamerId = gamer.Id
-            };
-            if (id > 0)
-                gameTable = _gameTableService.GetGameTable(id);
-            var gameTableViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTable);
 
-            return Json(gameTableViewModel, JsonRequestBehavior.AllowGet);
+            var gameTable = _gameTableService.GetGameTable(id);
+
+            var tableBoardGameViewModels = Mapper.Map<List<TableBoardGameViewModel>>(gameTable.BoardGames);
+            tableBoardGameViewModels.ForEach(x => Mapper.Map(gameTable, x));
+
+            return Json(tableBoardGameViewModels, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAvailableTableBoardGameList(int id)
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            // 
-            // Ponadto cały ten kod poniżej (te 7 albo 8 linijek, bez mappera) wygląda mi na jakąś logikę biznesową,
-            // więc powinno to wszystko być w serwisie.
-            // W tym przypadku metoda GetGameTable, mogłaby przyjmować jeszcze obiekt gamer,
-            // albo metoda GetAvailableTableBoardGameList przyjmowałaby nickname gameTableViewModel i gamer - nie znam dokładnie biznesu tutaj,
-            // więc na szybko nie powiem co lepsze.
-            var gameTable = _gameTableService.GetGameTable(id) ?? new GameTable
-            {
-                CreatedGamer = gamer,
-                CreatedGamerId = gamer.Id
-            };
-            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(gameTable).ToList();
+            
+            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameListById(id);
             var availableTableBoardGameListViewModel =
-                Mapper.Map<List<BoardGame>, List<TableBoardGameViewModel>>(availableTableBoardGameList);
+                Mapper.Map<IEnumerable<BoardGame>, IEnumerable<TableBoardGameViewModel>>(availableTableBoardGameList);
             foreach (var obj in availableTableBoardGameListViewModel)
                 Mapper.Map(gamer, obj);
 
@@ -126,28 +108,10 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(GameTableViewModel gameTableViewModel)
         {
-            // ponownie to jakaś logika biznesowa i powinna być zapewne w metodzie
-            // EditGameTable klasy gameTableService.
-            //WT: a co z faktem, że jest to VM i w serwisie nie mam dostępu do tego obiektu?
-            var dbGameTable =
-                _gameTableService.GetGameTable(gameTableViewModel
-                    .Id);
+            var tableBoardGameIdList = gameTableViewModel.TableBoardGameList.Select(x => x.BoardGameId).ToList();
+            _gameTableService.EditGameTable(gameTableViewModel.Id, tableBoardGameIdList);
 
-            if (dbGameTable != null)
-            {
-                Mapper.Map(gameTableViewModel, dbGameTable);
-
-                var tableBoardGameIdList = gameTableViewModel.TableBoardGameList.Select(x => x.BoardGameId).ToList();
-
-                dbGameTable.BoardGames = _boardGameService.GetAllByIds(tableBoardGameIdList);
-
-                _gameTableService.EditGameTable(dbGameTable);
-
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(string.Format(Errors.BoardGameTableWithIdNotFound, gameTableViewModel.Id),
-                JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

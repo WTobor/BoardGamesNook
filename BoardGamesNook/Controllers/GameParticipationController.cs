@@ -54,16 +54,14 @@ namespace BoardGamesNook.Controllers
         {
             // To również wygląda na jakąś logikę biznesową, która powinna być w serwisie
             var orgGameParticipation = _gameParticipationService.GetGameParticipation(gameParticipationViewModel.Id);
-            if (orgGameParticipation != null)
-            {
-                var dbGameParticipation = Mapper.Map<GameParticipation>(gameParticipationViewModel);
-                _gameParticipationService.Edit(dbGameParticipation);
+            if (orgGameParticipation == null)
+                return Json(string.Format(Errors.GameParticipationWithIdNotFound, gameParticipationViewModel.Id),
+                    JsonRequestBehavior.AllowGet);
+            
+            var dbGameParticipation = Mapper.Map<GameParticipation>(gameParticipationViewModel);
+            _gameParticipationService.Edit(dbGameParticipation);
 
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(string.Format(Errors.GameParticipationWithIdNotFound, gameParticipationViewModel.Id),
-                JsonRequestBehavior.AllowGet);
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

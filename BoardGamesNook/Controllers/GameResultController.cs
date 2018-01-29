@@ -40,7 +40,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllGameResults().ToList();
 
-            var gameResultListViewModel = Mapper.Map<List<GameResult>, List<GameResultViewModel>>(gameResultList);
+            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
 
             foreach (var gameResultViewModel in gameResultListViewModel)
             {
@@ -57,7 +57,7 @@ namespace BoardGamesNook.Controllers
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
-            var gameResultListViewModel = Mapper.Map<List<GameResult>, List<GameResultViewModel>>(gameResultList);
+            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -68,7 +68,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllGameResultsByTableId(tableId).ToList();
 
-            var gameResultListViewModel = Mapper.Map<List<GameResultViewModel>>(gameResultList);
+            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResultViewModel>>(gameResultList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -105,7 +105,7 @@ namespace BoardGamesNook.Controllers
 
             var dbGameResult = _gameResultService.GetGameResult(gameResultId);
             if (dbGameResult != null)
-                dbGameResult.ModifiedDate = DateTimeOffset.Now;
+                _gameResultService.EditGameResult(dbGameResult);
             else
                 return Json(string.Format(Errors.BoardGameResultWithIdNotFound, gameResultId),
                     JsonRequestBehavior.AllowGet);

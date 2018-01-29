@@ -40,7 +40,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
             var gamerList = _gamerBoardGameService.GetAllGamerBoardGamesByGamerNickname(nickname);
-            var gamerListViewModel = Mapper.Map<List<GamerBoardGameViewModel>>(gamerList);
+            var gamerListViewModel = Mapper.Map<IEnumerable<GamerBoardGameViewModel>>(gamerList);
 
             return Json(gamerListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -93,12 +93,8 @@ namespace BoardGamesNook.Controllers
 
         private IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(string nickname)
         {
-            // Tutaj również jakaś logika biznesowa, która powinna być w serwisie.
             var gamer = _gamerService.GetGamerBoardGameByNickname(nickname);
-            var availableBoardGameList = _boardGameService.GetAllGamerBoardGames();
-            var gamerBoardGameList = _gamerBoardGameService.GetAllGamerBoardGamesByGamerNickname(nickname);
-            var gamerAvailableBoardGameList = availableBoardGameList
-                .Where(x => gamerBoardGameList.All(y => y.BoardGameId != x.Id)).ToList();
+            var gamerAvailableBoardGameList = _gamerBoardGameService.GetGamerAvailableBoardGameList(nickname);
 
             var availableBoardGameListViewModel =
                 Mapper.Map<List<GamerBoardGameViewModel>>(gamerAvailableBoardGameList);

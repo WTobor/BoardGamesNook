@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using BoardGameGeekIntegration;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.BoardGame;
@@ -32,21 +31,11 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(string name)
         {
-            // Tutaj również jakaś logika biznesowa, która powinna być w serwisie.
-            var boardGameId = BGGBoardGame.GetBoardGameId(name);
-            if (boardGameId != 0)
-            {
-                var boardGame = BGGBoardGame.GetBoardGameById(boardGameId);
-                boardGame.Id = _boardGameService.GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1;
-                _boardGameService.Add(boardGame);
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
+            var result = _boardGameService.AddOrGetSimilar(name);
+            if (result == null)
+                return Json(string.Format(Errors.BoardGameWithNameNotFound, name), JsonRequestBehavior.AllowGet);
 
-            var similarBoardGameList = BGGBoardGame.GetSimilarBoardGameList(name);
-            if (similarBoardGameList.Count > 0)
-                return Json(similarBoardGameList.Take(10), JsonRequestBehavior.AllowGet);
-
-            return Json(string.Format(Errors.BoardGameWithNameNotFound, name), JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

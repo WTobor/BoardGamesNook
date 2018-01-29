@@ -18,21 +18,11 @@ namespace BoardGamesNook.MapperProfiles
                 .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.GamerNickname, opt => opt.MapFrom(src => src.Nickname));
 
-            CreateMap<Gamer, TableBoardGameViewModel>()
-                .ForMember(dest => dest.BGGId, opt => opt.Ignore())
-                .ForMember(dest => dest.BoardGameId, opt => opt.Ignore())
-                .ForMember(dest => dest.BoardGameName, opt => opt.Ignore())
-                .ForMember(dest => dest.TableId, opt => opt.Ignore())
-                .ForMember(dest => dest.TableName, opt => opt.Ignore())
-                .ForMember(dest => dest.ImageUrl, opt => opt.Ignore())
-                .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.GamerNickname, opt => opt.MapFrom(src => src.Nickname));
-
             CreateMap<Gamer, GameResultViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.CreatedGamerId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CreatedGamerId, opt => opt.MapFrom(src => src.Nickname));
-
+            
             CreateMap<GamerViewModel, Gamer>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Email, opt => opt.Ignore())

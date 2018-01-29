@@ -8,6 +8,7 @@ namespace BoardGamesNook.Services.Interfaces
         GamerBoardGame GetGamerBoardGame(int id);
 
         IEnumerable<GamerBoardGame> GetAllGamerBoardGames();
+        IEnumerable<BoardGame> GetGamerAvailableBoardGameList(string nickname);
 
         IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNickname(string gamerNickname);
 

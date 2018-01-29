@@ -16,6 +16,7 @@ namespace BoardGamesNook.MapperProfiles
                 .ForMember(dest => dest.TableId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.TableName, opt => opt.MapFrom(src => src.Name));
 
+
             CreateMap<GameTableViewModel, GameTable>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Name, opt => opt.Ignore())

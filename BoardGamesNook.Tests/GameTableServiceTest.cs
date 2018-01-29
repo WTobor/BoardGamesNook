@@ -55,7 +55,7 @@ namespace BoardGamesNook.Tests
             var newTable = GetTestGameTable(testGamer);
             //Act
             _gameTableService.CreateGameTable(newTable, new List<int>());
-            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(newTable);
+            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameListById(newTable.Id);
             //Assert
             Assert.AreEqual(generatedBoardGamesCount, availableTableBoardGameList.Count());
         }
@@ -84,7 +84,7 @@ namespace BoardGamesNook.Tests
             _gameTableService.CreateGameTable(GetTestGameTable(testGamer), new List<int>());
             var gameTable = _gameTableService.GetGameTable(newGameTableId);
             gameTable.ModifiedDate = now;
-            _gameTableService.EditGameTable(gameTable);
+            _gameTableService.EditGameTable(gameTable.Id, new List<int>());
             var newGameTable = _gameTableService.GetGameTable(newGameTableId);
             //Assert
             Assert.AreEqual(now, newGameTable.ModifiedDate);

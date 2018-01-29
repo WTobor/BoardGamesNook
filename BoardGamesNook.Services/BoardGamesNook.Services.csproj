@@ -55,6 +55,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BoardGameGeekIntegration\BoardGameGeekIntegration.csproj">
+      <Project>{3548FE01-A88F-47DA-ADBE-75271A65B08D}</Project>
+      <Name>BoardGameGeekIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">
       <Project>{0dbd4913-4f0c-4862-8b4d-addf21162e5e}</Project>
       <Name>BoardGamesNook.Model</Name>

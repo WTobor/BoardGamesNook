@@ -57,7 +57,6 @@
     <Compile Include="GamerServiceTest.cs" />
     <Compile Include="GameTableServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">

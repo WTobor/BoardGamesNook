@@ -4,6 +4,7 @@ using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Services;
+using BoardGamesNook.Services.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BoardGamesNook.Tests
@@ -11,14 +12,18 @@ namespace BoardGamesNook.Tests
     [TestClass]
     public class GamerBoardGameServiceTest
     {
+        private IGamerBoardGameService _gamerBoardGameService;
+        public GamerBoardGameServiceTest()
+        {
+            _gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository(), new BoardGameService(new BoardGameRepository()));
+        }
         [TestMethod]
         public void GetGamerBoardGameList()
         {
             //Arrange
-            var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var generatedGamerBoardGamesCount = GamerBoardGameGenerator.gamerBoardGames.Count;
             //Act
-            var gamerBoardGames = gamerBoardGameService.GetAllGamerBoardGames();
+            var gamerBoardGames = _gamerBoardGameService.GetAllGamerBoardGames();
             //Assert
             Assert.AreEqual(generatedGamerBoardGamesCount, gamerBoardGames.Count());
         }
@@ -27,10 +32,9 @@ namespace BoardGamesNook.Tests
         public void AddGamerBoardGameToBoardGamesList()
         {
             //Arrange
-            var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
             //Act
-            gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
+            _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
             var lastAddedGamerBoardGame = GamerBoardGameGenerator.gamerBoardGames.LastOrDefault();
             //Assert
             Assert.AreEqual(newGamerBoardGameId, lastAddedGamerBoardGame?.Id);
@@ -40,11 +44,10 @@ namespace BoardGamesNook.Tests
         public void GetGamerBoardGame()
         {
             //Arrange
-            var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
             //Act
-            gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
-            var boardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
+            _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
+            var boardGame = _gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             //Assert
             Assert.AreEqual(newGamerBoardGameId, boardGame.Id);
         }
@@ -53,17 +56,16 @@ namespace BoardGamesNook.Tests
         public void EditGamerBoardGame()
         {
             //Arrange
-            var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
             string gamerId = Guid.NewGuid().ToString();
             int boardGameId = 2;
             //Act
-            gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
-            var boardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
+            _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
+            var boardGame = _gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             boardGame.GamerId = gamerId;
             boardGame.BoardGameId = boardGameId;
-            gamerBoardGameService.EditGamerBoardGame(boardGame);
-            var newBoardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
+            _gamerBoardGameService.EditGamerBoardGame(boardGame);
+            var newBoardGame = _gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             //Assert
             Assert.AreEqual(gamerId, newBoardGame.GamerId);
             Assert.AreEqual(boardGameId, newBoardGame.BoardGameId);
@@ -73,13 +75,12 @@ namespace BoardGamesNook.Tests
         public void DeleteGamerBoardGame()
         {
             //Arrange
-            var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var generatedGamerBoardGamesCount = GamerBoardGameGenerator.gamerBoardGames.Count;
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
             //Act
-            gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
-            gamerBoardGameService.DeleteGamerBoardGame(newGamerBoardGameId);
-            var boardGames = gamerBoardGameService.GetAllGamerBoardGames();
+            _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
+            _gamerBoardGameService.DeleteGamerBoardGame(newGamerBoardGameId);
+            var boardGames = _gamerBoardGameService.GetAllGamerBoardGames();
             //Assert
             Assert.AreEqual(generatedGamerBoardGamesCount, boardGames.Count());
         }

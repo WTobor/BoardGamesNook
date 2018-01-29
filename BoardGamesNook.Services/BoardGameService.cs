@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BoardGameGeekIntegration;
+using BoardGameGeekIntegration.Models;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
@@ -25,6 +27,21 @@ namespace BoardGamesNook.Services
             return _boardGameRepository.GetAllGamerBoardGames();
         }
 
+        public List<SimilarBoardGame> AddOrGetSimilar(string name)
+        {
+            var boardGameId = BGGBoardGame.GetBoardGameId(name);
+            if (boardGameId != 0)
+            {
+                var boardGame = BGGBoardGame.GetBoardGameById(boardGameId);
+                boardGame.Id = GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1;
+                Add(boardGame);
+                return new List<SimilarBoardGame>();
+            }
+
+            var similarBoardGameList = BGGBoardGame.GetSimilarBoardGameList(name).ToList();
+            return similarBoardGameList.Take(10).ToList();
+        }
+
         public void Add(BoardGame boardGame)
         {
             boardGame.Id = GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1;
@@ -41,7 +58,7 @@ namespace BoardGamesNook.Services
             _boardGameRepository.DeleteGamerBoardGame(id);
         }
 
-        public List<BoardGame> GetAllByIds(List<int> tableBoardGameIdList)
+        public IEnumerable<BoardGame> GetAllByIds(IEnumerable<int> tableBoardGameIdList)
         {
             var result = new List<BoardGame>();
             foreach (var boardGameId in tableBoardGameIdList)
