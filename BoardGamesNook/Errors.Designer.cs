@@ -61,7 +61,7 @@ namespace BoardGamesNook {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Nie znaleziono wyniku gr o id {0}&quot;.
+        ///   Looks up a localized string similar to &quot;Nie znaleziono wyniku gry o id {0}&quot;.
         /// </summary>
         internal static string BoardGameResultWithIdNotFound {
             get {
@@ -70,7 +70,7 @@ namespace BoardGamesNook {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Nie znaleziono stoł do gry o id {0}&quot;.
+        ///   Looks up a localized string similar to &quot;Nie znaleziono stołu do gry o id {0}&quot;.
         /// </summary>
         internal static string BoardGameTableWithIdNotFound {
             get {
@@ -79,7 +79,7 @@ namespace BoardGamesNook {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Nie znaleziono gry o nickname {0}.
+        ///   Looks up a localized string similar to &quot;Nie znaleziono gry o id {0}.
         /// </summary>
         internal static string BoardGameWithIdNotFound {
             get {
@@ -97,7 +97,7 @@ namespace BoardGamesNook {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Nie znaleziono uczestnika gry o nickname {0}&quot;.
+        ///   Looks up a localized string similar to &quot;Nie znaleziono uczestnika gry o id {0}&quot;.
         /// </summary>
         internal static string GameParticipationWithIdNotFound {
             get {
@@ -106,7 +106,7 @@ namespace BoardGamesNook {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Nie znaleziono gry dla gracza o nickname {0}.
+        ///   Looks up a localized string similar to &quot;Nie znaleziono gry dla gracza o id {0}.
         /// </summary>
         internal static string GamerBoardGameWithIdNotFound {
             get {
