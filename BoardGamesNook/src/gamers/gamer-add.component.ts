@@ -25,13 +25,13 @@ export class GamerAddComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap(() => this.gamerService.getByNick("new"))
+            .switchMap(() => this.gamerService.getByNickname("new"))
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 
-    add(nick: string, name: string, surname: string, age: number, city: string, street: string): void {
+    add(nickname: string, name: string, surname: string, age: number, city: string, street: string): void {
         this.gamer = new Gamer;
-        this.gamer.Nick = nick;
+        this.gamer.Nickname = nickname;
         this.gamer.Name = name;
         this.gamer.Surname = surname;
         this.gamer.Age = age;

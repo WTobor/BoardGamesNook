@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
@@ -10,37 +11,33 @@ namespace BoardGamesNook.Repository
     {
         private readonly List<GamerBoardGame> _gamerBoardGames = GamerBoardGameGenerator.gamerBoardGames;
 
-        public GamerBoardGame Get(int id)
+        public GamerBoardGame GetGamerBoardGame(int id)
         {
             return _gamerBoardGames.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<GamerBoardGame> GetAll()
+        public IEnumerable<GamerBoardGame> GetAllGamerBoardGames()
         {
             return _gamerBoardGames;
         }
 
-        public IEnumerable<GamerBoardGame> GetAllByGamerNick(string gamerNick)
+        public IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNickname(string gamerNickname)
         {
-            return _gamerBoardGames.Where(x => x.Gamer.Nick == gamerNick);
+            return _gamerBoardGames.Where(x => x.Gamer.Nickname == gamerNickname);
         }
 
-        public void Add(GamerBoardGame gamerBoardGame)
+        public void AddGamerBoardGame(GamerBoardGame gamerBoardGame)
         {
             _gamerBoardGames.Add(gamerBoardGame);
         }
 
-        public void Edit(GamerBoardGame gamerBoardGame)
+        public void EditGamerBoardGame(GamerBoardGame gamerBoardGame)
         {
-            var oldGamer = _gamerBoardGames.FirstOrDefault(x => x.Id == gamerBoardGame.Id);
-            if (oldGamer != null)
-            {
-                _gamerBoardGames.Remove(oldGamer);
-                _gamerBoardGames.Add(gamerBoardGame);
-            }
+            gamerBoardGame.ModifiedDate = DateTimeOffset.Now;
+            gamerBoardGame.Active = false;
         }
 
-        public void Delete(int id)
+        public void DeleteGamerBoardGame(int id)
         {
             var gamerBoardGame = _gamerBoardGames.FirstOrDefault(x => x.Id == id);
             if (gamerBoardGame != null)

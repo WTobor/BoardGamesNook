@@ -5,16 +5,16 @@ namespace BoardGamesNook.Services.Interfaces
 {
     public interface IGamerBoardGameService
     {
-        GamerBoardGame Get(int id);
+        GamerBoardGame GetGamerBoardGame(int id);
 
-        IEnumerable<GamerBoardGame> GetAll();
+        IEnumerable<GamerBoardGame> GetAllGamerBoardGames();
 
-        IEnumerable<GamerBoardGame> GetAllByGamerNick(string gamerId);
+        IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNickname(string gamerNickname);
 
         void Add(GamerBoardGame boardGame);
 
-        void Edit(GamerBoardGame boardGame);
+        void EditGamerBoardGame(GamerBoardGame boardGame);
 
-        void Delete(int id);
+        void DeleteGamerBoardGame(int id);
     }
 }

@@ -1,41 +1,31 @@
 ﻿<div *ngIf="gamer">
     <div *ngIf="!isCurrentGamer; then notCurrentGamer else currentGamer"></div>
-
+    
     <ng-template #notCurrentGamer>
-        <h3>Gracz</h3>
-        <h4>{{ gamer.Nick }}</h4>
+    <h3>Gracz</h3>
+        <h4>{{ gamer.Nickname }}</h4>
         <div hidden>
             <label>Id: </label>{{ gamer.Id }}
         </div>
         <table>
             <tr>
-                <td>
-                    <label>Imię: </label>
-                </td>
+                <td><label>Imię: </label></td>
                 <td>{{ gamer.Name}}</td>
             </tr>
             <tr>
-                <td>
-                    <label>Nazwisko: </label>
-                </td>
+                <td><label>Nazwisko: </label></td>
                 <td>{{ gamer.Surname }}</td>
             </tr>
             <tr>
-                <td>
-                    <label>Wiek: </label>
-                </td>
+                <td><label>Wiek: </label></td>
                 <td>{{ gamer.Age }} </td>
             </tr>
             <tr>
-                <td>
-                    <label>Miasto: </label>
-                </td>
+                <td><label>Miasto: </label></td>
                 <td>{{ gamer.City }}</td>
             </tr>
             <tr>
-                <td>
-                    <label>Ulica: </label>
-                </td>
+                <td><label>Ulica: </label></td>
                 <td>{{ gamer.Street }}</td>
             </tr>
         </table>
@@ -43,7 +33,7 @@
             <button class="btn btn-default" (click)="goBack()">Powrót</button>
         </p>
     </ng-template>
-
+    
     <ng-template #currentGamer>
         <h3>Edytuj konto </h3>
         <div hidden>
@@ -51,56 +41,32 @@
         </div>
         <table>
             <tr>
-                <td>
-                    <label>Nick: </label>
-                </td>
-                <td>{{ gamer.Nick }}</td>
+                <td><label>Nickname: </label></td>
+                <td>{{ gamer.Nickname }}</td>
             </tr>
             <tr>
-                <td>
-                    <label>Email: </label>
-                </td>
+                <td><label>Email: </label></td>
                 <td>{{ gamer.Email }}</td>
             </tr>
             <tr>
-                <td>
-                    <label>Imię: </label>
-                </td>
-                <td>
-                    <input [(ngModel)]="gamer.Name"/>
-                </td>
+                <td><label>Imię: </label></td>
+                <td><input [(ngModel)]="gamer.Name" /></td>
             </tr>
             <tr>
-                <td>
-                    <label>Nazwisko: </label>
-                </td>
-                <td>
-                    <input [(ngModel)]="gamer.Surname"/>
-                </td>
+                <td><label>Nazwisko: </label></td>
+                <td><input [(ngModel)]="gamer.Surname" /></td>
             </tr>
             <tr>
-                <td>
-                    <label>Wiek: </label>
-                </td>
-                <td>
-                    <input [(ngModel)]="gamer.Age"/>
-                </td>
+                <td><label>Wiek: </label></td>
+                <td><input [(ngModel)]="gamer.Age" /></td>
             </tr>
             <tr>
-                <td>
-                    <label>Miasto: </label>
-                </td>
-                <td>
-                    <input [(ngModel)]="gamer.City"/>
-                </td>
+                <td><label>Miasto: </label></td>
+                <td><input [(ngModel)]="gamer.City" /></td>
             </tr>
             <tr>
-                <td>
-                    <label>Ulica: </label>
-                </td>
-                <td>
-                    <input [(ngModel)]="gamer.Street"/>
-                </td>
+                <td><label>Ulica: </label></td>
+                <td><input [(ngModel)]="gamer.Street" /></td>
             </tr>
         </table>
 

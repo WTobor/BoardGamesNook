@@ -1,23 +1,27 @@
 ﻿import { Injectable } from "@angular/core";
 import { Headers, Http } from "@angular/http";
+
 import "rxjs/add/operator/toPromise";
+
 import { Gamer } from "./gamer";
+
+import { Common } from "./../Common";
 
 @Injectable()
 export class GamerService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private getCurrentGamerNickUrl = "Gamer/GetCurrentGamerNick";
-    private getByEmailUrl = "Gamer/GetByEmail";
-    private getByNickUrl = "Gamer/GetByNick";
-    private getGamerListUrl = "Gamer/GetAll";
-    private addGamerUrl = "Gamer/Add";
-    private editGamerUrl = "Gamer/Edit";
-    private deactivateGamerUrl = "Gamer/Deactivate";
+    private _getCurrentGamerNicknameUrl = "Gamer/GetCurrentGamerNickname";
+    private _getByEmailUrl = "Gamer/GetByEmail";
+    private _getByNicknameUrl = "Gamer/GetByNickname";
+    private _getGamerListUrl = "Gamer/GetAll";
+    private _addGamerUrl = "Gamer/Add";
+    private _editGamerUrl = "Gamer/Edit";
+    private _deactivateGamerUrl = "Gamer/Deactivate";
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) { }
 
     getGamers(): Promise<Gamer[]> {
-        const url = `${this.getGamerListUrl}`;
+        const url = `${this._getGamerListUrl}`;
         return this.http.get(url)
             .toPromise()
             .then(response => {
@@ -27,8 +31,8 @@ export class GamerService {
             .catch(err => { return Promise.reject(err); });
     }
 
-    getCurrentGamerNick(): Promise<string> {
-        const url = `${this.getCurrentGamerNickUrl}`;
+    getCurrentGamerNickname(): Promise<string> {
+        const url = `${this._getCurrentGamerNicknameUrl}`;
         return this.http.get(url)
             .toPromise()
             .then(response => { return response.text(); })
@@ -38,45 +42,47 @@ export class GamerService {
     getByEmail(email: string): Promise<Gamer> {
         if (email !== "") {
             return this.http
-                .post(`${this.getByEmailUrl}`, JSON.stringify({ email: email }), { headers: this.headers })
+                .post(`${this._getByEmailUrl}`, JSON.stringify({ email: email }), { headers: this.headers })
                 .toPromise()
-                .then((response): Gamer => {
+                .then(response => {
                     if (response.text() === "") {
                         return null;
                     }
                     return response.json() as Gamer;
                 })
                 .catch(err => { return Promise.reject(err); });
-        } else {
+        }
+        else {
             var response = new Gamer;
             return new Promise((resolve) => { resolve(response); })
-                .then((response): Gamer => { return response as Gamer; })
+                .then(response => { return response as Gamer; })
                 .catch(err => { return Promise.reject(err); });
         }
     }
 
-    getByNick(nick: string): Promise<Gamer> {
-        if (nick !== "new") {
+    getByNickname(nickname: string): Promise<Gamer> {
+        if (nickname !== "new") {
             return this.http
-                .post(`${this.getByNickUrl}`, JSON.stringify({ nick: nick }), { headers: this.headers })
+                .post(`${this._getByNicknameUrl}`, JSON.stringify({ nickname: nickname }), { headers: this.headers })
                 .toPromise()
-                .then((response): Gamer => {
+                .then(response => {
                     if (response.text() === "") {
                         return null;
                     }
                     return response.json() as Gamer;
                 })
                 .catch(err => { return Promise.reject(err); });
-        } else {
+        }
+        else {
             var response = new Gamer;
             return new Promise((resolve) => { resolve(response); })
-                .then((response): Gamer => { return response as Gamer; })
+                .then(response => { return response as Gamer; })
                 .catch(err => { return Promise.reject(err); });
         }
     }
 
     deactivate(id: string): Promise<string> {
-        const url = `${this.deactivateGamerUrl}/${id}`;
+        const url = `${this._deactivateGamerUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
@@ -84,7 +90,7 @@ export class GamerService {
     }
 
     create(gamer: Gamer): Promise<string> {
-        const url = `${this.addGamerUrl}`;
+        const url = `${this._addGamerUrl}`;
         return this.http
             .post(url, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()
@@ -93,7 +99,7 @@ export class GamerService {
     }
 
     update(gamer: Gamer): Promise<string> {
-        const url = `${this.editGamerUrl}`;
+        const url = `${this._editGamerUrl}`;
         return this.http
             .post(url, JSON.stringify(gamer), { headers: this.headers })
             .toPromise()

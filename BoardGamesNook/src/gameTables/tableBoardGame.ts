@@ -5,5 +5,5 @@
     ImageUrl: string;
     TableId: number;
     GamerId: number;
-    GamerNick: string;
+    GamerNickname: string;
 }

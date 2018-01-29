@@ -5,13 +5,13 @@ namespace BoardGamesNook.Services.Interfaces
 {
     public interface IGameParticipationService
     {
-        GameParticipation Get(int id);
+        GameParticipation GetGameParticipation(int id);
 
-        IEnumerable<GameParticipation> GetAll();
+        IEnumerable<GameParticipation> GetAllGameParticipations();
 
-        IEnumerable<GameParticipation> GetAllByTableId(int id);
+        IEnumerable<GameParticipation> GetAllGameParticipationsByTableId(int id);
 
-        void Add(GameParticipation gameParticipation);
+        void AddGameParticipation(GameParticipation gameParticipation);
 
         void Edit(GameParticipation gameParticipation);
 

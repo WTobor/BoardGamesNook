@@ -9,6 +9,6 @@
         public int TableId { get; set; }
         public string TableName { get; set; }
         public string GamerId { get; set; }
-        public string GamerNick { get; set; }
+        public string GamerNickname { get; set; }
     }
 }

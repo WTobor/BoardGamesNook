@@ -12,28 +12,27 @@ import { GamerService } from "../gamers/gamer.service";
 export class ParticipationListComponent implements OnInit {
     participations: Participation[];
     selectedParticipation: Participation;
-    selectedGamerNick: string;
-    isCurrentGamer = false;
+    selectedGamerNickname: string;
+    isCurrentGamer: boolean = false;
 
     constructor(
         private participationService: ParticipationService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router) {
-    }
+        private router: Router) { }
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.participationService.getParticipationsByGamerNick(params["gamerNick"]))
+            .switchMap((params: Params) => this.participationService.getParticipationsByGamerNickname(params["gamerNickname"]))
             .subscribe((participationList: Participation[]) => {
                 this.participations = participationList;
             });
 
         this.route.params
             .subscribe((params: Params) => {
-                this.selectedGamerNick = params["gamerNick"];
-                this.gamerService.getCurrentGamerNick().then(nick => {
-                    if (nick === this.selectedGamerNick) {
+                this.selectedGamerNickname = params["gamerNickname"];
+                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                    if (nickname === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     }
                 });
@@ -49,9 +48,7 @@ export class ParticipationListComponent implements OnInit {
             .delete(participation.Id)
             .then(() => {
                 this.participations = this.participations.filter(g => g !== participation);
-                if (this.selectedParticipation === participation) {
-                    this.selectedParticipation = null;
-                }
+                if (this.selectedParticipation === participation) { this.selectedParticipation = null; }
             });
     }
 

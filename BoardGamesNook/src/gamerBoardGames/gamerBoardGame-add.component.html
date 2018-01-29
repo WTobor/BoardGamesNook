@@ -1,7 +1,7 @@
 ﻿<div *ngIf="gamerBoardGames?.length > 0; then gbgExists else gbgNotExists"></div>
 
 <ng-template #gbgExists>
-    <h3>Nowa gra dla gracza {{ gamerBoardGames[0].GamerNick }}</h3>
+    <h3>Nowa gra dla gracza {{ gamerBoardGames[0].GamerNickname }}</h3>
 
     <select #boardGame (change)="selectBoardGame(boardGame.value)">
         <option *ngFor="let gamerBoardGame of gamerBoardGames"

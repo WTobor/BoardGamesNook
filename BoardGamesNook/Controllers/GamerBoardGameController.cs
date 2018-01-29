@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using BoardGamesNook.Mappers;
+using AutoMapper;
 using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Services;
+using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.GamerBoardGame;
 
 namespace BoardGamesNook.Controllers
@@ -13,39 +12,43 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerBoardGameController : Controller
     {
-        private readonly BoardGameService _boardGameService = new BoardGameService(new BoardGameRepository());
+        private readonly IBoardGameService _boardGameService;
+        private readonly IGamerBoardGameService _gamerBoardGameService;
+        private readonly IGamerService _gamerService;
 
-        private readonly GamerBoardGameService _gamerBoardGameService =
-            new GamerBoardGameService(new GamerBoardGameRepository());
-
-        private readonly GamerService _gamerService = new GamerService(new GamerRepository());
+        public GamerBoardGameController(IGamerBoardGameService gamerBoardGameService,
+            IBoardGameService boardGameService,
+            IGamerService gamerService)
+        {
+            _gamerBoardGameService = gamerBoardGameService;
+            _boardGameService = boardGameService;
+            _gamerService = gamerService;
+        }
 
         public JsonResult Get(int id)
         {
-            var gamerBoardGame = _gamerBoardGameService.Get(id);
+            var gamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(id);
             if (gamerBoardGame == null)
-                return Json("Nie znaleziono gry dla gracza", JsonRequestBehavior.AllowGet);
-            var gamerBoardGameViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModel(gamerBoardGame);
+                return Json(string.Format(Errors.GamerBoardGameWithIdNotFound, id), JsonRequestBehavior.AllowGet);
+            var gamerBoardGameViewModel = Mapper.Map<GamerBoardGameViewModel>(gamerBoardGame);
 
             return Json(gamerBoardGameViewModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetAllByGamerNick(string id)
+        public JsonResult GetAllByGamerNickname(string nickname)
         {
             if (!(Session["gamer"] is Gamer))
-            {
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
-            var gamerList = _gamerBoardGameService.GetAllByGamerNick(id);
-            var gamerListViewModel = GamerBoardGameMapper.MapToGamerBoardGameViewModelList(gamerList);
+                return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
+            var gamerList = _gamerBoardGameService.GetAllGamerBoardGamesByGamerNickname(nickname);
+            var gamerListViewModel = Mapper.Map<List<GamerBoardGameViewModel>>(gamerList);
 
             return Json(gamerListViewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult GetGamerAvailableBoardGames(string id)
+        public JsonResult GetGamerAvailableBoardGames(string nickname)
         {
-            var gamerAvailableBoardGameListViewModel = GetGamerAvailableBoardGameList(id);
+            var gamerAvailableBoardGameListViewModel = GetGamerAvailableBoardGameList(nickname);
             return Json(gamerAvailableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
 
@@ -53,43 +56,26 @@ namespace BoardGamesNook.Controllers
         public JsonResult Add(int boardGameId)
         {
             if (!(Session["gamer"] is Gamer gamer))
-            {
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
-
-            var gamerBoardGame = new GamerBoardGame
-            {
-                Id = _gamerBoardGameService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
-                GamerId = gamer.Id,
-                Gamer = gamer,
-                BoardGameId = boardGameId,
-                BoardGame = _boardGameService.Get(boardGameId),
-                CreatedDate = DateTimeOffset.Now,
-                Active = true
-            };
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            var gamerBoardGame = GetGamerBoardGameObj(boardGameId, gamer);
             _gamerBoardGameService.Add(gamerBoardGame);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+
         [HttpPost]
         public JsonResult Edit(int gamerBoardGameId)
         {
-            if (!(Session["gamer"] is Gamer gamer))
-            {
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
+            if (!(Session["gamer"] is Gamer))
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            var dbGamerBoardGame = _gamerBoardGameService.Get(gamerBoardGameId);
-            if (dbGamerBoardGame != null)
-            {
-                dbGamerBoardGame.ModifiedDate = DateTimeOffset.Now;
-                dbGamerBoardGame.Active = false;
-            }
-            else
-            {
-                return Json("Nie ma takiej gry dla gracza", JsonRequestBehavior.AllowGet);
-            }
+            var dbGamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(gamerBoardGameId);
+
+            if (dbGamerBoardGame == null)
+                return Json(string.Format(Errors.GamerBoardGameWithIdNotFound, gamerBoardGameId),
+                    JsonRequestBehavior.AllowGet);
+            _gamerBoardGameService.EditGamerBoardGame(dbGamerBoardGame);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -98,27 +84,43 @@ namespace BoardGamesNook.Controllers
         public JsonResult Delete(int id)
         {
             if (!(Session["gamer"] is Gamer))
-            {
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            }
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            _gamerBoardGameService.Delete(id);
+            _gamerBoardGameService.DeleteGamerBoardGame(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        public IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(string id)
+        private IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(string nickname)
         {
-            var gamer = _gamerService.GetByNick(id);
-            var availableBoardGameList = _boardGameService.GetAll();
-            var gamerBoardGameList = _gamerBoardGameService.GetAllByGamerNick(id);
+            // Tutaj również jakaś logika biznesowa, która powinna być w serwisie.
+            var gamer = _gamerService.GetGamerBoardGameByNickname(nickname);
+            var availableBoardGameList = _boardGameService.GetAllGamerBoardGames();
+            var gamerBoardGameList = _gamerBoardGameService.GetAllGamerBoardGamesByGamerNickname(nickname);
             var gamerAvailableBoardGameList = availableBoardGameList
                 .Where(x => gamerBoardGameList.All(y => y.BoardGameId != x.Id)).ToList();
 
             var availableBoardGameListViewModel =
-                BoardGameMapper.MapToGamerBoardGameViewModelList(gamerAvailableBoardGameList, gamer);
+                Mapper.Map<List<GamerBoardGameViewModel>>(gamerAvailableBoardGameList);
+            foreach (var obj in availableBoardGameListViewModel)
+                Mapper.Map(gamer, obj);
 
             return availableBoardGameListViewModel;
+        }
+
+
+        private GamerBoardGame GetGamerBoardGameObj(int boardGameId, Gamer gamer)
+        {
+            return new GamerBoardGame
+            {
+                Id = _gamerBoardGameService.GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1,
+                GamerId = gamer.Id,
+                Gamer = gamer,
+                BoardGameId = boardGameId,
+                BoardGame = _boardGameService.Get(boardGameId),
+                CreatedDate = DateTimeOffset.Now,
+                Active = true
+            };
         }
     }
 }

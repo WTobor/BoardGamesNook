@@ -7,16 +7,21 @@ namespace BoardGamesNook.Services
 {
     public class GameTableService : IGameTableService
     {
+        private readonly IBoardGameService _boardGameService;
+        private readonly IGameParticipationService _gameParticipationService;
         private readonly IGameTableRepository _gameTableRepository;
 
-        public GameTableService(IGameTableRepository gameTableRepository)
+        public GameTableService(IGameTableRepository gameTableRepository, IBoardGameService boardGameService,
+            IGameParticipationService gameParticipationService)
         {
             _gameTableRepository = gameTableRepository;
+            _boardGameService = boardGameService;
+            _gameParticipationService = gameParticipationService;
         }
 
-        public GameTable Get(int id)
+        public GameTable GetGameTable(int id)
         {
-            return _gameTableRepository.Get(id);
+            return _gameTableRepository.GetGameTable(id);
         }
 
         public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
@@ -24,34 +29,51 @@ namespace BoardGamesNook.Services
             return _gameTableRepository.GetAvailableTableBoardGameList(table);
         }
 
-        public IEnumerable<GameTable> GetAllByGamerNick(string gamerNick)
+        public IEnumerable<GameTable> GetAllGameTables()
         {
-            return _gameTableRepository.GetAllByGamerNick(gamerNick);
+            return _gameTableRepository.GetAllGameTables();
         }
 
-        public void Add(GameTable gameTable)
+        public IEnumerable<GameTable> GetAllGameTablesByGamerNickname(string gamerNickname)
         {
-            _gameTableRepository.Add(gameTable);
+            return _gameTableRepository.GetAllGameTablesByGamerNickname(gamerNickname);
         }
 
-        public void Edit(GameTable gameTable)
+        public void CreateGameTable(GameTable gameTable, List<int> tableBoardGameIdList)
         {
-            _gameTableRepository.Edit(gameTable);
+            gameTable.BoardGames = new List<BoardGame>();
+            foreach (var boardGameId in tableBoardGameIdList)
+            {
+                var boardGame = _boardGameService.Get(boardGameId);
+                if (boardGame != null)
+                    gameTable.BoardGames.Add(boardGame);
+            }
+
+            _gameTableRepository.AddGameTable(gameTable);
+        }
+
+        public void EditGameTable(GameTable gameTable)
+        {
+            _gameTableRepository.EditGameTable(gameTable);
         }
 
         public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
         {
+            foreach (var gameParticipation in gameParticipations)
+            {
+                var dbGameParticipation = _gameParticipationService.GetGameParticipation(gameParticipation.Id);
+                if (dbGameParticipation != null)
+                    _gameParticipationService.Edit(gameParticipation);
+                else
+                    _gameParticipationService.AddGameParticipation(gameParticipation);
+            }
+
             _gameTableRepository.EditParticipations(gameParticipations, modifiedGamer);
         }
 
-        public void Delete(int id)
+        public void DeleteGameTable(int id)
         {
-            _gameTableRepository.Delete(id);
-        }
-
-        public IEnumerable<GameTable> GetAll()
-        {
-            return _gameTableRepository.GetAll();
+            _gameTableRepository.DeleteGameTable(id);
         }
     }
 }

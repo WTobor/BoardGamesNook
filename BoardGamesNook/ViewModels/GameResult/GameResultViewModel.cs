@@ -2,11 +2,11 @@
 {
     public class GameResultViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string CreatedGamerId { get; set; }
-        public string CreatedGamerNick { get; set; }
+        public string CreatedGamerNickname { get; set; }
         public string GamerId { get; set; }
-        public string GamerNick { get; set; }
+        public string GamerNickname { get; set; }
         public int BoardGameId { get; set; }
         public string BoardGameName { get; set; }
         public float? Points { get; set; }

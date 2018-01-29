@@ -1,7 +1,8 @@
-﻿using System.Web.Mvc;
-using BoardGamesNook.Mappers;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Services;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
+using BoardGamesNook.Model;
+using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.GameParticipation;
 
 namespace BoardGamesNook.Controllers
@@ -9,58 +10,66 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GameParticipationController : Controller
     {
-        private readonly GameParticipationService gameParticipationService =
-            new GameParticipationService(new GameParticipationRepository());
+        private readonly IGameParticipationService _gameParticipationService;
+
+        public GameParticipationController(IGameParticipationService gameParticipationService)
+        {
+            _gameParticipationService = gameParticipationService;
+        }
 
         public JsonResult Get(int id)
         {
-            var gameParticipation = gameParticipationService.Get(id);
-            var gameParticipationViewModel = GameParticipationMapper.MapToGameParticipationViewModel(gameParticipation);
+            var gameParticipation = _gameParticipationService.GetGameParticipation(id);
+
+            var gameParticipationViewModel = Mapper.Map<GameParticipationViewModel>(gameParticipation);
             return Json(gameParticipationViewModel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAll()
         {
-            var gameParticipationList = gameParticipationService.GetAll();
+            var gameParticipationList = _gameParticipationService.GetAllGameParticipations();
             var gameParticipationViewModelList =
-                GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
+                Mapper.Map<IEnumerable<GameParticipationViewModel>>(gameParticipationList);
             return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllByTableId(int id)
         {
-            var gameParticipationList = gameParticipationService.GetAllByTableId(id);
+            var gameParticipationList = _gameParticipationService.GetAllGameParticipationsByTableId(id);
             var gameParticipationViewModelList =
-                GameParticipationMapper.MapToGameParticipationViewModelList(gameParticipationList);
+                Mapper.Map<IEnumerable<GameParticipationViewModel>>(gameParticipationList);
             return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Add(GameParticipationViewModel gameParticipation)
+        public JsonResult Add(GameParticipationViewModel gameParticipationViewModel)
         {
-            var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipation);
-            gameParticipationService.Add(dbGameParticipation);
+            var dbGameParticipation = Mapper.Map<GameParticipation>(gameParticipationViewModel);
+            _gameParticipationService.AddGameParticipation(dbGameParticipation);
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Edit(GameParticipationViewModel gameParticipation)
+        public JsonResult Edit(GameParticipationViewModel gameParticipationViewModel)
         {
-            var orgGameParticipation = gameParticipationService.Get(gameParticipation.Id);
+            // To również wygląda na jakąś logikę biznesową, która powinna być w serwisie
+            var orgGameParticipation = _gameParticipationService.GetGameParticipation(gameParticipationViewModel.Id);
             if (orgGameParticipation != null)
             {
-                var dbGameParticipation = GameParticipationMapper.MapToGameParticipation(gameParticipation);
-                gameParticipationService.Edit(dbGameParticipation);
+                var dbGameParticipation = Mapper.Map<GameParticipation>(gameParticipationViewModel);
+                _gameParticipationService.Edit(dbGameParticipation);
 
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
-            return Json("Nie znaleziono uczestnika gry o Id=" + gameParticipation.Id, JsonRequestBehavior.AllowGet);
+
+            return Json(string.Format(Errors.GameParticipationWithIdNotFound, gameParticipationViewModel.Id),
+                JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            gameParticipationService.Delete(id);
+            _gameParticipationService.Delete(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

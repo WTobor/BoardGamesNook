@@ -1,27 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using BoardGamesNook.Mappers;
+using AutoMapper;
 using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Services;
+using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.GameResult;
 
 namespace BoardGamesNook.Controllers
 {
     public class GameResultController : Controller
     {
-        private readonly BoardGameService _boardGameService = new BoardGameService(new BoardGameRepository());
-        private readonly GameResultService _gameResultService = new GameResultService(new GameResultRepository());
-        private readonly GamerService _gamerService = new GamerService(new GamerRepository());
+        private readonly IBoardGameService _boardGameService;
+        private readonly IGameResultService _gameResultService;
+        private readonly IGamerService _gamerService;
+
+        public GameResultController(IGameResultService gameResultService, IBoardGameService boardGameService,
+            IGamerService gamerService)
+        {
+            _gameResultService = gameResultService;
+            _boardGameService = boardGameService;
+            _gamerService = gamerService;
+        }
 
         public JsonResult Get(int id)
         {
-            var gameResult = _gameResultService.Get(id);
+            var gameResult = _gameResultService.GetGameResult(id);
             if (gameResult == null)
-                return Json("Nie znaleziono wyniku dla gracza", JsonRequestBehavior.AllowGet);
-            var gameResultViewModel =
-                GameResultMapper.MapToGameResultViewModel(gameResult, _gamerService.Get(gameResult.CreatedGamerId));
+                return Json(string.Format(Errors.BoardGameResultWithIdNotFound, id), JsonRequestBehavior.AllowGet);
+
+            var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResult);
 
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -29,96 +37,78 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAll()
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            var gameResultList = _gameResultService.GetAll().ToList();
-            var gameResultListViewModel = GameResultMapper.MapToGameResultViewModelList(gameResultList,
-                _gamerService.Get(gameResultList.Select(x => x.GamerId).FirstOrDefault()));
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            var gameResultList = _gameResultService.GetAllGameResults().ToList();
 
-            return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
-        }
+            var gameResultListViewModel = Mapper.Map<List<GameResult>, List<GameResultViewModel>>(gameResultList);
 
-        public JsonResult GetAllByGamerNick(string id)
-        {
-            if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            var gameResultList = _gameResultService.GetAllByGamerNick(id).ToList();
-            var gameResultListViewModel = GameResultMapper.MapToGameResultViewModelList(gameResultList,
-                _gamerService.Get(gameResultList.Select(x => x.GamerId).FirstOrDefault()));
-
-            return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetAllByTableId(int id)
-        {
-            if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-            var gameResultList = _gameResultService.GetAllByTableId(id).ToList();
-            var gameResultListViewModel = GameResultMapper.MapToGameResultViewModelList(gameResultList,
-                _gamerService.Get(gameResultList.Select(x => x.GamerId).FirstOrDefault()));
-
-            return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult Add(GameResultViewModel model)
-        {
-            if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-
-            var gameResult = new GameResult
+            foreach (var gameResultViewModel in gameResultListViewModel)
             {
-                Id = _gameResultService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
-                CreatedGamerId = gamer.Id,
-                GamerId = model.GamerId,
-                Gamer = _gamerService.Get(model.GamerId),
-                BoardGameId = model.BoardGameId,
-                BoardGame = _boardGameService.Get(model.BoardGameId),
-                Points = model.Points,
-                Place = model.Place,
-                CreatedDate = DateTimeOffset.Now
-            };
-            _gameResultService.Add(gameResult);
-
-            return Json(null, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult AddMany(GameResultViewModel[] model)
-        {
-            if (!(Session["gamer"] is Gamer gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
-
-            foreach (var gameResultViewModel in model)
-            {
-                var gameResult = new GameResult
-                {
-                    Id = _gameResultService.GetAll().Select(x => x.Id).LastOrDefault() + 1,
-                    CreatedGamerId = gamer.Id,
-                    GamerId = gameResultViewModel.GamerId,
-                    Gamer = _gamerService.Get(gameResultViewModel.GamerId),
-                    BoardGameId = gameResultViewModel.BoardGameId,
-                    BoardGame = _boardGameService.Get(gameResultViewModel.BoardGameId),
-                    Points = gameResultViewModel.Points,
-                    Place = gameResultViewModel.Place,
-                    CreatedDate = DateTimeOffset.Now
-                };
-                _gameResultService.Add(gameResult);
+                gameResultViewModel.CreatedGamerNickname =
+                    _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
             }
 
+            return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllByGamerNickname(string nickname)
+        {
+            if (!(Session["gamer"] is Gamer))
+                return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
+            var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
+
+            var gameResultListViewModel = Mapper.Map<List<GameResult>, List<GameResultViewModel>>(gameResultList);
+
+            return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllByTableId(int tableId)
+        {
+            if (!(Session["gamer"] is Gamer))
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            var gameResultList = _gameResultService.GetAllGameResultsByTableId(tableId).ToList();
+
+            var gameResultListViewModel = Mapper.Map<List<GameResultViewModel>>(gameResultList);
+
+            return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Add(GameResultViewModel gameResultViewModel)
+        {
+            if (!(Session["gamer"] is Gamer gamer))
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            var gameResult = GetGameResultObj(gameResultViewModel, gamer);
+            _gameResultService.AddGameResult(gameResult);
+
             return Json(null, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult AddMany(GameResultViewModel[] gameResultViewModels)
+        {
+            if (!(Session["gamer"] is Gamer gamer))
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+
+            var gameResults = GetGameResultObjs(gameResultViewModels, gamer);
+                _gameResultService.AddGameResults(gameResults);
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public JsonResult Edit(int gameResultId)
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            var dbGameResult = _gameResultService.Get(gameResultId);
+            var dbGameResult = _gameResultService.GetGameResult(gameResultId);
             if (dbGameResult != null)
                 dbGameResult.ModifiedDate = DateTimeOffset.Now;
             else
-                return Json("Nie ma takiego wyniku dla gracza", JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.BoardGameResultWithIdNotFound, gameResultId),
+                    JsonRequestBehavior.AllowGet);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -127,11 +117,33 @@ namespace BoardGamesNook.Controllers
         public JsonResult Delete(int id)
         {
             if (!(Session["gamer"] is Gamer))
-                return Json("Nie zalogowano gracza", JsonRequestBehavior.AllowGet);
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            _gameResultService.Delete(id);
+            _gameResultService.DeleteGameResult(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+
+        private List<GameResult> GetGameResultObjs(IEnumerable<GameResultViewModel> gameResultViewModels, Gamer gamer)
+        {
+            var result = new List<GameResult>();
+            foreach (var gameResultViewModel in gameResultViewModels)
+            {
+                var obj = GetGameResultObj(gameResultViewModel, gamer);
+                result.Add(obj);
+            }
+
+            return result;
+        }
+        private GameResult GetGameResultObj(GameResultViewModel gameResultViewModel, Gamer gamer)
+        {
+            var result = Mapper.Map<GameResult>(gameResultViewModel);
+            result.Id = _gameResultService.GetAllGameResults().Select(x => x.Id).LastOrDefault() + 1;
+            result.Gamer = _gamerService.GetGamer(gameResultViewModel.GamerId);
+            result.BoardGame = _boardGameService.Get(gameResultViewModel.BoardGameId);
+            Mapper.Map(gamer, result);
+            return result;
         }
     }
 }

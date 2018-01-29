@@ -14,44 +14,44 @@ namespace BoardGamesNook.Services
             _gamerRepository = gamerRepository;
         }
 
-        public Gamer Get(string id)
+        public Gamer GetGamer(string id)
         {
-            return _gamerRepository.Get(id);
+            return _gamerRepository.GetGamer(id);
         }
 
-        public Gamer GetByEmail(string userEmail)
+        public Gamer GetGamerByEmail(string userEmail)
         {
-            return _gamerRepository.GetByEmail(userEmail);
+            return _gamerRepository.GetGamerByEmail(userEmail);
         }
 
-        public Gamer GetByNick(string userNick)
+        public Gamer GetGamerBoardGameByNickname(string userNickname)
         {
-            return _gamerRepository.GetByNick(userNick);
+            return _gamerRepository.GetGamerByNickname(userNickname);
         }
 
-        public bool NickExists(string nick)
+        public bool NicknameExists(string nickname)
         {
-            return _gamerRepository.NickExists(nick);
+            return _gamerRepository.NicknameExists(nickname);
         }
 
-        public IEnumerable<Gamer> GetAll()
+        public IEnumerable<Gamer> GetAllGamers()
         {
-            return _gamerRepository.GetAll();
+            return _gamerRepository.GetAllGamers();
         }
 
-        public void Add(Gamer gamer)
+        public void AddGamer(Gamer gamer)
         {
-            _gamerRepository.Add(gamer);
+            _gamerRepository.AddGamer(gamer);
         }
 
-        public void Edit(Gamer gamer)
+        public void EditGamer(Gamer gamer)
         {
-            _gamerRepository.Edit(gamer);
+            _gamerRepository.EditGamer(gamer);
         }
 
-        public void Deactivate(string id)
+        public void DeactivateGamer(string id)
         {
-            _gamerRepository.Deactivate(id);
+            _gamerRepository.DeactivateGamer(id);
         }
     }
 }

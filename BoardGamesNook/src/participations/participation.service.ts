@@ -1,25 +1,29 @@
 ﻿import { Injectable } from "@angular/core";
 import { Headers, Http } from "@angular/http";
+
 import "rxjs/add/operator/toPromise";
 import "rxjs/util/isNumeric";
+
 import { Participation } from "./participation";
+
+import { Common } from "./../Common";
 
 @Injectable()
 export class ParticipationService {
     private headers = new Headers({ "Content-Type": "application/json" });
-    private getParticipationUrl = "Participation/Get";
-    private getParticipationListUrl = "Participation/GetAll";
-    private getParticipationListByGamerNickUrl = "Participation/GetAllByGamerNick";
-    private addParticipationUrl = "Participation/Add";
-    private editParticipationUrl = "Participation/Edit";
-    private deleteParticipationUrl = "Participation/Delete";
+    private _getParticipationUrl = "Participation/Get";
+    private _getParticipationListUrl = "Participation/GetAll";
+    private _getParticipationListByGamerNicknameUrl = "Participation/GetAllByGamerNickname";
+    private _addParticipationUrl = "Participation/Add";
+    private _editParticipationUrl = "Participation/Edit";
+    private _deleteParticipationUrl = "Participation/Delete";
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) { }
 
-    getParticipationsByGamerNick(gamerNick: string): Promise<Participation[]> {
-        let url = `${this.getParticipationListUrl}`;
-        if (gamerNick != null && gamerNick !== "") {
-            url = `${this.getParticipationListByGamerNickUrl}/${gamerNick}`;
+    getParticipationsByGamerNickname(gamerNickname: string): Promise<Participation[]> {
+        var url = `${this._getParticipationListUrl}`;
+        if (gamerNickname != null && gamerNickname !== "") {
+            url = `${this._getParticipationListByGamerNicknameUrl}/${gamerNickname}`;
         };
 
         return this.http.get(url)
@@ -32,12 +36,13 @@ export class ParticipationService {
 
     getParticipation(id: number): Promise<Participation> {
         if (id > 0) {
-            const url = `${this.getParticipationUrl}/${id}`;
+            const url = `${this._getParticipationUrl}/${id}`;
             return this.http.get(url)
                 .toPromise()
                 .then(response => { return response.json() as Participation; })
                 .catch(err => { return Promise.reject(err); });
-        } else {
+        }
+        else {
             var response = new Participation;
             return new Promise((resolve) => { resolve(response); })
                 .then(response => { return response as Participation; })
@@ -46,7 +51,7 @@ export class ParticipationService {
     }
 
     create(participation: Participation): Promise<string> {
-        const url = `${this.addParticipationUrl}`;
+        const url = `${this._addParticipationUrl}`;
         return this.http
             .post(url, JSON.stringify(participation), { headers: this.headers })
             .toPromise()
@@ -55,7 +60,7 @@ export class ParticipationService {
     }
 
     update(participation: Participation): Promise<string> {
-        const url = `${this.editParticipationUrl}`;
+        const url = `${this._editParticipationUrl}`;
         return this.http
             .post(url, JSON.stringify(participation), { headers: this.headers })
             .toPromise()
@@ -65,7 +70,7 @@ export class ParticipationService {
 
     delete(id: number): Promise<string> {
         // id - boardGameId
-        const url = `${this.deleteParticipationUrl}/${id}`;
+        const url = `${this._deleteParticipationUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })

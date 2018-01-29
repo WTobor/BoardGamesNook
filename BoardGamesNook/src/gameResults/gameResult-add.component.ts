@@ -4,7 +4,7 @@ import { Gamer } from "../gamers/gamer";
 import { BoardGame } from "../boardGames/boardGame";
 import "rxjs/add/operator/switchMap";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, Params } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { GameResultService } from "./gameResult.service";
@@ -37,7 +37,7 @@ export class GameResultAddComponent implements OnInit {
     tableGamers: Gamer[];
     selectedTableGamer: Gamer;
     selectedTableGamerId: number;
-    currentGamerNick: string;
+    currentGamerNickname: string;
 
     pointList: number[];
     placeList: number[];
@@ -50,8 +50,7 @@ export class GameResultAddComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location,
         private router: Router
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
         this.route.params
@@ -70,16 +69,16 @@ export class GameResultAddComponent implements OnInit {
                 this.availableGamers = response;
             }
         );
-        this.gamerService.getCurrentGamerNick().then(nick => {
-            this.currentGamerNick = nick;
+        this.gamerService.getCurrentGamerNickname().then(nickname => {
+            this.currentGamerNickname = nickname;
         });
 
-        this.gameTableService.getGameTablesByGamerNick(this.currentGamerNick).then(gamerGameTables => {
-                this.gamerGameTables = gamerGameTables;
-                if (this.gamerGameTables != null && this.gamerGameTables.length > 0) {
-                    this.selectBoardGameTable(this.gamerGameTables.map(x => x.Id)[0]);
-                }
+        this.gameTableService.getGameTablesByGamerNickname(this.currentGamerNickname).then(gamerGameTables => {
+            this.gamerGameTables = gamerGameTables;
+            if (this.gamerGameTables != null && this.gamerGameTables.length > 0) {
+                this.selectBoardGameTable(this.gamerGameTables.map(x => x.Id)[0]);
             }
+        }
         );
     }
 
@@ -129,7 +128,7 @@ export class GameResultAddComponent implements OnInit {
     }
 
     addMany(): void {
-        const playersNumber = this.tableGamers.length;
+        let playersNumber = this.tableGamers.length;
         this.gameResults = [];
         for (let i = 0; i < playersNumber; i++) {
             this.gameResult = new GameResult;

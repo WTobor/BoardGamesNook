@@ -5,18 +5,20 @@ namespace BoardGamesNook.Services.Interfaces
 {
     public interface IGameTableService
     {
-        GameTable Get(int id);
+        GameTable GetGameTable(int id);
 
-        IEnumerable<GameTable> GetAllByGamerNick(string nick);
+        IEnumerable<GameTable> GetAllGameTablesByGamerNickname(string gamerNickname);
+
+        IEnumerable<GameTable> GetAllGameTables();
 
         IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table);
 
-        void Add(GameTable gameTable);
+        void CreateGameTable(GameTable gameTable, List<int> tableBoardGameIdList);
 
-        void Edit(GameTable gameTable);
+        void EditGameTable(GameTable gameTable);
 
         void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer);
 
-        void Delete(int id);
+        void DeleteGameTable(int id);
     }
 }

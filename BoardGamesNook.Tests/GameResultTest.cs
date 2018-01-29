@@ -19,7 +19,7 @@ namespace BoardGamesNook.Tests
             var gameResultService = new GameResultService(new GameResultRepository());
             var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
             //Act
-            var gameResults = gameResultService.GetAll();
+            var gameResults = gameResultService.GetAllGameResults();
             //Assert
             Assert.AreEqual(generatedGameResultsCount, gameResults.Count());
         }
@@ -31,8 +31,8 @@ namespace BoardGamesNook.Tests
             var gameResultService = new GameResultService(new GameResultRepository());
             var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            var gameResults = gameResultService.GetAll();
+            gameResultService.AddGameResult(GetTestGameResult());
+            var gameResults = gameResultService.GetAllGameResults();
             //Assert
             Assert.AreEqual(generatedGameResultsCount + 1, gameResults.Count());
         }
@@ -44,24 +44,24 @@ namespace BoardGamesNook.Tests
             var gameResultService = new GameResultService(new GameResultRepository());
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            var boardGame = gameResultService.Get(newGameResultId);
+            gameResultService.AddGameResult(GetTestGameResult());
+            var boardGame = gameResultService.GetGameResult(newGameResultId);
             //Assert
             Assert.AreEqual(newGameResultId, boardGame.Id);
         }
 
         [TestMethod]
-        public void GetByNick()
+        public void GetByNickname()
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
             var newGamerId = Guid.NewGuid().ToString();
             var testGamer = GetTestGamer(newGamerId);
-            var testNick = Guid.NewGuid().ToString();
-            testGamer.Nick = testNick;
+            var testNickname = Guid.NewGuid().ToString();
+            testGamer.Nickname = testNickname;
             //Act
-            gameResultService.Add(GetTestGameResult(testGamer));
-            var gameResults = gameResultService.GetAllByGamerNick(testNick);
+            gameResultService.AddGameResult(GetTestGameResult(testGamer));
+            var gameResults = gameResultService.GetAllByGamerNickname(testNickname);
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
@@ -72,13 +72,13 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var gameTableService = new GameTableService(new GameTableRepository());
+            var gameTableService = new GameTableService(new GameTableRepository(), new BoardGameService(new BoardGameRepository()), new GameParticipationService(new GameParticipationRepository()) );
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            gameTableService.Add(GetTestGameTable(newGameTableId));
+            gameTableService.CreateGameTable(GetTestGameTable(newGameTableId), new List<int>());
             var testGameTable = GameTableGenerator.gameTables.FirstOrDefault(x => x.Id == newGameTableId);
             //Act
-            gameResultService.Add(GetTestGameResult(null, testGameTable));
-            var gameResults = gameResultService.GetAllByTableId(newGameTableId);
+            gameResultService.AddGameResult(GetTestGameResult(null, testGameTable));
+            var gameResults = gameResultService.GetAllGameResultsByTableId(newGameTableId);
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
@@ -90,13 +90,13 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
-            var now = DateTimeOffset.UtcNow;
+            DateTimeOffset now = DateTimeOffset.UtcNow;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            var gameResult = gameResultService.Get(newGameResultId);
+            gameResultService.AddGameResult(GetTestGameResult());
+            var gameResult = gameResultService.GetGameResult(newGameResultId);
             gameResult.ModifiedDate = now;
-            gameResultService.Edit(gameResult);
-            var newGameResult = gameResultService.Get(newGameResultId);
+            gameResultService.EditGameResult(gameResult);
+            var newGameResult = gameResultService.GetGameResult(newGameResultId);
             //Assert
             Assert.AreEqual(now, newGameResult.ModifiedDate);
         }
@@ -109,9 +109,9 @@ namespace BoardGamesNook.Tests
             var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
             //Act
-            gameResultService.Add(GetTestGameResult());
-            gameResultService.Delete(newGameResultId);
-            var gameResults = gameResultService.GetAll();
+            gameResultService.AddGameResult(GetTestGameResult());
+            gameResultService.DeleteGameResult(newGameResultId);
+            var gameResults = gameResultService.GetAllGameResults();
             //Assert
             Assert.AreEqual(generatedGameResultsCount, gameResults.Count());
         }
@@ -119,7 +119,7 @@ namespace BoardGamesNook.Tests
         private static GameResult GetTestGameResult(Gamer gamer = null, GameTable table = null)
         {
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
-            return new GameResult
+            return new GameResult()
             {
                 Id = newGameResultId,
                 GameTableId = table?.Id ?? GameTableGenerator.gameTable1.Id,
@@ -131,10 +131,10 @@ namespace BoardGamesNook.Tests
 
         private static Gamer GetTestGamer(string gamerId)
         {
-            return new Gamer
+            return new Gamer()
             {
                 Id = gamerId,
-                Nick = "test",
+                Nickname = "test",
                 Name = "test",
                 Email = $"{gamerId}@test.pl"
             };
@@ -142,7 +142,7 @@ namespace BoardGamesNook.Tests
 
         private static GameTable GetTestGameTable(int newGameTableId)
         {
-            return new GameTable
+            return new GameTable()
             {
                 Id = newGameTableId,
                 BoardGames = new List<BoardGame>(),

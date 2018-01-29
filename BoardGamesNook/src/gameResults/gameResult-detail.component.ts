@@ -33,7 +33,7 @@ export class GameResultDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gameResultService.getByNick(params["nick"]))
+            .switchMap((params: Params) => this.gameResultService.getByNickname(params["nickname"]))
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
             });

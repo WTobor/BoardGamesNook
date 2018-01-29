@@ -56,14 +56,12 @@
     <Compile Include="GamerRepository.cs" />
     <Compile Include="Generators\GameTableGenerator.cs" />
     <Compile Include="Generators\RelationsUpdateGenerator.cs" />
-    <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\IBoardGameRepository .cs" />
     <Compile Include="Interfaces\IGameResultRepository.cs" />
     <Compile Include="Interfaces\IGameParticipationRepository.cs" />
     <Compile Include="Interfaces\IGamerBoardGameRepository.cs" />
     <Compile Include="Interfaces\IGamerRepository.cs" />
     <Compile Include="Interfaces\IGameTableRepository.cs" />
-    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

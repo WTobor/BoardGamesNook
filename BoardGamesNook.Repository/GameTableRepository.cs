@@ -9,41 +9,40 @@ namespace BoardGamesNook.Repository
 {
     public class GameTableRepository : IGameTableRepository
     {
+        private readonly BoardGameRepository _boardGameRepository = new BoardGameRepository();
         private readonly List<GameTable> _gameTables = GameTableGenerator.gameTables;
 
-        private readonly BoardGameRepository _boardGameRepository = new BoardGameRepository();
-
-        public GameTable Get(int id)
+        public GameTable GetGameTable(int id)
         {
             return _gameTables.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<GameTable> GetAll()
+        public IEnumerable<GameTable> GetAllGameTables()
         {
             return _gameTables;
         }
 
         public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
         {
-            var availableTableBoardGameList = _boardGameRepository.GetAll();
-            if (table?.BoardGames != null)
+            var availableTableBoardGameList = _boardGameRepository.GetAllGamerBoardGames();
+            if (table != null && table.BoardGames != null)
                 availableTableBoardGameList =
                     availableTableBoardGameList.Where(x => !table.BoardGames.Contains(x)).ToList();
             return availableTableBoardGameList;
         }
 
-        public IEnumerable<GameTable> GetAllByGamerNick(string gamerNick)
+        public IEnumerable<GameTable> GetAllGameTablesByGamerNickname(string gamerNickname)
         {
             //temporaty solution, when no users
-            return _gameTables.Where(x => x.CreatedGamer.Nick == gamerNick).ToList();
+            return _gameTables.Where(x => x.CreatedGamer.Nickname == gamerNickname).ToList();
         }
 
-        public void Add(GameTable gameTable)
+        public void AddGameTable(GameTable gameTable)
         {
             _gameTables.Add(gameTable);
         }
 
-        public void Edit(GameTable gameTable)
+        public void EditGameTable(GameTable gameTable)
         {
             var oldGameTable = _gameTables.FirstOrDefault(x => x.Id == gameTable.Id);
             if (oldGameTable != null)
@@ -56,7 +55,7 @@ namespace BoardGamesNook.Repository
         public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
         {
             var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
-            var dbGameTable = Get(gameTableId);
+            var dbGameTable = GetGameTable(gameTableId);
             if (dbGameTable != null)
             {
                 dbGameTable.GameParticipations = gameParticipations;
@@ -66,11 +65,10 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void Delete(int id)
+        public void DeleteGameTable(int id)
         {
             var gameTable = _gameTables.FirstOrDefault(x => x.Id == id);
-            if (gameTable != null)
-                _gameTables.Remove(gameTable);
+            if (gameTable != null) _gameTables.Remove(gameTable);
         }
     }
 }

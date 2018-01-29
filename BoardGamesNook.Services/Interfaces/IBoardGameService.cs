@@ -7,12 +7,13 @@ namespace BoardGamesNook.Services.Interfaces
     {
         BoardGame Get(int id);
 
-        IEnumerable<BoardGame> GetAll();
+        IEnumerable<BoardGame> GetAllGamerBoardGames();
 
         void Add(BoardGame boardGame);
 
         void Edit(BoardGame boardGame);
 
         void Delete(int id);
+        List<BoardGame> GetAllByIds(List<int> tableBoardGameIdList);
     }
 }

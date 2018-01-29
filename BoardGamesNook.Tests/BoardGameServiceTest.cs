@@ -17,7 +17,7 @@ namespace BoardGamesNook.Tests
             var boardGameService = new BoardGameService(new BoardGameRepository());
             var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
             //Act
-            var boardGames = boardGameService.GetAll();
+            var boardGames = boardGameService.GetAllGamerBoardGames();
             //Assert
             Assert.AreEqual(generatedBoardGamesCount, boardGames.Count());
         }
@@ -30,7 +30,7 @@ namespace BoardGamesNook.Tests
             var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
             //Act
             boardGameService.Add(GetTestBoardGame());
-            var boardGames = boardGameService.GetAll();
+            var boardGames = boardGameService.GetAllGamerBoardGames();
             //Assert
             Assert.AreEqual(generatedBoardGamesCount + 1, boardGames.Count());
         }
@@ -75,7 +75,7 @@ namespace BoardGamesNook.Tests
             //Act
             boardGameService.Add(GetTestBoardGame());
             boardGameService.Delete(newBoardGameId);
-            var boardGames = boardGameService.GetAll();
+            var boardGames = boardGameService.GetAllGamerBoardGames();
             //Assert
             Assert.AreEqual(generatedBoardGamesCount, boardGames.Count());
         }

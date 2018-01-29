@@ -8,7 +8,7 @@ namespace BoardGamesNook.ViewModels.GameTable
         public int Id { get; set; }
         public string Name { get; set; }
         public string GamerId { get; set; }
-        public string GamerNick { get; set; }
+        public string GamerNickname { get; set; }
 
         //TODO: allow multiple games
         public IEnumerable<TableBoardGameViewModel> TableBoardGameList { get; set; }

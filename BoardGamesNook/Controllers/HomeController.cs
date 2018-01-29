@@ -1,23 +1,28 @@
 ﻿using System.Web.Mvc;
 using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Services;
+using BoardGamesNook.Services.Interfaces;
 
 namespace BoardGamesNook.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly GamerService _gamerService = new GamerService(new GamerRepository());
+        private readonly IGamerService _gamerService;
+
+        public HomeController(IGamerService gamerService)
+        {
+            _gamerService = gamerService;
+        }
 
         public ActionResult Index()
         {
             var loggedUser = (User) Session["user"];
             if (loggedUser != null)
             {
-                var gamer = _gamerService.GetByEmail(loggedUser.Email);
+                var gamer = _gamerService.GetGamerByEmail(loggedUser.Email);
                 if (gamer != null)
                     Session["gamer"] = gamer;
             }
+
             return View();
         }
     }

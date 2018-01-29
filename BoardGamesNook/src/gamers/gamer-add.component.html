@@ -1,55 +1,31 @@
 ﻿<h3>Nowy gracz</h3>
 <table>
     <tr>
-        <td>
-            <label>Nick:</label>
-        </td>
-        <td>
-            <input #nick/>
-        </td>
+        <td><label>Nickname:</label></td>
+        <td><input #nickname /></td>
     </tr>
     <tr>
-        <td>
-            <label>Imię:</label>
-        </td>
-        <td>
-            <input #name/>
-        </td>
+        <td><label>Imię:</label></td>
+        <td><input #name /></td>
     </tr>
     <tr>
-        <td>
-            <label>Nazwisko:</label>
-        </td>
-        <td>
-            <input #surname/>
-        </td>
+        <td><label>Nazwisko:</label></td>
+        <td><input #surname /></td>
     </tr>
     <tr>
-        <td>
-            <label>Wiek:</label>
-        </td>
-        <td>
-            <input #age type="number"/>
-        </td>
+        <td><label>Wiek:</label></td>
+        <td><input #age type="number" /></td>
     </tr>
     <tr>
-        <td>
-            <label>Miasto:</label>
-        </td>
-        <td>
-            <input #city/>
-        </td>
+        <td><label>Miasto:</label></td>
+        <td><input #city /></td>
     </tr>
     <tr>
-        <td>
-            <label>Ulica:</label>
-        </td>
-        <td>
-            <input #street/>
-        </td>
+        <td><label>Ulica:</label></td>
+        <td><input #street /></td>
     </tr>
 </table>
-<br/>
-<button class="btn btn-success" (click)="add(nick.value, name.value, surname.value, age.value, city.value, street.value);">
+<br />
+<button class="btn btn-success" (click)="add(nickname.value, name.value, surname.value, age.value, city.value, street.value);">
     Dodaj
 </button>

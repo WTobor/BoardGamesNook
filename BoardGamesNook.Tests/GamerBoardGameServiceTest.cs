@@ -18,7 +18,7 @@ namespace BoardGamesNook.Tests
             var gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository());
             var generatedGamerBoardGamesCount = GamerBoardGameGenerator.gamerBoardGames.Count;
             //Act
-            var gamerBoardGames = gamerBoardGameService.GetAll();
+            var gamerBoardGames = gamerBoardGameService.GetAllGamerBoardGames();
             //Assert
             Assert.AreEqual(generatedGamerBoardGamesCount, gamerBoardGames.Count());
         }
@@ -44,7 +44,7 @@ namespace BoardGamesNook.Tests
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
             //Act
             gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
-            var boardGame = gamerBoardGameService.Get(newGamerBoardGameId);
+            var boardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             //Assert
             Assert.AreEqual(newGamerBoardGameId, boardGame.Id);
         }
@@ -59,11 +59,11 @@ namespace BoardGamesNook.Tests
             var boardGameId = 2;
             //Act
             gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
-            var boardGame = gamerBoardGameService.Get(newGamerBoardGameId);
+            var boardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             boardGame.GamerId = gamerId;
             boardGame.BoardGameId = boardGameId;
-            gamerBoardGameService.Edit(boardGame);
-            var newBoardGame = gamerBoardGameService.Get(newGamerBoardGameId);
+            gamerBoardGameService.EditGamerBoardGame(boardGame);
+            var newBoardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             //Assert
             Assert.AreEqual(gamerId, newBoardGame.GamerId);
             Assert.AreEqual(boardGameId, newBoardGame.BoardGameId);
@@ -78,8 +78,8 @@ namespace BoardGamesNook.Tests
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
             //Act
             gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
-            gamerBoardGameService.Delete(newGamerBoardGameId);
-            var boardGames = gamerBoardGameService.GetAll();
+            gamerBoardGameService.DeleteGamerBoardGame(newGamerBoardGameId);
+            var boardGames = gamerBoardGameService.GetAllGamerBoardGames();
             //Assert
             Assert.AreEqual(generatedGamerBoardGamesCount, boardGames.Count());
         }

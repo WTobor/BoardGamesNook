@@ -3,8 +3,7 @@
 <br/>
 <ul>
     <li *ngFor="let gamer of gamers" (click)="onSelect(gamer);">
-        <span class="hidden">{{ gamer.Id }}</span>
-        <span>{{ gamer.Nick }}</span>
+        <span>{{ gamer.Nickname }}</span>
         <div *ngIf="isAdmin">
             <button (click)="deactivate(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
         </div>
@@ -13,7 +12,7 @@
 
 <div *ngIf="selectedGamer">
     <h3>
-        gracz {{selectedGamer.Nick }} ({{selectedGamer.Name | uppercase}} {{selectedGamer.Surname | uppercase}})
+        gracz {{selectedGamer.Nickname }} ({{selectedGamer.Name | uppercase}} {{selectedGamer.Surname | uppercase}})
     </h3>
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły gracza</button>
     <button class="btn btn-primary" (click)="gotoGamerBoardGames()">Kolekcja gier gracza</button>

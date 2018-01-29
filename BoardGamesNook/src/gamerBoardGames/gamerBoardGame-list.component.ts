@@ -12,26 +12,24 @@ import { GamerService } from "../gamers/gamer.service";
 export class GamerBoardGameListComponent implements OnInit {
     gamerBoardGames: GamerBoardGame[];
     selectedGamerBoardGame: GamerBoardGame;
-    selectedGamerNick: string;
-    isCurrentGamer = false;
+    selectedGamerNickname: string;
+    isCurrentGamer: boolean = false;
 
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router) {
-    }
+        private router: Router) { }
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNick"]))
+            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNickname"]))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
-
         this.route.params
             .subscribe((params: Params) => {
-                this.selectedGamerNick = params["gamerNick"];
-                this.gamerService.getCurrentGamerNick().then(nick => {
-                    if (nick === this.selectedGamerNick) {
+                this.selectedGamerNickname = params["gamerNickname"];
+                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                    if (nickname === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     }
                 });
@@ -47,18 +45,15 @@ export class GamerBoardGameListComponent implements OnInit {
             .delete(gamerBoardGame.Id)
             .then(() => {
                 this.gamerBoardGames = this.gamerBoardGames.filter(g => g !== gamerBoardGame);
-                if (this.selectedGamerBoardGame === gamerBoardGame) {
-                    this.selectedGamerBoardGame = null;
-                }
+                if (this.selectedGamerBoardGame === gamerBoardGame) { this.selectedGamerBoardGame = null; }
             });
     }
 
     gotoDetail(): void {
-        this.router.navigate(
-            ["/gamerBoardGames", this.selectedGamerBoardGame.GamerNick, this.selectedGamerBoardGame.Id]);
+        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNickname, this.selectedGamerBoardGame.Id]);
     }
 
     gotoAdd(): void {
-        this.router.navigate(["/gamerBoardGame", this.selectedGamerNick, 0]);
+        this.router.navigate(["/gamerBoardGame", this.selectedGamerNickname, 0]);
     }
 }

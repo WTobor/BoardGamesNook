@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
@@ -16,27 +17,41 @@ namespace BoardGamesNook.Services
 
         public BoardGame Get(int id)
         {
-            return _boardGameRepository.Get(id);
+            return _boardGameRepository.GetGamerBoardGame(id);
         }
 
-        public IEnumerable<BoardGame> GetAll()
+        public IEnumerable<BoardGame> GetAllGamerBoardGames()
         {
-            return _boardGameRepository.GetAll();
+            return _boardGameRepository.GetAllGamerBoardGames();
         }
 
         public void Add(BoardGame boardGame)
         {
+            boardGame.Id = GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1;
             _boardGameRepository.Add(boardGame);
         }
 
         public void Edit(BoardGame boardGame)
         {
-            _boardGameRepository.Edit(boardGame);
+            _boardGameRepository.EditGamerBoardGame(boardGame);
         }
 
         public void Delete(int id)
         {
-            _boardGameRepository.Delete(id);
+            _boardGameRepository.DeleteGamerBoardGame(id);
+        }
+
+        public List<BoardGame> GetAllByIds(List<int> tableBoardGameIdList)
+        {
+            var result = new List<BoardGame>();
+            foreach (var boardGameId in tableBoardGameIdList)
+            {
+                var boardGame = Get(boardGameId);
+                if (boardGame != null)
+                    result.Add(boardGame);
+            }
+
+            return result;
         }
     }
 }

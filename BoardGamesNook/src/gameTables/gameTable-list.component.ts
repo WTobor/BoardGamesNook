@@ -13,34 +13,34 @@ export class GameTableListComponent implements OnInit {
     gameTables: GameTable[];
     loadedGameTables: GameTable[];
     selectedGameTable: GameTable;
-    selectedGamerNick: string;
-    isCurrentGamer = false;
+    selectedGamerNickname: string;
+    isCurrentGamer: boolean = false;
 
     constructor(
         private gameTableService: GameTableService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private router: Router
-    ) {
-    }
+    ) { }
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.gameTableService.getGameTablesByGamerNick(params["gamerNick"]))
+            .switchMap((params: Params) => this.gameTableService.getGameTablesByGamerNickname(params["gamerNickname"]))
             .subscribe((gameTableList: GameTable[]) => {
                 this.loadedGameTables = gameTableList;
             });
 
         this.route.params
             .subscribe((params: Params) => {
-                this.selectedGamerNick = params["gamerNick"];
-                this.gamerService.getCurrentGamerNick().then(nick => {
-                    if (nick === this.selectedGamerNick) {
+                this.selectedGamerNickname = params["gamerNickname"];
+                this.gamerService.getCurrentGamerNickname().then(nick => {
+                    if (nick === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     };
-                    if (this.selectedGamerNick === undefined && this.loadedGameTables !== undefined) {
-                        this.gameTables = this.loadedGameTables.filter(x => x.GamerNick !== nick);
-                    } else {
+                    if (this.selectedGamerNickname === undefined && this.loadedGameTables !== undefined) {
+                        this.gameTables = this.loadedGameTables.filter(x => x.GamerNickname !== nick);
+                    }
+                    else {
                         this.gameTables = this.loadedGameTables;
                     }
                 });
@@ -56,9 +56,7 @@ export class GameTableListComponent implements OnInit {
             .delete(gameTable.Id)
             .then(() => {
                 this.gameTables = this.gameTables.filter(g => g !== gameTable);
-                if (this.selectedGameTable === gameTable) {
-                    this.selectedGameTable = null;
-                }
+                if (this.selectedGameTable === gameTable) { this.selectedGameTable = null; }
             });
     }
 
@@ -67,7 +65,7 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoJoin(): void {
-        this.openDialog();
+        this.openDialog()
     }
 
     gotoGameTableBoardGames(): void {
@@ -79,6 +77,6 @@ export class GameTableListComponent implements OnInit {
     }
 
     openDialog() {
-
+        
     }
 }

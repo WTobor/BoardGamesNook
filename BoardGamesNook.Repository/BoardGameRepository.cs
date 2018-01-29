@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
@@ -10,12 +11,12 @@ namespace BoardGamesNook.Repository
     {
         private readonly List<BoardGame> _boardGames = BoardGameGenerator.boardGames;
 
-        public BoardGame Get(int id)
+        public BoardGame GetGamerBoardGame(int id)
         {
             return _boardGames.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<BoardGame> GetAll()
+        public IEnumerable<BoardGame> GetAllGamerBoardGames()
         {
             return _boardGames;
         }
@@ -25,17 +26,22 @@ namespace BoardGamesNook.Repository
             _boardGames.Add(boardGame);
         }
 
-        public void Edit(BoardGame boardGame)
+        public void EditGamerBoardGame(BoardGame boardGame)
         {
-            var oldGamer = _boardGames.FirstOrDefault(x => x.Id == boardGame.Id);
-            if (oldGamer != null)
+            var dbBoardGame = _boardGames.FirstOrDefault(x => x.Id == boardGame.Id);
+            if (dbBoardGame != null)
             {
-                _boardGames.Remove(oldGamer);
-                _boardGames.Add(boardGame);
+                dbBoardGame.Name = boardGame.Name;
+                dbBoardGame.Description = boardGame.Description;
+                dbBoardGame.MinPlayers = boardGame.MinPlayers;
+                dbBoardGame.MaxPlayers = boardGame.MaxPlayers;
+                dbBoardGame.MinTime = boardGame.MinTime;
+                dbBoardGame.MaxTime = boardGame.MaxTime;
+                dbBoardGame.ModifiedDate = DateTimeOffset.Now;
             }
         }
 
-        public void Delete(int id)
+        public void DeleteGamerBoardGame(int id)
         {
             var boardGame = _boardGames.FirstOrDefault(x => x.Id == id);
             if (boardGame != null)
