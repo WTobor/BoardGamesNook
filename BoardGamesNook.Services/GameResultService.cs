@@ -39,7 +39,12 @@ namespace BoardGamesNook.Services
             _gameResultRepository.AddGameResult(gameResult);
         }
 
-        public void Edit(GameResult gameResult)
+        public void AddGameResults(List<GameResult> gameResults)
+        {
+            _gameResultRepository.AddGameResults(gameResults);
+        }
+
+        public void EditGameResult(GameResult gameResult)
         {
             _gameResultRepository.EditGameResult(gameResult);
         }

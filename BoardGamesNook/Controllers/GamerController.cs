@@ -80,19 +80,10 @@ namespace BoardGamesNook.Controllers
 
         private static Gamer GetGamerObj(GamerViewModel gamerViewModel, User loggedUser)
         {
-            return new Gamer
-            {
-                Id = Guid.NewGuid().ToString(),
-                Nickname = gamerViewModel.Nickname,
-                Name = gamerViewModel.Name,
-                Surname = gamerViewModel.Surname,
-                Email = loggedUser.Email,
-                Age = gamerViewModel.Age,
-                City = gamerViewModel.City,
-                Street = gamerViewModel.Street,
-                CreatedDate = DateTimeOffset.Now,
-                Active = true
-            };
+            var result = Mapper.Map<Gamer>(gamerViewModel);
+            Mapper.Map(loggedUser, result);
+            result.Id = Guid.NewGuid().ToString();
+            return result;
         }
     }
 }

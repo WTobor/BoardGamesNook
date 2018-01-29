@@ -71,17 +71,11 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var dbGamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(gamerBoardGameId);
-            if (dbGamerBoardGame != null)
-            {
-                // Controller nie powinien edytować obiektu, to powinno odbywać się w serwisie.
-                dbGamerBoardGame.ModifiedDate = DateTimeOffset.Now;
-                dbGamerBoardGame.Active = false;
-            }
-            else
-            {
+
+            if (dbGamerBoardGame == null)
                 return Json(string.Format(Errors.GamerBoardGameWithIdNotFound, gamerBoardGameId),
                     JsonRequestBehavior.AllowGet);
-            }
+            _gamerBoardGameService.EditGamerBoardGame(dbGamerBoardGame);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

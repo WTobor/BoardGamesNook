@@ -1,5 +1,5 @@
-﻿using BoardGamesNook.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Services.Interfaces
 {
@@ -14,5 +14,6 @@ namespace BoardGamesNook.Services.Interfaces
         void Edit(BoardGame boardGame);
 
         void Delete(int id);
+        List<BoardGame> GetAllByIds(List<int> tableBoardGameIdList);
     }
 }

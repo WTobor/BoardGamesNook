@@ -15,6 +15,8 @@ namespace BoardGamesNook.Repository.Interfaces
 
         void AddGameResult(GameResult gameResult);
 
+        void AddGameResults(List<GameResult> gameResults);
+
         void EditGameResult(GameResult gameResult);
 
         void DeleteGameResult(int id);

@@ -7,11 +7,16 @@ namespace BoardGamesNook.Services
 {
     public class GameTableService : IGameTableService
     {
+        private readonly IBoardGameService _boardGameService;
+        private readonly IGameParticipationService _gameParticipationService;
         private readonly IGameTableRepository _gameTableRepository;
 
-        public GameTableService(IGameTableRepository gameTableRepository)
+        public GameTableService(IGameTableRepository gameTableRepository, IBoardGameService boardGameService,
+            IGameParticipationService gameParticipationService)
         {
             _gameTableRepository = gameTableRepository;
+            _boardGameService = boardGameService;
+            _gameParticipationService = gameParticipationService;
         }
 
         public GameTable GetGameTable(int id)
@@ -34,8 +39,16 @@ namespace BoardGamesNook.Services
             return _gameTableRepository.GetAllGameTablesByGamerNickname(gamerNickname);
         }
 
-        public void AddGameTable(GameTable gameTable)
+        public void CreateGameTable(GameTable gameTable, List<int> tableBoardGameIdList)
         {
+            gameTable.BoardGames = new List<BoardGame>();
+            foreach (var boardGameId in tableBoardGameIdList)
+            {
+                var boardGame = _boardGameService.Get(boardGameId);
+                if (boardGame != null)
+                    gameTable.BoardGames.Add(boardGame);
+            }
+
             _gameTableRepository.AddGameTable(gameTable);
         }
 
@@ -46,6 +59,15 @@ namespace BoardGamesNook.Services
 
         public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
         {
+            foreach (var gameParticipation in gameParticipations)
+            {
+                var dbGameParticipation = _gameParticipationService.GetGameParticipation(gameParticipation.Id);
+                if (dbGameParticipation != null)
+                    _gameParticipationService.Edit(gameParticipation);
+                else
+                    _gameParticipationService.AddGameParticipation(gameParticipation);
+            }
+
             _gameTableRepository.EditParticipations(gameParticipations, modifiedGamer);
         }
 

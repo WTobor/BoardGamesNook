@@ -13,7 +13,7 @@ namespace BoardGamesNook.Services.Interfaces
 
         void Add(GamerBoardGame boardGame);
 
-        void Edit(GamerBoardGame boardGame);
+        void EditGamerBoardGame(GamerBoardGame boardGame);
 
         void DeleteGamerBoardGame(int id);
     }

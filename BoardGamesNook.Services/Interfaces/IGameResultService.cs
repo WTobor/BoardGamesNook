@@ -1,5 +1,5 @@
-﻿using BoardGamesNook.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Services.Interfaces
 {
@@ -15,7 +15,9 @@ namespace BoardGamesNook.Services.Interfaces
 
         void AddGameResult(GameResult gameResult);
 
-        void Edit(GameResult gameResult);
+        void AddGameResults(List<GameResult> gameResults);
+
+        void EditGameResult(GameResult gameResult);
 
         void DeleteGameResult(int id);
     }

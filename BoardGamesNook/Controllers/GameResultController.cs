@@ -42,6 +42,12 @@ namespace BoardGamesNook.Controllers
 
             var gameResultListViewModel = Mapper.Map<List<GameResult>, List<GameResultViewModel>>(gameResultList);
 
+            foreach (var gameResultViewModel in gameResultListViewModel)
+            {
+                gameResultViewModel.CreatedGamerNickname =
+                    _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
+            }
+
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
 
@@ -84,12 +90,8 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            // Twój serwis (i repozytorium) powinien mieć metodę, która umożliwania dodanie wielu GameResult.
-            foreach (var gameResultViewModel in gameResultViewModels)
-            {
-                var gameResult = GetGameResultObj(gameResultViewModel, gamer);
-                _gameResultService.AddGameResult(gameResult);
-            }
+            var gameResults = GetGameResultObjs(gameResultViewModels, gamer);
+                _gameResultService.AddGameResults(gameResults);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -123,20 +125,25 @@ namespace BoardGamesNook.Controllers
         }
 
 
+        private List<GameResult> GetGameResultObjs(IEnumerable<GameResultViewModel> gameResultViewModels, Gamer gamer)
+        {
+            var result = new List<GameResult>();
+            foreach (var gameResultViewModel in gameResultViewModels)
+            {
+                var obj = GetGameResultObj(gameResultViewModel, gamer);
+                result.Add(obj);
+            }
+
+            return result;
+        }
         private GameResult GetGameResultObj(GameResultViewModel gameResultViewModel, Gamer gamer)
         {
-            return new GameResult
-            {
-                Id = _gameResultService.GetAllGameResults().Select(x => x.Id).LastOrDefault() + 1,
-                CreatedGamerId = gamer.Id,
-                GamerId = gameResultViewModel.GamerId,
-                Gamer = _gamerService.GetGamer(gameResultViewModel.GamerId),
-                BoardGameId = gameResultViewModel.BoardGameId,
-                BoardGame = _boardGameService.Get(gameResultViewModel.BoardGameId),
-                Points = gameResultViewModel.Points,
-                Place = gameResultViewModel.Place,
-                CreatedDate = DateTimeOffset.Now
-            };
+            var result = Mapper.Map<GameResult>(gameResultViewModel);
+            result.Id = _gameResultService.GetAllGameResults().Select(x => x.Id).LastOrDefault() + 1;
+            result.Gamer = _gamerService.GetGamer(gameResultViewModel.GamerId);
+            result.BoardGame = _boardGameService.Get(gameResultViewModel.BoardGameId);
+            Mapper.Map(gamer, result);
+            return result;
         }
     }
 }

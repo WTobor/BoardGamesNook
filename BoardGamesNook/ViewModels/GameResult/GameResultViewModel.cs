@@ -2,7 +2,7 @@
 {
     public class GameResultViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string CreatedGamerId { get; set; }
         public string CreatedGamerNickname { get; set; }
         public string GamerId { get; set; }

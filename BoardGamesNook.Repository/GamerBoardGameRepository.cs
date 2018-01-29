@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
@@ -32,12 +33,8 @@ namespace BoardGamesNook.Repository
 
         public void EditGamerBoardGame(GamerBoardGame gamerBoardGame)
         {
-            var oldGamer = _gamerBoardGames.FirstOrDefault(x => x.Id == gamerBoardGame.Id);
-            if (oldGamer != null)
-            {
-                _gamerBoardGames.Remove(oldGamer);
-                _gamerBoardGames.Add(gamerBoardGame);
-            }
+            gamerBoardGame.ModifiedDate = DateTimeOffset.Now;
+            gamerBoardGame.Active = false;
         }
 
         public void DeleteGamerBoardGame(int id)

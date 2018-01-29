@@ -40,5 +40,18 @@ namespace BoardGamesNook.Services
         {
             _boardGameRepository.DeleteGamerBoardGame(id);
         }
+
+        public List<BoardGame> GetAllByIds(List<int> tableBoardGameIdList)
+        {
+            var result = new List<BoardGame>();
+            foreach (var boardGameId in tableBoardGameIdList)
+            {
+                var boardGame = Get(boardGameId);
+                if (boardGame != null)
+                    result.Add(boardGame);
+            }
+
+            return result;
+        }
     }
 }

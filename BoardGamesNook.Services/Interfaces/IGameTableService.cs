@@ -13,7 +13,7 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table);
 
-        void AddGameTable(GameTable gameTable);
+        void CreateGameTable(GameTable gameTable, List<int> tableBoardGameIdList);
 
         void EditGameTable(GameTable gameTable);
 

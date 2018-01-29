@@ -35,6 +35,14 @@ namespace BoardGamesNook.Repository
             _gameResults.Add(gameResult);
         }
 
+        public void AddGameResults(List<GameResult> gameResults)
+        {
+            foreach (var gameResult in gameResults)
+            {
+                _gameResults.Add(gameResult);
+            }
+        }
+
         public void EditGameResult(GameResult gameResult)
         {
             var oldGamer = _gameResults.FirstOrDefault(x => x.Id == gameResult.Id);

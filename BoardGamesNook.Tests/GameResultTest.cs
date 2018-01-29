@@ -72,10 +72,10 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var gameTableService = new GameTableService(new GameTableRepository());
+            var gameTableService = new GameTableService(new GameTableRepository(), new BoardGameService(new BoardGameRepository()), new GameParticipationService(new GameParticipationRepository()) );
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            gameTableService.AddGameTable(GetTestGameTable(newGameTableId));
-            var testGameTable = GameTableGenerator.gameTables.Where(x => x.Id == newGameTableId).FirstOrDefault();
+            gameTableService.CreateGameTable(GetTestGameTable(newGameTableId), new List<int>());
+            var testGameTable = GameTableGenerator.gameTables.FirstOrDefault(x => x.Id == newGameTableId);
             //Act
             gameResultService.AddGameResult(GetTestGameResult(null, testGameTable));
             var gameResults = gameResultService.GetAllGameResultsByTableId(newGameTableId);
@@ -95,7 +95,7 @@ namespace BoardGamesNook.Tests
             gameResultService.AddGameResult(GetTestGameResult());
             var gameResult = gameResultService.GetGameResult(newGameResultId);
             gameResult.ModifiedDate = now;
-            gameResultService.Edit(gameResult);
+            gameResultService.EditGameResult(gameResult);
             var newGameResult = gameResultService.GetGameResult(newGameResultId);
             //Assert
             Assert.AreEqual(now, newGameResult.ModifiedDate);

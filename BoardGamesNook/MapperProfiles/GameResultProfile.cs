@@ -9,8 +9,8 @@ namespace BoardGamesNook.MapperProfiles
         public GameResultProfile()
         {
             CreateMap<GameResult, GameResultViewModel>()
-                .ForMember(dest => dest.CreatedGamerId, opt => opt.MapFrom(src => src.Gamer.Id))
-                .ForMember(dest => dest.CreatedGamerNickname, opt => opt.MapFrom(src => src.Gamer.Nickname));
+                .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.Gamer.Id))
+                .ForMember(dest => dest.GamerNickname, opt => opt.MapFrom(src => src.Gamer.Nickname));
         }
     }
 }

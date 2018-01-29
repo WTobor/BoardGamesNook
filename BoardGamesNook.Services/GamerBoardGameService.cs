@@ -34,7 +34,7 @@ namespace BoardGamesNook.Services
             _gamerBoardGameRepository.AddGamerBoardGame(gamerBoardGame);
         }
 
-        public void Edit(GamerBoardGame gamerBoardGame)
+        public void EditGamerBoardGame(GamerBoardGame gamerBoardGame)
         {
             _gamerBoardGameRepository.EditGamerBoardGame(gamerBoardGame);
         }

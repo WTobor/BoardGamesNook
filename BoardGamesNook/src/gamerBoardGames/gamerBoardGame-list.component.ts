@@ -22,16 +22,13 @@ export class GamerBoardGameListComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
-        debugger
         this.route.params
             .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNickname"]))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
-        debugger
         this.route.params
             .subscribe((params: Params) => {
                 this.selectedGamerNickname = params["gamerNickname"];
                 this.gamerService.getCurrentGamerNickname().then(nickname => {
-                    debugger
                     if (nickname === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     }

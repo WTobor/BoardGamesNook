@@ -62,7 +62,7 @@ namespace BoardGamesNook.Tests
             var boardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             boardGame.GamerId = gamerId;
             boardGame.BoardGameId = boardGameId;
-            gamerBoardGameService.Edit(boardGame);
+            gamerBoardGameService.EditGamerBoardGame(boardGame);
             var newBoardGame = gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
             //Assert
             Assert.AreEqual(gamerId, newBoardGame.GamerId);
