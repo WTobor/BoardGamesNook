@@ -54,7 +54,7 @@ namespace BoardGamesNook.Services
             _gameTableRepository.AddGameTable(gameTable);
         }
 
-        public void EditGameTable(int id,List<int> tableBoardGameIdList)
+        public void EditGameTable(int id, List<int> tableBoardGameIdList)
         {
             var gameTable = GetGameTable(id);
             gameTable.BoardGames = _boardGameService.GetAllByIds(tableBoardGameIdList).ToList();

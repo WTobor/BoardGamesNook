@@ -12,11 +12,14 @@ namespace BoardGamesNook.Tests
     [TestClass]
     public class GamerBoardGameServiceTest
     {
-        private IGamerBoardGameService _gamerBoardGameService;
+        private readonly IGamerBoardGameService _gamerBoardGameService;
+
         public GamerBoardGameServiceTest()
         {
-            _gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository(), new BoardGameService(new BoardGameRepository()));
+            _gamerBoardGameService = new GamerBoardGameService(new GamerBoardGameRepository(),
+                new BoardGameService(new BoardGameRepository()));
         }
+
         [TestMethod]
         public void GetGamerBoardGameList()
         {
@@ -57,8 +60,8 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
-            string gamerId = Guid.NewGuid().ToString();
-            int boardGameId = 2;
+            var gamerId = Guid.NewGuid().ToString();
+            var boardGameId = 2;
             //Act
             _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
             var boardGame = _gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
@@ -88,7 +91,7 @@ namespace BoardGamesNook.Tests
 
         private static GamerBoardGame GetTestGamerBoardGame(int newGamerBoardGameId)
         {
-            return new GamerBoardGame()
+            return new GamerBoardGame
             {
                 Id = newGamerBoardGameId,
                 GamerId = "aqwsderfgt",

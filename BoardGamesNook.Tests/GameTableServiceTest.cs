@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
@@ -13,18 +12,23 @@ namespace BoardGamesNook.Tests
     [TestClass]
     public class GameTableServiceTest
     {
-        private IGameTableService _gameTableService;
+        private readonly IGameTableService _gameTableService;
+
         public GameTableServiceTest()
         {
-            _gameTableService = new GameTableService(new GameTableRepository(), new BoardGameService(new BoardGameRepository()), new GameParticipationService(new GameParticipationRepository()) );
+            _gameTableService = new GameTableService(new GameTableRepository(),
+                new BoardGameService(new BoardGameRepository()),
+                new GameParticipationService(new GameParticipationRepository()));
         }
+
         [TestMethod]
         public void GetGameTableListByGamerNickname()
         {
             //Arrange
-            
+
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
-            var generatedByTestGamerGameTablesCount = GameTableGenerator.gameTables.Count(x => x.CreatedGamer?.Nickname == testGamer?.Nickname);
+            var generatedByTestGamerGameTablesCount =
+                GameTableGenerator.gameTables.Count(x => x.CreatedGamer?.Nickname == testGamer?.Nickname);
 
             //Act
             var gamerGameTableList = _gameTableService.GetAllGameTablesByGamerNickname(testGamer?.Nickname);
@@ -127,7 +131,7 @@ namespace BoardGamesNook.Tests
         private static GameTable GetTestGameTable(Gamer createdGamer)
         {
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            return new GameTable()
+            return new GameTable
             {
                 Id = newGameTableId,
                 BoardGames = new List<BoardGame>(),
@@ -140,9 +144,9 @@ namespace BoardGamesNook.Tests
         private static List<GameParticipation> GetTestGameParticipations(Gamer createdGamer, GameTable gameTable)
         {
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
-            return new List<GameParticipation>()
+            return new List<GameParticipation>
             {
-                new GameParticipation()
+                new GameParticipation
                 {
                     Id = newGameParticipationId,
                     CreatedGamerId = createdGamer.Id,
@@ -151,7 +155,7 @@ namespace BoardGamesNook.Tests
                     GameTableId = gameTable.Id,
                     Active = true
                 }
-             };
+            };
         }
     }
 }

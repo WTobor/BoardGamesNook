@@ -18,6 +18,7 @@ namespace BoardGamesNook.ViewModels.GameTable
         public int MaxPlayers { get; set; }
         public bool IsPrivate { get; set; }
         public string City { get; set; }
+
         public string Street { get; set; }
         //public IEnumerable<GameParticipation> GameParticipationInfo { get; set; }
     }

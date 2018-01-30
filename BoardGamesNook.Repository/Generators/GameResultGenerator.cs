@@ -6,7 +6,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class GameResultGenerator
     {
-        public static GameResult gameResult1 = new GameResult()
+        public static GameResult gameResult1 = new GameResult
         {
             Id = 1,
             CreatedDate = DateTimeOffset.UtcNow,
@@ -22,7 +22,7 @@ namespace BoardGamesNook.Repository.Generators
             PlayersNumber = 2
         };
 
-        public static GameResult gameResult2 = new GameResult()
+        public static GameResult gameResult2 = new GameResult
         {
             Id = 2,
             CreatedDate = DateTimeOffset.UtcNow,
@@ -38,7 +38,7 @@ namespace BoardGamesNook.Repository.Generators
             PlayersNumber = 2
         };
 
-        public static GameResult gameResult3 = new GameResult()
+        public static GameResult gameResult3 = new GameResult
         {
             Id = 3,
             CreatedDate = DateTimeOffset.UtcNow,
@@ -54,7 +54,7 @@ namespace BoardGamesNook.Repository.Generators
             PlayersNumber = 1
         };
 
-        public static List<GameResult> gameResults = new List<GameResult>()
+        public static List<GameResult> gameResults = new List<GameResult>
         {
             gameResult1,
             gameResult2,

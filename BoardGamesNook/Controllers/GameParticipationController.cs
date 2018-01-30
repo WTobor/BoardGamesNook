@@ -57,7 +57,7 @@ namespace BoardGamesNook.Controllers
             if (orgGameParticipation == null)
                 return Json(string.Format(Errors.GameParticipationWithIdNotFound, gameParticipationViewModel.Id),
                     JsonRequestBehavior.AllowGet);
-            
+
             var dbGameParticipation = Mapper.Map<GameParticipation>(gameParticipationViewModel);
             _gameParticipationService.Edit(dbGameParticipation);
 

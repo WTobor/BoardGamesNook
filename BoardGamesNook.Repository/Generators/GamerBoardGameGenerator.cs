@@ -5,7 +5,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class GamerBoardGameGenerator
     {
-        public static GamerBoardGame gamerBoardGame1 = new GamerBoardGame()
+        public static GamerBoardGame gamerBoardGame1 = new GamerBoardGame
         {
             Id = 1,
             Active = true,
@@ -15,7 +15,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame1
         };
 
-        public static GamerBoardGame gamerBoardGame2 = new GamerBoardGame()
+        public static GamerBoardGame gamerBoardGame2 = new GamerBoardGame
         {
             Id = 2,
             Active = true,
@@ -25,7 +25,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame2
         };
 
-        public static GamerBoardGame gamerBoardGame3 = new GamerBoardGame()
+        public static GamerBoardGame gamerBoardGame3 = new GamerBoardGame
         {
             Id = 3,
             Active = true,
@@ -35,7 +35,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame2
         };
 
-        public static GamerBoardGame gamerBoardGame4 = new GamerBoardGame()
+        public static GamerBoardGame gamerBoardGame4 = new GamerBoardGame
         {
             Id = 4,
             Active = true,
@@ -45,7 +45,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame3
         };
 
-        public static GamerBoardGame gamerBoardGame5 = new GamerBoardGame()
+        public static GamerBoardGame gamerBoardGame5 = new GamerBoardGame
         {
             Id = 5,
             Active = true,
@@ -55,7 +55,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame4
         };
 
-        public static GamerBoardGame gamerBoardGame6 = new GamerBoardGame()
+        public static GamerBoardGame gamerBoardGame6 = new GamerBoardGame
         {
             Id = 6,
             Active = true,
@@ -65,7 +65,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame3
         };
 
-        public static GamerBoardGame gamerBoardGame7 = new GamerBoardGame()
+        public static GamerBoardGame gamerBoardGame7 = new GamerBoardGame
         {
             Id = 7,
             Active = true,
@@ -75,7 +75,7 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame = BoardGameGenerator.boardGame5
         };
 
-        public static List<GamerBoardGame> gamerBoardGames = new List<GamerBoardGame>()
+        public static List<GamerBoardGame> gamerBoardGames = new List<GamerBoardGame>
         {
             gamerBoardGame1,
             gamerBoardGame2,

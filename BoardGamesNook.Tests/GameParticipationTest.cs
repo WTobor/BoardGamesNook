@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Generators;
@@ -83,7 +82,7 @@ namespace BoardGamesNook.Tests
         private static GameParticipation GetTestGameParticipation()
         {
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
-            return new GameParticipation()
+            return new GameParticipation
             {
                 Id = newGameParticipationId,
                 GameTableId = GameTableGenerator.gameTable1.Id,

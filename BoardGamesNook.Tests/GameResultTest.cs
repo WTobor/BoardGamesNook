@@ -72,7 +72,9 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var gameTableService = new GameTableService(new GameTableRepository(), new BoardGameService(new BoardGameRepository()), new GameParticipationService(new GameParticipationRepository()) );
+            var gameTableService = new GameTableService(new GameTableRepository(),
+                new BoardGameService(new BoardGameRepository()),
+                new GameParticipationService(new GameParticipationRepository()));
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
             gameTableService.CreateGameTable(GetTestGameTable(newGameTableId), new List<int>());
             var testGameTable = GameTableGenerator.gameTables.FirstOrDefault(x => x.Id == newGameTableId);
@@ -118,7 +120,7 @@ namespace BoardGamesNook.Tests
         private static GameResult GetTestGameResult(Gamer gamer = null, GameTable table = null)
         {
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
-            return new GameResult()
+            return new GameResult
             {
                 Id = newGameResultId,
                 GameTableId = table?.Id ?? GameTableGenerator.gameTable1.Id,
@@ -130,7 +132,7 @@ namespace BoardGamesNook.Tests
 
         private static Gamer GetTestGamer(string gamerId)
         {
-            return new Gamer()
+            return new Gamer
             {
                 Id = gamerId,
                 Nickname = "test",
@@ -141,7 +143,7 @@ namespace BoardGamesNook.Tests
 
         private static GameTable GetTestGameTable(int newGameTableId)
         {
-            return new GameTable()
+            return new GameTable
             {
                 Id = newGameTableId,
                 BoardGames = new List<BoardGame>(),

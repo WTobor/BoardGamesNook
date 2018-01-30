@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -40,13 +39,12 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllGameResults().ToList();
 
-            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
+            var gameResultListViewModel =
+                Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
 
             foreach (var gameResultViewModel in gameResultListViewModel)
-            {
                 gameResultViewModel.CreatedGamerNickname =
                     _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
-            }
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -57,7 +55,8 @@ namespace BoardGamesNook.Controllers
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
             var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
-            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
+            var gameResultListViewModel =
+                Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -91,7 +90,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var gameResults = GetGameResultObjs(gameResultViewModels, gamer);
-                _gameResultService.AddGameResults(gameResults);
+            _gameResultService.AddGameResults(gameResults);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -136,6 +135,7 @@ namespace BoardGamesNook.Controllers
 
             return result;
         }
+
         private GameResult GetGameResultObj(GameResultViewModel gameResultViewModel, Gamer gamer)
         {
             var result = Mapper.Map<GameResult>(gameResultViewModel);

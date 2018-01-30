@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BoardGamesNook.Model
+﻿namespace BoardGamesNook.Model
 {
     public class User
     {

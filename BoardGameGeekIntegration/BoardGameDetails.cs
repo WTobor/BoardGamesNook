@@ -1,7 +1,5 @@
-﻿
-namespace BoardGameGeekIntegration
+﻿namespace BoardGameGeekIntegration
 {
-
     public class BoardGameDetails
     {
         public int gameId { get; set; }
@@ -39,5 +37,4 @@ namespace BoardGameGeekIntegration
         public string name { get; set; }
         public int gameId { get; set; }
     }
-
 }

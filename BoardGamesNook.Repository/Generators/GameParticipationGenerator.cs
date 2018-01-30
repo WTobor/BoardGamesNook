@@ -7,7 +7,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class GameParticipationGenerator
     {
-        public static GameParticipation gameParticipation1 = new GameParticipation()
+        public static GameParticipation gameParticipation1 = new GameParticipation
         {
             Id = 1,
             CreatedDate = DateTimeOffset.UtcNow,
@@ -16,12 +16,12 @@ namespace BoardGamesNook.Repository.Generators
             GameTable = GameTableGenerator.gameTable1,
             GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
-            Status = (int)Enums.GameParticipationStatuses.Yes,
+            Status = (int) Enums.GameParticipationStatuses.Yes,
             IsConfirmed = false,
             Active = true
         };
 
-        public static GameParticipation gameParticipation2 = new GameParticipation()
+        public static GameParticipation gameParticipation2 = new GameParticipation
         {
             Id = 2,
             CreatedDate = DateTimeOffset.UtcNow,
@@ -30,12 +30,12 @@ namespace BoardGamesNook.Repository.Generators
             GameTable = GameTableGenerator.gameTable1,
             GamerId = GamerGenerator.gamer2.Id,
             Gamer = GamerGenerator.gamer2,
-            Status = (int)Enums.GameParticipationStatuses.No,
+            Status = (int) Enums.GameParticipationStatuses.No,
             IsConfirmed = false,
             Active = true
         };
 
-        public static GameParticipation gameParticipation3 = new GameParticipation()
+        public static GameParticipation gameParticipation3 = new GameParticipation
         {
             Id = 3,
             CreatedDate = DateTimeOffset.UtcNow,
@@ -44,12 +44,12 @@ namespace BoardGamesNook.Repository.Generators
             GameTable = GameTableGenerator.gameTable2,
             GamerId = GamerGenerator.gamer1.Id,
             Gamer = GamerGenerator.gamer1,
-            Status = (int)Enums.GameParticipationStatuses.Maybe,
+            Status = (int) Enums.GameParticipationStatuses.Maybe,
             IsConfirmed = false,
             Active = true
         };
 
-        public static List<GameParticipation> gameParticipations = new List<GameParticipation>()
+        public static List<GameParticipation> gameParticipations = new List<GameParticipation>
         {
             gameParticipation1,
             gameParticipation2,

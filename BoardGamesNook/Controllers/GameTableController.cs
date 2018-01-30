@@ -36,7 +36,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            
+
             var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameListById(id);
             var availableTableBoardGameListViewModel =
                 Mapper.Map<IEnumerable<BoardGame>, IEnumerable<TableBoardGameViewModel>>(availableTableBoardGameList);

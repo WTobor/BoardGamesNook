@@ -6,7 +6,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class GameTableGenerator
     {
-        public static GameTable gameTable1 = new GameTable()
+        public static GameTable gameTable1 = new GameTable
         {
             Id = 300,
             Name = "Stół do Osadników z Catanu + żeglarze",
@@ -17,7 +17,7 @@ namespace BoardGamesNook.Repository.Generators
             IsPrivate = false,
             City = "Wrocław",
             Street = "Legnicka",
-            BoardGames = new List<BoardGame>()
+            BoardGames = new List<BoardGame>
             {
                 BoardGameGenerator.boardGame1
             },
@@ -27,7 +27,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable2 = new GameTable()
+        public static GameTable gameTable2 = new GameTable
         {
             Id = 301,
             Name = "Wieczorne spotkanie na Dixit i Terra Mysticę",
@@ -38,7 +38,7 @@ namespace BoardGamesNook.Repository.Generators
             IsPrivate = false,
             City = "Warszawa",
             Street = "Wyszyńskiego",
-            BoardGames = new List<BoardGame>()
+            BoardGames = new List<BoardGame>
             {
                 BoardGameGenerator.boardGame2,
                 BoardGameGenerator.boardGame3
@@ -49,7 +49,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable3 = new GameTable()
+        public static GameTable gameTable3 = new GameTable
         {
             Id = 302,
             Name = "Prywatny stół dla wtajemniczonych",
@@ -67,7 +67,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable4 = new GameTable()
+        public static GameTable gameTable4 = new GameTable
         {
             Id = 304,
             Name = "Planszówki u Maćka",
@@ -85,7 +85,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable5 = new GameTable()
+        public static GameTable gameTable5 = new GameTable
         {
             Id = 305,
             Name = "Rozgrywki w Dixit",
@@ -103,7 +103,7 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static List<GameTable> gameTables = new List<GameTable>()
+        public static List<GameTable> gameTables = new List<GameTable>
         {
             gameTable1,
             gameTable2,

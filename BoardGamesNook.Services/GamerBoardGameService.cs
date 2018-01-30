@@ -1,17 +1,18 @@
-﻿using BoardGamesNook.Model;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BoardGamesNook.Services
 {
     public class GamerBoardGameService : IGamerBoardGameService
     {
-        private readonly IGamerBoardGameRepository _gamerBoardGameRepository;
         private readonly IBoardGameService _boardGameService;
+        private readonly IGamerBoardGameRepository _gamerBoardGameRepository;
 
-        public GamerBoardGameService(IGamerBoardGameRepository gamerBoardGameRepository, IBoardGameService boardGameService)
+        public GamerBoardGameService(IGamerBoardGameRepository gamerBoardGameRepository,
+            IBoardGameService boardGameService)
         {
             _gamerBoardGameRepository = gamerBoardGameRepository;
             _boardGameService = boardGameService;
@@ -24,7 +25,6 @@ namespace BoardGamesNook.Services
 
         public IEnumerable<BoardGame> GetGamerAvailableBoardGameList(string nickname)
         {
-            
             var availableBoardGameList = _boardGameService.GetAllGamerBoardGames();
             var gamerBoardGameList = GetAllGamerBoardGamesByGamerNickname(nickname);
             var gamerAvailableBoardGameList = availableBoardGameList

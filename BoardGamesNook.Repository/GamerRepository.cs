@@ -1,15 +1,15 @@
 ﻿using System;
-using BoardGamesNook.Model;
-using BoardGamesNook.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Generators;
+using BoardGamesNook.Repository.Interfaces;
 
 namespace BoardGamesNook.Repository
 {
     public class GamerRepository : IGamerRepository
     {
-        private List<Gamer> _gamers = GamerGenerator.gamers;
+        private readonly List<Gamer> _gamers = GamerGenerator.gamers;
 
         public Gamer GetGamer(string id)
         {
@@ -58,10 +58,7 @@ namespace BoardGamesNook.Repository
         public void DeactivateGamer(string id)
         {
             var gamer = _gamers.FirstOrDefault(x => x.Id == id);
-            if (gamer != null)
-            {
-                gamer.Active = false;
-            }
+            if (gamer != null) gamer.Active = false;
         }
     }
 }

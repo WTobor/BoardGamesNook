@@ -1,5 +1,4 @@
-﻿
-namespace BoardGameGeekIntegration
+﻿namespace BoardGameGeekIntegration
 {
     public static class Constants
     {

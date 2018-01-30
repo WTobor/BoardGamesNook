@@ -20,7 +20,7 @@
 
 <div class="container">
     <div class="h3">
-        @RenderSection("title", required: false)
+        @RenderSection("title", false)
     </div>
     <main>
         @RenderBody()
@@ -33,7 +33,7 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", required: false)
+@RenderSection("scripts", false)
 </body>
 </html>
 <link rel="stylesheet" href="~/Content/bootstrap.min.css">

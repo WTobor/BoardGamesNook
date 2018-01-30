@@ -38,10 +38,7 @@ namespace BoardGamesNook.Repository
 
         public void AddGameResults(List<GameResult> gameResults)
         {
-            foreach (var gameResult in gameResults)
-            {
-                _gameResults.Add(gameResult);
-            }
+            foreach (var gameResult in gameResults) _gameResults.Add(gameResult);
         }
 
         public void EditGameResult(GameResult gameResult)
