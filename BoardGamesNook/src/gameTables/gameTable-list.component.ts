@@ -38,7 +38,7 @@ export class GameTableListComponent implements OnInit {
                         this.isCurrentGamer = true;
                     };
                     if (this.selectedGamerNickname === undefined && this.loadedGameTables !== undefined) {
-                        this.gameTables = this.loadedGameTables.filter(x => x.GamerNickname !== nick);
+                        this.gameTables = this.loadedGameTables.filter(x => x.CreatedGamerNickname !== nick);
                     }
                     else {
                         this.gameTables = this.loadedGameTables;

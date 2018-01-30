@@ -4,10 +4,10 @@ import {Gamer} from "../gamers/gamer";
 export class GameTable {
     Id: number;
     Name: string;
-    GamerId: string;
-    GamerNickname: string;
+    CreatedGamerId: string;
+    CreatedGamerNickname: string;
     TableBoardGameList: TableBoardGame[];
-    TableGamerList: Gamer[];
+    /*TableGamerList: Gamer[];*/
     MinPlayers: number;
     MaxPlayers: number;
     City: string;

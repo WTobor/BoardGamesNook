@@ -9,7 +9,10 @@ namespace BoardGamesNook.MapperProfiles
     {
         public GameTableProfile()
         {
-            CreateMap<GameTable, GameTableViewModel>();
+            CreateMap<GameTable, GameTableViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.TableBoardGameList, opt => opt.Ignore());
+
             CreateMap<GameTable, TableBoardGameViewModel>()
                 .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.CreatedGamerId))
                 .ForMember(dest => dest.GamerNickname, opt => opt.MapFrom(src => src.CreatedGamer.Nickname))
