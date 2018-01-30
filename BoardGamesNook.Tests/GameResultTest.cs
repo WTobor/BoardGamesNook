@@ -90,15 +90,14 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
             var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
-            DateTimeOffset now = DateTimeOffset.UtcNow;
             //Act
             gameResultService.AddGameResult(GetTestGameResult());
             var gameResult = gameResultService.GetGameResult(newGameResultId);
-            gameResult.ModifiedDate = now;
             gameResultService.EditGameResult(gameResult);
             var newGameResult = gameResultService.GetGameResult(newGameResultId);
             //Assert
-            Assert.AreEqual(now, newGameResult.ModifiedDate);
+            Assert.AreEqual(newGameResultId, newGameResult.Id);
+            Assert.IsNotNull(newGameResult.ModifiedDate);
         }
 
         [TestMethod]

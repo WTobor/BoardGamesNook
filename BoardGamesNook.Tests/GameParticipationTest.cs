@@ -55,15 +55,14 @@ namespace BoardGamesNook.Tests
             //Arrange
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
             var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
-            DateTimeOffset now = DateTimeOffset.UtcNow;
             //Act
             gameParticipationService.AddGameParticipation(GetTestGameParticipation());
             var gameParticipation = gameParticipationService.GetGameParticipation(newGameParticipationId);
-            gameParticipation.ModifiedDate = now;
             gameParticipationService.Edit(gameParticipation);
             var newGameParticipation = gameParticipationService.GetGameParticipation(newGameParticipationId);
             //Assert
-            Assert.AreEqual(now, newGameParticipation.ModifiedDate);
+            Assert.AreEqual(newGameParticipationId, newGameParticipation.Id);
+            Assert.IsNotNull(newGameParticipation.ModifiedDate);
         }
 
         [TestMethod]

@@ -69,6 +69,7 @@ namespace BoardGamesNook.Tests
             //Assert
             Assert.AreEqual(gamerId, newBoardGame.GamerId);
             Assert.AreEqual(boardGameId, newBoardGame.BoardGameId);
+            Assert.IsNotNull(newBoardGame.ModifiedDate);
         }
 
         [TestMethod]

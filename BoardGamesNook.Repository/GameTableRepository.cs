@@ -44,12 +44,7 @@ namespace BoardGamesNook.Repository
 
         public void EditGameTable(GameTable gameTable)
         {
-            var oldGameTable = _gameTables.FirstOrDefault(x => x.Id == gameTable.Id);
-            if (oldGameTable != null)
-            {
-                _gameTables.Remove(oldGameTable);
-                _gameTables.Add(gameTable);
-            }
+            gameTable.ModifiedDate = DateTimeOffset.Now;
         }
 
         public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)

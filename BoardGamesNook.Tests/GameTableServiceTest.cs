@@ -78,16 +78,15 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            DateTimeOffset now = DateTimeOffset.UtcNow;
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             //Act
             _gameTableService.CreateGameTable(GetTestGameTable(testGamer), new List<int>());
             var gameTable = _gameTableService.GetGameTable(newGameTableId);
-            gameTable.ModifiedDate = now;
             _gameTableService.EditGameTable(gameTable.Id, new List<int>());
             var newGameTable = _gameTableService.GetGameTable(newGameTableId);
             //Assert
-            Assert.AreEqual(now, newGameTable.ModifiedDate);
+            Assert.AreEqual(newGameTableId, newGameTable.Id);
+            Assert.IsNotNull(newGameTable.ModifiedDate);
         }
 
         [TestMethod]
@@ -95,7 +94,6 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            DateTimeOffset now = DateTimeOffset.UtcNow;
             var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
 
             //Act
