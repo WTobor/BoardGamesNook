@@ -17,7 +17,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
+            var generatedGameResultsCount = GameResultGenerator.GameResults.Count;
             //Act
             var gameResults = gameResultService.GetAllGameResults();
             //Assert
@@ -29,7 +29,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
+            var generatedGameResultsCount = GameResultGenerator.GameResults.Count;
             //Act
             gameResultService.AddGameResult(GetTestGameResult());
             var gameResults = gameResultService.GetAllGameResults();
@@ -42,7 +42,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
+            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
             //Act
             gameResultService.AddGameResult(GetTestGameResult());
             var boardGame = gameResultService.GetGameResult(newGameResultId);
@@ -75,9 +75,9 @@ namespace BoardGamesNook.Tests
             var gameTableService = new GameTableService(new GameTableRepository(),
                 new BoardGameService(new BoardGameRepository()),
                 new GameParticipationService(new GameParticipationRepository()));
-            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
+            var newGameTableId = GameTableGenerator.GameTables.Max(x => x.Id) + 1;
             gameTableService.CreateGameTable(GetTestGameTable(newGameTableId), new List<int>());
-            var testGameTable = GameTableGenerator.gameTables.FirstOrDefault(x => x.Id == newGameTableId);
+            var testGameTable = GameTableGenerator.GameTables.FirstOrDefault(x => x.Id == newGameTableId);
             //Act
             gameResultService.AddGameResult(GetTestGameResult(null, testGameTable));
             var gameResults = gameResultService.GetAllGameResultsByTableId(newGameTableId);
@@ -91,7 +91,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
+            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
             //Act
             gameResultService.AddGameResult(GetTestGameResult());
             var gameResult = gameResultService.GetGameResult(newGameResultId);
@@ -107,8 +107,8 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameResultService = new GameResultService(new GameResultRepository());
-            var generatedGameResultsCount = GameResultGenerator.gameResults.Count;
-            var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
+            var generatedGameResultsCount = GameResultGenerator.GameResults.Count;
+            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
             //Act
             gameResultService.AddGameResult(GetTestGameResult());
             gameResultService.DeleteGameResult(newGameResultId);
@@ -119,14 +119,14 @@ namespace BoardGamesNook.Tests
 
         private static GameResult GetTestGameResult(Gamer gamer = null, GameTable table = null)
         {
-            var newGameResultId = GameResultGenerator.gameResults.Max(x => x.Id) + 1;
+            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
             return new GameResult
             {
                 Id = newGameResultId,
-                GameTableId = table?.Id ?? GameTableGenerator.gameTable1.Id,
-                GameTable = table ?? GameTableGenerator.gameTable1,
-                GamerId = gamer?.Id ?? GamerGenerator.gamer1.Id,
-                Gamer = gamer ?? GamerGenerator.gamer1
+                GameTableId = table?.Id ?? GameTableGenerator.GameTable1.Id,
+                GameTable = table ?? GameTableGenerator.GameTable1,
+                GamerId = gamer?.Id ?? GamerGenerator.Gamer1.Id,
+                Gamer = gamer ?? GamerGenerator.Gamer1
             };
         }
 
@@ -148,7 +148,7 @@ namespace BoardGamesNook.Tests
                 Id = newGameTableId,
                 BoardGames = new List<BoardGame>(),
                 GameParticipations = null,
-                CreatedGamer = GamerGenerator.gamer1,
+                CreatedGamer = GamerGenerator.Gamer1,
                 Active = true
             };
         }

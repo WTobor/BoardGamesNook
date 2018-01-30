@@ -24,7 +24,7 @@ namespace BoardGamesNook.Tests
         public void GetGamerBoardGameList()
         {
             //Arrange
-            var generatedGamerBoardGamesCount = GamerBoardGameGenerator.gamerBoardGames.Count;
+            var generatedGamerBoardGamesCount = GamerBoardGameGenerator.GamerBoardGames.Count;
             //Act
             var gamerBoardGames = _gamerBoardGameService.GetAllGamerBoardGames();
             //Assert
@@ -35,10 +35,10 @@ namespace BoardGamesNook.Tests
         public void AddGamerBoardGameToBoardGamesList()
         {
             //Arrange
-            var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
+            var newGamerBoardGameId = GamerBoardGameGenerator.GamerBoardGames.Max(x => x.Id) + 1;
             //Act
             _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
-            var lastAddedGamerBoardGame = GamerBoardGameGenerator.gamerBoardGames.LastOrDefault();
+            var lastAddedGamerBoardGame = GamerBoardGameGenerator.GamerBoardGames.LastOrDefault();
             //Assert
             Assert.AreEqual(newGamerBoardGameId, lastAddedGamerBoardGame?.Id);
         }
@@ -47,7 +47,7 @@ namespace BoardGamesNook.Tests
         public void GetGamerBoardGame()
         {
             //Arrange
-            var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
+            var newGamerBoardGameId = GamerBoardGameGenerator.GamerBoardGames.Max(x => x.Id) + 1;
             //Act
             _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
             var boardGame = _gamerBoardGameService.GetGamerBoardGame(newGamerBoardGameId);
@@ -59,7 +59,7 @@ namespace BoardGamesNook.Tests
         public void EditGamerBoardGame()
         {
             //Arrange
-            var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
+            var newGamerBoardGameId = GamerBoardGameGenerator.GamerBoardGames.Max(x => x.Id) + 1;
             var gamerId = Guid.NewGuid().ToString();
             var boardGameId = 2;
             //Act
@@ -79,8 +79,8 @@ namespace BoardGamesNook.Tests
         public void DeleteGamerBoardGame()
         {
             //Arrange
-            var generatedGamerBoardGamesCount = GamerBoardGameGenerator.gamerBoardGames.Count;
-            var newGamerBoardGameId = GamerBoardGameGenerator.gamerBoardGames.Max(x => x.Id) + 1;
+            var generatedGamerBoardGamesCount = GamerBoardGameGenerator.GamerBoardGames.Count;
+            var newGamerBoardGameId = GamerBoardGameGenerator.GamerBoardGames.Max(x => x.Id) + 1;
             //Act
             _gamerBoardGameService.Add(GetTestGamerBoardGame(newGamerBoardGameId));
             _gamerBoardGameService.DeleteGamerBoardGame(newGamerBoardGameId);

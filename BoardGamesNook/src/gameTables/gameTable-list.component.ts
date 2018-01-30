@@ -65,7 +65,7 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoJoin(): void {
-        this.openDialog()
+        this.openDialog();
     }
 
     gotoGameTableBoardGames(): void {

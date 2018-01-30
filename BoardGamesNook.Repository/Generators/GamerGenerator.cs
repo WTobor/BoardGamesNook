@@ -5,7 +5,7 @@ namespace BoardGamesNook.Repository.Generators
 {
     public class GamerGenerator
     {
-        public static Gamer gamer1 = new Gamer
+        public static Gamer Gamer1 = new Gamer
         {
             Id = "a1s2d3f4",
             Active = true,
@@ -18,7 +18,7 @@ namespace BoardGamesNook.Repository.Generators
             Email = "wero15@op.pl"
         };
 
-        public static Gamer gamer2 = new Gamer
+        public static Gamer Gamer2 = new Gamer
         {
             Id = "q1w2e3r4",
             Active = true,
@@ -31,7 +31,7 @@ namespace BoardGamesNook.Repository.Generators
             Email = "t.kowalski@gmail.com"
         };
 
-        public static Gamer gamer3 = new Gamer
+        public static Gamer Gamer3 = new Gamer
         {
             Id = "z2x3c4v5",
             Active = true,
@@ -44,7 +44,7 @@ namespace BoardGamesNook.Repository.Generators
             Email = "anna90@gmail.com"
         };
 
-        public static Gamer gamer4 = new Gamer
+        public static Gamer Gamer4 = new Gamer
         {
             Id = "n7m8k9l0",
             Active = true,
@@ -57,12 +57,12 @@ namespace BoardGamesNook.Repository.Generators
             Email = "nowak_maciej@onet.pl"
         };
 
-        public static List<Gamer> gamers = new List<Gamer>
+        public static List<Gamer> Gamers = new List<Gamer>
         {
-            gamer1,
-            gamer2,
-            gamer3,
-            gamer4
+            Gamer1,
+            Gamer2,
+            Gamer3,
+            Gamer4
         };
     }
 }

@@ -15,7 +15,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
+            var generatedGameParticipationsCount = GameParticipationGenerator.GameParticipations.Count;
             //Act
             var gameParticipations = gameParticipationService.GetAllGameParticipations();
             //Assert
@@ -27,7 +27,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
+            var generatedGameParticipationsCount = GameParticipationGenerator.GameParticipations.Count;
             //Act
             gameParticipationService.AddGameParticipation(GetTestGameParticipation());
             var gameParticipations = gameParticipationService.GetAllGameParticipations();
@@ -40,7 +40,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            var newGameParticipationId = GameParticipationGenerator.GameParticipations.Max(x => x.Id) + 1;
             //Act
             gameParticipationService.AddGameParticipation(GetTestGameParticipation());
             var boardGame = gameParticipationService.GetGameParticipation(newGameParticipationId);
@@ -53,7 +53,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            var newGameParticipationId = GameParticipationGenerator.GameParticipations.Max(x => x.Id) + 1;
             //Act
             gameParticipationService.AddGameParticipation(GetTestGameParticipation());
             var gameParticipation = gameParticipationService.GetGameParticipation(newGameParticipationId);
@@ -69,8 +69,8 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            var generatedGameParticipationsCount = GameParticipationGenerator.GameParticipations.Count;
+            var newGameParticipationId = GameParticipationGenerator.GameParticipations.Max(x => x.Id) + 1;
             //Act
             gameParticipationService.AddGameParticipation(GetTestGameParticipation());
             gameParticipationService.Delete(newGameParticipationId);
@@ -81,14 +81,14 @@ namespace BoardGamesNook.Tests
 
         private static GameParticipation GetTestGameParticipation()
         {
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            var newGameParticipationId = GameParticipationGenerator.GameParticipations.Max(x => x.Id) + 1;
             return new GameParticipation
             {
                 Id = newGameParticipationId,
-                GameTableId = GameTableGenerator.gameTable1.Id,
-                GameTable = GameTableGenerator.gameTable1,
-                GamerId = GamerGenerator.gamer1.Id,
-                Gamer = GamerGenerator.gamer1
+                GameTableId = GameTableGenerator.GameTable1.Id,
+                GameTable = GameTableGenerator.GameTable1,
+                GamerId = GamerGenerator.Gamer1.Id,
+                Gamer = GamerGenerator.Gamer1
             };
         }
     }

@@ -26,9 +26,9 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
 
-            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+            var testGamer = GameTableGenerator.GameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             var generatedByTestGamerGameTablesCount =
-                GameTableGenerator.gameTables.Count(x => x.CreatedGamer?.Nickname == testGamer?.Nickname);
+                GameTableGenerator.GameTables.Count(x => x.CreatedGamer?.Nickname == testGamer?.Nickname);
 
             //Act
             var gamerGameTableList = _gameTableService.GetAllGameTablesByGamerNickname(testGamer?.Nickname);
@@ -40,8 +40,8 @@ namespace BoardGamesNook.Tests
         public void AddGameTableToGameTablesList()
         {
             //Arrange
-            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
-            var generatedGamerGameTablesCount = GameTableGenerator.gameTables.Count(x => x.CreatedGamer == testGamer);
+            var testGamer = GameTableGenerator.GameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+            var generatedGamerGameTablesCount = GameTableGenerator.GameTables.Count(x => x.CreatedGamer == testGamer);
 
             //Act
             _gameTableService.CreateGameTable(GetTestGameTable(testGamer), new List<int>());
@@ -54,8 +54,8 @@ namespace BoardGamesNook.Tests
         public void GetAvailableTableBoardGameList()
         {
             //Arrange
-            var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
-            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+            var generatedBoardGamesCount = BoardGameGenerator.BoardGames.Count;
+            var testGamer = GameTableGenerator.GameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             var newTable = GetTestGameTable(testGamer);
             //Act
             _gameTableService.CreateGameTable(newTable, new List<int>());
@@ -68,8 +68,8 @@ namespace BoardGamesNook.Tests
         public void GetGameTable()
         {
             //Arrange
-            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+            var newGameTableId = GameTableGenerator.GameTables.Max(x => x.Id) + 1;
+            var testGamer = GameTableGenerator.GameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             //Act
             _gameTableService.CreateGameTable(GetTestGameTable(testGamer), new List<int>());
             var gameTable = _gameTableService.GetGameTable(newGameTableId);
@@ -81,8 +81,8 @@ namespace BoardGamesNook.Tests
         public void EditGameTable()
         {
             //Arrange
-            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+            var newGameTableId = GameTableGenerator.GameTables.Max(x => x.Id) + 1;
+            var testGamer = GameTableGenerator.GameTables.Select(x => x.CreatedGamer).FirstOrDefault();
             //Act
             _gameTableService.CreateGameTable(GetTestGameTable(testGamer), new List<int>());
             var gameTable = _gameTableService.GetGameTable(newGameTableId);
@@ -97,8 +97,8 @@ namespace BoardGamesNook.Tests
         public void EditParticipations()
         {
             //Arrange
-            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
-            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+            var newGameTableId = GameTableGenerator.GameTables.Max(x => x.Id) + 1;
+            var testGamer = GameTableGenerator.GameTables.Select(x => x.CreatedGamer).FirstOrDefault();
 
             //Act
             _gameTableService.CreateGameTable(GetTestGameTable(testGamer), new List<int>());
@@ -116,9 +116,9 @@ namespace BoardGamesNook.Tests
         public void DeleteGameTable()
         {
             //Arrange
-            var testGamer = GameTableGenerator.gameTables.Select(x => x.CreatedGamer).FirstOrDefault();
-            var generatedGamerGameTablesCount = GameTableGenerator.gameTables.Count(x => x.CreatedGamer == testGamer);
-            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
+            var testGamer = GameTableGenerator.GameTables.Select(x => x.CreatedGamer).FirstOrDefault();
+            var generatedGamerGameTablesCount = GameTableGenerator.GameTables.Count(x => x.CreatedGamer == testGamer);
+            var newGameTableId = GameTableGenerator.GameTables.Max(x => x.Id) + 1;
 
             //Act
             _gameTableService.CreateGameTable(GetTestGameTable(testGamer), new List<int>());
@@ -130,7 +130,7 @@ namespace BoardGamesNook.Tests
 
         private static GameTable GetTestGameTable(Gamer createdGamer)
         {
-            var newGameTableId = GameTableGenerator.gameTables.Max(x => x.Id) + 1;
+            var newGameTableId = GameTableGenerator.GameTables.Max(x => x.Id) + 1;
             return new GameTable
             {
                 Id = newGameTableId,
@@ -143,7 +143,7 @@ namespace BoardGamesNook.Tests
 
         private static List<GameParticipation> GetTestGameParticipations(Gamer createdGamer, GameTable gameTable)
         {
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            var newGameParticipationId = GameParticipationGenerator.GameParticipations.Max(x => x.Id) + 1;
             return new List<GameParticipation>
             {
                 new GameParticipation

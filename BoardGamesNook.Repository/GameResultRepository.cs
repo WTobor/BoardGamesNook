@@ -9,7 +9,7 @@ namespace BoardGamesNook.Repository
 {
     public class GameResultRepository : IGameResultRepository
     {
-        private readonly List<GameResult> _gameResults = GameResultGenerator.gameResults;
+        private readonly List<GameResult> _gameResults = GameResultGenerator.GameResults;
 
         public GameResult GetGameResult(int id)
         {

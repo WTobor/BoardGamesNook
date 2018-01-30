@@ -5,83 +5,83 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class GamerBoardGameGenerator
     {
-        public static GamerBoardGame gamerBoardGame1 = new GamerBoardGame
+        public static GamerBoardGame GamerBoardGame1 = new GamerBoardGame
         {
             Id = 1,
             Active = true,
-            GamerId = GamerGenerator.gamer1.Id,
-            Gamer = GamerGenerator.gamer1,
-            BoardGameId = BoardGameGenerator.boardGame1.Id,
-            BoardGame = BoardGameGenerator.boardGame1
+            GamerId = GamerGenerator.Gamer1.Id,
+            Gamer = GamerGenerator.Gamer1,
+            BoardGameId = BoardGameGenerator.BoardGame1.Id,
+            BoardGame = BoardGameGenerator.BoardGame1
         };
 
-        public static GamerBoardGame gamerBoardGame2 = new GamerBoardGame
+        public static GamerBoardGame GamerBoardGame2 = new GamerBoardGame
         {
             Id = 2,
             Active = true,
-            GamerId = GamerGenerator.gamer1.Id,
-            Gamer = GamerGenerator.gamer1,
-            BoardGameId = BoardGameGenerator.boardGame2.Id,
-            BoardGame = BoardGameGenerator.boardGame2
+            GamerId = GamerGenerator.Gamer1.Id,
+            Gamer = GamerGenerator.Gamer1,
+            BoardGameId = BoardGameGenerator.BoardGame2.Id,
+            BoardGame = BoardGameGenerator.BoardGame2
         };
 
-        public static GamerBoardGame gamerBoardGame3 = new GamerBoardGame
+        public static GamerBoardGame GamerBoardGame3 = new GamerBoardGame
         {
             Id = 3,
             Active = true,
-            GamerId = GamerGenerator.gamer2.Id,
-            Gamer = GamerGenerator.gamer2,
-            BoardGameId = BoardGameGenerator.boardGame2.Id,
-            BoardGame = BoardGameGenerator.boardGame2
+            GamerId = GamerGenerator.Gamer2.Id,
+            Gamer = GamerGenerator.Gamer2,
+            BoardGameId = BoardGameGenerator.BoardGame2.Id,
+            BoardGame = BoardGameGenerator.BoardGame2
         };
 
-        public static GamerBoardGame gamerBoardGame4 = new GamerBoardGame
+        public static GamerBoardGame GamerBoardGame4 = new GamerBoardGame
         {
             Id = 4,
             Active = true,
-            GamerId = GamerGenerator.gamer3.Id,
-            Gamer = GamerGenerator.gamer3,
-            BoardGameId = BoardGameGenerator.boardGame3.Id,
-            BoardGame = BoardGameGenerator.boardGame3
+            GamerId = GamerGenerator.Gamer3.Id,
+            Gamer = GamerGenerator.Gamer3,
+            BoardGameId = BoardGameGenerator.BoardGame3.Id,
+            BoardGame = BoardGameGenerator.BoardGame3
         };
 
-        public static GamerBoardGame gamerBoardGame5 = new GamerBoardGame
+        public static GamerBoardGame GamerBoardGame5 = new GamerBoardGame
         {
             Id = 5,
             Active = true,
-            GamerId = GamerGenerator.gamer3.Id,
-            Gamer = GamerGenerator.gamer3,
-            BoardGameId = BoardGameGenerator.boardGame4.Id,
-            BoardGame = BoardGameGenerator.boardGame4
+            GamerId = GamerGenerator.Gamer3.Id,
+            Gamer = GamerGenerator.Gamer3,
+            BoardGameId = BoardGameGenerator.BoardGame4.Id,
+            BoardGame = BoardGameGenerator.BoardGame4
         };
 
-        public static GamerBoardGame gamerBoardGame6 = new GamerBoardGame
+        public static GamerBoardGame GamerBoardGame6 = new GamerBoardGame
         {
             Id = 6,
             Active = true,
-            GamerId = GamerGenerator.gamer4.Id,
-            Gamer = GamerGenerator.gamer4,
-            BoardGameId = BoardGameGenerator.boardGame3.Id,
-            BoardGame = BoardGameGenerator.boardGame3
+            GamerId = GamerGenerator.Gamer4.Id,
+            Gamer = GamerGenerator.Gamer4,
+            BoardGameId = BoardGameGenerator.BoardGame3.Id,
+            BoardGame = BoardGameGenerator.BoardGame3
         };
 
-        public static GamerBoardGame gamerBoardGame7 = new GamerBoardGame
+        public static GamerBoardGame GamerBoardGame7 = new GamerBoardGame
         {
             Id = 7,
             Active = true,
-            GamerId = GamerGenerator.gamer3.Id,
-            Gamer = GamerGenerator.gamer3,
-            BoardGameId = BoardGameGenerator.boardGame5.Id,
-            BoardGame = BoardGameGenerator.boardGame5
+            GamerId = GamerGenerator.Gamer3.Id,
+            Gamer = GamerGenerator.Gamer3,
+            BoardGameId = BoardGameGenerator.BoardGame5.Id,
+            BoardGame = BoardGameGenerator.BoardGame5
         };
 
-        public static List<GamerBoardGame> gamerBoardGames = new List<GamerBoardGame>
+        public static List<GamerBoardGame> GamerBoardGames = new List<GamerBoardGame>
         {
-            gamerBoardGame1,
-            gamerBoardGame2,
-            gamerBoardGame3,
-            gamerBoardGame4,
-            gamerBoardGame5
+            GamerBoardGame1,
+            GamerBoardGame2,
+            GamerBoardGame3,
+            GamerBoardGame4,
+            GamerBoardGame5
         };
     }
 }

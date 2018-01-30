@@ -11,13 +11,16 @@ namespace BoardGameGeekIntegration
         {
             var result = string.Empty;
             var requestUrl = new Uri(url);
-            var request = WebRequest.Create(requestUrl) as HttpWebRequest;
 
-            using (var response = request.GetResponse() as HttpWebResponse)
-            {
-                var reader = new StreamReader(response.GetResponseStream());
-                result = await reader.ReadToEndAsync();
-            }
+            if (WebRequest.Create(requestUrl) is HttpWebRequest request)
+                using (var response = request.GetResponse() as HttpWebResponse)
+                {
+                    if (response != null)
+                    {
+                        var reader = new StreamReader(response.GetResponseStream());
+                        result = await reader.ReadToEndAsync();
+                    }
+                }
 
             return result;
         }

@@ -21,7 +21,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult Get(int id)
         {
-            if (!(Session["gamer"] is Gamer gamer))
+            if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var gameTable = _gameTableService.GetGameTable(id);

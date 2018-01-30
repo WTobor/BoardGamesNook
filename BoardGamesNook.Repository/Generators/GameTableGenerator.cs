@@ -6,20 +6,20 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class GameTableGenerator
     {
-        public static GameTable gameTable1 = new GameTable
+        public static GameTable GameTable1 = new GameTable
         {
             Id = 300,
             Name = "Stół do Osadników z Catanu + żeglarze",
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer1.Id,
-            CreatedGamer = GamerGenerator.gamer1,
+            CreatedGamerId = GamerGenerator.Gamer1.Id,
+            CreatedGamer = GamerGenerator.Gamer1,
             IsFull = false,
             IsPrivate = false,
             City = "Wrocław",
             Street = "Legnicka",
             BoardGames = new List<BoardGame>
             {
-                BoardGameGenerator.boardGame1
+                BoardGameGenerator.BoardGame1
             },
             MinPlayersNumber = 2,
             MaxPlayersNumber = 4,
@@ -27,21 +27,21 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable2 = new GameTable
+        public static GameTable GameTable2 = new GameTable
         {
             Id = 301,
             Name = "Wieczorne spotkanie na Dixit i Terra Mysticę",
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer2.Id,
-            CreatedGamer = GamerGenerator.gamer2,
+            CreatedGamerId = GamerGenerator.Gamer2.Id,
+            CreatedGamer = GamerGenerator.Gamer2,
             IsFull = false,
             IsPrivate = false,
             City = "Warszawa",
             Street = "Wyszyńskiego",
             BoardGames = new List<BoardGame>
             {
-                BoardGameGenerator.boardGame2,
-                BoardGameGenerator.boardGame3
+                BoardGameGenerator.BoardGame2,
+                BoardGameGenerator.BoardGame3
             },
             MinPlayersNumber = 2,
             MaxPlayersNumber = 4,
@@ -49,13 +49,13 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable3 = new GameTable
+        public static GameTable GameTable3 = new GameTable
         {
             Id = 302,
             Name = "Prywatny stół dla wtajemniczonych",
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer1.Id,
-            CreatedGamer = GamerGenerator.gamer1,
+            CreatedGamerId = GamerGenerator.Gamer1.Id,
+            CreatedGamer = GamerGenerator.Gamer1,
             IsFull = false,
             IsPrivate = true,
             City = "Poznań",
@@ -67,13 +67,13 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable4 = new GameTable
+        public static GameTable GameTable4 = new GameTable
         {
             Id = 304,
             Name = "Planszówki u Maćka",
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer4.Id,
-            CreatedGamer = GamerGenerator.gamer4,
+            CreatedGamerId = GamerGenerator.Gamer4.Id,
+            CreatedGamer = GamerGenerator.Gamer4,
             IsFull = false,
             IsPrivate = false,
             City = "Wrocław",
@@ -85,13 +85,13 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static GameTable gameTable5 = new GameTable
+        public static GameTable GameTable5 = new GameTable
         {
             Id = 305,
             Name = "Rozgrywki w Dixit",
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer3.Id,
-            CreatedGamer = GamerGenerator.gamer3,
+            CreatedGamerId = GamerGenerator.Gamer3.Id,
+            CreatedGamer = GamerGenerator.Gamer3,
             IsFull = false,
             IsPrivate = false,
             City = "Gdańsk",
@@ -103,13 +103,13 @@ namespace BoardGamesNook.Repository.Generators
             Active = true
         };
 
-        public static List<GameTable> gameTables = new List<GameTable>
+        public static List<GameTable> GameTables = new List<GameTable>
         {
-            gameTable1,
-            gameTable2,
-            gameTable3,
-            gameTable4,
-            gameTable5
+            GameTable1,
+            GameTable2,
+            GameTable3,
+            GameTable4,
+            GameTable5
         };
     }
 }

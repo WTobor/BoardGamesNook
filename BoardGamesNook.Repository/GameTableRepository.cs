@@ -10,7 +10,7 @@ namespace BoardGamesNook.Repository
     public class GameTableRepository : IGameTableRepository
     {
         private readonly BoardGameRepository _boardGameRepository = new BoardGameRepository();
-        private readonly List<GameTable> _gameTables = GameTableGenerator.gameTables;
+        private readonly List<GameTable> _gameTables = GameTableGenerator.GameTables;
 
         public GameTable GetGameTable(int id)
         {
@@ -25,7 +25,7 @@ namespace BoardGamesNook.Repository
         public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
         {
             var availableTableBoardGameList = _boardGameRepository.GetAllGamerBoardGames();
-            if (table != null && table.BoardGames != null)
+            if (table?.BoardGames != null)
                 availableTableBoardGameList =
                     availableTableBoardGameList.Where(x => !table.BoardGames.Contains(x)).ToList();
             return availableTableBoardGameList;

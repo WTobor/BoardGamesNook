@@ -15,7 +15,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var boardGameService = new BoardGameService(new BoardGameRepository());
-            var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
+            var generatedBoardGamesCount = BoardGameGenerator.BoardGames.Count;
             //Act
             var boardGames = boardGameService.GetAllGamerBoardGames();
             //Assert
@@ -27,8 +27,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var boardGameService = new BoardGameService(new BoardGameRepository());
-            var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
-            var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
+            var generatedBoardGamesCount = BoardGameGenerator.BoardGames.Count;
             //Act
             boardGameService.Add(GetTestBoardGame());
             var boardGames = boardGameService.GetAllGamerBoardGames();
@@ -41,7 +40,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var boardGameService = new BoardGameService(new BoardGameRepository());
-            var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
+            var newBoardGameId = BoardGameGenerator.BoardGames.Max(x => x.Id) + 1;
             //Act
             boardGameService.Add(GetTestBoardGame());
             var boardGame = boardGameService.Get(newBoardGameId);
@@ -54,7 +53,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var boardGameService = new BoardGameService(new BoardGameRepository());
-            var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
+            var newBoardGameId = BoardGameGenerator.BoardGames.Max(x => x.Id) + 1;
             var name = "test2";
             //Act
             boardGameService.Add(GetTestBoardGame());
@@ -72,8 +71,8 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var boardGameService = new BoardGameService(new BoardGameRepository());
-            var generatedBoardGamesCount = BoardGameGenerator.boardGames.Count;
-            var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
+            var generatedBoardGamesCount = BoardGameGenerator.BoardGames.Count;
+            var newBoardGameId = BoardGameGenerator.BoardGames.Max(x => x.Id) + 1;
             //Act
             boardGameService.Add(GetTestBoardGame());
             boardGameService.Delete(newBoardGameId);
@@ -84,7 +83,7 @@ namespace BoardGamesNook.Tests
 
         private static BoardGame GetTestBoardGame()
         {
-            var newBoardGameId = BoardGameGenerator.boardGames.Max(x => x.Id) + 1;
+            var newBoardGameId = BoardGameGenerator.BoardGames.Max(x => x.Id) + 1;
             return new BoardGame
             {
                 Id = newBoardGameId,

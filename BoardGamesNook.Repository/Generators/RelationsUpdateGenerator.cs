@@ -7,15 +7,15 @@ namespace BoardGamesNook.Repository.Generators
     {
         public static void FillRelationsForBoardGameTable()
         {
-            GameTableGenerator.gameTable1.GameParticipations = new List<GameParticipation>
+            GameTableGenerator.GameTable1.GameParticipations = new List<GameParticipation>
             {
-                GameParticipationGenerator.gameParticipation1,
-                GameParticipationGenerator.gameParticipation2
+                GameParticipationGenerator.GameParticipation1,
+                GameParticipationGenerator.GameParticipation2
             };
 
-            GameTableGenerator.gameTable2.GameParticipations = new List<GameParticipation>
+            GameTableGenerator.GameTable2.GameParticipations = new List<GameParticipation>
             {
-                GameParticipationGenerator.gameParticipation3
+                GameParticipationGenerator.GameParticipation3
             };
         }
     }
