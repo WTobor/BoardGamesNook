@@ -17,8 +17,8 @@ namespace BoardGamesNook.Services.Interfaces
 
         void EditGameTable(int id, List<int> tableBoardGameIdList);
 
-        void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer);
+        void EditGameTableParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer);
 
-        void DeleteGameTable(int id);
+        void DeactivateGameTable(int id);
     }
 }

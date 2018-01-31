@@ -5,7 +5,7 @@ namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IGameTableRepository
     {
-        GameTable GetGameTable(int id);
+        GameTable Get(int id);
 
         IEnumerable<GameTable> GetAllGameTables();
 
@@ -15,10 +15,10 @@ namespace BoardGamesNook.Repository.Interfaces
 
         void AddGameTable(GameTable gameTable);
 
-        void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer);
+        void EditGameTableParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer);
 
         void EditGameTable(GameTable gameTable);
 
-        void DeleteGameTable(int id);
+        void Deactivate(int id);
     }
 }

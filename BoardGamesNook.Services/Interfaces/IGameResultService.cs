@@ -19,6 +19,6 @@ namespace BoardGamesNook.Services.Interfaces
 
         void EditGameResult(GameResult gameResult);
 
-        void DeleteGameResult(int id);
+        void DeactivateGameResult(int id);
     }
 }

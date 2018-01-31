@@ -15,7 +15,7 @@ export class BoardGameService {
     private _addBoardGameUrl = "BoardGame/Add";
     private _addBoardGameByIdUrl = "BoardGame/AddById";
     private _editBoardGameUrl = "BoardGame/Edit";
-    private _deleteBoardGameUrl = "BoardGame/Delete";
+    private _deactivateBoardGameUrl = "BoardGame/Deactivate";
 
     constructor(private http: Http) { }
 
@@ -45,8 +45,8 @@ export class BoardGameService {
         }
     }
 
-    delete(id: number): Promise<string> {
-        const url = `${this._deleteBoardGameUrl}/${id}`;
+    deactivate(id: number): Promise<string> {
+        const url = `${this._deactivateBoardGameUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })

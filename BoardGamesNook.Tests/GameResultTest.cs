@@ -1,156 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Repository.Generators;
+using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace BoardGamesNook.Tests
 {
     [TestClass]
     public class GameResultTest
     {
+        private readonly Mock<IGameResultRepository> _gameResultRepositoryMock;
+
+        private readonly GameResult testGameResult = new GameResult
+        {
+            Id = 1,
+            GameTableId = 1,
+            GameTable = new GameTable(),
+            GamerId = "test",
+            Gamer = new Gamer()
+        };
+
+        public GameResultTest()
+        {
+            _gameResultRepositoryMock = new Mock<IGameResultRepository>();
+        }
+
         [TestMethod]
         public void GetGameResultList()
         {
             //Arrange
-            var gameResultService = new GameResultService(new GameResultRepository());
-            var generatedGameResultsCount = GameResultGenerator.GameResults.Count;
+            _gameResultRepositoryMock.Setup(x => x.GetAll()).Returns(new List<GameResult> {new GameResult()});
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
             var gameResults = gameResultService.GetAllGameResults();
             //Assert
-            Assert.AreEqual(generatedGameResultsCount, gameResults.Count());
+            Assert.AreEqual(1, gameResults.Count());
+            _gameResultRepositoryMock.Verify(mock => mock.GetAll(), Times.Once());
         }
 
         [TestMethod]
         public void AddGameResultToGameResultsList()
         {
             //Arrange
-            var gameResultService = new GameResultService(new GameResultRepository());
-            var generatedGameResultsCount = GameResultGenerator.GameResults.Count;
+            _gameResultRepositoryMock.Setup(x => x.Add(testGameResult));
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.AddGameResult(GetTestGameResult());
-            var gameResults = gameResultService.GetAllGameResults();
+            gameResultService.AddGameResult(testGameResult);
             //Assert
-            Assert.AreEqual(generatedGameResultsCount + 1, gameResults.Count());
+            _gameResultRepositoryMock.Verify(mock => mock.Add(testGameResult), Times.Once());
         }
 
         [TestMethod]
         public void GetGameResult()
         {
             //Arrange
-            var gameResultService = new GameResultService(new GameResultRepository());
-            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
+            _gameResultRepositoryMock.Setup(x => x.Get(testGameResult.Id));
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.AddGameResult(GetTestGameResult());
-            var boardGame = gameResultService.GetGameResult(newGameResultId);
+            var gameResult = gameResultService.GetGameResult(testGameResult.Id);
             //Assert
-            Assert.AreEqual(newGameResultId, boardGame.Id);
+            _gameResultRepositoryMock.Verify(mock => mock.Get(testGameResult.Id), Times.Once());
         }
 
         [TestMethod]
-        public void GetByNickname()
+        public void GetAllByNickname()
         {
             //Arrange
-            var gameResultService = new GameResultService(new GameResultRepository());
-            var newGamerId = Guid.NewGuid().ToString();
-            var testGamer = GetTestGamer(newGamerId);
-            var testNickname = Guid.NewGuid().ToString();
-            testGamer.Nickname = testNickname;
+            var nickname = "test";
+            _gameResultRepositoryMock.Setup(x => x.GetAllByGamerNickname(nickname))
+                .Returns(new List<GameResult> {new GameResult()});
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.AddGameResult(GetTestGameResult(testGamer));
-            var gameResults = gameResultService.GetAllByGamerNickname(testNickname);
+            var gameResults = gameResultService.GetAllByGamerNickname(nickname);
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
+            _gameResultRepositoryMock.Verify(mock => mock.GetAllByGamerNickname(nickname), Times.Once());
         }
 
         [TestMethod]
         public void GetByTable()
         {
             //Arrange
-            var gameResultService = new GameResultService(new GameResultRepository());
-            var gameTableService = new GameTableService(new GameTableRepository(),
-                new BoardGameService(new BoardGameRepository()),
-                new GameParticipationService(new GameParticipationRepository()));
-            var newGameTableId = GameTableGenerator.GameTables.Max(x => x.Id) + 1;
-            gameTableService.CreateGameTable(GetTestGameTable(newGameTableId), new List<int>());
-            var testGameTable = GameTableGenerator.GameTables.FirstOrDefault(x => x.Id == newGameTableId);
+            _gameResultRepositoryMock.Setup(x => x.GetAllByTableId(testGameResult.GameTableId.Value))
+                .Returns(new List<GameResult> {new GameResult()});
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.AddGameResult(GetTestGameResult(null, testGameTable));
-            var gameResults = gameResultService.GetAllGameResultsByTableId(newGameTableId);
+            var gameResults = gameResultService.GetAllGameResultsByTableId(testGameResult.GameTableId.Value);
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
+            _gameResultRepositoryMock.Verify(mock => mock.GetAllByTableId(testGameResult.GameTableId.Value),
+                Times.Once());
         }
 
         [TestMethod]
         public void EditGameResult()
         {
             //Arrange
-            var gameResultService = new GameResultService(new GameResultRepository());
-            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
+            _gameResultRepositoryMock.Setup(x => x.Edit(testGameResult));
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.AddGameResult(GetTestGameResult());
-            var gameResult = gameResultService.GetGameResult(newGameResultId);
-            gameResultService.EditGameResult(gameResult);
-            var newGameResult = gameResultService.GetGameResult(newGameResultId);
+            gameResultService.EditGameResult(testGameResult);
             //Assert
-            Assert.AreEqual(newGameResultId, newGameResult.Id);
-            Assert.IsNotNull(newGameResult.ModifiedDate);
+            _gameResultRepositoryMock.Verify(mock => mock.Edit(testGameResult), Times.Once());
         }
 
         [TestMethod]
-        public void DeleteGameResult()
+        public void DeactivateGameResult()
         {
             //Arrange
-            var gameResultService = new GameResultService(new GameResultRepository());
-            var generatedGameResultsCount = GameResultGenerator.GameResults.Count;
-            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
+            _gameResultRepositoryMock.Setup(x => x.Deactivate(testGameResult.Id));
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.AddGameResult(GetTestGameResult());
-            gameResultService.DeleteGameResult(newGameResultId);
-            var gameResults = gameResultService.GetAllGameResults();
+            gameResultService.DeactivateGameResult(testGameResult.Id);
             //Assert
-            Assert.AreEqual(generatedGameResultsCount, gameResults.Count());
-        }
-
-        private static GameResult GetTestGameResult(Gamer gamer = null, GameTable table = null)
-        {
-            var newGameResultId = GameResultGenerator.GameResults.Max(x => x.Id) + 1;
-            return new GameResult
-            {
-                Id = newGameResultId,
-                GameTableId = table?.Id ?? GameTableGenerator.GameTable1.Id,
-                GameTable = table ?? GameTableGenerator.GameTable1,
-                GamerId = gamer?.Id ?? GamerGenerator.Gamer1.Id,
-                Gamer = gamer ?? GamerGenerator.Gamer1
-            };
-        }
-
-        private static Gamer GetTestGamer(string gamerId)
-        {
-            return new Gamer
-            {
-                Id = gamerId,
-                Nickname = "test",
-                Name = "test",
-                Email = $"{gamerId}@test.pl"
-            };
-        }
-
-        private static GameTable GetTestGameTable(int newGameTableId)
-        {
-            return new GameTable
-            {
-                Id = newGameTableId,
-                BoardGames = new List<BoardGame>(),
-                GameParticipations = null,
-                CreatedGamer = GamerGenerator.Gamer1,
-                Active = true
-            };
+            _gameResultRepositoryMock.Verify(mock => mock.Deactivate(testGameResult.Id), Times.Once());
         }
     }
 }

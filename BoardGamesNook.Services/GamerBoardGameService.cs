@@ -20,7 +20,7 @@ namespace BoardGamesNook.Services
 
         public GamerBoardGame GetGamerBoardGame(int id)
         {
-            return _gamerBoardGameRepository.GetGamerBoardGame(id);
+            return _gamerBoardGameRepository.Get(id);
         }
 
         public IEnumerable<BoardGame> GetGamerAvailableBoardGameList(string nickname)
@@ -34,27 +34,27 @@ namespace BoardGamesNook.Services
 
         public IEnumerable<GamerBoardGame> GetAllGamerBoardGames()
         {
-            return _gamerBoardGameRepository.GetAllGamerBoardGames();
+            return _gamerBoardGameRepository.GetAll();
         }
 
         public IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNickname(string gamerNickname)
         {
-            return _gamerBoardGameRepository.GetAllGamerBoardGamesByGamerNickname(gamerNickname);
+            return _gamerBoardGameRepository.GetAllByGamerNickname(gamerNickname);
         }
 
         public void Add(GamerBoardGame gamerBoardGame)
         {
-            _gamerBoardGameRepository.AddGamerBoardGame(gamerBoardGame);
+            _gamerBoardGameRepository.Add(gamerBoardGame);
         }
 
         public void EditGamerBoardGame(GamerBoardGame gamerBoardGame)
         {
-            _gamerBoardGameRepository.EditGamerBoardGame(gamerBoardGame);
+            _gamerBoardGameRepository.Edit(gamerBoardGame);
         }
 
-        public void DeleteGamerBoardGame(int id)
+        public void DeactivateGamerBoardGame(int id)
         {
-            _gamerBoardGameRepository.DeleteGamerBoardGame(id);
+            _gamerBoardGameRepository.Deactivate(id);
         }
     }
 }

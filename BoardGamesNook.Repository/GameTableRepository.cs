@@ -12,7 +12,7 @@ namespace BoardGamesNook.Repository
         private readonly BoardGameRepository _boardGameRepository = new BoardGameRepository();
         private readonly List<GameTable> _gameTables = GameTableGenerator.GameTables;
 
-        public GameTable GetGameTable(int id)
+        public GameTable Get(int id)
         {
             return _gameTables.FirstOrDefault(x => x.Id == id);
         }
@@ -24,7 +24,7 @@ namespace BoardGamesNook.Repository
 
         public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
         {
-            var availableTableBoardGameList = _boardGameRepository.GetAllGamerBoardGames();
+            var availableTableBoardGameList = _boardGameRepository.GetAll();
             if (table?.BoardGames != null)
                 availableTableBoardGameList =
                     availableTableBoardGameList.Where(x => !table.BoardGames.Contains(x)).ToList();
@@ -47,10 +47,10 @@ namespace BoardGamesNook.Repository
             gameTable.ModifiedDate = DateTimeOffset.Now;
         }
 
-        public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
+        public void EditGameTableParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
         {
             var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
-            var dbGameTable = GetGameTable(gameTableId);
+            var dbGameTable = Get(gameTableId);
             if (dbGameTable != null)
             {
                 dbGameTable.GameParticipations = gameParticipations;
@@ -60,10 +60,14 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void DeleteGameTable(int id)
+        public void Deactivate(int id)
         {
             var gameTable = _gameTables.FirstOrDefault(x => x.Id == id);
-            if (gameTable != null) _gameTables.Remove(gameTable);
+            if (gameTable != null)
+            {
+                gameTable.Active = false;
+                gameTable.ModifiedDate = DateTimeOffset.Now;
+            }
         }
     }
 }

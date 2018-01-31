@@ -15,7 +15,7 @@
             <ul>
                 <li *ngFor="let boardGame of gameTable.TableBoardGameList">
                     <span>{{boardGame.BoardGameName}}</span>
-                    <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+                    <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
                 </li>
             </ul>
         </div>

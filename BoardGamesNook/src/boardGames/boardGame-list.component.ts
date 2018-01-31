@@ -32,7 +32,7 @@ export class BoardGameListComponent implements OnInit {
 
     delete(boardGame: BoardGame): void {
         this.boardGameService
-            .delete(boardGame.Id)
+            .deactivate(boardGame.Id)
             .then(() => {
                 this.boardGames = this.boardGames.filter(g => g !== boardGame);
                 if (this.selectedBoardGame === boardGame) { this.selectedBoardGame = null; }

@@ -113,15 +113,15 @@ namespace BoardGamesNook.Controllers
                 return Json(string.Format(Errors.BoardGameTableWithIdNotFound, gameTableId),
                     JsonRequestBehavior.AllowGet);
 
-            _gameTableService.EditParticipations(gameParticipations, gamer);
+            _gameTableService.EditGameTableParticipations(gameParticipations, gamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Deactivate(int id)
         {
-            _gameTableService.DeleteGameTable(id);
+            _gameTableService.DeactivateGameTable(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

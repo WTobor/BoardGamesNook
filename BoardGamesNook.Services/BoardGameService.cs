@@ -19,12 +19,12 @@ namespace BoardGamesNook.Services
 
         public BoardGame Get(int id)
         {
-            return _boardGameRepository.GetGamerBoardGame(id);
+            return _boardGameRepository.Get(id);
         }
 
         public IEnumerable<BoardGame> GetAllGamerBoardGames()
         {
-            return _boardGameRepository.GetAllGamerBoardGames();
+            return _boardGameRepository.GetAll();
         }
 
         public List<SimilarBoardGame> AddOrGetSimilar(string name)
@@ -50,12 +50,12 @@ namespace BoardGamesNook.Services
 
         public void Edit(BoardGame boardGame)
         {
-            _boardGameRepository.EditGamerBoardGame(boardGame);
+            _boardGameRepository.Edit(boardGame);
         }
 
-        public void Delete(int id)
+        public void DeactivateBoardGame(int id)
         {
-            _boardGameRepository.DeleteGamerBoardGame(id);
+            _boardGameRepository.Deactivate(id);
         }
 
         public IEnumerable<BoardGame> GetAllByIds(IEnumerable<int> tableBoardGameIdList)

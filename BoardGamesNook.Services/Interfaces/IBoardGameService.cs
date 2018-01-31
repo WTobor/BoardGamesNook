@@ -16,7 +16,7 @@ namespace BoardGamesNook.Services.Interfaces
 
         void Edit(BoardGame boardGame);
 
-        void Delete(int id);
+        void DeactivateBoardGame(int id);
         IEnumerable<BoardGame> GetAllByIds(IEnumerable<int> tableBoardGameIdList);
     }
 }

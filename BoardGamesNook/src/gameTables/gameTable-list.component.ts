@@ -53,7 +53,7 @@ export class GameTableListComponent implements OnInit {
 
     delete(gameTable: GameTable): void {
         this.gameTableService
-            .delete(gameTable.Id)
+            .deactivate(gameTable.Id)
             .then(() => {
                 this.gameTables = this.gameTables.filter(g => g !== gameTable);
                 if (this.selectedGameTable === gameTable) { this.selectedGameTable = null; }

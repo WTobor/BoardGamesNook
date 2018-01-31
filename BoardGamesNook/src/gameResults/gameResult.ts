@@ -9,4 +9,5 @@
     Points: number| null;
     Place: number | null;
     PlayersNumber: number;
+    Active: boolean;
 }

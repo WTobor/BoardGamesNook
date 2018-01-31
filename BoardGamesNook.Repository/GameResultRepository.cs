@@ -11,46 +11,49 @@ namespace BoardGamesNook.Repository
     {
         private readonly List<GameResult> _gameResults = GameResultGenerator.GameResults;
 
-        public GameResult GetGameResult(int id)
+        public GameResult Get(int id)
         {
             return _gameResults.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<GameResult> GetAllGameResults()
+        public IEnumerable<GameResult> GetAll()
         {
             return _gameResults;
         }
 
-        public IEnumerable<GameResult> GetAllGameResultsByTableId(int tableId)
+        public IEnumerable<GameResult> GetAllByTableId(int tableId)
         {
             return _gameResults.Where(x => x.GameTableId == tableId).ToList();
         }
 
-        public IEnumerable<GameResult> GetAllGameResultsByGamerNickname(string nickname)
+        public IEnumerable<GameResult> GetAllByGamerNickname(string nickname)
         {
             return _gameResults.Where(x => x.Gamer != null && x.Gamer.Nickname == nickname).ToList();
         }
 
-        public void AddGameResult(GameResult gameResult)
+        public void Add(GameResult gameResult)
         {
             _gameResults.Add(gameResult);
         }
 
-        public void AddGameResults(List<GameResult> gameResults)
+        public void AddMany(List<GameResult> gameResults)
         {
             foreach (var gameResult in gameResults) _gameResults.Add(gameResult);
         }
 
-        public void EditGameResult(GameResult gameResult)
+        public void Edit(GameResult gameResult)
         {
             gameResult.ModifiedDate = DateTimeOffset.Now;
         }
 
-        public void DeleteGameResult(int id)
+        public void Deactivate(int id)
         {
             var gameResult = _gameResults.FirstOrDefault(x => x.Id == id);
             if (gameResult != null)
-                _gameResults.Remove(gameResult);
+            {
+                gameResult.Active = false;
+                gameResult.ModifiedDate = DateTimeOffset.Now;
+            }
         }
     }
 }

@@ -45,7 +45,7 @@ export class ParticipationListComponent implements OnInit {
 
     delete(participation: Participation): void {
         this.participationService
-            .delete(participation.Id)
+            .deactivate(participation.Id)
             .then(() => {
                 this.participations = this.participations.filter(g => g !== participation);
                 if (this.selectedParticipation === participation) { this.selectedParticipation = null; }

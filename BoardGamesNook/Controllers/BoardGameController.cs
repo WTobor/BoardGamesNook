@@ -62,9 +62,9 @@ namespace BoardGamesNook.Controllers
 
 
         [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Deactivate(int id)
         {
-            _boardGameService.Delete(id);
+            _boardGameService.DeactivateBoardGame(id);
             return Json(null, JsonRequestBehavior.AllowGet);
         }
     }

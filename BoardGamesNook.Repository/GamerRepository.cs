@@ -11,17 +11,17 @@ namespace BoardGamesNook.Repository
     {
         private readonly List<Gamer> _gamers = GamerGenerator.Gamers;
 
-        public Gamer GetGamer(string id)
+        public Gamer Get(string id)
         {
             return _gamers.FirstOrDefault(x => x.Id == id);
         }
 
-        public Gamer GetGamerByEmail(string userEmail)
+        public Gamer GetByEmail(string userEmail)
         {
             return _gamers.FirstOrDefault(x => x.Email == userEmail);
         }
 
-        public Gamer GetGamerByNickname(string userNickname)
+        public Gamer GetByNickname(string userNickname)
         {
             return _gamers.FirstOrDefault(x => x.Nickname == userNickname);
         }
@@ -31,17 +31,17 @@ namespace BoardGamesNook.Repository
             return _gamers.Select(x => x.Nickname).Contains(nickname);
         }
 
-        public IEnumerable<Gamer> GetAllGamers()
+        public IEnumerable<Gamer> GetAll()
         {
             return _gamers;
         }
 
-        public void AddGamer(Gamer gamer)
+        public void Add(Gamer gamer)
         {
             _gamers.Add(gamer);
         }
 
-        public void EditGamer(Gamer gamer)
+        public void Edit(Gamer gamer)
         {
             var dbGamer = _gamers.FirstOrDefault(x => x.Id == gamer.Id);
             if (dbGamer != null)
@@ -55,10 +55,14 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void DeactivateGamer(string id)
+        public void Deactivate(string id)
         {
             var gamer = _gamers.FirstOrDefault(x => x.Id == id);
-            if (gamer != null) gamer.Active = false;
+            if (gamer != null)
+            {
+                gamer.Active = false;
+                gamer.ModifiedDate = DateTimeOffset.Now;
+            }
         }
     }
 }

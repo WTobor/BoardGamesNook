@@ -12,7 +12,7 @@ export class GamerBoardGameService {
     private _getGamerBoardGameListUrl = "GamerBoardGame/GetAllByGamerNickname";
     private _addGamerBoardGameUrl = "GamerBoardGame/Add";
     private _editGamerBoardGameUrl = "GamerBoardGame/Edit";
-    private _deleteGamerBoardGameUrl = "GamerBoardGame/Delete";
+    private _deactivateGamerBoardGameUrl = "GamerBoardGame/Deactivate";
     private _getGamerAvailableBoardGamesUrl = "GamerBoardGame/GetGamerAvailableBoardGames";
 
     constructor(private http: Http) { }
@@ -51,8 +51,8 @@ export class GamerBoardGameService {
             .catch(err => { return Promise.reject(err); });
     }
 
-    delete(id: number): Promise<string> {
-        const url = `${this._deleteGamerBoardGameUrl}/${id}`;
+    deactivate(id: number): Promise<string> {
+        const url = `${this._deactivateGamerBoardGameUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })

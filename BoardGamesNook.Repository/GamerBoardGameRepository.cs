@@ -11,37 +11,40 @@ namespace BoardGamesNook.Repository
     {
         private readonly List<GamerBoardGame> _gamerBoardGames = GamerBoardGameGenerator.GamerBoardGames;
 
-        public GamerBoardGame GetGamerBoardGame(int id)
+        public GamerBoardGame Get(int id)
         {
             return _gamerBoardGames.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<GamerBoardGame> GetAllGamerBoardGames()
+        public IEnumerable<GamerBoardGame> GetAll()
         {
             return _gamerBoardGames;
         }
 
-        public IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNickname(string gamerNickname)
+        public IEnumerable<GamerBoardGame> GetAllByGamerNickname(string gamerNickname)
         {
             return _gamerBoardGames.Where(x => x.Gamer.Nickname == gamerNickname);
         }
 
-        public void AddGamerBoardGame(GamerBoardGame gamerBoardGame)
+        public void Add(GamerBoardGame gamerBoardGame)
         {
             _gamerBoardGames.Add(gamerBoardGame);
         }
 
-        public void EditGamerBoardGame(GamerBoardGame gamerBoardGame)
+        public void Edit(GamerBoardGame gamerBoardGame)
         {
             gamerBoardGame.ModifiedDate = DateTimeOffset.Now;
             gamerBoardGame.Active = false;
         }
 
-        public void DeleteGamerBoardGame(int id)
+        public void Deactivate(int id)
         {
             var gamerBoardGame = _gamerBoardGames.FirstOrDefault(x => x.Id == id);
             if (gamerBoardGame != null)
-                _gamerBoardGames.Remove(gamerBoardGame);
+            {
+                gamerBoardGame.Active = false;
+                gamerBoardGame.ModifiedDate = DateTimeOffset.Now;
+            }
         }
     }
 }

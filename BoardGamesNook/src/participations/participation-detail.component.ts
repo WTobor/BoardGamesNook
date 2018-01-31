@@ -33,7 +33,7 @@ export class ParticipationDetailComponent implements OnInit {
             });
     }
 
-    //TODO: delete
+    //TODO: deactivate
 
     save(): void {
         var loc = this.location;

@@ -81,12 +81,12 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Delete(int id)
+        public JsonResult Deactivate(int id)
         {
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            _gamerBoardGameService.DeleteGamerBoardGame(id);
+            _gamerBoardGameService.DeactivateGamerBoardGame(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

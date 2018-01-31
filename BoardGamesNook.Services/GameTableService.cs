@@ -22,7 +22,7 @@ namespace BoardGamesNook.Services
 
         public GameTable GetGameTable(int id)
         {
-            return _gameTableRepository.GetGameTable(id);
+            return _gameTableRepository.Get(id);
         }
 
         public IEnumerable<BoardGame> GetAvailableTableBoardGameListById(int id)
@@ -62,7 +62,7 @@ namespace BoardGamesNook.Services
             _gameTableRepository.EditGameTable(gameTable);
         }
 
-        public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
+        public void EditGameTableParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
         {
             foreach (var gameParticipation in gameParticipations)
             {
@@ -73,12 +73,12 @@ namespace BoardGamesNook.Services
                     _gameParticipationService.AddGameParticipation(gameParticipation);
             }
 
-            _gameTableRepository.EditParticipations(gameParticipations, modifiedGamer);
+            _gameTableRepository.EditGameTableParticipations(gameParticipations, modifiedGamer);
         }
 
-        public void DeleteGameTable(int id)
+        public void DeactivateGameTable(int id)
         {
-            _gameTableRepository.DeleteGameTable(id);
+            _gameTableRepository.Deactivate(id);
         }
     }
 }
