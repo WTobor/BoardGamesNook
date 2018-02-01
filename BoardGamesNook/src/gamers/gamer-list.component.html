@@ -1,4 +1,4 @@
-﻿<h3>LISTA GRACZY</h3>
+﻿<span class="font-weight-bold">LISTA GRACZY</span>
 
 <br/>
 <ul>
@@ -11,9 +11,9 @@
 </ul>
 
 <div *ngIf="selectedGamer">
-    <h3>
-        gracz {{selectedGamer.Nickname }} ({{selectedGamer.Name | uppercase}} {{selectedGamer.Surname | uppercase}})
-    </h3>
+    <span class="font-weight-bold">
+        GRACZA {{selectedGamer.Nickname }} ({{selectedGamer.Name | uppercase}} {{selectedGamer.Surname | uppercase}})
+    </span>
     <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły gracza</button>
     <button class="btn btn-primary" (click)="gotoGamerBoardGames()">Kolekcja gier gracza</button>
 </div>

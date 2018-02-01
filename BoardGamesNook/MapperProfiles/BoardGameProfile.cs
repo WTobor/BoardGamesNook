@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BoardGamesNook.Model;
+using BoardGamesNook.ViewModels.BoardGame;
 using BoardGamesNook.ViewModels.GamerBoardGame;
 using BoardGamesNook.ViewModels.GameTable;
 
@@ -17,6 +18,8 @@ namespace BoardGamesNook.MapperProfiles
                 .ForMember(dest => dest.BoardGameId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.BoardGameName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+            CreateMap<BoardGameViewModel, BoardGame>();
+
         }
     }
 }

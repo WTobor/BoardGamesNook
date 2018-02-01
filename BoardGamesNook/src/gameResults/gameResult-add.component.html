@@ -1,7 +1,7 @@
 ﻿<div *ngIf="gamerGameTables?.length > 0; then gamerGameTableExists else gamerGameTableNotExists"></div>
 
 <ng-template #gamerGameTableNotExists>
-    <h3>Nowy wynik gry</h3>
+    <span class="font-weight-bold">NOWY WYNIK GRY</span>
     <table>
         <tr>
             <td><label>Gra:</label></td>
@@ -59,7 +59,7 @@
 </ng-template>
 
 <ng-template #gamerGameTableExists>
-    <h3>Nowy wynik gry stołu:</h3>
+    <span class="font-weight-bold">NOWY WYNIK GRY STOŁU</span>
     <table>
         <tr>
             <td><label>Stół:</label></td>

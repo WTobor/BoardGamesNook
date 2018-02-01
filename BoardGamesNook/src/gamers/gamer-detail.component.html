@@ -2,11 +2,7 @@
     <div *ngIf="!isCurrentGamer; then notCurrentGamer else currentGamer"></div>
     
     <ng-template #notCurrentGamer>
-    <h3>Gracz</h3>
-        <h4>{{ gamer.Nickname }}</h4>
-        <div hidden>
-            <label>Id: </label>{{ gamer.Id }}
-        </div>
+    <span class="font-weight-bold">Gracz {{gamer.Nickname}}</span>
         <table>
             <tr>
                 <td><label>Imię: </label></td>
@@ -35,10 +31,7 @@
     </ng-template>
     
     <ng-template #currentGamer>
-        <h3>Edytuj konto </h3>
-        <div hidden>
-            <label>Id: </label>{{ gamer.Id }}
-        </div>
+        <span class="font-weight-bold">EDYCJA KONTA </span>
         <table>
             <tr>
                 <td><label>Nickname: </label></td>

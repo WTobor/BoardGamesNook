@@ -4,13 +4,13 @@
 <ng-template #afterLogin>
     <div *ngIf="currentGamer?.Id != 'new'; then gamerExists else gamerNotExists"></div>
     <ng-template #gamerExists>
-        <nav style="margin-bottom: 10px;">
+        <nav style="margin-bottom: 5px;">
             <div class="container">
                 <div class="navbar">
                     <a class="navbar" href="" style="color: black; font-weight: bold; text-align: left">
-                        <h3 align="center">
+                        <span class="font-weight-bold" align="center">
                             BoardGamesNook <br />Kącik gier planszowych
-                        </h3>
+                        </span>
                     </a>
                     <div style="align-content: right">
                         <b>
@@ -104,7 +104,7 @@
             </div>
         </nav>
         <div class="text-center">
-            <h3>Zaloguj się za pomocą konta:</h3>
+            <span class="font-weight-bold">Zaloguj się za pomocą konta:</span>
             <div>
                 <div>
                     Facebook
@@ -133,4 +133,3 @@
     </div>
 </ng-template>
 <router-outlet></router-outlet>
-<!--<link href="~/node_modules/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">-->

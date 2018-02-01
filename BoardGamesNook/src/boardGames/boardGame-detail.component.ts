@@ -28,6 +28,13 @@ export class BoardGameDetailComponent implements OnInit {
             .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        this.save();
+    }
+
     save(): void {
         var loc = this.location;
         this.boardGameService.update(this.boardGame)

@@ -30,6 +30,13 @@ export class BoardGameAddComponent implements OnInit {
             .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        this.add(submittedForm.value.name);
+    }
+
     add(name: string): void {
         var loc = this.location;
         this.boardGameService.create(name)

@@ -1,10 +1,9 @@
-﻿<h3>LISTA STOŁÓW DO GRY</h3>
+﻿<span class="font-weight-bold">LISTA STOŁÓW DO GRY</span>
 
 <br/>
 <ul>
     <li *ngFor="let gameTable of gameTables" (click)="onSelect(gameTable)">
         <div *ngIf="gameTable">
-            <span class="hidden">{{ gameTable.Id }}</span>
             <span *ngIf="gameTable.TableBoardGameList == null">
                 stół {{gameTable.Name | uppercase}} gracza {{gameTable.GamerNickname | uppercase}}. Brak wybranych gier.
             </span>
@@ -22,9 +21,9 @@
 
 <button *ngIf="isCurrentGamer" class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
 <div *ngIf="selectedGameTable">
-    <h3>
-        Stół {{selectedGameTable.Name | uppercase}} gracza {{selectedGameTable.GamerNickname | uppercase}}
-    </h3>
+    <span class="font-weight-bold">
+        STÓŁ {{selectedGameTable.Name | uppercase}} GRACZA {{selectedGameTable.GamerNickname | uppercase}}
+    </span>
     <div *ngIf="selectedGameTable.TableBoardGameList">
         Wybrane pozycje:
         <ul>

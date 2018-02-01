@@ -4,10 +4,10 @@
     <ng-template #currentGamer>
         <div *ngIf="isCreated then existGameTable else notExistGameTable"></div>
         <ng-template #existGameTable>
-            <h3>STÓŁ {{ gameTable.Name }}</h3>
+            <span class="font-weight-bold">STÓŁ {{ gameTable.Name }}</span>
         </ng-template>
         <ng-template #notExistGameTable>
-            <h3>STÓŁ</h3>
+            <span class="font-weight-bold">STÓŁ</span>
         </ng-template>
 
         <div *ngIf="gameTable.TableBoardGameList">
@@ -100,7 +100,7 @@
     </ng-template>
 
     <ng-template #notCurrentGamer>
-        <h3>STÓŁ</h3>
+        <span class="font-weight-bold">STÓŁ</span>
 
         <label>Twórca: </label> {{ gameTable.GamerNickname }}
         <div *ngIf="gameTable.TableBoardGameList">
@@ -112,9 +112,6 @@
             </ul>
         </div>
 
-        <div hidden>
-            {{ gameTable.Id }}
-        </div>
         <table>
             <tr>
                 <td>
