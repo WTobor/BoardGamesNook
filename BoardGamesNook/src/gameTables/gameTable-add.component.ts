@@ -32,6 +32,7 @@ export class GameTableAddComponent implements OnInit {
             .switchMap(() => this.gameTableService.getGameTable(0))
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
+                this.gameTable.TableBoardGameList = new Array<TableBoardGame>();
                 this.getAvailableTableBoardGameList(0);
             });
     }

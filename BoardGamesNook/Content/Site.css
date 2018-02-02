@@ -11,13 +11,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 .delete-icon {
     cursor: pointer;
 }
@@ -40,4 +33,9 @@ textarea {
 .footer a {
     color: gray;
     text-decoration: underline;
+}
+
+.page-header {
+    font-weight: bold;
+    margin-bottom: 1rem;
 }

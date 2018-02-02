@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "Content/bootstrap-checkbox.min.css",
+    "inputFiles": [
+      "Content/bootstrap-checkbox.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/bootstrap.min.css",
+    "inputFiles": [
+      "Content/bootstrap.css"
+    ]
+  }
+]

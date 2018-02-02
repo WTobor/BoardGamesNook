@@ -271,6 +271,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="bundleconfig.json" />
     <None Include="Properties\PublishProfiles\BoardGamesNook - Web Deploy.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -293,6 +294,7 @@
     <Content Include="src\about\about.component.html" />
     <Content Include="src\boardGames\boardGame-detail.component.html" />
     <Content Include="src\boardGames\boardGame-list.component.html" />
+    <Content Include="src\gameResults\gameResult-addMany.component.html" />
     <Content Include="src\gamers\gamer-detail.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-add.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-detail.component.html" />
@@ -392,6 +394,7 @@
     <TypeScriptCompile Include="src\boardGames\similarBoardGame.ts" />
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\dialog.service.ts" />
+    <TypeScriptCompile Include="src\gameResults\gameResult-addMany.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-add.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-detail.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-list.component.ts" />

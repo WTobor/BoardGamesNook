@@ -1,13 +1,15 @@
-﻿<span class="font-weight-bold">NOWA GRA</span>
-<div *ngIf="boardGameNotFound; then bgNotFound else bgFound"></div>
+﻿<div *ngIf="boardGameNotFound; then bgNotFound else bgFound"></div>
 
 <ng-template #bgFound>
-    <form class="col-md-8" (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="page-header">
+            NOWA GRA
+        </div>
         <div class="form-group row">
-            <label class="col-md-4 col-form-label" for="name">Nazwa</label>
-            <div class="col-md-4">
-                <input class="form-control" type="text" id="name" name="name" 
-                       [(ngModel)]="name" #nameCtrl="ngModel" required/>
+            <label class="col-md-4" for="name">Nazwa</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" id="name" name="name"
+                        [(ngModel)]="name" #nameCtrl="ngModel" required/>
                 <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
                     Podaj nazwę!
                 </span>
@@ -29,7 +31,7 @@
         <span>Czy chodziło Ci o:</span>
         <ul>
             <li *ngFor="let similarBoardGame of similarBoardGames" class="form-group row">
-                <a class="col-md-4 col-form-label" href="https://boardgamegeek.com/boardgame/{{similarBoardGame.Id}}" target="_blank">
+                <a class="col-md-8" href="https://boardgamegeek.com/boardgame/{{similarBoardGame.Id}}" target="_blank">
                     {{ similarBoardGame.Name }}
                 </a>
                 <div class="col-md-4">
@@ -40,5 +42,5 @@
             </li>
         </ul>
     </div>
-    
+
 </ng-template>

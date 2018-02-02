@@ -42,4 +42,8 @@ export class GameResultListComponent implements OnInit {
     gotoAdd(): void {
         this.router.navigate(["/gameResult", 0]);
     }
+
+    gotoAddMany(): void {
+        this.router.navigate(["/gameResults", 0]);
+    }
 }

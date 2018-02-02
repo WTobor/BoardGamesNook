@@ -19,6 +19,7 @@ export class GameTableDetailComponent implements OnInit {
     availableTableBoardGames: TableBoardGame[];
     selectedTableBoardGame: TableBoardGame;
     isCurrentGamer = false;
+    //TODO: add isMember to allow edit
 
     constructor(
         private gameTableService: GameTableService,
@@ -62,12 +63,19 @@ export class GameTableDetailComponent implements OnInit {
         //TODO: count minPlayers and maxPlayers by boardGames
     }
 
-    delete(tableBoardGame: TableBoardGame): void {
+    deactivate(tableBoardGame: TableBoardGame): void {
         this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList.filter(t => t !== tableBoardGame);
         this.availableTableBoardGames.push(tableBoardGame);
         if (this.selectedTableBoardGame === tableBoardGame) {
             this.selectedTableBoardGame = null;
         }
+    }
+
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        this.save();
     }
 
     save(): void {

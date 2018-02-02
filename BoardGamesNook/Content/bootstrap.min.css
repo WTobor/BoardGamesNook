@@ -339,8 +339,15 @@ button, html [type="button"], [type="reset"], [type="submit"] {
 input[type="radio"], input[type="checkbox"] {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 0
+    padding: 0;
+    height: 50%;
+    width: 50%;
+    margin: auto;
 }
+
+    input[type="radio"], input[type="checkbox"]:focus {
+        box-shadow: none;
+    }
 
 input[type="date"], input[type="time"], input[type="datetime-local"], input[type="month"] {
     -webkit-appearance: listbox
@@ -2075,6 +2082,7 @@ pre {
 
 .form-control {
     display: block;
+    text-align: right;
     width: 100%;
     padding: 0.5rem 1.1rem;
     font-size: 1.063rem;
@@ -9071,4 +9079,27 @@ table-success, table-info, table-warning, table-danger, .table-success, .table-i
 
 .list-group {
     font-size: 14px
+}
+
+
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.glyphicon-remove:before {
+    content: "\e014";
 }

@@ -1,20 +1,22 @@
-﻿<span class="font-weight-bold">LISTA GIER</span>
+﻿<form class="col-md-8 container">
+    <div class="page-header">
+        LISTA GIER
+    </div>
+    <ul>
+        <li *ngFor="let boardGame of boardGames" (click)="onSelect(boardGame)">
+            <span class="hidden">{{ boardGame.Id }}</span>
+            <span>{{ boardGame.Name }}</span>
+            <button *ngIf="isAdmin" (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+        </li>
+    </ul>
 
-<br/>
-<ul>
-    <li *ngFor="let boardGame of boardGames" (click)="onSelect(boardGame)">
-        <span class="hidden">{{ boardGame.Id }}</span>
-        <span>{{ boardGame.Name }}</span>
-        <button *ngIf="isAdmin" (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
-    </li>
-</ul>
-
-<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>
-<div *ngIf="selectedBoardGame">
-    <h4>
-        <a href="https://boardgamegeek.com/boardgame/{{selectedBoardGame.BGGId}}" target="_blank">
-            <img src="{{selectedBoardGame.ImageUrl}}"/>
-        </a>
-    </h4>
-    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
-</div>
+    <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>
+    <div *ngIf="selectedBoardGame">
+        <h4>
+            <a href="https://boardgamegeek.com/boardgame/{{selectedBoardGame.BGGId}}" target="_blank">
+                <img src="{{selectedBoardGame.ImageUrl}}" />
+            </a>
+        </h4>
+        <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
+    </div>
+</form>

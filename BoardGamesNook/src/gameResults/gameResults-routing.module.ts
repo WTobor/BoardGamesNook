@@ -4,10 +4,12 @@ import { RouterModule, Routes } from "@angular/router";
 import { GameResultListComponent } from "./gameResult-list.component";
 import { GameResultDetailComponent } from "./gameResult-detail.component";
 import { GameResultAddComponent } from "./gameResult-add.component";
+import {GameResultAddManyComponent} from "./gameResult-addMany.component";
 
 const resultsRoutes: Routes = [
     { path: "gameResults", component: GameResultListComponent },
     { path: "gameResult/0", component: GameResultAddComponent },
+    { path: "gameResults/0", component: GameResultAddManyComponent },
     { path: "gameResults/:nickname", component: GameResultDetailComponent }
 ];
 

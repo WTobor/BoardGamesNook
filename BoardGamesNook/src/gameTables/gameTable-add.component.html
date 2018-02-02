@@ -1,18 +1,20 @@
-﻿<span class="font-weight-bold">NOWY STÓŁ</span>
-<form class="col-md-8" (ngSubmit)="onSubmit(form)" #form="ngForm">
+﻿<form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div class="page-header">
+        NOWY STÓŁ
+    </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="name">Nazwa</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="name">Nazwa</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="name" name="name"
-                   [(ngModel)]="name" #nameCtrl="ngModel" required />
+                   [(ngModel)]="name" #nameCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
                 Podaj nazwę!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label">Dodaj grę</label>
-        <div class="col-md-4">
+        <label class="col-md-4">Dodaj grę</label>
+        <div class="col-md-8">
             <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
                 <select #selectedTableBoardGame>
                     <option *ngFor="let tableBoardGame of availableTableBoardGames"
@@ -30,8 +32,8 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label">Wybrane gry</label>
-        <div class="col-md-4">
+        <label class="col-md-4">Wybrane gry</label>
+        <div class="col-md-8">
             <ul>
                 <li *ngFor="let boardGame of gameTable.TableBoardGameList">
                     <span>{{boardGame.BoardGameName}}</span>
@@ -41,47 +43,47 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="minPlayers">Minimalna liczba graczy</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="minPlayers">Minimalna liczba graczy</label>
+        <div class="col-md-8">
             <input class="form-control" type="number" id="minPlayers" name="minPlayers"
-                   [(ngModel)]="minPlayers" #minPlayersCtrl="ngModel" required />
+                   [(ngModel)]="minPlayers" #minPlayersCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="minPlayersCtrl.invalid && minPlayersCtrl.touched">
                 Podaj minimalną liczbę graczy!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="maxPlayers">Maksymalna liczba graczy</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="maxPlayers">Maksymalna liczba graczy</label>
+        <div class="col-md-8">
             <input class="form-control" type="number" id="maxPlayers" name="maxPlayers"
-                   [(ngModel)]="maxPlayers" #maxPlayersCtrl="ngModel" required />
+                   [(ngModel)]="maxPlayers" #maxPlayersCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="maxPlayersCtrl.invalid && maxPlayersCtrl.touched">
                 Podaj maksymalną liczbę graczy!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="city">Miasto</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="city">Miasto</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="city" name="city"
-                   [(ngModel)]="city" #cityCtrl="ngModel" required />
+                   [(ngModel)]="city" #cityCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="cityCtrl.invalid && cityCtrl.touched">
                 Podaj miasto!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="street">Ulica</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="street">Ulica</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="street" name="street"
-                   [(ngModel)]="street" #streetCtrl="ngModel" />
+                   [(ngModel)]="street" #streetCtrl="ngModel"/>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-md-4 col-form-label" for="isPrivate">Prywatny</label>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <input class="form-control" type="checkbox" id="isPrivate" name="isPrivate"
-                   value="false" [(ngModel)]="isPrivate" #isPrivateCtrl="ngModel" />
+                   value="false" [(ngModel)]="isPrivate" #isPrivateCtrl="ngModel"/>
         </div>
     </div>
     <div class="form-group text-center">

@@ -1,60 +1,62 @@
-﻿<span class="font-weight-bold">Nowy gracz</span>
-<form class="col-md-8" (ngSubmit)="onSubmit(form)" #form="ngForm">
+﻿<form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div class="page-header">
+        NOWY GRACZ
+    </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="nickname">Nickname</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="nickname">Nickname</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="nickname" name="nickname"
-                   [(ngModel)]="nickname" #nicknameCtrl="ngModel" required />
+                   [(ngModel)]="nickname" #nicknameCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="nicknameCtrl.invalid && nicknameCtrl.touched">
                 Podaj nickname!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="name">Imię</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="name">Imię</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="name" name="name"
-                   [(ngModel)]="name" #nameCtrl="ngModel" required />
+                   [(ngModel)]="name" #nameCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
                 Podaj imię!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="surname">Imię</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="surname">Imię</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="surname" name="surname"
-                   [(ngModel)]="surname" #surnameCtrl="ngModel" required />
+                   [(ngModel)]="surname" #surnameCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="surnameCtrl.invalid && surnameCtrl.touched">
                 Podaj nazwisko!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="age">Wiek</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="age">Wiek</label>
+        <div class="col-md-8">
             <input class="form-control" type="number" id="age" name="age"
-                   [(ngModel)]="age" #ageCtrl="ngModel" required />
+                   [(ngModel)]="age" #ageCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="ageCtrl.invalid && ageCtrl.touched">
                 Podaj nazwisko!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="city">Miasto</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="city">Miasto</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="city" name="city"
-                   [(ngModel)]="city" #cityCtrl="ngModel" required />
+                   [(ngModel)]="city" #cityCtrl="ngModel" required/>
             <span class="form-control-feedback" *ngIf="cityCtrl.invalid && cityCtrl.touched">
                 Podaj miasto!
             </span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-4 col-form-label" for="street">Ulica</label>
-        <div class="col-md-4">
+        <label class="col-md-4" for="street">Ulica</label>
+        <div class="col-md-8">
             <input class="form-control" type="text" id="street" name="street"
-                   [(ngModel)]="street" #streetCtrl="ngModel" />
+                   [(ngModel)]="street" #streetCtrl="ngModel"/>
         </div>
     </div>
     <div class="form-group text-center">
