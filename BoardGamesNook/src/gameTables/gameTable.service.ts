@@ -4,8 +4,6 @@ import { Headers, Http } from "@angular/http";
 import "rxjs/add/operator/toPromise";
 
 import { GameTable } from "./gameTable";
-
-import { Common } from "./../Common";
 import { TableBoardGame } from "./tableBoardGame";
 
 @Injectable()
@@ -26,7 +24,6 @@ export class GameTableService {
         return this.http.get(url)
             .toPromise()
             .then(response => {
-                console.log(response.json());
                 return response.json() as TableBoardGame[];
             })
             .catch (err => { return Promise.reject(err); });

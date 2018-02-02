@@ -29,6 +29,13 @@ export class GamerAddComponent implements OnInit {
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        this.add(submittedForm.value.nickname, submittedForm.value.name, submittedForm.value.surname, submittedForm.value.age, submittedForm.value.city, submittedForm.value.street);
+    }
+
     add(nickname: string, name: string, surname: string, age: number, city: string, street: string): void {
         this.gamer = new Gamer;
         this.gamer.Nickname = nickname;

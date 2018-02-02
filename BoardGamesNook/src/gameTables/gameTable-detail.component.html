@@ -2,13 +2,7 @@
     <div *ngIf="isCurrentGamer then currentGamer else notCurrentGamer"></div>
 
     <ng-template #currentGamer>
-        <div *ngIf="isCreated then existGameTable else notExistGameTable"></div>
-        <ng-template #existGameTable>
-            <span class="font-weight-bold">STÓŁ {{ gameTable.Name }}</span>
-        </ng-template>
-        <ng-template #notExistGameTable>
-            <span class="font-weight-bold">STÓŁ</span>
-        </ng-template>
+        <span class="font-weight-bold">STÓŁ {{ gameTable.Name }}</span>
 
         <div *ngIf="gameTable.TableBoardGameList">
             <label>Wybrane pozycje:</label>
@@ -20,18 +14,7 @@
             </ul>
         </div>
 
-        <div hidden>
-            {{ gameTable.Id }}
-        </div>
         <table>
-            <tr *ngIf="gameTable.Id == 0">
-                <td>
-                    <label>Nazwa stołu: </label>
-                </td>
-                <td>
-                    <input [(ngModel)]="gameTable.Name" type="text"/>
-                </td>
-            </tr>
             <tr>
                 <td>
                     <label>Dodaj grę: </label>
@@ -100,7 +83,7 @@
     </ng-template>
 
     <ng-template #notCurrentGamer>
-        <span class="font-weight-bold">STÓŁ</span>
+        <span class="font-weight-bold">STÓŁ {{ gameTable.Name }}</span>
 
         <label>Twórca: </label> {{ gameTable.GamerNickname }}
         <div *ngIf="gameTable.TableBoardGameList">
@@ -142,7 +125,7 @@
                     <label>Prywatny: </label>
                 </td>
                 <td>
-                    <input [(ngModel)]="gameTable.IsPrivate" type="checkbox" disabled="true"/>
+                    <input [(ngModel)]="gameTable.IsPrivate" type="checkbox" disabled="disabled"/>
                 </td>
             </tr>
         </table>

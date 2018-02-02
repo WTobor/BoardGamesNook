@@ -1,70 +1,56 @@
 ﻿<div *ngIf="gamer">
-    <div *ngIf="!isCurrentGamer; then notCurrentGamer else currentGamer"></div>
-    
-    <ng-template #notCurrentGamer>
-    <span class="font-weight-bold">Gracz {{gamer.Nickname}}</span>
-        <table>
-            <tr>
-                <td><label>Imię: </label></td>
-                <td>{{ gamer.Name}}</td>
-            </tr>
-            <tr>
-                <td><label>Nazwisko: </label></td>
-                <td>{{ gamer.Surname }}</td>
-            </tr>
-            <tr>
-                <td><label>Wiek: </label></td>
-                <td>{{ gamer.Age }} </td>
-            </tr>
-            <tr>
-                <td><label>Miasto: </label></td>
-                <td>{{ gamer.City }}</td>
-            </tr>
-            <tr>
-                <td><label>Ulica: </label></td>
-                <td>{{ gamer.Street }}</td>
-            </tr>
-        </table>
-        <p>
+    <form class="col-md-8" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <span class="font-weight-bold">GRACZ {{gamer.Nickname}}</span>
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" for="name">Imię</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" id="name" name="name"
+                        [(ngModel)]="gamer.Name" #nameCtrl="ngModel" required [readonly]="!isCurrentGamer" />
+                <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+                    Podaj imię!
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" for="surname">Nazwisko</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" id="surname" name="surname"
+                        [(ngModel)]="gamer.Surname" #surnameCtrl="ngModel" required [readonly]="!isCurrentGamer" />
+                <span class="form-control-feedback" *ngIf="surnameCtrl.invalid && surnameCtrl.touched">
+                    Podaj nazwisko!
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" for="age">Wiek</label>
+            <div class="col-md-4">
+                <input class="form-control" type="number" id="age" name="age"
+                        [(ngModel)]="gamer.Age" #ageCtrl="ngModel" required [readonly]="!isCurrentGamer" />
+                <span class="form-control-feedback" *ngIf="ageCtrl.invalid && ageCtrl.touched">
+                    Podaj wiek!
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" for="city">Miasto</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" id="city" name="city"
+                        [(ngModel)]="gamer.City" #cityCtrl="ngModel" require [readonly]="!isCurrentGamer"d />
+                <span class="form-control-feedback" *ngIf="cityCtrl.invalid && cityCtrl.touched">
+                    Podaj miasto!
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label" for="street">Ulica</label>
+            <div class="col-md-4">
+                <input class="form-control" type="text" id="street" name="street"
+                       [(ngModel)]="gamer.Street" #streetCtrl="ngModel" [readonly]="!isCurrentGamer" />
+            </div>
+        </div>
+        <div class="form-group text-center">
             <button class="btn btn-default" (click)="goBack()">Powrót</button>
-        </p>
-    </ng-template>
-    
-    <ng-template #currentGamer>
-        <span class="font-weight-bold">EDYCJA KONTA </span>
-        <table>
-            <tr>
-                <td><label>Nickname: </label></td>
-                <td>{{ gamer.Nickname }}</td>
-            </tr>
-            <tr>
-                <td><label>Email: </label></td>
-                <td>{{ gamer.Email }}</td>
-            </tr>
-            <tr>
-                <td><label>Imię: </label></td>
-                <td><input [(ngModel)]="gamer.Name" /></td>
-            </tr>
-            <tr>
-                <td><label>Nazwisko: </label></td>
-                <td><input [(ngModel)]="gamer.Surname" /></td>
-            </tr>
-            <tr>
-                <td><label>Wiek: </label></td>
-                <td><input [(ngModel)]="gamer.Age" /></td>
-            </tr>
-            <tr>
-                <td><label>Miasto: </label></td>
-                <td><input [(ngModel)]="gamer.City" /></td>
-            </tr>
-            <tr>
-                <td><label>Ulica: </label></td>
-                <td><input [(ngModel)]="gamer.Street" /></td>
-            </tr>
-        </table>
-
-        <p>
-            <button class="btn btn-success" (click)="save()">Zapisz</button>
-        </p>
-    </ng-template>
+            <button class="btn btn-success" type="submit" [disabled]="form.invalid">Zapisz</button>
+        </div>
+    </form>
 </div>

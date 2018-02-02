@@ -36,6 +36,14 @@ export class GamerDetailComponent implements OnInit {
             });
     }
 
+    
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        this.save();
+    }
+
     save(): void {
         var loc = this.location;
         this.gamerService.update(this.gamer)

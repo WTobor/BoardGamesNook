@@ -61,7 +61,7 @@ export class GameTableListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gameTable", this.selectedGameTable.Id]);
+        this.router.navigate(["/gameTable", this.selectedGameTable.TableId]);
     }
 
     gotoJoin(): void {

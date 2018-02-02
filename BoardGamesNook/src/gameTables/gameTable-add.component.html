@@ -1,0 +1,95 @@
+﻿<span class="font-weight-bold">NOWY STÓŁ</span>
+<form class="col-md-8" (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="name">Nazwa</label>
+        <div class="col-md-4">
+            <input class="form-control" type="text" id="name" name="name"
+                   [(ngModel)]="name" #nameCtrl="ngModel" required />
+            <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+                Podaj nazwę!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label">Dodaj grę</label>
+        <div class="col-md-4">
+            <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
+                <select #selectedTableBoardGame>
+                    <option *ngFor="let tableBoardGame of availableTableBoardGames"
+                            [value]="tableBoardGame.BoardGameId">
+                        {{tableBoardGame.BoardGameName}}
+                    </option>
+                </select>
+                <button class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">
+                    Dodaj
+                </button>
+            </div>
+            <div *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
+                Brak dostępnych gier dla tego stołu
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label">Wybrane gry</label>
+        <div class="col-md-4">
+            <ul>
+                <li *ngFor="let boardGame of gameTable.TableBoardGameList">
+                    <span>{{boardGame.BoardGameName}}</span>
+                    <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="minPlayers">Minimalna liczba graczy</label>
+        <div class="col-md-4">
+            <input class="form-control" type="number" id="minPlayers" name="minPlayers"
+                   [(ngModel)]="minPlayers" #minPlayersCtrl="ngModel" required />
+            <span class="form-control-feedback" *ngIf="minPlayersCtrl.invalid && minPlayersCtrl.touched">
+                Podaj minimalną liczbę graczy!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="maxPlayers">Maksymalna liczba graczy</label>
+        <div class="col-md-4">
+            <input class="form-control" type="number" id="maxPlayers" name="maxPlayers"
+                   [(ngModel)]="maxPlayers" #maxPlayersCtrl="ngModel" required />
+            <span class="form-control-feedback" *ngIf="maxPlayersCtrl.invalid && maxPlayersCtrl.touched">
+                Podaj maksymalną liczbę graczy!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="city">Miasto</label>
+        <div class="col-md-4">
+            <input class="form-control" type="text" id="city" name="city"
+                   [(ngModel)]="city" #cityCtrl="ngModel" required />
+            <span class="form-control-feedback" *ngIf="cityCtrl.invalid && cityCtrl.touched">
+                Podaj miasto!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="street">Ulica</label>
+        <div class="col-md-4">
+            <input class="form-control" type="text" id="street" name="street"
+                   [(ngModel)]="street" #streetCtrl="ngModel" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="isPrivate">Prywatny</label>
+        <div class="col-md-4">
+            <input class="form-control" type="checkbox" id="isPrivate" name="isPrivate"
+                   value="false" [(ngModel)]="isPrivate" #isPrivateCtrl="ngModel" />
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-default" (click)="goBack()">
+            Powrót
+        </button>
+        <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+            Dodaj
+        </button>
+    </div>
+</form>

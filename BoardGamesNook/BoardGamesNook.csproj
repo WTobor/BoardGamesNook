@@ -297,6 +297,7 @@
     <Content Include="src\gamerBoardGames\gamerBoardGame-add.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-detail.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-list.component.html" />
+    <Content Include="src\gameTables\gameTable-add.component.html" />
     <Content Include="src\gameTables\gameTable-detail.component.html" />
     <Content Include="src\gameTables\gameTable-list.component.html" />
     <Content Include="src\gameResults\gameResult-add.component.html" />
@@ -405,6 +406,7 @@
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGame.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames-routing.module.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames.module.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTable-add.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-detail.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-list.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable.service.ts" />
