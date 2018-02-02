@@ -16,7 +16,7 @@ export class ParticipationService {
     private _getParticipationListByGamerNicknameUrl = "Participation/GetAllByGamerNickname";
     private _addParticipationUrl = "Participation/Add";
     private _editParticipationUrl = "Participation/Edit";
-    private _deleteParticipationUrl = "Participation/Delete";
+    private _deactivateParticipationUrl = "Participation/Deactivate";
 
     constructor(private http: Http) { }
 
@@ -68,9 +68,9 @@ export class ParticipationService {
             .catch(err => { return Promise.reject(err); });
     }
 
-    delete(id: number): Promise<string> {
+    deactivate(id: number): Promise<string> {
         // id - boardGameId
-        const url = `${this._deleteParticipationUrl}/${id}`;
+        const url = `${this._deactivateParticipationUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })

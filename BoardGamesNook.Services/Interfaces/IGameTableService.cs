@@ -11,14 +11,14 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<GameTable> GetAllGameTables();
 
-        IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table);
+        IEnumerable<BoardGame> GetAvailableTableBoardGameListById(int id);
 
-        void CreateGameTable(GameTable gameTable, List<int> tableBoardGameIdList);
+        void CreateGameTable(GameTable gameTable, IEnumerable<int> tableBoardGameIdList);
 
-        void EditGameTable(GameTable gameTable);
+        void EditGameTable(int id, List<int> tableBoardGameIdList);
 
-        void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer);
+        void EditGameTableParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer);
 
-        void DeleteGameTable(int id);
+        void DeactivateGameTable(int id);
     }
 }

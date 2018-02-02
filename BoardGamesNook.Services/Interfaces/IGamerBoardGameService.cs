@@ -8,6 +8,7 @@ namespace BoardGamesNook.Services.Interfaces
         GamerBoardGame GetGamerBoardGame(int id);
 
         IEnumerable<GamerBoardGame> GetAllGamerBoardGames();
+        IEnumerable<BoardGame> GetGamerAvailableBoardGameList(string nickname);
 
         IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNickname(string gamerNickname);
 
@@ -15,6 +16,6 @@ namespace BoardGamesNook.Services.Interfaces
 
         void EditGamerBoardGame(GamerBoardGame boardGame);
 
-        void DeleteGamerBoardGame(int id);
+        void DeactivateGamerBoardGame(int id);
     }
 }

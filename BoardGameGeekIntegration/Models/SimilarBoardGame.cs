@@ -1,5 +1,4 @@
-﻿
-namespace BoardGameGeekIntegration.Models
+﻿namespace BoardGameGeekIntegration.Models
 {
     public class SimilarBoardGame
     {

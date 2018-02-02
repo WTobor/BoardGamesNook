@@ -35,7 +35,7 @@ export class GameTableDetailComponent implements OnInit {
                 this.gameTable = gameTable;
                 this.getAvailableTableBoardGameList(this.gameTable.Id);
                 this.gamerService.getCurrentGamerNickname().then(nickname => {
-                    if (nickname === this.gameTable.GamerNickname) {
+                    if (nickname === this.gameTable.CreatedGamerNickname) {
                         this.isCurrentGamer = true;
                     }
                 });

@@ -37,7 +37,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAll()
         {
             var gamerList = _gamerService.GetAllGamers();
-            var gamerViewModelList = Mapper.Map<List<GamerViewModel>>(gamerList);
+            var gamerViewModelList = Mapper.Map<IEnumerable<GamerViewModel>>(gamerList);
             return Json(gamerViewModelList, JsonRequestBehavior.AllowGet);
         }
 

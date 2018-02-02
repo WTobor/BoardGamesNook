@@ -5,20 +5,20 @@ namespace BoardGamesNook.Repository.Interfaces
 {
     public interface IGamerRepository
     {
-        Gamer GetGamer(string id);
+        Gamer Get(string id);
 
-        Gamer GetGamerByEmail(string userEmail);
+        Gamer GetByEmail(string userEmail);
 
-        Gamer GetGamerByNickname(string userNickname);
+        Gamer GetByNickname(string userNickname);
 
         bool NicknameExists(string nickname);
 
-        IEnumerable<Gamer> GetAllGamers();
+        IEnumerable<Gamer> GetAll();
 
-        void AddGamer(Gamer gamer);
+        void Add(Gamer gamer);
 
-        void EditGamer(Gamer gamer);
+        void Edit(Gamer gamer);
 
-        void DeactivateGamer(string id);
+        void Deactivate(string id);
     }
 }

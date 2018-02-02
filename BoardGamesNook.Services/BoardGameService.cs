@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BoardGameGeekIntegration;
+using BoardGameGeekIntegration.Models;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
@@ -17,12 +19,27 @@ namespace BoardGamesNook.Services
 
         public BoardGame Get(int id)
         {
-            return _boardGameRepository.GetGamerBoardGame(id);
+            return _boardGameRepository.Get(id);
         }
 
         public IEnumerable<BoardGame> GetAllGamerBoardGames()
         {
-            return _boardGameRepository.GetAllGamerBoardGames();
+            return _boardGameRepository.GetAll();
+        }
+
+        public List<SimilarBoardGame> AddOrGetSimilar(string name)
+        {
+            var boardGameId = BGGBoardGame.GetBoardGameId(name);
+            if (boardGameId != 0)
+            {
+                var boardGame = BGGBoardGame.GetBoardGameById(boardGameId);
+                boardGame.Id = GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1;
+                Add(boardGame);
+                return new List<SimilarBoardGame>();
+            }
+
+            var similarBoardGameList = BGGBoardGame.GetSimilarBoardGameList(name).ToList();
+            return similarBoardGameList.Take(10).ToList();
         }
 
         public void Add(BoardGame boardGame)
@@ -33,15 +50,15 @@ namespace BoardGamesNook.Services
 
         public void Edit(BoardGame boardGame)
         {
-            _boardGameRepository.EditGamerBoardGame(boardGame);
+            _boardGameRepository.Edit(boardGame);
         }
 
-        public void Delete(int id)
+        public void DeactivateBoardGame(int id)
         {
-            _boardGameRepository.DeleteGamerBoardGame(id);
+            _boardGameRepository.Deactivate(id);
         }
 
-        public List<BoardGame> GetAllByIds(List<int> tableBoardGameIdList)
+        public IEnumerable<BoardGame> GetAllByIds(IEnumerable<int> tableBoardGameIdList)
         {
             var result = new List<BoardGame>();
             foreach (var boardGameId in tableBoardGameIdList)

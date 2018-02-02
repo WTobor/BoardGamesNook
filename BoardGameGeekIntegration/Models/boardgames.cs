@@ -1,86 +1,46 @@
-﻿
+﻿using System.Xml.Serialization;
+
 namespace BoardGameGeekIntegration.Models
 {
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public  class boardgames
+    /// <remarks />
+    [XmlType(AnonymousType = true)]
+    [XmlRoot(Namespace = "", IsNullable = false)]
+    public class boardgames
     {
-        private string termsofuseField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("boardgame")]
+        /// <remarks />
+        [XmlElement("boardgame")]
         public boardgamesBoardgame[] boardgame { get; set; }
 
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string termsofuse
-        {
-            get => termsofuseField;
-            set => termsofuseField = value;
-        }
+        /// <remarks />
+        [XmlAttribute]
+        public string termsofuse { get; set; }
     }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    /// <remarks />
+    [XmlType(AnonymousType = true)]
     public class boardgamesBoardgame
     {
+        /// <remarks />
+        public boardgamesBoardgameName name { get; set; }
 
-        private boardgamesBoardgameName nameField;
+        /// <remarks />
+        public ushort yearpublished { get; set; }
 
-        private ushort yearpublishedField;
-
-        private uint objectidField;
-
-        /// <remarks/>
-        public boardgamesBoardgameName name
-        {
-            get => nameField;
-            set => nameField = value;
-        }
-
-        /// <remarks/>
-        public ushort yearpublished
-        {
-            get => yearpublishedField;
-            set => yearpublishedField = value;
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint objectid
-        {
-            get => objectidField;
-            set => objectidField = value;
-        }
+        /// <remarks />
+        [XmlAttribute]
+        public uint objectid { get; set; }
     }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    /// <remarks />
+    [XmlType(AnonymousType = true)]
     public class boardgamesBoardgameName
     {
+        /// <remarks />
+        [XmlAttribute]
+        public bool primary { get; set; }
 
-        private bool primaryField;
-
-        private string valueField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool primary
-        {
-            get => primaryField;
-            set => primaryField = value;
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlTextAttribute()]
-        public string Value
-        {
-            get => valueField;
-            set => valueField = value;
-        }
+        /// <remarks />
+        [XmlText]
+        public string Value { get; set; }
     }
-
-
 }

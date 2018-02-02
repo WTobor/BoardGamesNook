@@ -12,52 +12,35 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GameTableController : Controller
     {
-        private readonly IBoardGameService _boardGameService;
-        private readonly IGameParticipationService _gameParticipationService;
         private readonly IGameTableService _gameTableService;
 
-        public GameTableController(IGameTableService gameTableService, IBoardGameService boardGameService,
-            IGameParticipationService gameParticipationService)
+        public GameTableController(IGameTableService gameTableService)
         {
             _gameTableService = gameTableService;
-            _boardGameService = boardGameService;
-            _gameParticipationService = gameParticipationService;
         }
 
         public JsonResult Get(int id)
         {
-            if (!(Session["gamer"] is Gamer gamer))
+            if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            var gameTable = new GameTable
-            {
-                CreatedGamer = gamer,
-                CreatedGamerId = gamer.Id
-            };
-            if (id > 0)
-                gameTable = _gameTableService.GetGameTable(id);
-            var gameTableViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTable);
 
-            return Json(gameTableViewModel, JsonRequestBehavior.AllowGet);
+            var gameTable = _gameTableService.GetGameTable(id);
+
+            var tableBoardGameViewModels = Mapper.Map<List<TableBoardGameViewModel>>(gameTable.BoardGames);
+            tableBoardGameViewModels.ForEach(x => Mapper.Map(gameTable, x));
+
+            var result = MapGameTableViewModelListToGameTableList(tableBoardGameViewModels)[0];
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAvailableTableBoardGameList(int id)
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            // 
-            // Ponadto cały ten kod poniżej (te 7 albo 8 linijek, bez mappera) wygląda mi na jakąś logikę biznesową,
-            // więc powinno to wszystko być w serwisie.
-            // W tym przypadku metoda GetGameTable, mogłaby przyjmować jeszcze obiekt gamer,
-            // albo metoda GetAvailableTableBoardGameList przyjmowałaby nickname gameTableViewModel i gamer - nie znam dokładnie biznesu tutaj,
-            // więc na szybko nie powiem co lepsze.
-            var gameTable = _gameTableService.GetGameTable(id) ?? new GameTable
-            {
-                CreatedGamer = gamer,
-                CreatedGamerId = gamer.Id
-            };
-            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameList(gameTable).ToList();
+
+            var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameListById(id);
             var availableTableBoardGameListViewModel =
-                Mapper.Map<List<BoardGame>, List<TableBoardGameViewModel>>(availableTableBoardGameList);
+                Mapper.Map<IEnumerable<BoardGame>, IEnumerable<TableBoardGameViewModel>>(availableTableBoardGameList);
             foreach (var obj in availableTableBoardGameListViewModel)
                 Mapper.Map(gamer, obj);
 
@@ -78,9 +61,11 @@ namespace BoardGamesNook.Controllers
                         gameTableListViewModel.Add(gameTableViewModel);
                     }
 
-            //poprawić wyświetlanie, bo nie działa
-            return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
+            var result = MapGameTableViewModelListToGameTableList(gameTableListViewModel);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
+
 
         public JsonResult GetAllByGamerNickname(string nickname)
         {
@@ -88,7 +73,9 @@ namespace BoardGamesNook.Controllers
             var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
             gameTableListViewModel.ForEach(x => x.GamerNickname = nickname);
 
-            return Json(gameTableListViewModel, JsonRequestBehavior.AllowGet);
+            var result = MapGameTableViewModelListToGameTableList(gameTableListViewModel);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -104,6 +91,59 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        public JsonResult Edit(GameTableViewModel gameTableViewModel)
+        {
+            var tableBoardGameIdList = gameTableViewModel.TableBoardGameList.Select(x => x.BoardGameId).ToList();
+            _gameTableService.EditGameTable(gameTableViewModel.Id, tableBoardGameIdList);
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EditParticipations(List<GameParticipation> gameParticipations)
+        {
+            if (!(Session["gamer"] is Gamer gamer))
+                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+
+            var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
+            var dbGameTable = _gameTableService.GetGameTable(gameTableId);
+            if (dbGameTable == null)
+                return Json(string.Format(Errors.BoardGameTableWithIdNotFound, gameTableId),
+                    JsonRequestBehavior.AllowGet);
+
+            _gameTableService.EditGameTableParticipations(gameParticipations, gamer);
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Deactivate(int id)
+        {
+            _gameTableService.DeactivateGameTable(id);
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<GameTableViewModel> MapGameTableViewModelListToGameTableList(
+            List<TableBoardGameViewModel> gameTableListViewModel)
+        {
+            var result = new List<GameTableViewModel>();
+            var tables = gameTableListViewModel.GroupBy(x => x.TableId).ToDictionary(t => t.Key, t => t.ToList());
+            foreach (var tableGroup in tables)
+            {
+                var table = _gameTableService.GetGameTable(tableGroup.Key);
+                var gameTableViewModel = Mapper.Map<GameTableViewModel>(table);
+                gameTableViewModel.Id = tableGroup.Key;
+                gameTableViewModel.TableBoardGameList = tableGroup.Value;
+                result.Add(gameTableViewModel);
+            }
+
+            return result;
+        }
+
+        
         private GameTable GetGameTableObj(GameTableViewModel gameTableViewModel, Gamer gamer)
         {
             return new GameTable
@@ -121,58 +161,6 @@ namespace BoardGamesNook.Controllers
                 CreatedGamer = gamer,
                 CreatedDate = DateTimeOffset.Now
             };
-        }
-
-        [HttpPost]
-        public JsonResult Edit(GameTableViewModel gameTableViewModel)
-        {
-            // ponownie to jakaś logika biznesowa i powinna być zapewne w metodzie
-            // EditGameTable klasy gameTableService.
-            //WT: a co z faktem, że jest to VM i w serwisie nie mam dostępu do tego obiektu?
-            var dbGameTable =
-                _gameTableService.GetGameTable(gameTableViewModel
-                    .Id);
-
-            if (dbGameTable != null)
-            {
-                Mapper.Map(gameTableViewModel, dbGameTable);
-
-                var tableBoardGameIdList = gameTableViewModel.TableBoardGameList.Select(x => x.BoardGameId).ToList();
-
-                dbGameTable.BoardGames = _boardGameService.GetAllByIds(tableBoardGameIdList);
-
-                _gameTableService.EditGameTable(dbGameTable);
-
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(string.Format(Errors.BoardGameTableWithIdNotFound, gameTableViewModel.Id),
-                JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult EditParticipations(List<GameParticipation> gameParticipations)
-        {
-            if (!(Session["gamer"] is Gamer gamer))
-                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-
-            var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
-            var dbGameTable = _gameTableService.GetGameTable(gameTableId);
-            if (dbGameTable == null)
-                return Json(string.Format(Errors.BoardGameTableWithIdNotFound, gameTableId),
-                    JsonRequestBehavior.AllowGet);
-
-            _gameTableService.EditParticipations(gameParticipations, gamer);
-
-            return Json(null, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult Delete(int id)
-        {
-            _gameTableService.DeleteGameTable(id);
-
-            return Json(null, JsonRequestBehavior.AllowGet);
         }
     }
 }

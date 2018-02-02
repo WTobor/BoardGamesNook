@@ -5,7 +5,7 @@
     <li *ngFor="let boardGame of boardGames" (click)="onSelect(boardGame)">
         <span class="hidden">{{ boardGame.Id }}</span>
         <span>{{ boardGame.Name }}</span>
-        <button *ngIf="isAdmin" (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+        <button *ngIf="isAdmin" (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
     </li>
 </ul>
 

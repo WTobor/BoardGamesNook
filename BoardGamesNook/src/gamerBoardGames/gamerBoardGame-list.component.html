@@ -1,12 +1,12 @@
 ﻿<div *ngIf="gamerBoardGames">
-    <span class="font-weight-bold">LISTA GIER GRACZA {{ gamerBoardGames.GamerNickname }}</span>
+    <span class="font-weight-bold">LISTA GIER GRACZA {{ gamerBoardGames.CreatedGamerNickname }}</span>
 
     <br/>
     <ul>
         <li *ngFor="let gamerBoardGame of gamerBoardGames" (click)="onSelect(gamerBoardGame)">
             <span class="hidden">{{ gamerBoardGame.Id }}</span>
             <span>{{ gamerBoardGame.BoardGameName }}</span>
-            <button *ngIf="isCurrentGamer" (click)="delete(gamerBoardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+                <button *ngIf="isCurrentGamer" (click)="deactivate(gamerBoardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
         </li>
     </ul>
     <div *ngIf="isCurrentGamer">

@@ -9,39 +9,42 @@ namespace BoardGamesNook.Repository
 {
     public class GameParticipationRepository : IGameParticipationRepository
     {
-        private readonly List<GameParticipation> _gameParticipations = GameParticipationGenerator.gameParticipations;
+        private readonly List<GameParticipation> _gameParticipations = GameParticipationGenerator.GameParticipations;
 
-        public GameParticipation GetGameParticipation(int id)
+        public GameParticipation Get(int id)
         {
             return _gameParticipations.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<GameParticipation> GetAllGameParticipations()
+        public IEnumerable<GameParticipation> GetAll()
         {
             return _gameParticipations;
         }
 
-        public IEnumerable<GameParticipation> GetAllGameParticipationsByTableId(int tableId)
+        public IEnumerable<GameParticipation> GetAllByTableId(int tableId)
         {
             return _gameParticipations.Where(x => x.GameTableId == tableId).ToList();
         }
 
-        public void AddGameParticipation(GameParticipation gameParticipation)
+        public void Add(GameParticipation gameParticipation)
         {
             _gameParticipations.Add(gameParticipation);
         }
 
-        public void EditGameParticipation(GameParticipation gameParticipation)
+        public void Edit(GameParticipation gameParticipation)
         {
             gameParticipation.Active = false;
             gameParticipation.ModifiedDate = DateTimeOffset.Now;
         }
 
-        public void DeleteGameParticipation(int id)
+        public void Deactivate(int id)
         {
             var gameParticipation = _gameParticipations.FirstOrDefault(x => x.Id == id);
             if (gameParticipation != null)
-                _gameParticipations.Remove(gameParticipation);
+            {
+                gameParticipation.Active = false;
+                gameParticipation.ModifiedDate = DateTimeOffset.Now;
+            }
         }
     }
 }

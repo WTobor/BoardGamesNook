@@ -9,14 +9,14 @@ namespace BoardGamesNook.Repository
 {
     public class BoardGameRepository : IBoardGameRepository
     {
-        private readonly List<BoardGame> _boardGames = BoardGameGenerator.boardGames;
+        private readonly List<BoardGame> _boardGames = BoardGameGenerator.BoardGames;
 
-        public BoardGame GetGamerBoardGame(int id)
+        public BoardGame Get(int id)
         {
             return _boardGames.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<BoardGame> GetAllGamerBoardGames()
+        public IEnumerable<BoardGame> GetAll()
         {
             return _boardGames;
         }
@@ -26,7 +26,7 @@ namespace BoardGamesNook.Repository
             _boardGames.Add(boardGame);
         }
 
-        public void EditGamerBoardGame(BoardGame boardGame)
+        public void Edit(BoardGame boardGame)
         {
             var dbBoardGame = _boardGames.FirstOrDefault(x => x.Id == boardGame.Id);
             if (dbBoardGame != null)
@@ -41,11 +41,14 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void DeleteGamerBoardGame(int id)
+        public void Deactivate(int id)
         {
             var boardGame = _boardGames.FirstOrDefault(x => x.Id == id);
             if (boardGame != null)
-                _boardGames.Remove(boardGame);
+            {
+                boardGame.Active = false;
+                boardGame.ModifiedDate = DateTimeOffset.Now;
+            }
         }
     }
 }

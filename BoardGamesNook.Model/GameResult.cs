@@ -17,5 +17,6 @@ namespace BoardGamesNook.Model
         public int PlayersNumber { get; set; }
         public int? GameTableId { get; set; }
         public GameTable GameTable { get; set; }
+        public bool Active { get; set; }
     }
 }

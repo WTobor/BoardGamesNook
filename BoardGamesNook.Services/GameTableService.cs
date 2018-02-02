@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
@@ -21,12 +22,13 @@ namespace BoardGamesNook.Services
 
         public GameTable GetGameTable(int id)
         {
-            return _gameTableRepository.GetGameTable(id);
+            return _gameTableRepository.Get(id);
         }
 
-        public IEnumerable<BoardGame> GetAvailableTableBoardGameList(GameTable table)
+        public IEnumerable<BoardGame> GetAvailableTableBoardGameListById(int id)
         {
-            return _gameTableRepository.GetAvailableTableBoardGameList(table);
+            var gameTable = GetGameTable(id);
+            return _gameTableRepository.GetAvailableTableBoardGameList(gameTable);
         }
 
         public IEnumerable<GameTable> GetAllGameTables()
@@ -39,7 +41,7 @@ namespace BoardGamesNook.Services
             return _gameTableRepository.GetAllGameTablesByGamerNickname(gamerNickname);
         }
 
-        public void CreateGameTable(GameTable gameTable, List<int> tableBoardGameIdList)
+        public void CreateGameTable(GameTable gameTable, IEnumerable<int> tableBoardGameIdList)
         {
             gameTable.BoardGames = new List<BoardGame>();
             foreach (var boardGameId in tableBoardGameIdList)
@@ -52,12 +54,15 @@ namespace BoardGamesNook.Services
             _gameTableRepository.AddGameTable(gameTable);
         }
 
-        public void EditGameTable(GameTable gameTable)
+        public void EditGameTable(int id, List<int> tableBoardGameIdList)
         {
+            var gameTable = GetGameTable(id);
+            gameTable.BoardGames = _boardGameService.GetAllByIds(tableBoardGameIdList).ToList();
+
             _gameTableRepository.EditGameTable(gameTable);
         }
 
-        public void EditParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
+        public void EditGameTableParticipations(List<GameParticipation> gameParticipations, Gamer modifiedGamer)
         {
             foreach (var gameParticipation in gameParticipations)
             {
@@ -68,12 +73,12 @@ namespace BoardGamesNook.Services
                     _gameParticipationService.AddGameParticipation(gameParticipation);
             }
 
-            _gameTableRepository.EditParticipations(gameParticipations, modifiedGamer);
+            _gameTableRepository.EditGameTableParticipations(gameParticipations, modifiedGamer);
         }
 
-        public void DeleteGameTable(int id)
+        public void DeactivateGameTable(int id)
         {
-            _gameTableRepository.DeleteGameTable(id);
+            _gameTableRepository.Deactivate(id);
         }
     }
 }

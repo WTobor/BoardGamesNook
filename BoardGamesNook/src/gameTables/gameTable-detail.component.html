@@ -9,7 +9,7 @@
             <ul>
                 <li *ngFor="let boardGame of gameTable.TableBoardGameList">
                     <span>{{boardGame.BoardGameName}}</span>
-                    <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+                    <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
                 </li>
             </ul>
         </div>
@@ -85,7 +85,7 @@
     <ng-template #notCurrentGamer>
         <span class="font-weight-bold">STÓŁ {{ gameTable.Name }}</span>
 
-        <label>Twórca: </label> {{ gameTable.GamerNickname }}
+        <label>Twórca: </label> {{ gameTable.CreatedGamerNickname }}
         <div *ngIf="gameTable.TableBoardGameList">
             <label>Wybrane pozycje:</label>
             <ul>

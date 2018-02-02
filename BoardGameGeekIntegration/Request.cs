@@ -9,15 +9,15 @@ namespace BoardGameGeekIntegration
     {
         public static async Task<string> GetAsync(string url)
         {
-            string result = string.Empty;
+            var result = string.Empty;
             var requestUrl = new Uri(url);
 
             if (WebRequest.Create(requestUrl) is HttpWebRequest request)
-                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                using (var response = request.GetResponse() as HttpWebResponse)
                 {
                     if (response != null)
                     {
-                        StreamReader reader = new StreamReader(response.GetResponseStream() ?? throw new InvalidOperationException());
+                        var reader = new StreamReader(response.GetResponseStream());
                         result = await reader.ReadToEndAsync();
                     }
                 }

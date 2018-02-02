@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository;
+using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using BoardGamesNook.Repository.Generators;
 
 namespace BoardGamesNook.Tests
 {
@@ -16,7 +16,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
+            var generatedGamersCount = GamerGenerator.Gamers.Count;
             //Act
             var gamers = gamerService.GetAllGamers();
             //Assert
@@ -28,7 +28,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
+            var generatedGamersCount = GamerGenerator.Gamers.Count;
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.AddGamer(GetTestGamer(newGamerId));
@@ -46,7 +46,7 @@ namespace BoardGamesNook.Tests
             //Act
             gamerService.AddGamer(GetTestGamer(newGamerId));
             var gamer = gamerService.GetGamer(newGamerId);
-            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
+            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
             //Assert
             Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
         }
@@ -61,7 +61,7 @@ namespace BoardGamesNook.Tests
             var testGamer = GetTestGamer(newGamerId);
             gamerService.AddGamer(testGamer);
             var gamer = gamerService.GetGamerByEmail(testGamer.Email);
-            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
+            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
             //Assert
             Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
         }
@@ -78,7 +78,7 @@ namespace BoardGamesNook.Tests
             //Act
             gamerService.AddGamer(testGamer);
             var gamer = gamerService.GetGamerBoardGameByNickname(testNickname);
-            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
+            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
             //Assert
             Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
         }
@@ -101,7 +101,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            string name = "test2";
+            var name = "test2";
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.AddGamer(GetTestGamer(newGamerId));
@@ -111,6 +111,7 @@ namespace BoardGamesNook.Tests
             var newGamer = gamerService.GetGamer(newGamerId);
             //Assert
             Assert.AreEqual(name, newGamer.Name);
+            Assert.IsNotNull(newGamer.ModifiedDate);
         }
 
         [TestMethod]
@@ -118,19 +119,18 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.gamers.Count;
             var newGamerId = Guid.NewGuid().ToString();
             //Act
             gamerService.AddGamer(GetTestGamer(newGamerId));
-            gamerService.DeactivateGamer(newGamerId.ToString());
-            var lastAddedGamer = GamerGenerator.gamers.LastOrDefault();
+            gamerService.DeactivateGamer(newGamerId);
+            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
             //Assert
-            Assert.AreEqual(false, lastAddedGamer.Active);
+            Assert.AreEqual(false, lastAddedGamer?.Active);
         }
 
         private static Gamer GetTestGamer(string gamerId)
         {
-            return new Gamer()
+            return new Gamer
             {
                 Id = gamerId,
                 Nickname = "test",

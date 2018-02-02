@@ -16,32 +16,32 @@ namespace BoardGamesNook.Services
 
         public GameParticipation GetGameParticipation(int id)
         {
-            return _gameParticipationRepository.GetGameParticipation(id);
+            return _gameParticipationRepository.Get(id);
         }
 
         public IEnumerable<GameParticipation> GetAllGameParticipations()
         {
-            return _gameParticipationRepository.GetAllGameParticipations();
+            return _gameParticipationRepository.GetAll();
         }
 
         public IEnumerable<GameParticipation> GetAllGameParticipationsByTableId(int id)
         {
-            return _gameParticipationRepository.GetAllGameParticipationsByTableId(id);
+            return _gameParticipationRepository.GetAllByTableId(id);
         }
 
         public void AddGameParticipation(GameParticipation gameParticipation)
         {
-            _gameParticipationRepository.AddGameParticipation(gameParticipation);
+            _gameParticipationRepository.Add(gameParticipation);
         }
 
         public void Edit(GameParticipation gameParticipation)
         {
-            _gameParticipationRepository.EditGameParticipation(gameParticipation);
+            _gameParticipationRepository.Edit(gameParticipation);
         }
 
-        public void Delete(int id)
+        public void DeactivateGameParticipation(int id)
         {
-            _gameParticipationRepository.DeleteGameParticipation(id);
+            _gameParticipationRepository.Deactivate(id);
         }
     }
 }

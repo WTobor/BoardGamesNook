@@ -16,17 +16,17 @@ namespace BoardGamesNook.Services
 
         public Gamer GetGamer(string id)
         {
-            return _gamerRepository.GetGamer(id);
+            return _gamerRepository.Get(id);
         }
 
         public Gamer GetGamerByEmail(string userEmail)
         {
-            return _gamerRepository.GetGamerByEmail(userEmail);
+            return _gamerRepository.GetByEmail(userEmail);
         }
 
         public Gamer GetGamerBoardGameByNickname(string userNickname)
         {
-            return _gamerRepository.GetGamerByNickname(userNickname);
+            return _gamerRepository.GetByNickname(userNickname);
         }
 
         public bool NicknameExists(string nickname)
@@ -36,22 +36,22 @@ namespace BoardGamesNook.Services
 
         public IEnumerable<Gamer> GetAllGamers()
         {
-            return _gamerRepository.GetAllGamers();
+            return _gamerRepository.GetAll();
         }
 
         public void AddGamer(Gamer gamer)
         {
-            _gamerRepository.AddGamer(gamer);
+            _gamerRepository.Add(gamer);
         }
 
         public void EditGamer(Gamer gamer)
         {
-            _gamerRepository.EditGamer(gamer);
+            _gamerRepository.Edit(gamer);
         }
 
         public void DeactivateGamer(string id)
         {
-            _gamerRepository.DeactivateGamer(id);
+            _gamerRepository.Deactivate(id);
         }
     }
 }

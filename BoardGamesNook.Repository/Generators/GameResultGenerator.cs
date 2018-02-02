@@ -6,59 +6,59 @@ namespace BoardGamesNook.Repository.Generators
 {
     public static class GameResultGenerator
     {
-        public static GameResult gameResult1 = new GameResult
+        public static GameResult GameResult1 = new GameResult
         {
             Id = 1,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer1.Id,
-            GameTableId = GameTableGenerator.gameTable1.Id,
-            GameTable = GameTableGenerator.gameTable1,
-            GamerId = GamerGenerator.gamer1.Id,
-            Gamer = GamerGenerator.gamer1,
-            BoardGame = BoardGameGenerator.boardGame1,
-            BoardGameId = BoardGameGenerator.boardGame1.Id,
+            CreatedGamerId = GamerGenerator.Gamer1.Id,
+            GameTableId = GameTableGenerator.GameTable1.Id,
+            GameTable = GameTableGenerator.GameTable1,
+            GamerId = GamerGenerator.Gamer1.Id,
+            Gamer = GamerGenerator.Gamer1,
+            BoardGame = BoardGameGenerator.BoardGame1,
+            BoardGameId = BoardGameGenerator.BoardGame1.Id,
             Points = 20,
             Place = 1,
             PlayersNumber = 2
         };
 
-        public static GameResult gameResult2 = new GameResult
+        public static GameResult GameResult2 = new GameResult
         {
             Id = 2,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer2.Id,
-            GameTableId = GameTableGenerator.gameTable1.Id,
-            GameTable = GameTableGenerator.gameTable1,
-            GamerId = GamerGenerator.gamer2.Id,
-            Gamer = GamerGenerator.gamer2,
-            BoardGame = BoardGameGenerator.boardGame1,
-            BoardGameId = BoardGameGenerator.boardGame1.Id,
+            CreatedGamerId = GamerGenerator.Gamer2.Id,
+            GameTableId = GameTableGenerator.GameTable1.Id,
+            GameTable = GameTableGenerator.GameTable1,
+            GamerId = GamerGenerator.Gamer2.Id,
+            Gamer = GamerGenerator.Gamer2,
+            BoardGame = BoardGameGenerator.BoardGame1,
+            BoardGameId = BoardGameGenerator.BoardGame1.Id,
             Points = 15,
             Place = 2,
             PlayersNumber = 2
         };
 
-        public static GameResult gameResult3 = new GameResult
+        public static GameResult GameResult3 = new GameResult
         {
             Id = 3,
             CreatedDate = DateTimeOffset.UtcNow,
-            CreatedGamerId = GamerGenerator.gamer1.Id,
-            GameTableId = GameTableGenerator.gameTable2.Id,
-            GameTable = GameTableGenerator.gameTable2,
-            GamerId = GamerGenerator.gamer1.Id,
-            Gamer = GamerGenerator.gamer1,
-            BoardGame = BoardGameGenerator.boardGame2,
-            BoardGameId = BoardGameGenerator.boardGame2.Id,
+            CreatedGamerId = GamerGenerator.Gamer1.Id,
+            GameTableId = GameTableGenerator.GameTable2.Id,
+            GameTable = GameTableGenerator.GameTable2,
+            GamerId = GamerGenerator.Gamer1.Id,
+            Gamer = GamerGenerator.Gamer1,
+            BoardGame = BoardGameGenerator.BoardGame2,
+            BoardGameId = BoardGameGenerator.BoardGame2.Id,
             Points = 138,
             Place = 1,
             PlayersNumber = 1
         };
 
-        public static List<GameResult> gameResults = new List<GameResult>
+        public static List<GameResult> GameResults = new List<GameResult>
         {
-            gameResult1,
-            gameResult2,
-            gameResult3
+            GameResult1,
+            GameResult2,
+            GameResult3
         };
     }
 }

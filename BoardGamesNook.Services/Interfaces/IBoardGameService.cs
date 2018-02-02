@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BoardGameGeekIntegration.Models;
 using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Services.Interfaces
@@ -11,9 +12,11 @@ namespace BoardGamesNook.Services.Interfaces
 
         void Add(BoardGame boardGame);
 
+        List<SimilarBoardGame> AddOrGetSimilar(string name);
+
         void Edit(BoardGame boardGame);
 
-        void Delete(int id);
-        List<BoardGame> GetAllByIds(List<int> tableBoardGameIdList);
+        void DeactivateBoardGame(int id);
+        IEnumerable<BoardGame> GetAllByIds(IEnumerable<int> tableBoardGameIdList);
     }
 }

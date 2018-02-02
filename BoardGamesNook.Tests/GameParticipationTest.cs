@@ -1,97 +1,92 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Repository.Generators;
+using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace BoardGamesNook.Tests
 {
     [TestClass]
     public class GameParticipationTest
     {
+        private readonly Mock<IGameParticipationRepository> _gameParticipationRepositoryMock;
+
+        private readonly GameParticipation testGameParticipation = new GameParticipation
+        {
+            Id = 1,
+            GameTableId = 1,
+            GameTable = new GameTable(),
+            GamerId = "testGamerId",
+            Gamer = new Gamer()
+        };
+
+        public GameParticipationTest()
+        {
+            _gameParticipationRepositoryMock = new Mock<IGameParticipationRepository>();
+        }
+
         [TestMethod]
         public void GetGameParticipationList()
         {
             //Arrange
-            var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
+            _gameParticipationRepositoryMock.Setup(x => x.GetAll())
+                .Returns(new List<GameParticipation> {new GameParticipation()});
+            var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
             var gameParticipations = gameParticipationService.GetAllGameParticipations();
             //Assert
-            Assert.AreEqual(generatedGameParticipationsCount, gameParticipations.Count());
+            Assert.AreEqual(1, gameParticipations.Count());
+            _gameParticipationRepositoryMock.Verify(mock => mock.GetAll(), Times.Once());
         }
 
         [TestMethod]
         public void AddGameParticipationToGameParticipationsList()
         {
             //Arrange
-            var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
+            _gameParticipationRepositoryMock.Setup(x => x.Add(testGameParticipation));
+            var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
-            var gameParticipations = gameParticipationService.GetAllGameParticipations();
+            gameParticipationService.AddGameParticipation(testGameParticipation);
             //Assert
-            Assert.AreEqual(generatedGameParticipationsCount + 1, gameParticipations.Count());
+            _gameParticipationRepositoryMock.Verify(mock => mock.Add(testGameParticipation), Times.Once());
         }
 
         [TestMethod]
         public void GetGameParticipation()
         {
             //Arrange
-            var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            _gameParticipationRepositoryMock.Setup(x => x.Get(testGameParticipation.Id)).Returns(testGameParticipation);
+            var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
-            var boardGame = gameParticipationService.GetGameParticipation(newGameParticipationId);
+            var gameParticipation = gameParticipationService.GetGameParticipation(testGameParticipation.Id);
             //Assert
-            Assert.AreEqual(newGameParticipationId, boardGame.Id);
+            _gameParticipationRepositoryMock.Verify(mock => mock.Get(testGameParticipation.Id), Times.Once());
         }
 
         [TestMethod]
         public void EditGameParticipation()
         {
             //Arrange
-            var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
-            var now = DateTimeOffset.UtcNow;
+            _gameParticipationRepositoryMock.Setup(x => x.Edit(testGameParticipation));
+            var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
-            var gameParticipation = gameParticipationService.GetGameParticipation(newGameParticipationId);
-            gameParticipation.ModifiedDate = now;
-            gameParticipationService.Edit(gameParticipation);
-            var newGameParticipation = gameParticipationService.GetGameParticipation(newGameParticipationId);
+            gameParticipationService.Edit(testGameParticipation);
             //Assert
-            Assert.AreEqual(now, newGameParticipation.ModifiedDate);
+            _gameParticipationRepositoryMock.Verify(mock => mock.Edit(testGameParticipation), Times.Once());
         }
 
         [TestMethod]
-        public void DeleteGameParticipation()
+        public void DeactivateGameParticipation()
         {
             //Arrange
-            var gameParticipationService = new GameParticipationService(new GameParticipationRepository());
-            var generatedGameParticipationsCount = GameParticipationGenerator.gameParticipations.Count;
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
+            _gameParticipationRepositoryMock.Setup(x => x.Deactivate(testGameParticipation.Id));
+            var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            gameParticipationService.AddGameParticipation(GetTestGameParticipation());
-            gameParticipationService.Delete(newGameParticipationId);
-            var gameParticipations = gameParticipationService.GetAllGameParticipations();
+            gameParticipationService.DeactivateGameParticipation(testGameParticipation.Id);
             //Assert
-            Assert.AreEqual(generatedGameParticipationsCount, gameParticipations.Count());
-        }
-
-        private static GameParticipation GetTestGameParticipation()
-        {
-            var newGameParticipationId = GameParticipationGenerator.gameParticipations.Max(x => x.Id) + 1;
-            return new GameParticipation
-            {
-                Id = newGameParticipationId,
-                GameTableId = GameTableGenerator.gameTable1.Id,
-                GameTable = GameTableGenerator.gameTable1,
-                GamerId = GamerGenerator.gamer1.Id,
-                Gamer = GamerGenerator.gamer1
-            };
+            _gameParticipationRepositoryMock.Verify(mock => mock.Deactivate(testGameParticipation.Id), Times.Once());
         }
     }
 }

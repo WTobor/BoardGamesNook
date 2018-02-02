@@ -17,6 +17,7 @@ export class GameResultService {
     private _addGameResultUrl = "GameResult/Add";
     private _addGameResultListUrl = "GameResult/AddMany";
     private _editGameResultUrl = "GameResult/Edit";
+    private _deactivateGameResultUrl = "GameResult/Deactivate";
 
     constructor(private http: Http) { }
 
@@ -103,6 +104,14 @@ export class GameResultService {
         const url = `${this._editGameResultUrl}`;
         return this.http
             .post(url, JSON.stringify(gameResult), { headers: this.headers })
+            .toPromise()
+            .then(response => { return response.text(); })
+            .catch(err => { return Promise.reject(err); });
+    }
+
+    deactivate(id: string): Promise<string> {
+        const url = `${this._deactivateGameResultUrl}/${id}`;
+        return this.http.post(url, { headers: this.headers })
             .toPromise()
             .then(response => { return response.text(); })
             .catch(err => { return Promise.reject(err); });
