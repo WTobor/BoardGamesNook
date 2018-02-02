@@ -43,7 +43,11 @@ export class BoardGameAddComponent implements OnInit {
             .then(result => {
                 try {
                     this.similarBoardGames = JSON.parse(result);
-                    this.boardGameNotFound = true;
+                    if (this.similarBoardGames !== undefined && this.similarBoardGames.length > 0) {
+                        this.boardGameNotFound = true;
+                    } else {
+                        new Common(loc).goBack();
+                    }
                 } catch (e) {
                     new Common(loc).showErrorOrGoBack(result);
                 }

@@ -1,20 +1,24 @@
-﻿<span class="font-weight-bold">LISTA GRACZY</span>
+﻿<form class="col-md-8 container">
+    <div class="page-header">
+        LISTA GRACZY
+    </div>
+    <div>
+        <ul>
+            <li *ngFor="let gamer of gamers" (click)="onSelect(gamer);">
+                <span>{{ gamer.Nickname }}</span>
+                <div *ngIf="isAdmin">
+                    <button (click)="deactivate(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
+                </div>
+            </li>
+        </ul>
 
-<br/>
-<ul>
-    <li *ngFor="let gamer of gamers" (click)="onSelect(gamer);">
-        <span>{{ gamer.Nickname }}</span>
-        <div *ngIf="isAdmin">
-            <button (click)="deactivate(gamer); $event.stopPropagation()" class="btn delete-icon">x</button>
+        <div *ngIf="selectedGamer">
+            <span class="font-weight-bold">
+                GRACZA {{selectedGamer.Nickname }} ({{selectedGamer.Name | uppercase}} {{selectedGamer.Surname | uppercase}})
+            </span>
+            <br />
+            <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły gracza</button>
+            <button class="btn btn-primary" (click)="gotoGamerBoardGames()">Kolekcja gier gracza</button>
         </div>
-    </li>
-</ul>
-
-<div *ngIf="selectedGamer">
-    <span class="font-weight-bold">
-        GRACZA {{selectedGamer.Nickname }} ({{selectedGamer.Name | uppercase}} {{selectedGamer.Surname | uppercase}})
-    </span>
-    <br/>
-    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły gracza</button>
-    <button class="btn btn-primary" (click)="gotoGamerBoardGames()">Kolekcja gier gracza</button>
-</div>
+    </div>
+</form>

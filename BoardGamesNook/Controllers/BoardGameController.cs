@@ -27,7 +27,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAll()
         {
-            var boardGameList = _boardGameService.GetAllGamerBoardGames();
+            var boardGameList = _boardGameService.GetAll();
             return Json(boardGameList, JsonRequestBehavior.AllowGet);
         }
 

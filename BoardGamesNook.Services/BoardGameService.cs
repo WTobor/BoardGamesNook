@@ -22,7 +22,7 @@ namespace BoardGamesNook.Services
             return _boardGameRepository.Get(id);
         }
 
-        public IEnumerable<BoardGame> GetAllGamerBoardGames()
+        public IEnumerable<BoardGame> GetAll()
         {
             return _boardGameRepository.GetAll();
         }
@@ -33,8 +33,8 @@ namespace BoardGamesNook.Services
             if (boardGameId != 0)
             {
                 var boardGame = BGGBoardGame.GetBoardGameById(boardGameId);
-                boardGame.Id = GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1;
-                Add(boardGame);
+                if (!CheckIfExists(name))
+                    Add(boardGame);
                 return new List<SimilarBoardGame>();
             }
 
@@ -44,8 +44,13 @@ namespace BoardGamesNook.Services
 
         public void Add(BoardGame boardGame)
         {
-            boardGame.Id = GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1;
+            boardGame.Id = GetAll().Select(x => x.Id).LastOrDefault() + 1;
             _boardGameRepository.Add(boardGame);
+        }
+
+        public bool CheckIfExists(string name)
+        {
+            return _boardGameRepository.CheckIfExists(name);
         }
 
         public void Edit(BoardGame boardGame)

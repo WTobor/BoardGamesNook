@@ -26,6 +26,11 @@ namespace BoardGamesNook.Repository
             _boardGames.Add(boardGame);
         }
 
+        public bool CheckIfExists(string name)
+        {
+            return _boardGames.FirstOrDefault(x => x.Name == name) != null;
+        }
+
         public void Edit(BoardGame boardGame)
         {
             var dbBoardGame = _boardGames.FirstOrDefault(x => x.Id == boardGame.Id);
