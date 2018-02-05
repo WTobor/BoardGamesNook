@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
@@ -15,28 +15,25 @@ export class GameResultListComponent implements OnInit {
 
     constructor(
         private readonly gameResultService: GameResultService,
-        private readonly router: Router
+        private readonly router: Router,
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit(): void {
-        this.getResults();
+        this.route.params
+            .switchMap((params: Params) => this.gameResultService.getList(params["nickname"]))
+            .subscribe((gameResults: GameResult[]) => {
+                this.gameResults = gameResults;
+            });
     }
 
     onSelect(gameResult: GameResult): void {
         this.selectedGameResult = gameResult;
     }
 
-    getResults(): void {
-        this.gameResultService
-            .getGameResults()
-            .then(results => {
-                this.gameResults = results;
-            });
-    }
-
     gotoDetail(): void {
-        this.router.navigate(["/gameResults", this.selectedGameResult.Id]);
+        this.router.navigate(["/gameResult", this.selectedGameResult.Id]);
     }
 
     gotoAdd(): void {

@@ -8,9 +8,10 @@ import {GameResultAddManyComponent} from "./gameResult-addMany.component";
 
 const resultsRoutes: Routes = [
     { path: "gameResults", component: GameResultListComponent },
+    { path: "gamerGameResults/:nickname", component: GameResultListComponent },
     { path: "gameResult/0", component: GameResultAddComponent },
     { path: "gameResults/0", component: GameResultAddManyComponent },
-    { path: "gameResults/:nickname", component: GameResultDetailComponent }
+    { path: "gameResult/:id", component: GameResultDetailComponent }
 ];
 
 @NgModule({

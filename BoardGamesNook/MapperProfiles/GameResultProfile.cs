@@ -11,6 +11,8 @@ namespace BoardGamesNook.MapperProfiles
             CreateMap<GameResult, GameResultViewModel>()
                 .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.Gamer.Id))
                 .ForMember(dest => dest.GamerNickname, opt => opt.MapFrom(src => src.Gamer.Nickname));
+
+            CreateMap<GameResultViewModel, GameResult>();
         }
     }
 }

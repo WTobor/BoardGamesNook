@@ -7,8 +7,6 @@ import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
 
 import { Common } from "./../Common";
-import { BoardGame } from "../boardGames/boardGame";
-import { Gamer } from "../gamers/gamer";
 import { BoardGameService } from "../boardGames/boardGame.service";
 import { GamerService } from "../gamers/gamer.service";
 
@@ -19,9 +17,6 @@ import { GamerService } from "../gamers/gamer.service";
 })
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
-    isCurrentResult = false;
-    availableBoardGames: BoardGame[];
-    availableGamers: Gamer[];
 
     constructor(
         private gameResultService: GameResultService,
@@ -33,34 +28,24 @@ export class GameResultDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.gameResultService.getByNickname(params["nickname"]))
+            .switchMap((params: Params) => this.gameResultService.getGameResult(params["id"]))
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
             });
+    }
 
-        this.boardGameService.getBoardGames().then(
-            (boardGames: BoardGame[]) => {
-                this.availableBoardGames = boardGames;
-            }
-        );
-
-        this.gamerService.getGamers().then(
-            (gamers: Gamer[]) => {
-                this.availableGamers = gamers;
-            }
-        );
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        this.save();
     }
 
     save(): void {
         var loc = this.location;
         this.gameResultService.update(this.gameResult)
             .then(errorMessage => {
-                if (this.isCurrentResult) {
-                    new Common().showErrorOrReturn(errorMessage);
-                }
-                else {
-                    new Common(loc).showErrorOrGoBack(errorMessage);
-                }
+                new Common(loc).showErrorOrGoBack(errorMessage);
             });
     }
 

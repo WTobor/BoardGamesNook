@@ -21,14 +21,14 @@ import { TableBoardGame } from "../gameTables/tableBoardGame";
     providers: [BoardGameService, GamerService, GameTableService]
 })
 export class GameResultAddComponent implements OnInit {
-    gameResult: GameResult;
-    gameResults: GameResult[];
+    gameResult: GameResult = new GameResult();
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
-    selectedBoardGame: BoardGame;
-    selectedBoardGameId: number;
-    selectedGamerId: string;
+
     currentGamerNickname: string;
+
+    selectedGamer: Gamer;
+    selectedBoardGame: BoardGame;
 
     constructor(
         private gameResultService: GameResultService,
@@ -61,12 +61,18 @@ export class GameResultAddComponent implements OnInit {
         });
     }
 
-    selectBoardGame(value: number): void {
-        this.selectedBoardGameId = Number(value);
+    selectBoardGame(value :BoardGame): void {
+        this.gameResult.BoardGameId = value.Id;
+        this.gameResult.BoardGameName = value.Name;
     }
+    //selectBoardGame(id: number, value :string): void {
+    //    this.gameResult.BoardGameId = id;
+    //    this.gameResult.BoardGameName = value;
+    //}
 
-    selectGamer(value): void {
-        this.selectedGamerId = value;
+    selectGamer(id: string, value :string): void {
+        this.gameResult.GamerId = id;
+        this.gameResult.GamerNickname = value;
     }
 
     onSubmit(submittedForm) {
@@ -77,9 +83,11 @@ export class GameResultAddComponent implements OnInit {
     }
 
     add(points: number, place: number, playersNumber: number): void {
-        this.gameResult = new GameResult;
-        this.gameResult.BoardGameId = this.selectedBoardGameId;
-        this.gameResult.GamerId = this.selectedGamerId;
+        this.gameResult.GamerId = this.selectedGamer.Id;
+        this.gameResult.GamerNickname = this.selectedGamer.Nickname;
+        this.gameResult.BoardGameId = this.selectedBoardGame.Id;
+        this.gameResult.BoardGameName = this.selectedBoardGame.Name;
+
         this.gameResult.Points = points;
         this.gameResult.Place = place;
         this.gameResult.PlayersNumber = playersNumber;
@@ -90,5 +98,10 @@ export class GameResultAddComponent implements OnInit {
                 this.router.navigate([""]);
                 window.location.reload();
             });
+    }
+
+    goBack(): void {
+        const loc = this.location;
+        return new Common(loc).goBack();
     }
 }

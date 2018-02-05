@@ -6,12 +6,15 @@
         <label class="col-md-4 col-form-label">Gra</label>
         <div class="col-md-8">
             <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
-                <select class="form-control" #selectedBoardGame (change)="selectBoardGame(selectedBoardGame.value)">
+                <select class="form-control" [(ngModel)]="selectedBoardGame" #boardGameCtrl="ngModel" name="boardGame" required>
                     <option *ngFor="let boardGame of availableBoardGames"
-                            [value]="boardGame.Id">
+                            [ngValue]="boardGame">
                         {{boardGame.Name}}
                     </option>
                 </select>
+                <span class="form-control-feedback" *ngIf="boardGameCtrl.invalid && boardGameCtrl.touched">
+                    Wybierz grę!
+                </span>
             </div>
             <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
                 Brak dostępnych gier
@@ -22,12 +25,15 @@
         <label class="col-md-4 col-form-label">Gracz</label>
         <div class="col-md-8">
             <div *ngIf="availableGamers && availableGamers.length > 0">
-                <select class="form-control" #selectedGamer (change)="selectGamer(selectedGamer.value)">
+                <select class="form-control" [(ngModel)]="selectedGamer" #gamerCtrl="ngModel" name="gamer" required>
                     <option *ngFor="let gamer of availableGamers"
-                            [value]="gamer.Id">
+                            [ngValue]="gamer" >
                         {{gamer.Nickname}}
                     </option>
                 </select>
+                <span class="form-control-feedback" *ngIf="gamerCtrl.invalid && gamerCtrl.touched">
+                    Wybierz gracza!
+                </span>
             </div>
             <div *ngIf="!availableGamers || availableGamers.length === 0">
                 Brak dostępnych graczy

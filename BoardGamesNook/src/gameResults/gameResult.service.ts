@@ -11,8 +11,8 @@ import { Common } from "./../Common";
 export class GameResultService {
     private headers = new Headers({ "Content-Type": "application/json" });
     private _getGameResultUrl = "GameResult/Get";
-    private _getByTableUrl = "GameResult/GetByTable";
-    private _getByNickUrl = "GameResult/GetAllByGamerNickname";
+    private _getGameResultListByTableUrl = "GameResult/GetAllByTableId";
+    private _getGameResultListByGamerNicknameUrl = "GameResult/GetAllByGamerNickname";
     private _getGameResultListUrl = "GameResult/GetAll";
     private _addGameResultUrl = "GameResult/Add";
     private _addGameResultListUrl = "GameResult/AddMany";
@@ -20,6 +20,15 @@ export class GameResultService {
     private _deactivateGameResultUrl = "GameResult/Deactivate";
 
     constructor(private http: Http) { }
+
+    getList(nickname: string): Promise<GameResult[]> {
+        if (nickname !== undefined && nickname !== "") {
+            return this.getByNickname(nickname);
+        } 
+        else {
+            return this.getGameResults();
+        }
+    }
 
     getGameResults(): Promise<GameResult[]> {
         const url = `${this._getGameResultListUrl}`;
@@ -50,7 +59,7 @@ export class GameResultService {
 
     getByTable(table: number): Promise<GameResult> {
         return this.http
-            .post(`${this._getByTableUrl}`, JSON.stringify({ table: table }), { headers: this.headers })
+            .post(`${this._getGameResultListByTableUrl}`, JSON.stringify({ table: table }), { headers: this.headers })
             .toPromise()
             .then(response => {
                 if (response.text() === "") {
@@ -61,25 +70,17 @@ export class GameResultService {
             .catch(err => { return Promise.reject(err); });
     }
 
-    getByNickname(nickname: string): Promise<GameResult> {
-        if (nickname !== "new") {
-            return this.http
-                .post(`${this._getByNickUrl}`, JSON.stringify({ nickname: nickname }), { headers: this.headers })
-                .toPromise()
-                .then(response => {
-                    if (response.text() === "") {
-                        return null;
-                    }
-                    return response.json() as GameResult;
-                })
-                .catch(err => { return Promise.reject(err); });
-        }
-        else {
-            var response = new GameResult;
-            return new Promise((resolve) => { resolve(response); })
-                .then(response => { return response as GameResult; })
-                .catch(err => { return Promise.reject(err); });
-        }
+    getByNickname(nickname: string): Promise<GameResult[]> {
+        return this.http
+            .post(`${this._getGameResultListByGamerNicknameUrl}`, JSON.stringify({ nickname: nickname }), { headers: this.headers })
+            .toPromise()
+            .then(response => {
+                if (response.text() === "") {
+                    return null;
+                }
+                return response.json() as GameResult[];
+            })
+            .catch(err => { return Promise.reject(err); });
     }
 
     create(gameResult: GameResult): Promise<string> {

@@ -58,6 +58,10 @@ namespace BoardGamesNook.Controllers
             var gameResultListViewModel =
                 Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
 
+            foreach (var gameResultViewModel in gameResultListViewModel)
+                gameResultViewModel.CreatedGamerNickname =
+                    _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
+
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
 
