@@ -43,7 +43,14 @@ namespace BoardGamesNook.Repository
 
         public void Edit(GameResult gameResult)
         {
-            gameResult.ModifiedDate = DateTimeOffset.Now;
+            var dbGameResult = _gameResults.FirstOrDefault(x => x.Id == gameResult.Id);
+            if (dbGameResult != null)
+            {
+                dbGameResult.Points = gameResult.Points;
+                dbGameResult.Place = gameResult.Place;
+                dbGameResult.ModifiedDate = DateTimeOffset.Now;
+            }
+            
         }
 
         public void Deactivate(int id)

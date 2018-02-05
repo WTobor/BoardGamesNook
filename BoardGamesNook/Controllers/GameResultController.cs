@@ -29,6 +29,8 @@ namespace BoardGamesNook.Controllers
                 return Json(string.Format(Errors.BoardGameResultWithIdNotFound, id), JsonRequestBehavior.AllowGet);
 
             var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResult);
+            gameResultViewModel.CreatedGamerNickname =
+                _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
 
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -101,17 +103,12 @@ namespace BoardGamesNook.Controllers
 
 
         [HttpPost]
-        public JsonResult Edit(int gameResultId)
+        public JsonResult Edit(GameResultViewModel model)
         {
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-
-            var dbGameResult = _gameResultService.GetGameResult(gameResultId);
-            if (dbGameResult != null)
-                _gameResultService.EditGameResult(dbGameResult);
-            else
-                return Json(string.Format(Errors.BoardGameResultWithIdNotFound, gameResultId),
-                    JsonRequestBehavior.AllowGet);
+            var gameResult = Mapper.Map<GameResult>(model);
+            _gameResultService.EditGameResult(gameResult);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

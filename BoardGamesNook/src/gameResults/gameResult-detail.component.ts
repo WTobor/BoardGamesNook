@@ -17,6 +17,7 @@ import { GamerService } from "../gamers/gamer.service";
 })
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
+    canChange: boolean = false;
 
     constructor(
         private gameResultService: GameResultService,
@@ -31,7 +32,13 @@ export class GameResultDetailComponent implements OnInit {
             .switchMap((params: Params) => this.gameResultService.getGameResult(params["id"]))
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
+                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                    if (nickname === this.gameResult.CreatedGamerNickname) {
+                        this.canChange = true;
+                    }
+                });
             });
+
     }
 
     onSubmit(submittedForm) {

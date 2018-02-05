@@ -35,8 +35,7 @@ namespace BoardGamesNook.MapperProfiles
 
             CreateMap<Gamer, GameResult>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
-                .ForMember(dest => dest.CreatedGamerId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.CreatedGamerId, opt => opt.MapFrom(src => src.Nickname));
+                .ForMember(dest => dest.CreatedGamerId, opt => opt.MapFrom(src => src.Id));
 
             CreateMap<GamerViewModel, Gamer>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
