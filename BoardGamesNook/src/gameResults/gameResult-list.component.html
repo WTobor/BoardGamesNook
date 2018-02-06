@@ -5,7 +5,7 @@
     <div>
         <ul>
             <li *ngFor="let gameResult of gameResults" (click)="onSelect(gameResult)">
-                <span>Miejsce: {{ gameResult.Place }}, punkty: {{ gameResult.Points }}, gra: {{ gameResult.BoardGameName }}, gracz: {{ gameResult.CreatedGamerNickname }}</span>
+                <span>Miejsce: {{ gameResult.Place }}, punkty: {{ gameResult.Points }}, gra: {{ gameResult.BoardGameName }}, gracz: {{ gameResult.GamerNickname }}</span>
                 <!-- <div *ngIf="isAdmin">
                     <button (click)="deactivate(result); $event.stopPropagation()" class="btn delete-icon">x</button>
                 </div> -->
@@ -17,7 +17,7 @@
 
         <div *ngIf="selectedGameResult">
             <h4>
-                Wynik gracza {{selectedGameResult.CreatedGamerNickname | uppercase}}
+                Wynik gracza {{selectedGameResult.GamerNickname | uppercase}}
             </h4>
             <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły wyniku</button>
         </div>

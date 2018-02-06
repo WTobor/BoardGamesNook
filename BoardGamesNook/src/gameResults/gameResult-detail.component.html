@@ -1,48 +1,38 @@
 ﻿<div *ngIf="gameResult">
     <form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
-        <div class="page-header">
-            <span>NOWY WYNIK GRY</span>
+        <div class="page-header" *ngIf="gameResult.GameTableName">
+            <span>WYNIK GRY {{gameResult.BoardGameName}} GRACZA {{gameResult.GamerNickname}} STOŁU {{gameResult.GameTableName}}</span>
+        </div>
+        <div class="page-header" *ngIf="!gameResult.GameTableName">
+            <span>WYNIK GRY {{gameResult.BoardGameName}} GRACZA {{gameResult.GamerNickname}}</span>
         </div>
 
         <div class="form-group row">
-            <label class="col-md-4">Gra</label>
+            <label class="col-md-4" for="points">Punkty</label>
             <div class="col-md-8">
-                <span class="form-control">{{gameResult.BoardGameName}}</span>
+                <input class="form-control" type="number" id="points" name="points"
+                        [(ngModel)]="gameResult.Points" #pointsCtrl="ngModel" required />
+                <span class="form-control-feedback" *ngIf="pointsCtrl.invalid && pointsCtrl.touched">
+                    Podaj liczbę punktów!
+                </span>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-4">Gracz</label>
+            <label class="col-md-4" for="place">Miejsce</label>
             <div class="col-md-8">
-                <span class="form-control">{{gameResult.GamerNickname}}</span>
+                <input class="form-control" type="number" id="place" name="place"
+                        [(ngModel)]="gameResult.Place" #placeCtrl="ngModel" required />
+                <span class="form-control-feedback" *ngIf="placeCtrl.invalid && placeCtrl.touched">
+                    Podaj liczbę punktów!
+                </span>
             </div>
         </div>
 
-            <div class="form-group row">
-                <label class="col-md-4" for="points">Punkty</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="number" id="points" name="points"
-                           [(ngModel)]="gameResult.Points" #pointsCtrl="ngModel" required />
-                    <span class="form-control-feedback" *ngIf="pointsCtrl.invalid && pointsCtrl.touched">
-                        Podaj liczbę punktów!
-                    </span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-md-4" for="place">Miejsce</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="number" id="place" name="place"
-                           [(ngModel)]="gameResult.Place" #placeCtrl="ngModel" required />
-                    <span class="form-control-feedback" *ngIf="placeCtrl.invalid && placeCtrl.touched">
-                        Podaj liczbę punktów!
-                    </span>
-                </div>
-            </div>
-
-            <div class="form-group text-center">
-                <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
-                <button *ngIf="canChange" class="btn btn-success" type="submit" [disabled]="form.invalid">
-                    Zapisz
-                </button>
-            </div>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
+            <button *ngIf="canChange" class="btn btn-success" type="submit" [disabled]="form.invalid">
+                Zapisz
+            </button>
+        </div>
     </form>
 </div>

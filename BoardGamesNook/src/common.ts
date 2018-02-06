@@ -11,7 +11,7 @@ export class Common {
     goBack(): void {
         this.location.back();
     }
-
+    
     showErrorOrGoBack(errorMessage): void {
         if (errorMessage !== "") {
             alert(errorMessage);

@@ -57,15 +57,15 @@ export class GameResultService {
         }
     }
 
-    getByTable(table: number): Promise<GameResult> {
+    getByTable(tableId: number): Promise<GameResult[]> {
         return this.http
-            .post(`${this._getGameResultListByTableUrl}`, JSON.stringify({ table: table }), { headers: this.headers })
+            .post(`${this._getGameResultListByTableUrl}`, JSON.stringify({ tableId: tableId }), { headers: this.headers })
             .toPromise()
             .then(response => {
                 if (response.text() === "") {
                     return null;
                 }
-                return response.json() as GameResult;
+                return response.json() as GameResult[];
             })
             .catch(err => { return Promise.reject(err); });
     }

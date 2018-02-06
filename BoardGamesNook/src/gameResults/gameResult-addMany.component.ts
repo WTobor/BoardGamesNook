@@ -23,7 +23,7 @@ import { TableBoardGame } from "../gameTables/tableBoardGame";
 export class GameResultAddManyComponent implements OnInit {
     gameResult: GameResult;
     gameResults: GameResult[];
-    gamerGameTables: GameTable[];
+    gamerGameTablesWithoutResults: GameTable[];
     selectedGameTable: GameTable;
     selectedGameTableId: number;
     tableBoardGames: TableBoardGame[];
@@ -58,20 +58,18 @@ export class GameResultAddManyComponent implements OnInit {
             this.currentGamerNickname = nickname;
         });
 
-        this.gameTableService.getGameTablesByGamerNickname(this.currentGamerNickname).then(gamerGameTables => {
-            this.gamerGameTables = gamerGameTables;
-            if (this.gamerGameTables != null && this.gamerGameTables.length > 0) {
-                this.selectBoardGameTable(this.gamerGameTables.map(x => x.Id)[0]);
+        this.gameTableService.getGameTablesWithoutResultsByGamerNickname(this.currentGamerNickname).then(gamerGameTablesWithoutResults => {
+            this.gamerGameTablesWithoutResults = gamerGameTablesWithoutResults;
+            if (this.gamerGameTablesWithoutResults != null && this.gamerGameTablesWithoutResults.length > 0) {
+                this.selectBoardGameTable(this.gamerGameTablesWithoutResults[0]);
             }
         }
         );
     }
 
-    selectBoardGameTable(value: number): void {
-        this.selectedGameTableId = Number(value);
-        this.gameTableService.getAvailableTableBoardGameList(this.selectedGameTableId).then(tableBoardGames => {
-            this.tableBoardGames = tableBoardGames;
-        });
+    selectBoardGameTable(selectedGameTable: GameTable): void {
+        this.selectedGameTableId = selectedGameTable.Id;
+        this.tableBoardGames = selectedGameTable.TableBoardGameList;
         this.gameTableService.getGameTable(this.selectedGameTableId).then(gameTable => {
             this.gamerService.getGamers().then(gamers => {
                 this.tableGamers = gamers;
@@ -82,10 +80,6 @@ export class GameResultAddManyComponent implements OnInit {
                 }
             });
         });
-    }
-
-    selectTableBoardGame(value: number): void {
-        this.selectedTableBoardGameId = Number(value);
     }
 
     onSubmitMany(submittedForm) {
@@ -100,6 +94,7 @@ export class GameResultAddManyComponent implements OnInit {
         this.gameResults = [];
         for (let i = 0; i < playersNumber; i++) {
             this.gameResult = new GameResult;
+            this.gameResult.GameTableId = this.selectedGameTableId;
             this.gameResult.BoardGameId = this.selectedTableBoardGameId;
             this.gameResult.GamerId = this.tableGamers[i].Id;
             this.gameResult.Points = this.pointList[i];
@@ -114,5 +109,10 @@ export class GameResultAddManyComponent implements OnInit {
                 this.router.navigate([""]);
                 window.location.reload();
             });
+    }
+
+    goBack(): void {
+        const loc = this.location;
+        return new Common(loc).goBack();
     }
 }

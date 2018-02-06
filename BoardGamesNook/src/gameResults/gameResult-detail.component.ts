@@ -17,6 +17,7 @@ import { GamerService } from "../gamers/gamer.service";
 })
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
+    otherTableGameResults: GameResult[];
     canChange: boolean = false;
 
     constructor(
@@ -32,6 +33,12 @@ export class GameResultDetailComponent implements OnInit {
             .switchMap((params: Params) => this.gameResultService.getGameResult(params["id"]))
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
+                if (this.gameResult.GameTableId !== undefined) {
+                    this.gameResultService.getByTable(this.gameResult.GameTableId).then((gameResults: GameResult[]) => {
+                        this.otherTableGameResults = gameResults.filter(x => x.Id !== this.gameResult.Id);
+                    });
+                }
+
                 this.gamerService.getCurrentGamerNickname().then(nickname => {
                     if (nickname === this.gameResult.CreatedGamerNickname) {
                         this.canChange = true;
@@ -45,6 +52,27 @@ export class GameResultDetailComponent implements OnInit {
         if (submittedForm.invalid) {
             return;
         }
+        if (this.otherTableGameResults) {
+            var duplicatedPoints = this.otherTableGameResults.find(x => x.Points === this.gameResult.Points);
+            var duplicatedPlace = this.otherTableGameResults.find(x => x.Place === this.gameResult.Place);
+            if (duplicatedPoints && duplicatedPlace ) {
+                if (confirm("Gracz " + duplicatedPoints.GamerNickname + " ma taką samą liczbę punktów i miejsce. Czy na pewno zapisać zmiany?")) {
+                    this.save();
+                } 
+                else {
+                    return;
+                }
+            }
+            else if (duplicatedPoints) {
+                confirm("Gracz " + duplicatedPoints.GamerNickname + " ma taką samą liczbę punktów. Zmień miejsce gracza lub popraw dane.");
+                return;
+            }
+            else if (duplicatedPlace) {
+                confirm("Gracz " + duplicatedPlace.GamerNickname + " ma takie samo miejsce. Zmień liczbę punktów gracza lub popraw dane.");
+                return;
+            }
+        }
+
         this.save();
     }
 

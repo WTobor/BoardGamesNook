@@ -38,7 +38,11 @@ namespace BoardGamesNook.Repository
 
         public void AddMany(List<GameResult> gameResults)
         {
-            foreach (var gameResult in gameResults) _gameResults.Add(gameResult);
+            foreach (var gameResult in gameResults)
+            {
+                gameResult.Id = GetAll().Select(x => x.Id).LastOrDefault() + 1;
+                _gameResults.Add(gameResult);
+            }
         }
 
         public void Edit(GameResult gameResult)

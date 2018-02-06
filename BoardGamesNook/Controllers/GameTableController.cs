@@ -13,10 +13,12 @@ namespace BoardGamesNook.Controllers
     public class GameTableController : Controller
     {
         private readonly IGameTableService _gameTableService;
+        private readonly IGameResultService _gameResultService;
 
-        public GameTableController(IGameTableService gameTableService)
+        public GameTableController(IGameTableService gameTableService, IGameResultService gameResultService)
         {
             _gameTableService = gameTableService;
+            _gameResultService = gameResultService;
         }
 
         public JsonResult Get(int id)
@@ -70,6 +72,18 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAllByGamerNickname(string nickname)
         {
             var gameTableList = _gameTableService.GetAllGameTablesByGamerNickname(nickname);
+            var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
+            gameTableListViewModel.ForEach(x => x.GamerNickname = nickname);
+
+            var result = MapGameTableViewModelListToGameTableList(gameTableListViewModel);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllWithoutResultsByGamerNickname(string nickname)
+        {
+            var gameTableList = _gameTableService.GetAllGameTablesWithoutResultsByGamerNickname(nickname);
+
             var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
             gameTableListViewModel.ForEach(x => x.GamerNickname = nickname);
 

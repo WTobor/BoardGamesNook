@@ -12,6 +12,7 @@ export class GameTableService {
     private _getGameTableUrl = "GameTable/Get";
     private _getGameTableListUrl = "GameTable/GetAll";
     private _getGameTableListByGamerNicknameUrl = "GameTable/GetAllByGamerNickname";
+    private _getGameTableListWithoutResultsUrl = "GameTable/GetAllWithoutResultsByGamerNickname";
     private _getAvailableTableBoardGameListUrl = "GameTable/GetAvailableTableBoardGameList";
     private _addGameTableUrl = "GameTable/Add";
     private _editGameTableUrl = "GameTable/Edit";
@@ -31,6 +32,20 @@ export class GameTableService {
 
     getGameTablesByGamerNickname(gamerNickname: string): Promise<GameTable[]> {
         var url = `${this._getGameTableListUrl}`;
+        if (gamerNickname != null && gamerNickname !== "") {
+            url = `${this._getGameTableListByGamerNicknameUrl}/${gamerNickname}`;
+        };
+        
+        return this.http.get(url)
+            .toPromise()
+            .then(response => {
+                return response.json() as GameTable[];
+            })
+            .catch (err => { return Promise.reject(err); });
+    }
+
+    getGameTablesWithoutResultsByGamerNickname(gamerNickname: string): Promise<GameTable[]> {
+        var url = `${this._getGameTableListWithoutResultsUrl}`;
         if (gamerNickname != null && gamerNickname !== "") {
             url = `${this._getGameTableListByGamerNicknameUrl}/${gamerNickname}`;
         };
