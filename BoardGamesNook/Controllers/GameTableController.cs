@@ -13,12 +13,12 @@ namespace BoardGamesNook.Controllers
     public class GameTableController : Controller
     {
         private readonly IGameTableService _gameTableService;
-        private readonly IGameResultService _gameResultService;
+        private readonly IGamerService _gamerService;
 
-        public GameTableController(IGameTableService gameTableService, IGameResultService gameResultService)
+        public GameTableController(IGameTableService gameTableService, IGamerService gamerService)
         {
             _gameTableService = gameTableService;
-            _gameResultService = gameResultService;
+            _gamerService = gamerService;
         }
 
         public JsonResult Get(int id)
@@ -156,25 +156,12 @@ namespace BoardGamesNook.Controllers
 
             return result;
         }
-
         
         private GameTable GetGameTableObj(GameTableViewModel gameTableViewModel, Gamer gamer)
         {
-            return new GameTable
-            {
-                Name = gameTableViewModel.Name,
-                City = gameTableViewModel.City,
-                Street = gameTableViewModel.Street,
-                IsPrivate = gameTableViewModel.IsPrivate,
-                MinPlayersNumber = gameTableViewModel.MinPlayers,
-                MaxPlayersNumber = gameTableViewModel.MaxPlayers,
-                IsFull = false,
-                Id = _gameTableService.GetAllGameTablesByGamerNickname(gamer.Nickname).Select(x => x.Id)
-                         .LastOrDefault() + 1,
-                CreatedGamerId = gamer.Id,
-                CreatedGamer = gamer,
-                CreatedDate = DateTimeOffset.Now
-            };
+            var result = Mapper.Map<GameTable>(gameTableViewModel);
+            Mapper.Map(gamer, result);
+            return result;
         }
     }
 }
