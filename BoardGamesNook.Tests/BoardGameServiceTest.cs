@@ -43,19 +43,20 @@ namespace BoardGamesNook.Tests
         public void AddBoardGameToBoardGamesList()
         {
             //Arrange
-            _boardGameRepositoryMock.Setup(mock => mock.Add(It.Is<BoardGame>(x => x.Equals(_testBoardGame))));
+            _boardGameRepositoryMock.Setup(mock => mock.Add(It.IsAny<BoardGame>()));
             var boardGameService = new BoardGameService(_boardGameRepositoryMock.Object);
             //Act
             boardGameService.Add(_testBoardGame);
             //Assert
-            _boardGameRepositoryMock.Verify(mock => mock.Add(It.Is<BoardGame>(i => i.Equals(_testBoardGame))), Times.Once);
+            _boardGameRepositoryMock.Verify(mock => mock.Add(It.Is<BoardGame>(i => i.Equals(_testBoardGame))),
+                Times.Once);
         }
 
         [TestMethod]
         public void GetBoardGame()
         {
             //Arrange
-            _boardGameRepositoryMock.Setup(mock => mock.Get(It.Is<int>(x => x.Equals(_testBoardGame.Id))));
+            _boardGameRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>()));
             var boardGameService = new BoardGameService(_boardGameRepositoryMock.Object);
             //Act
             boardGameService.Get(_testBoardGame.Id);
@@ -67,25 +68,27 @@ namespace BoardGamesNook.Tests
         public void EditBoardGame()
         {
             //Arrange
-            _boardGameRepositoryMock.Setup(mock => mock.Edit(It.Is<BoardGame>(x => x.Equals(_testBoardGame))));
+            _boardGameRepositoryMock.Setup(mock => mock.Edit(It.IsAny<BoardGame>()));
             var boardGameService = new BoardGameService(_boardGameRepositoryMock.Object);
 
             //Act
             boardGameService.Edit(_testBoardGame);
             //Assert
-            _boardGameRepositoryMock.Verify(mock => mock.Edit(It.Is<BoardGame>(x => x.Equals(_testBoardGame))), Times.Once());
+            _boardGameRepositoryMock.Verify(mock => mock.Edit(It.Is<BoardGame>(x => x.Equals(_testBoardGame))),
+                Times.Once());
         }
 
         [TestMethod]
         public void DeactivateBoardGame()
         {
             //Arrange
-            _boardGameRepositoryMock.Setup(mock => mock.Deactivate(It.Is<int>(x => x.Equals(_testBoardGame.Id))));
+            _boardGameRepositoryMock.Setup(mock => mock.Deactivate(It.IsAny<int>()));
             var boardGameService = new BoardGameService(_boardGameRepositoryMock.Object);
             //Act
             boardGameService.DeactivateBoardGame(_testBoardGame.Id);
             //Assert
-            _boardGameRepositoryMock.Verify(mock => mock.Deactivate(It.Is<int>(x => x.Equals(_testBoardGame.Id))), Times.Once());
+            _boardGameRepositoryMock.Verify(mock => mock.Deactivate(It.Is<int>(x => x.Equals(_testBoardGame.Id))),
+                Times.Once());
         }
     }
 }

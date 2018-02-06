@@ -48,7 +48,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gamerBoardGameRepositoryMock.Setup(mock =>
-                mock.Add(It.Is<GamerBoardGame>(x => x.Equals(_testGamerBoardGame))));
+                mock.Add(It.IsAny<GamerBoardGame>()));
             var gamerBoardGameService = new GamerBoardGameService(_gamerBoardGameRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object));
             //Act
@@ -62,7 +62,7 @@ namespace BoardGamesNook.Tests
         public void GetGamerBoardGame()
         {
             //Arrange
-            _gamerBoardGameRepositoryMock.Setup(mock => mock.Get(It.Is<int>(x => x.Equals(_testGamerBoardGame.Id))))
+            _gamerBoardGameRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>()))
                 .Returns(_testGamerBoardGame);
             var gamerBoardGameService = new GamerBoardGameService(_gamerBoardGameRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object));
@@ -79,7 +79,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gamerBoardGameRepositoryMock.Setup(mock =>
-                mock.Edit(It.Is<GamerBoardGame>(x => x.Equals(_testGamerBoardGame))));
+                mock.Edit(It.IsAny<GamerBoardGame>()));
             var gamerBoardGameService = new GamerBoardGameService(_gamerBoardGameRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object));
             //Act
@@ -94,7 +94,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gamerBoardGameRepositoryMock.Setup(mock =>
- mock.Deactivate(It.Is<int>(x => x.Equals(_testGamerBoardGame.Id))));
+                mock.Deactivate(It.IsAny<int>()));
             var gamerBoardGameService = new GamerBoardGameService(_gamerBoardGameRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object));
             //Act

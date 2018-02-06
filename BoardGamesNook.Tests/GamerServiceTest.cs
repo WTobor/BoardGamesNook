@@ -42,7 +42,7 @@ namespace BoardGamesNook.Tests
         public void AddGamerToGamersList()
         {
             //Arrange
-            _gamerRepositoryMock.Setup(mock => mock.Add(It.Is<Gamer>(x => x.Equals(_testGamer))));
+            _gamerRepositoryMock.Setup(mock => mock.Add(It.IsAny<Gamer>()));
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             gamerService.AddGamer(_testGamer);
@@ -55,7 +55,7 @@ namespace BoardGamesNook.Tests
         public void GetGamer()
         {
             //Arrange
-            _gamerRepositoryMock.Setup(mock => mock.Get(It.Is<string>(x => x.Equals(_testGamer.Id))));
+            _gamerRepositoryMock.Setup(mock => mock.Get(It.IsAny<string>()));
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             gamerService.GetGamer(_testGamer.Id);
@@ -69,7 +69,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var mail = "test";
-            _gamerRepositoryMock.Setup(mock => mock.GetByEmail(It.Is<string>(x => x.Equals(mail))))
+            _gamerRepositoryMock.Setup(mock => mock.GetByEmail(It.IsAny<string>()))
                 .Returns(new Gamer());
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
@@ -85,7 +85,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var nickname = "test";
-            _gamerRepositoryMock.Setup(mock => mock.GetByNickname(It.Is<string>(x => x.Equals(nickname))))
+            _gamerRepositoryMock.Setup(mock => mock.GetByNickname(It.IsAny<string>()))
                 .Returns(new Gamer());
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
@@ -100,7 +100,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var nickname = "test";
-            _gamerRepositoryMock.Setup(mock => mock.NicknameExists(It.Is<string>(x => x.Equals(nickname))));
+            _gamerRepositoryMock.Setup(mock => mock.NicknameExists(It.IsAny<string>()));
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             gamerService.NicknameExists(nickname);
@@ -112,7 +112,7 @@ namespace BoardGamesNook.Tests
         public void EditGamer()
         {
             //Arrange
-            _gamerRepositoryMock.Setup(mock => mock.Edit(It.Is<Gamer>(x => x.Equals(_testGamer))));
+            _gamerRepositoryMock.Setup(mock => mock.Edit(It.IsAny<Gamer>()));
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             gamerService.EditGamer(_testGamer);
@@ -125,7 +125,7 @@ namespace BoardGamesNook.Tests
         public void DeactivateGamer()
         {
             //Arrange
-            _gamerRepositoryMock.Setup(mock => mock.Deactivate(It.Is<string>(x => x.Equals(_testGamer.Id))));
+            _gamerRepositoryMock.Setup(mock => mock.Deactivate(It.IsAny<string>()));
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             gamerService.DeactivateGamer(_testGamer.Id);

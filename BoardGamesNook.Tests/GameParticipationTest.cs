@@ -46,7 +46,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameParticipationRepositoryMock.Setup(mock =>
-                mock.Add(It.Is<GameParticipation>(x => x.Equals(_testGameParticipation))));
+                mock.Add(It.IsAny<GameParticipation>()));
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
             gameParticipationService.AddGameParticipation(_testGameParticipation);
@@ -60,7 +60,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameParticipationRepositoryMock
-                .Setup(mock => mock.Get(It.Is<int>(x => x.Equals(_testGameParticipation.Id))))
+                .Setup(mock => mock.Get(It.IsAny<int>()))
                 .Returns(_testGameParticipation);
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
@@ -75,7 +75,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameParticipationRepositoryMock.Setup(mock =>
-                mock.Edit(It.Is<GameParticipation>(x => x.Equals(_testGameParticipation))));
+                mock.Edit(It.IsAny<GameParticipation>()));
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
             gameParticipationService.Edit(_testGameParticipation);
@@ -89,7 +89,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameParticipationRepositoryMock.Setup(mock =>
-                mock.Deactivate(It.Is<int>(x => x.Equals(_testGameParticipation.Id))));
+                mock.Deactivate(It.IsAny<int>()));
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
             gameParticipationService.DeactivateGameParticipation(_testGameParticipation.Id);
