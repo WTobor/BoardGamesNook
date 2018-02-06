@@ -13,7 +13,7 @@ namespace BoardGamesNook.Tests
     {
         private readonly Mock<IGameParticipationRepository> _gameParticipationRepositoryMock;
 
-        private readonly GameParticipation testGameParticipation = new GameParticipation
+        private readonly GameParticipation _testGameParticipation = new GameParticipation
         {
             Id = 1,
             GameTableId = 1,
@@ -45,48 +45,57 @@ namespace BoardGamesNook.Tests
         public void AddGameParticipationToGameParticipationsList()
         {
             //Arrange
-            _gameParticipationRepositoryMock.Setup(x => x.Add(testGameParticipation));
+            _gameParticipationRepositoryMock.Setup(mock =>
+                mock.Add(It.Is<GameParticipation>(x => x.Equals(_testGameParticipation))));
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            gameParticipationService.AddGameParticipation(testGameParticipation);
+            gameParticipationService.AddGameParticipation(_testGameParticipation);
             //Assert
-            _gameParticipationRepositoryMock.Verify(mock => mock.Add(testGameParticipation), Times.Once());
+            _gameParticipationRepositoryMock.Verify(
+                mock => mock.Add(It.Is<GameParticipation>(x => x.Equals(_testGameParticipation))), Times.Once());
         }
 
         [TestMethod]
         public void GetGameParticipation()
         {
             //Arrange
-            _gameParticipationRepositoryMock.Setup(x => x.Get(testGameParticipation.Id)).Returns(testGameParticipation);
+            _gameParticipationRepositoryMock
+                .Setup(mock => mock.Get(It.Is<int>(x => x.Equals(_testGameParticipation.Id))))
+                .Returns(_testGameParticipation);
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            var gameParticipation = gameParticipationService.GetGameParticipation(testGameParticipation.Id);
+            var gameParticipation = gameParticipationService.GetGameParticipation(_testGameParticipation.Id);
             //Assert
-            _gameParticipationRepositoryMock.Verify(mock => mock.Get(testGameParticipation.Id), Times.Once());
+            _gameParticipationRepositoryMock.Verify(
+                mock => mock.Get(It.Is<int>(x => x.Equals(_testGameParticipation.Id))), Times.Once());
         }
 
         [TestMethod]
         public void EditGameParticipation()
         {
             //Arrange
-            _gameParticipationRepositoryMock.Setup(x => x.Edit(testGameParticipation));
+            _gameParticipationRepositoryMock.Setup(mock =>
+                mock.Edit(It.Is<GameParticipation>(x => x.Equals(_testGameParticipation))));
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            gameParticipationService.Edit(testGameParticipation);
+            gameParticipationService.Edit(_testGameParticipation);
             //Assert
-            _gameParticipationRepositoryMock.Verify(mock => mock.Edit(testGameParticipation), Times.Once());
+            _gameParticipationRepositoryMock.Verify(
+                mock => mock.Edit(It.Is<GameParticipation>(x => x.Equals(_testGameParticipation))), Times.Once());
         }
 
         [TestMethod]
         public void DeactivateGameParticipation()
         {
             //Arrange
-            _gameParticipationRepositoryMock.Setup(x => x.Deactivate(testGameParticipation.Id));
+            _gameParticipationRepositoryMock.Setup(mock =>
+                mock.Deactivate(It.Is<int>(x => x.Equals(_testGameParticipation.Id))));
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            gameParticipationService.DeactivateGameParticipation(testGameParticipation.Id);
+            gameParticipationService.DeactivateGameParticipation(_testGameParticipation.Id);
             //Assert
-            _gameParticipationRepositoryMock.Verify(mock => mock.Deactivate(testGameParticipation.Id), Times.Once());
+            _gameParticipationRepositoryMock.Verify(
+                mock => mock.Deactivate(It.Is<int>(x => x.Equals(_testGameParticipation.Id))), Times.Once());
         }
     }
 }

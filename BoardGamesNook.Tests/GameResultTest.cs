@@ -13,7 +13,7 @@ namespace BoardGamesNook.Tests
     {
         private readonly Mock<IGameResultRepository> _gameResultRepositoryMock;
 
-        private readonly GameResult testGameResult = new GameResult
+        private readonly GameResult _testGameResult = new GameResult
         {
             Id = 1,
             GameTableId = 1,
@@ -44,24 +44,26 @@ namespace BoardGamesNook.Tests
         public void AddGameResultToGameResultsList()
         {
             //Arrange
-            _gameResultRepositoryMock.Setup(x => x.Add(testGameResult));
+            _gameResultRepositoryMock.Setup(mock => mock.Add(It.Is<GameResult>(x => x.Equals(_testGameResult))));
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.AddGameResult(testGameResult);
+            gameResultService.AddGameResult(_testGameResult);
             //Assert
-            _gameResultRepositoryMock.Verify(mock => mock.Add(testGameResult), Times.Once());
+            _gameResultRepositoryMock.Verify(mock => mock.Add(It.Is<GameResult>(x => x.Equals(_testGameResult))),
+                Times.Once());
         }
 
         [TestMethod]
         public void GetGameResult()
         {
             //Arrange
-            _gameResultRepositoryMock.Setup(x => x.Get(testGameResult.Id));
+            _gameResultRepositoryMock.Setup(mock => mock.Get(It.Is<int>(x => x.Equals(_testGameResult.Id))));
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            var gameResult = gameResultService.GetGameResult(testGameResult.Id);
+            gameResultService.GetGameResult(_testGameResult.Id);
             //Assert
-            _gameResultRepositoryMock.Verify(mock => mock.Get(testGameResult.Id), Times.Once());
+            _gameResultRepositoryMock.Verify(mock => mock.Get(It.Is<int>(x => x.Equals(_testGameResult.Id))),
+                Times.Once());
         }
 
         [TestMethod]
@@ -69,7 +71,7 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             var nickname = "test";
-            _gameResultRepositoryMock.Setup(x => x.GetAllByGamerNickname(nickname))
+            _gameResultRepositoryMock.Setup(mock => mock.GetAllByGamerNickname(It.Is<string>(x => x.Equals(nickname))))
                 .Returns(new List<GameResult> {new GameResult()});
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
@@ -77,22 +79,25 @@ namespace BoardGamesNook.Tests
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
-            _gameResultRepositoryMock.Verify(mock => mock.GetAllByGamerNickname(nickname), Times.Once());
+            _gameResultRepositoryMock.Verify(mock => mock.GetAllByGamerNickname(It.Is<string>(x => x.Equals(nickname))),
+                Times.Once());
         }
 
         [TestMethod]
         public void GetByTable()
         {
             //Arrange
-            _gameResultRepositoryMock.Setup(x => x.GetAllByTableId(testGameResult.GameTableId.Value))
+            _gameResultRepositoryMock.Setup(mock =>
+                    mock.GetAllByTableId(It.Is<int>(x => x.Equals(_testGameResult.GameTableId.Value))))
                 .Returns(new List<GameResult> {new GameResult()});
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            var gameResults = gameResultService.GetAllGameResultsByTableId(testGameResult.GameTableId.Value);
+            var gameResults = gameResultService.GetAllGameResultsByTableId(_testGameResult.GameTableId.Value);
 
             //Assert
             Assert.AreEqual(1, gameResults.Count());
-            _gameResultRepositoryMock.Verify(mock => mock.GetAllByTableId(testGameResult.GameTableId.Value),
+            _gameResultRepositoryMock.Verify(
+                mock => mock.GetAllByTableId(It.Is<int>(x => x.Equals(_testGameResult.GameTableId.Value))),
                 Times.Once());
         }
 
@@ -100,24 +105,26 @@ namespace BoardGamesNook.Tests
         public void EditGameResult()
         {
             //Arrange
-            _gameResultRepositoryMock.Setup(x => x.Edit(testGameResult));
+            _gameResultRepositoryMock.Setup(mock => mock.Edit(It.Is<GameResult>(x => x.Equals(_testGameResult))));
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.EditGameResult(testGameResult);
+            gameResultService.EditGameResult(_testGameResult);
             //Assert
-            _gameResultRepositoryMock.Verify(mock => mock.Edit(testGameResult), Times.Once());
+            _gameResultRepositoryMock.Verify(mock => mock.Edit(It.Is<GameResult>(x => x.Equals(_testGameResult))),
+                Times.Once());
         }
 
         [TestMethod]
         public void DeactivateGameResult()
         {
             //Arrange
-            _gameResultRepositoryMock.Setup(x => x.Deactivate(testGameResult.Id));
+            _gameResultRepositoryMock.Setup(mock => mock.Deactivate(It.Is<int>(x => x.Equals(_testGameResult.Id))));
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
             //Act
-            gameResultService.DeactivateGameResult(testGameResult.Id);
+            gameResultService.DeactivateGameResult(_testGameResult.Id);
             //Assert
-            _gameResultRepositoryMock.Verify(mock => mock.Deactivate(testGameResult.Id), Times.Once());
+            _gameResultRepositoryMock.Verify(mock => mock.Deactivate(It.Is<int>(x => x.Equals(_testGameResult.Id))),
+                Times.Once());
         }
     }
 }

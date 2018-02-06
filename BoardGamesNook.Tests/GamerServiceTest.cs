@@ -1,142 +1,137 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
-using BoardGamesNook.Repository;
-using BoardGamesNook.Repository.Generators;
+using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace BoardGamesNook.Tests
 {
     [TestClass]
     public class GamerServiceTest
     {
+        private readonly Mock<IGamerRepository> _gamerRepositoryMock;
+
+        private readonly Gamer _testGamer = new Gamer
+        {
+            Id = "test",
+            Nickname = "test"
+        };
+
+        public GamerServiceTest()
+        {
+            _gamerRepositoryMock = new Mock<IGamerRepository>();
+        }
+
+
         [TestMethod]
         public void GetGamersList()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.Gamers.Count;
+            _gamerRepositoryMock.Setup(x => x.GetAll()).Returns(new List<Gamer> {new Gamer()});
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             var gamers = gamerService.GetAllGamers();
             //Assert
-            Assert.AreEqual(generatedGamersCount, gamers.Count());
+            Assert.AreEqual(1, gamers.Count());
+            _gamerRepositoryMock.Verify(mock => mock.GetAll(), Times.Once());
         }
 
         [TestMethod]
         public void AddGamerToGamersList()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var generatedGamersCount = GamerGenerator.Gamers.Count;
-            var newGamerId = Guid.NewGuid().ToString();
+            _gamerRepositoryMock.Setup(mock => mock.Add(It.Is<Gamer>(x => x.Equals(_testGamer))));
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
-            gamerService.AddGamer(GetTestGamer(newGamerId));
-            var gamers = gamerService.GetAllGamers();
+            gamerService.AddGamer(_testGamer);
             //Assert
-            Assert.AreEqual(generatedGamersCount + 1, gamers.Count());
+            _gamerRepositoryMock.Verify(mock => mock.Add(It.Is<Gamer>(x => x.Equals(_testGamer))),
+                Times.Once());
         }
 
         [TestMethod]
         public void GetGamer()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var newGamerId = Guid.NewGuid().ToString();
+            _gamerRepositoryMock.Setup(mock => mock.Get(It.Is<string>(x => x.Equals(_testGamer.Id))));
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
-            gamerService.AddGamer(GetTestGamer(newGamerId));
-            var gamer = gamerService.GetGamer(newGamerId);
-            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
+            gamerService.GetGamer(_testGamer.Id);
             //Assert
-            Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
+            _gamerRepositoryMock.Verify(mock => mock.Get(It.Is<string>(x => x.Equals(_testGamer.Id))),
+                Times.Once());
         }
 
         [TestMethod]
         public void GetByEmail()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var newGamerId = Guid.NewGuid().ToString();
+            var mail = "test";
+            _gamerRepositoryMock.Setup(mock => mock.GetByEmail(It.Is<string>(x => x.Equals(mail))))
+                .Returns(new Gamer());
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
-            var testGamer = GetTestGamer(newGamerId);
-            gamerService.AddGamer(testGamer);
-            var gamer = gamerService.GetGamerByEmail(testGamer.Email);
-            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
+            gamerService.GetGamerByEmail(mail);
+
             //Assert
-            Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
+            _gamerRepositoryMock.Verify(mock => mock.GetByEmail(It.Is<string>(x => x.Equals(mail))),
+                Times.Once());
         }
 
         [TestMethod]
         public void GetByNickname()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var newGamerId = Guid.NewGuid().ToString();
-            var testGamer = GetTestGamer(newGamerId);
-            var testNickname = Guid.NewGuid().ToString();
-            testGamer.Nickname = testNickname;
+            var nickname = "test";
+            _gamerRepositoryMock.Setup(mock => mock.GetByNickname(It.Is<string>(x => x.Equals(nickname))))
+                .Returns(new Gamer());
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
-            gamerService.AddGamer(testGamer);
-            var gamer = gamerService.GetGamerBoardGameByNickname(testNickname);
-            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
+            gamerService.GetGamerBoardGameByNickname(nickname);
             //Assert
-            Assert.AreEqual(lastAddedGamer?.Id, gamer.Id);
+            _gamerRepositoryMock.Verify(mock => mock.GetByNickname(It.Is<string>(x => x.Equals(nickname))),
+                Times.Once());
         }
 
         [TestMethod]
         public void ExistsGamerNickname()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var newGamerId = Guid.NewGuid().ToString();
+            var nickname = "test";
+            _gamerRepositoryMock.Setup(mock => mock.NicknameExists(It.Is<string>(x => x.Equals(nickname))));
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
-            gamerService.AddGamer(GetTestGamer(newGamerId));
-            var nicknameExists = gamerService.NicknameExists(GetTestGamer(newGamerId)?.Nickname);
-            //Assert
-            Assert.AreEqual(true, nicknameExists);
+            gamerService.NicknameExists(nickname);
+            _gamerRepositoryMock.Verify(mock => mock.NicknameExists(It.Is<string>(x => x.Equals(nickname))),
+                Times.Once());
         }
 
         [TestMethod]
         public void EditGamer()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var name = "test2";
-            var newGamerId = Guid.NewGuid().ToString();
+            _gamerRepositoryMock.Setup(mock => mock.Edit(It.Is<Gamer>(x => x.Equals(_testGamer))));
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
-            gamerService.AddGamer(GetTestGamer(newGamerId));
-            var gamer = gamerService.GetGamer(newGamerId);
-            gamer.Name = name;
-            gamerService.EditGamer(gamer);
-            var newGamer = gamerService.GetGamer(newGamerId);
+            gamerService.EditGamer(_testGamer);
             //Assert
-            Assert.AreEqual(name, newGamer.Name);
-            Assert.IsNotNull(newGamer.ModifiedDate);
+            _gamerRepositoryMock.Verify(mock => mock.Edit(It.Is<Gamer>(x => x.Equals(_testGamer))),
+                Times.Once());
         }
 
         [TestMethod]
         public void DeactivateGamer()
         {
             //Arrange
-            var gamerService = new GamerService(new GamerRepository());
-            var newGamerId = Guid.NewGuid().ToString();
+            _gamerRepositoryMock.Setup(mock => mock.Deactivate(It.Is<string>(x => x.Equals(_testGamer.Id))));
+            var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
-            gamerService.AddGamer(GetTestGamer(newGamerId));
-            gamerService.DeactivateGamer(newGamerId);
-            var lastAddedGamer = GamerGenerator.Gamers.LastOrDefault();
+            gamerService.DeactivateGamer(_testGamer.Id);
             //Assert
-            Assert.AreEqual(false, lastAddedGamer?.Active);
-        }
-
-        private static Gamer GetTestGamer(string gamerId)
-        {
-            return new Gamer
-            {
-                Id = gamerId,
-                Nickname = "test",
-                Name = "test",
-                Email = $"{gamerId}@test.pl"
-            };
+            _gamerRepositoryMock.Verify(mock => mock.Deactivate(It.Is<string>(x => x.Equals(_testGamer.Id))),
+                Times.Once());
         }
     }
 }
