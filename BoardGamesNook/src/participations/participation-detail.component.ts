@@ -1,11 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { ParticipationService } from "./participation.service";
 import { Participation } from "./participation";
-
 import { Common } from "./../Common";
 
 @Component({
@@ -40,10 +39,10 @@ export class ParticipationDetailComponent implements OnInit {
         var loc = this.location;
         if (this.participation.Id === undefined) {
             this.participationService.create(this.participation)
-                .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+                .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
         } else {
             this.participationService.update(this.participation)
-                .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+                .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
         }
     }
 

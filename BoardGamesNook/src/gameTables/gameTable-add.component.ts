@@ -1,11 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
-
 import { Common } from "./../Common";
 import { TableBoardGame } from "./tableBoardGame";
 import {GamerService} from "../gamers/gamer.service";
@@ -40,7 +39,7 @@ export class GameTableAddComponent implements OnInit {
     getAvailableTableBoardGameList(tableId: number): void {
         this.gameTableService
             .getAvailableTableBoardGameList(tableId)
-            .then(
+            .subscribe(
                 availableTableBoardGames => this.availableTableBoardGames = availableTableBoardGames
             );
     }
@@ -65,7 +64,7 @@ export class GameTableAddComponent implements OnInit {
     add(): void {
         var loc = this.location;
         this.gameTableService.create(this.gameTable)
-            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
 
     goBack(): void {

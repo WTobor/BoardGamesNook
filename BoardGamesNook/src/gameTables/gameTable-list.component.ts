@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import 'rxjs/add/operator/switchMap';
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
@@ -33,7 +34,7 @@ export class GameTableListComponent implements OnInit {
         this.route.params
             .subscribe((params: Params) => {
                 this.selectedGamerNickname = params["gamerNickname"];
-                this.gamerService.getCurrentGamerNickname().then(nick => {
+                this.gamerService.getCurrentGamerNickname().subscribe(nick => {
                     if (nick === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     };
@@ -54,7 +55,7 @@ export class GameTableListComponent implements OnInit {
     delete(gameTable: GameTable): void {
         this.gameTableService
             .deactivate(gameTable.Id)
-            .then(() => {
+            .subscribe(() => {
                 this.gameTables = this.gameTables.filter(g => g !== gameTable);
                 if (this.selectedGameTable === gameTable) { this.selectedGameTable = null; }
             });

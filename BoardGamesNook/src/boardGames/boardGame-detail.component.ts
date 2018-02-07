@@ -1,7 +1,7 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
@@ -38,7 +38,7 @@ export class BoardGameDetailComponent implements OnInit {
     save(): void {
         var loc = this.location;
         this.boardGameService.update(this.boardGame)
-            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
 
     goBack(): void {

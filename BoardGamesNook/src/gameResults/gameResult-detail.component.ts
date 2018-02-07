@@ -1,11 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
-
 import { Common } from "./../Common";
 import { BoardGameService } from "../boardGames/boardGame.service";
 import { GamerService } from "../gamers/gamer.service";
@@ -34,12 +33,12 @@ export class GameResultDetailComponent implements OnInit {
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
                 if (this.gameResult.GameTableId !== undefined) {
-                    this.gameResultService.getByTable(this.gameResult.GameTableId).then((gameResults: GameResult[]) => {
+                    this.gameResultService.getByTable(this.gameResult.GameTableId).subscribe((gameResults: GameResult[]) => {
                         this.otherTableGameResults = gameResults.filter(x => x.Id !== this.gameResult.Id);
                     });
                 }
 
-                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
                     if (nickname === this.gameResult.CreatedGamerNickname) {
                         this.canChange = true;
                     }
@@ -79,7 +78,7 @@ export class GameResultDetailComponent implements OnInit {
     save(): void {
         var loc = this.location;
         this.gameResultService.update(this.gameResult)
-            .then(errorMessage => {
+            .subscribe(errorMessage => {
                 new Common(loc).showErrorOrGoBack(errorMessage);
             });
     }

@@ -30,9 +30,9 @@ export class GamerListComponent implements OnInit {
     getGamers(): void {
         this.gamerService
             .getGamers()
-            .then(gamers => {
+            .subscribe(gamers => {
                 this.gamers = gamers;
-                this.gamerService.getCurrentGamerNickname().then(nickname =>
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname =>
                     this.gamers = this.gamers.filter(x => x.Nickname !== nickname));
             });
     }
@@ -40,7 +40,7 @@ export class GamerListComponent implements OnInit {
     deactivate(gamer: Gamer): void {
         this.gamerService
             .deactivate(gamer.Id)
-            .then(() => {
+            .subscribe(() => {
                 this.gamers = this.gamers.filter(g => g !== gamer);
                 if (this.selectedGamer === gamer) {
                     this.selectedGamer = null;

@@ -1,11 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { GamerService } from "./gamer.service";
 import { Gamer } from "./gamer";
-
 import { Common } from "./../Common";
 
 @Component({
@@ -46,7 +45,7 @@ export class GamerAddComponent implements OnInit {
         this.gamer.Street = street;
 
         this.gamerService.create(this.gamer)
-            .then(errorMessage => {
+            .subscribe(errorMessage => {
                 new Common(null, this.router).showErrorOrReturn(errorMessage);
                 this.router.navigate([""]);
                 window.location.reload();

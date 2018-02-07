@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
+import 'rxjs/add/operator/switchMap';
 
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";

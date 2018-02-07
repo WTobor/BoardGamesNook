@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import 'rxjs/add/operator/switchMap';
 
 import { GamerBoardGameService } from "./gamerBoardGame.service";
 import { GamerBoardGame } from "./gamerBoardGame";
@@ -28,7 +29,7 @@ export class GamerBoardGameListComponent implements OnInit {
         this.route.params
             .subscribe((params: Params) => {
                 this.selectedGamerNickname = params["gamerNickname"];
-                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
                     if (nickname === this.selectedGamerNickname) {
                         this.isCurrentGamer = true;
                     }
@@ -43,7 +44,7 @@ export class GamerBoardGameListComponent implements OnInit {
     delete(gamerBoardGame: GamerBoardGame): void {
         this.gamerBoardGameService
             .deactivate(gamerBoardGame.Id)
-            .then(() => {
+            .subscribe(() => {
                 this.gamerBoardGames = this.gamerBoardGames.filter(g => g !== gamerBoardGame);
                 if (this.selectedGamerBoardGame === gamerBoardGame) { this.selectedGamerBoardGame = null; }
             });

@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
     <Use64BitIISExpress>false</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -307,6 +307,7 @@
     <Content Include="src\gameResults\gameResult-list.component.html" />
     <Content Include="src\welcome\welcome.component.html" />
     <Content Include="systemjs.config.js" />
+    <Content Include="tsconfig.json" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -321,7 +322,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="typings.json" />
-    <Content Include="tsconfig.json" />
     <Content Include="Views\Gamer\GetAll.cshtml" />
     <Content Include="Views\Gamer\Get.cshtml" />
     <Content Include="src\app.component.html" />

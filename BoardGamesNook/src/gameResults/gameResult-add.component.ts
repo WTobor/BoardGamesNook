@@ -1,19 +1,17 @@
-﻿import { GamerService } from "../gamers/gamer.service";
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
+
+import { GamerService } from "../gamers/gamer.service";
 import { BoardGameService } from "../boardGames/boardGame.service";
 import { Gamer } from "../gamers/gamer";
 import { BoardGame } from "../boardGames/boardGame";
-import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router, Params } from "@angular/router";
-import { Location } from "@angular/common";
-
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
 
 import { Common } from "./../Common";
 import { GameTableService } from "../gameTables/gameTable.service";
-import { GameTable } from "../gameTables/gameTable";
-import { TableBoardGame } from "../gameTables/tableBoardGame";
 
 @Component({
     selector: "gameResult-add",
@@ -46,17 +44,17 @@ export class GameResultAddComponent implements OnInit {
                 this.gameResult = gameResult;
             });
 
-        this.boardGameService.getBoardGames().then(
+        this.boardGameService.getBoardGames().subscribe(
             response => {
                 this.availableBoardGames = response;
             }
         );
-        this.gamerService.getGamers().then(
+        this.gamerService.getGamers().subscribe(
             response => {
                 this.availableGamers = response;
             }
         );
-        this.gamerService.getCurrentGamerNickname().then(nickname => {
+        this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
             this.currentGamerNickname = nickname;
         });
     }
@@ -65,10 +63,6 @@ export class GameResultAddComponent implements OnInit {
         this.gameResult.BoardGameId = value.Id;
         this.gameResult.BoardGameName = value.Name;
     }
-    //selectBoardGame(id: number, value :string): void {
-    //    this.gameResult.BoardGameId = id;
-    //    this.gameResult.BoardGameName = value;
-    //}
 
     selectGamer(id: string, value :string): void {
         this.gameResult.GamerId = id;
@@ -93,7 +87,7 @@ export class GameResultAddComponent implements OnInit {
         this.gameResult.PlayersNumber = playersNumber;
 
         this.gameResultService.create(this.gameResult)
-            .then(errorMessage => {
+            .subscribe(errorMessage => {
                 new Common(null, this.router).showErrorOrReturn(errorMessage);
                 this.router.navigate([""]);
                 window.location.reload();

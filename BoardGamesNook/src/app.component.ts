@@ -21,11 +21,11 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.getUser().then((user: User) => {
+        this.userService.getUser().subscribe((user: User) => {
             this.user = user;
             if (this.user != null) {
                 this.gamerService.getByEmail(this.user.Email)
-                    .then((gamer: Gamer) => {
+                    .subscribe((gamer: Gamer) => {
                         this.currentGamer = gamer;
                         if (this.currentGamer == null) {
                             this.router.navigate(["/gamer", 0]);

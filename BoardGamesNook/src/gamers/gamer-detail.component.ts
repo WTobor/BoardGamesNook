@@ -1,11 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { GamerService } from "./gamer.service";
 import { Gamer } from "./gamer";
-
 import { Common } from "./../Common";
 
 @Component({
@@ -28,7 +27,7 @@ export class GamerDetailComponent implements OnInit {
             .switchMap((params: Params) => this.gamerService.getByNickname(params["nickname"]))
             .subscribe((gamer: Gamer) => {
                 this.gamer = gamer;
-                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
                     if (nickname === this.gamer.Nickname) {
                         this.isCurrentGamer = true;
                     }
@@ -47,7 +46,7 @@ export class GamerDetailComponent implements OnInit {
     save(): void {
         var loc = this.location;
         this.gamerService.update(this.gamer)
-            .then(errorMessage => {
+            .subscribe(errorMessage => {
                 if (this.isCurrentGamer) {
                     new Common().showErrorOrReturn(errorMessage);
                 } else {

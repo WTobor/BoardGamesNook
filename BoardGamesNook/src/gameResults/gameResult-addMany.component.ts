@@ -1,12 +1,12 @@
-﻿import { GamerService } from "../gamers/gamer.service";
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
+
+import { GamerService } from "../gamers/gamer.service";
 import { BoardGameService } from "../boardGames/boardGame.service";
 import { Gamer } from "../gamers/gamer";
 import { BoardGame } from "../boardGames/boardGame";
-import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
-
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
 
@@ -54,11 +54,11 @@ export class GameResultAddManyComponent implements OnInit {
                 this.gameResult = gameResult;
             });
 
-        this.gamerService.getCurrentGamerNickname().then(nickname => {
+        this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
             this.currentGamerNickname = nickname;
         });
 
-        this.gameTableService.getGameTablesWithoutResultsByGamerNickname(this.currentGamerNickname).then(gamerGameTablesWithoutResults => {
+        this.gameTableService.getGameTablesWithoutResultsByGamerNickname(this.currentGamerNickname).subscribe(gamerGameTablesWithoutResults => {
             this.gamerGameTablesWithoutResults = gamerGameTablesWithoutResults;
             if (this.gamerGameTablesWithoutResults != null && this.gamerGameTablesWithoutResults.length > 0) {
                 this.selectBoardGameTable(this.gamerGameTablesWithoutResults[0]);
@@ -70,8 +70,8 @@ export class GameResultAddManyComponent implements OnInit {
     selectBoardGameTable(selectedGameTable: GameTable): void {
         this.selectedGameTableId = selectedGameTable.Id;
         this.tableBoardGames = selectedGameTable.TableBoardGameList;
-        this.gameTableService.getGameTable(this.selectedGameTableId).then(gameTable => {
-            this.gamerService.getGamers().then(gamers => {
+        this.gameTableService.getGameTable(this.selectedGameTableId).subscribe(gameTable => {
+            this.gamerService.getGamers().subscribe(gamers => {
                 this.tableGamers = gamers;
                 this.pointList = new Array<number>(gamers.length);
                 this.placeList = new Array<number>(gamers.length);
@@ -104,7 +104,7 @@ export class GameResultAddManyComponent implements OnInit {
         }
 
         this.gameResultService.createMany(this.gameResults)
-            .then(errorMessage => {
+            .subscribe(errorMessage => {
                 new Common(null, this.router).showErrorOrReturn(errorMessage);
                 this.router.navigate([""]);
                 window.location.reload();

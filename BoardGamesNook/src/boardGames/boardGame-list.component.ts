@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import 'rxjs/add/operator/switchMap';
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
@@ -34,7 +35,7 @@ export class BoardGameListComponent implements OnInit {
     delete(boardGame: BoardGame): void {
         this.boardGameService
             .deactivate(boardGame.Id)
-            .then(() => {
+            .subscribe(() => {
                 this.boardGames = this.boardGames.filter(g => g !== boardGame);
                 if (this.selectedBoardGame === boardGame) {
                     this.selectedBoardGame = null;

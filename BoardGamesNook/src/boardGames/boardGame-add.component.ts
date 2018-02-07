@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
@@ -40,7 +41,7 @@ export class BoardGameAddComponent implements OnInit {
     add(name: string): void {
         var loc = this.location;
         this.boardGameService.create(name)
-            .then(result => {
+            .subscribe(result => {
                 try {
                     this.similarBoardGames = JSON.parse(result);
                     if (this.similarBoardGames !== undefined && this.similarBoardGames.length > 0) {
@@ -57,7 +58,7 @@ export class BoardGameAddComponent implements OnInit {
     onSelect(similarBoardGame: SimilarBoardGame): void {
         var loc = this.location;
         this.boardGameService.addSimilar(similarBoardGame.Id)
-            .then(result => {
+            .subscribe(result => {
                 new Common(loc).showErrorOrGoBack(result);
             });
     }

@@ -1,11 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
+﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from "@angular/common";
+import 'rxjs/add/operator/switchMap';
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
-
 import { Common } from "./../Common";
 import { TableBoardGame } from "./tableBoardGame";
 import { GamerService } from "../gamers/gamer.service";
@@ -35,7 +34,7 @@ export class GameTableDetailComponent implements OnInit {
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
                 this.getAvailableTableBoardGameList(this.gameTable.Id);
-                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
                     if (nickname === this.gameTable.CreatedGamerNickname) {
                         this.isCurrentGamer = true;
                     }
@@ -47,7 +46,7 @@ export class GameTableDetailComponent implements OnInit {
     getAvailableTableBoardGameList(tableId: number): void {
         this.gameTableService
             .getAvailableTableBoardGameList(tableId)
-            .then(
+            .subscribe(
                 availableTableBoardGames => this.availableTableBoardGames = availableTableBoardGames
             );
     }
@@ -81,7 +80,7 @@ export class GameTableDetailComponent implements OnInit {
     save(): void {
         var loc = this.location;
         this.gameTableService.update(this.gameTable)
-            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
         
     }
 
