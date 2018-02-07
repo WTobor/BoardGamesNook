@@ -38,7 +38,7 @@ export class GamerBoardGameService {
         else {
             var response = new GamerBoardGame;
             return new Promise((resolve) => { resolve(response); })
-                .then(response => { return response; })
+                .then(response => { return response as GamerBoardGame; })
                 .catch(err => { return Promise.reject(err); });
         }
     }

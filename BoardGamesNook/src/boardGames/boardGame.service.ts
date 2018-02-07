@@ -1,4 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
+//import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Headers, Http } from "@angular/http";
 
 import "rxjs/add/operator/toPromise";
@@ -9,6 +10,7 @@ import { BoardGame } from "./BoardGame";
 @Injectable()
 export class BoardGameService {
     private headers = new Headers({ "Content-Type": "application/json" });
+    //private headers = new Headers({'Content-Type':'application/json; charset=utf-8'});
     private _getBoardGameUrl = "BoardGame/Get";
     private _getBoardGameListUrl = "BoardGame/GetAll";
     private _addBoardGameUrl = "BoardGame/Add";
@@ -21,8 +23,8 @@ export class BoardGameService {
     getBoardGames(): Promise<BoardGame[]> {
         const url = `${this._getBoardGameListUrl}`;
         return this.http.get(url)
-            .toPromise()
-            .then(response => {
+        .toPromise()
+        .then(response => {
                 return response.json() as BoardGame[];
             })
             .catch(err => { return Promise.reject(err); });
@@ -47,13 +49,13 @@ export class BoardGameService {
         const url = `${this._deactivateBoardGameUrl}/${id}`;
         return this.http.post(url, { headers: this.headers })
             .toPromise()
-            .then(response => { return response.text(); })
+        .then(response => { return response.text(); })
             .catch(err => { return Promise.reject(err); });
     }
 
     create(name: string): Promise<string> {
         return this.http
-            .post(`${this._addBoardGameUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
+            .post(`${this._addBoardGameUrl}`, JSON.stringify({ name: name }))
             .toPromise()
             .then(response => { return response.text(); })
             .catch(err => { return Promise.reject(err); });
