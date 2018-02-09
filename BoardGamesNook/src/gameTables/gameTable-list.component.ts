@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import 'rxjs/add/operator/switchMap';
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
@@ -25,27 +24,23 @@ export class GameTableListComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.route.params
-            .switchMap((params: Params) => this.gameTableService.getGameTablesByGamerNickname(params["gamerNickname"]))
+        this.selectedGamerNickname = this.route.snapshot.paramMap.get('gamerNickname');
+        this.gameTableService.getGameTablesByGamerNickname(this.selectedGamerNickname)
             .subscribe((gameTableList: GameTable[]) => {
                 this.loadedGameTables = gameTableList;
             });
 
-        this.route.params
-            .subscribe((params: Params) => {
-                this.selectedGamerNickname = params["gamerNickname"];
-                this.gamerService.getCurrentGamerNickname().subscribe(nick => {
-                    if (nick === this.selectedGamerNickname) {
-                        this.isCurrentGamer = true;
-                    };
-                    if (this.selectedGamerNickname === undefined && this.loadedGameTables !== undefined) {
-                        this.gameTables = this.loadedGameTables.filter(x => x.CreatedGamerNickname !== nick);
-                    }
-                    else {
-                        this.gameTables = this.loadedGameTables;
-                    }
-                });
-            });
+        this.gamerService.getCurrentGamerNickname().subscribe(nick => {
+            if (nick === this.selectedGamerNickname) {
+                this.isCurrentGamer = true;
+            };
+            if (this.selectedGamerNickname === undefined && this.loadedGameTables !== undefined) {
+                this.gameTables = this.loadedGameTables.filter(x => x.CreatedGamerNickname !== nick);
+            }
+            else {
+                this.gameTables = this.loadedGameTables;
+            }
+        });
     }
 
     onSelect(gameTable: GameTable): void {

@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import 'rxjs/add/operator/switchMap';
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { GamerBoardGameService } from "./gamerBoardGame.service";
 import { GamerBoardGame } from "./gamerBoardGame";
@@ -23,18 +22,15 @@ export class GamerBoardGameListComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerBoardGames(params["gamerNickname"]))
+        this.selectedGamerNickname = this.route.snapshot.paramMap.get("gamerNickname");
+        this.gamerBoardGameService.getGamerBoardGames(this.selectedGamerNickname)
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
-        this.route.params
-            .subscribe((params: Params) => {
-                this.selectedGamerNickname = params["gamerNickname"];
-                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
-                    if (nickname === this.selectedGamerNickname) {
-                        this.isCurrentGamer = true;
-                    }
-                });
-            });
+        
+        this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
+            if (nickname === this.selectedGamerNickname) {
+                this.isCurrentGamer = true;
+            }
+        });
     }
 
     onSelect(gamerBoardGame: GamerBoardGame): void {

@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
@@ -27,8 +26,7 @@ export class GameTableAddComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params
-            .switchMap(() => this.gameTableService.getGameTable(0))
+        this.gameTableService.getGameTable(0)
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
                 this.gameTable.TableBoardGameList = null;

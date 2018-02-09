@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { GamerService } from "../gamers/gamer.service";
 import { BoardGameService } from "../boardGames/boardGame.service";
@@ -9,7 +8,6 @@ import { Gamer } from "../gamers/gamer";
 import { BoardGame } from "../boardGames/boardGame";
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
-
 import { Common } from "./../Common";
 import { GameTableService } from "../gameTables/gameTable.service";
 
@@ -32,14 +30,12 @@ export class GameResultAddComponent implements OnInit {
         private gameResultService: GameResultService,
         private boardGameService: BoardGameService,
         private gamerService: GamerService,
-        private route: ActivatedRoute,
         private location: Location,
         private router: Router
     ) { }
 
     ngOnInit() {
-        this.route.params
-            .switchMap(() => this.gameResultService.getGameResult(0))
+        this.gameResultService.getGameResult(0)
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
             });

@@ -1,11 +1,9 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
-
 import { Common } from "./../Common";
 
 @Component({
@@ -14,6 +12,7 @@ import { Common } from "./../Common";
 })
 export class BoardGameDetailComponent implements OnInit {
     boardGame: BoardGame;
+    urlParameter: number;
 
     constructor(
         private boardGameService: BoardGameService,
@@ -23,9 +22,8 @@ export class BoardGameDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.boardGameService.getBoardGame(Number(params["id"])))
-            .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
+        this.boardGameService.getBoardGame(Number(this.route.snapshot.paramMap.get('id')))
+        .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
     onSubmit(submittedForm) {

@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { GamerService } from "./gamer.service";
 import { Gamer } from "./gamer";
@@ -16,15 +15,13 @@ export class GamerAddComponent implements OnInit {
 
     constructor(
         private gamerService: GamerService,
-        private route: ActivatedRoute,
         private location: Location,
         private router: Router
     ) {
     }
 
     ngOnInit() {
-        this.route.params
-            .switchMap(() => this.gamerService.getByNickname("new"))
+        this.gamerService.getByNickname("new")
             .subscribe((gamer: Gamer) => this.gamer = gamer);
     }
 

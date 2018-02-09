@@ -1,8 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
-
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
 import { Common } from "./../Common";
@@ -29,8 +27,7 @@ export class GameTableDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.gameTableService.getGameTable(Number(params["id"])))
+        this.gameTableService.getGameTable(Number(this.route.snapshot.paramMap.get('id')))
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
                 this.getAvailableTableBoardGameList(this.gameTable.Id);

@@ -1,12 +1,9 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
 import { SimilarBoardGame } from "./SimilarBoardGame";
-
 import { Common } from "./../Common";
 
 @Component({
@@ -20,14 +17,12 @@ export class BoardGameAddComponent implements OnInit {
 
     constructor(
         private boardGameService: BoardGameService,
-        private route: ActivatedRoute,
         private location: Location
     ) {
     }
 
     ngOnInit() {
-        this.route.params
-            .switchMap(() => this.boardGameService.getBoardGame(0))
+        this.boardGameService.getBoardGame(0)
             .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 

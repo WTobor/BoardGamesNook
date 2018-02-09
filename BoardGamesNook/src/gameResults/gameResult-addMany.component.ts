@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { GamerService } from "../gamers/gamer.service";
 import { BoardGameService } from "../boardGames/boardGame.service";
@@ -9,7 +8,6 @@ import { Gamer } from "../gamers/gamer";
 import { BoardGame } from "../boardGames/boardGame";
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
-
 import { Common } from "./../Common";
 import { GameTableService } from "../gameTables/gameTable.service";
 import { GameTable } from "../gameTables/gameTable";
@@ -42,14 +40,12 @@ export class GameResultAddManyComponent implements OnInit {
         private boardGameService: BoardGameService,
         private gameTableService: GameTableService,
         private gamerService: GamerService,
-        private route: ActivatedRoute,
         private location: Location,
         private router: Router
     ) { }
 
     ngOnInit() {
-        this.route.params
-            .switchMap(() => this.gameResultService.getGameResult(0))
+        this.gameResultService.getGameResult(0)
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
             });
@@ -63,8 +59,7 @@ export class GameResultAddManyComponent implements OnInit {
             if (this.gamerGameTablesWithoutResults != null && this.gamerGameTablesWithoutResults.length > 0) {
                 this.selectBoardGameTable(this.gamerGameTablesWithoutResults[0]);
             }
-        }
-        );
+        });
     }
 
     selectBoardGameTable(selectedGameTable: GameTable): void {

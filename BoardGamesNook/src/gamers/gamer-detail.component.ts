@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { GamerService } from "./gamer.service";
 import { Gamer } from "./gamer";
@@ -23,8 +22,7 @@ export class GamerDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.gamerService.getByNickname(params["nickname"]))
+        this.gamerService.getByNickname(this.route.snapshot.paramMap.get("nickname"))
             .subscribe((gamer: Gamer) => {
                 this.gamer = gamer;
                 this.gamerService.getCurrentGamerNickname().subscribe(nickname => {

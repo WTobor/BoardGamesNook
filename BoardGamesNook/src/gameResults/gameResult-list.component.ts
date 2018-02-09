@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import 'rxjs/add/operator/switchMap';
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
@@ -22,8 +21,7 @@ export class GameResultListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.params
-            .switchMap((params: Params) => this.gameResultService.getList(params["nickname"]))
+        this.gameResultService.getList(this.route.snapshot.paramMap.get("nickname"))
             .subscribe((gameResults: GameResult[]) => {
                 this.gameResults = gameResults;
             });

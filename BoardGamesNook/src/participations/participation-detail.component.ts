@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
-import 'rxjs/add/operator/switchMap';
 
 import { ParticipationService } from "./participation.service";
 import { Participation } from "./participation";
@@ -23,8 +22,7 @@ export class ParticipationDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.participationService.getParticipation(params["id"]))
+        this.participationService.getParticipation(Number(this.route.snapshot.paramMap.get("id")))
             .subscribe((participation: Participation) => {
                 this.participation = participation;
                 if (this.participation.Id == undefined) {
