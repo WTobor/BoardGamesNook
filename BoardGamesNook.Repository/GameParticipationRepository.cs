@@ -33,8 +33,12 @@ namespace BoardGamesNook.Repository
 
         public void Edit(GameParticipation gameParticipation)
         {
-            gameParticipation.Active = false;
-            gameParticipation.ModifiedDate = DateTimeOffset.Now;
+            var dbGameParticipation = _gameParticipations.FirstOrDefault(x => x.Id == gameParticipation.Id);
+            if (dbGameParticipation != null)
+            {
+                dbGameParticipation.Status = gameParticipation.Status;
+                dbGameParticipation.ModifiedDate = DateTimeOffset.Now;
+            }
         }
 
         public void Deactivate(int id)

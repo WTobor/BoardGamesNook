@@ -134,7 +134,6 @@ namespace BoardGamesNook.Tests
                 Times.Once());
         }
 
-        //dobry przykład
         [TestMethod]
         public void EditParticipations()
         {
