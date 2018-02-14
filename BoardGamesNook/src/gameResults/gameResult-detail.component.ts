@@ -1,14 +1,10 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
-
 import { Common } from "./../Common";
-import { BoardGame } from "../boardGames/boardGame";
-import { Gamer } from "../gamers/gamer";
 import { BoardGameService } from "../boardGames/boardGame.service";
 import { GamerService } from "../gamers/gamer.service";
 
@@ -19,9 +15,8 @@ import { GamerService } from "../gamers/gamer.service";
 })
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
-    isCurrentResult: boolean = false;
-    availableBoardGames: BoardGame[];
-    availableGamers: Gamer[];
+    otherTableGameResults: GameResult[];
+    canChange: boolean = false;
 
     constructor(
         private gameResultService: GameResultService,
@@ -32,40 +27,62 @@ export class GameResultDetailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.gameResultService.getByNickname(params["nickname"]))
+        this.gameResultService.getGameResult(Number(this.route.snapshot.paramMap.get('id')))
             .subscribe((gameResult: GameResult) => {
                 this.gameResult = gameResult;
+                if (this.gameResult.GameTableId !== undefined) {
+                    this.gameResultService.getByTable(this.gameResult.GameTableId).subscribe((gameResults: GameResult[]) => {
+                        this.otherTableGameResults = gameResults.filter(x => x.Id !== this.gameResult.Id);
+                    });
+                }
+
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
+                    if (nickname === this.gameResult.CreatedGamerNickname) {
+                        this.canChange = true;
+                    }
+                });
             });
 
-        this.boardGameService.getBoardGames().then(
-            (boardGames: BoardGame[]) => {
-                this.availableBoardGames = boardGames;
-            }
-        );
+    }
 
-        this.gamerService.getGamers().then(
-            (gamers: Gamer[]) => {
-                this.availableGamers = gamers;
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        if (this.otherTableGameResults) {
+            var duplicatedPoints = this.otherTableGameResults.find(x => x.Points === this.gameResult.Points);
+            var duplicatedPlace = this.otherTableGameResults.find(x => x.Place === this.gameResult.Place);
+            if (duplicatedPoints && duplicatedPlace ) {
+                if (confirm("Gracz " + duplicatedPoints.GamerNickname + " ma taką samą liczbę punktów i miejsce. Czy na pewno zapisać zmiany?")) {
+                    this.save();
+                } 
+                else {
+                    return;
+                }
             }
-        );
+            else if (duplicatedPoints) {
+                confirm("Gracz " + duplicatedPoints.GamerNickname + " ma taką samą liczbę punktów. Zmień miejsce gracza lub popraw dane.");
+                return;
+            }
+            else if (duplicatedPlace) {
+                confirm("Gracz " + duplicatedPlace.GamerNickname + " ma takie samo miejsce. Zmień liczbę punktów gracza lub popraw dane.");
+                return;
+            }
+        }
+
+        this.save();
     }
 
     save(): void {
         var loc = this.location;
         this.gameResultService.update(this.gameResult)
-            .then(errorMessage => {
-                if (this.isCurrentResult) {
-                    new Common().showErrorOrReturn(errorMessage);
-                }
-                else {
-                    new Common(loc).showErrorOrGoBack(errorMessage);
-                }
+            .subscribe(errorMessage => {
+                new Common(loc).showErrorOrGoBack(errorMessage);
             });
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 }

@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using AutoMapper;
 using BoardGameGeekIntegration;
+using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.BoardGame;
 
@@ -24,7 +27,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAll()
         {
-            var boardGameList = _boardGameService.GetAllGamerBoardGames();
+            var boardGameList = _boardGameService.GetAll();
             return Json(boardGameList, JsonRequestBehavior.AllowGet);
         }
 
@@ -55,7 +58,8 @@ namespace BoardGamesNook.Controllers
             if (dbBoardGame == null)
                 return Json(string.Format(Errors.BoardGameWithIdNotFound, boardGameViewModel.Id),
                     JsonRequestBehavior.AllowGet);
-            _boardGameService.Edit(dbBoardGame);
+            var boardGame = Mapper.Map<BoardGame>(boardGameViewModel);
+            _boardGameService.Edit(boardGame);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }

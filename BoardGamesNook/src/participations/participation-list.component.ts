@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { ParticipationService } from "./participation.service";
 import { Participation } from "./participation";
@@ -22,21 +22,17 @@ export class ParticipationListComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        this.route.params
-            .switchMap((params: Params) => this.participationService.getParticipationsByGamerNickname(params["gamerNickname"]))
+        this.selectedGamerNickname = this.route.snapshot.paramMap.get('gamerNickname');
+        this.participationService.getParticipationsByGamerNickname(this.selectedGamerNickname)
             .subscribe((participationList: Participation[]) => {
                 this.participations = participationList;
             });
-
-        this.route.params
-            .subscribe((params: Params) => {
-                this.selectedGamerNickname = params["gamerNickname"];
-                this.gamerService.getCurrentGamerNickname().then(nickname => {
-                    if (nickname === this.selectedGamerNickname) {
-                        this.isCurrentGamer = true;
-                    }
-                });
-            });
+        
+        this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
+            if (nickname === this.selectedGamerNickname) {
+                this.isCurrentGamer = true;
+            }
+        });
     }
 
     onSelect(participation: Participation): void {
@@ -46,7 +42,7 @@ export class ParticipationListComponent implements OnInit {
     delete(participation: Participation): void {
         this.participationService
             .deactivate(participation.Id)
-            .then(() => {
+            .subscribe(() => {
                 this.participations = this.participations.filter(g => g !== participation);
                 if (this.selectedParticipation === participation) { this.selectedParticipation = null; }
             });

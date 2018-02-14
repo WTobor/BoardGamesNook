@@ -13,10 +13,12 @@ namespace BoardGamesNook.Controllers
     public class GameTableController : Controller
     {
         private readonly IGameTableService _gameTableService;
+        private readonly IGamerService _gamerService;
 
-        public GameTableController(IGameTableService gameTableService)
+        public GameTableController(IGameTableService gameTableService, IGamerService gamerService)
         {
             _gameTableService = gameTableService;
+            _gamerService = gamerService;
         }
 
         public JsonResult Get(int id)
@@ -70,6 +72,18 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAllByGamerNickname(string nickname)
         {
             var gameTableList = _gameTableService.GetAllGameTablesByGamerNickname(nickname);
+            var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
+            gameTableListViewModel.ForEach(x => x.GamerNickname = nickname);
+
+            var result = MapGameTableViewModelListToGameTableList(gameTableListViewModel);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllWithoutResultsByGamerNickname(string nickname)
+        {
+            var gameTableList = _gameTableService.GetAllGameTablesWithoutResultsByGamerNickname(nickname);
+
             var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
             gameTableListViewModel.ForEach(x => x.GamerNickname = nickname);
 
@@ -142,25 +156,12 @@ namespace BoardGamesNook.Controllers
 
             return result;
         }
-
         
         private GameTable GetGameTableObj(GameTableViewModel gameTableViewModel, Gamer gamer)
         {
-            return new GameTable
-            {
-                Name = gameTableViewModel.Name,
-                City = gameTableViewModel.City,
-                Street = gameTableViewModel.Street,
-                IsPrivate = gameTableViewModel.IsPrivate,
-                MinPlayersNumber = gameTableViewModel.MinPlayers,
-                MaxPlayersNumber = gameTableViewModel.MaxPlayers,
-                IsFull = false,
-                Id = _gameTableService.GetAllGameTablesByGamerNickname(gamer.Nickname).Select(x => x.Id)
-                         .LastOrDefault() + 1,
-                CreatedGamerId = gamer.Id,
-                CreatedGamer = gamer,
-                CreatedDate = DateTimeOffset.Now
-            };
+            var result = Mapper.Map<GameTable>(gameTableViewModel);
+            Mapper.Map(gamer, result);
+            return result;
         }
     }
 }

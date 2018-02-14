@@ -8,6 +8,7 @@ namespace BoardGamesNook.Services.Interfaces
         GameTable GetGameTable(int id);
 
         IEnumerable<GameTable> GetAllGameTablesByGamerNickname(string gamerNickname);
+        IEnumerable<GameTable> GetAllGameTablesWithoutResultsByGamerNickname(string gamerNickname);
 
         IEnumerable<GameTable> GetAllGameTables();
 

@@ -2,6 +2,7 @@
 Application for the Get Noticed! (Daj się poznać) 2017 contest.
 
 Web application for board gamers, who want to:
+- get a list of board games ([BoardGameGeek](https://boardgamegeek.com/) integration),
 - create their board games storage,
 - create board games tables to play,
 - invite other players to join board games tables,

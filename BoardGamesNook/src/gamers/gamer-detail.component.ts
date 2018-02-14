@@ -1,11 +1,9 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { GamerService } from "./gamer.service";
 import { Gamer } from "./gamer";
-
 import { Common } from "./../Common";
 
 @Component({
@@ -14,20 +12,20 @@ import { Common } from "./../Common";
 })
 export class GamerDetailComponent implements OnInit {
     gamer: Gamer;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private location: Location
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.gamerService.getByNickname(params["nickname"]))
+        this.gamerService.getByNickname(this.route.snapshot.paramMap.get("nickname"))
             .subscribe((gamer: Gamer) => {
                 this.gamer = gamer;
-                this.gamerService.getCurrentGamerNickname().then(nickname => {
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
                     if (nickname === this.gamer.Nickname) {
                         this.isCurrentGamer = true;
                     }
@@ -35,21 +33,28 @@ export class GamerDetailComponent implements OnInit {
             });
     }
 
+    
+    onSubmit(submittedForm) {
+        if (submittedForm.invalid) {
+            return;
+        }
+        this.save();
+    }
+
     save(): void {
         var loc = this.location;
         this.gamerService.update(this.gamer)
-            .then(errorMessage => {
+            .subscribe(errorMessage => {
                 if (this.isCurrentGamer) {
                     new Common().showErrorOrReturn(errorMessage);
-                }
-                else {
+                } else {
                     new Common(loc).showErrorOrGoBack(errorMessage);
                 }
             });
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 }

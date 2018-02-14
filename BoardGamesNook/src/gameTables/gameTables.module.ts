@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 
 import { GameTableListComponent } from "./gameTable-list.component";
 import { GameTableDetailComponent } from "./gameTable-detail.component";
+import { GameTableAddComponent } from "./gameTable-add.component";
 
 import { GameTableService } from "./gameTable.service";
 
@@ -17,8 +18,10 @@ import { GameTableRoutingModule } from "./gameTables-routing.module";
     ],
     declarations: [
         GameTableListComponent,
-        GameTableDetailComponent
+        GameTableDetailComponent,
+        GameTableAddComponent
     ],
     providers: [GameTableService]
 })
-export class GameTablesModule { }
+export class GameTablesModule {
+}

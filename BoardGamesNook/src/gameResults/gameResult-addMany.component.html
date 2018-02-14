@@ -1,0 +1,93 @@
+﻿<div *ngIf="gamerGameTablesWithoutResults">
+    <form class="col-md-8 container" (ngSubmit)="onSubmitMany(form)" #form="ngForm" id="addManyResults">
+        <div class="page-header">
+            NOWE WYNIKI GRY STOŁU
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4">Stół</label>
+            <div class="col-md-8">
+                <div *ngIf="gamerGameTablesWithoutResults && gamerGameTablesWithoutResults.length > 0">
+                    <select [(ngModel)]="selectedBoardGameTable" #boardGameTableCtrl="ngModel" name="boardGameTable" required>
+                        <option *ngFor="let gamerGameTable of gamerGameTablesWithoutResults"
+                                [value]="gamerGameTable.Id">
+                            {{gamerGameTable.Name}}
+                        </option>
+                    </select>
+                    <span class="form-control-feedback" *ngIf="boardGameTableCtrl.invalid && boardGameTableCtrl.touched">
+                        Wybierz grę!
+                    </span>
+                </div>
+                <div *ngIf="!gamerGameTablesWithoutResults || gamerGameTablesWithoutResults.length === 0">
+                    Brak dostępnych stołów do gier
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label">Gra</label>
+            <div class="col-md-8">
+                <div *ngIf="tableBoardGames && tableBoardGames.length > 0">
+                    <select [(ngModel)]="selectedTableBoardGame" #tableBoardGameCtrl="ngModel" name="tableBoardGame" required>
+                        <option *ngFor="let tableBoardGame of tableBoardGames"
+                                [value]="tableBoardGame.BoardGameId">
+                            {{tableBoardGame.BoardGameName}}
+                        </option>
+                    </select>
+                    <span class="form-control-feedback" *ngIf="tableBoardGameCtrl.invalid && tableBoardGameCtrl.touched">
+                        Wybierz grę!
+                    </span>
+                </div>
+                <div *ngIf="!tableBoardGames || tableBoardGames.length === 0">
+                    Brak dostępnych gier dla stołu
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4">Gracze</label>
+            <div class="col-md-8">
+                <div *ngIf="tableGamers && tableGamers.length > 0">
+                    <table *ngFor="let tableGamer of tableGamers; let i = index;">
+                        <tr>
+                            <td><label>Gracz:</label></td>
+                            <td>{{tableGamers[i].Nickname}}</td>
+                        </tr>
+                        <tr>
+                            <td><label>Punkty:</label></td>
+                            <td>
+                                <div *ngIf="pointList">
+                                    <input class="form-control" type="number" id="points[i]" name="points[i]"
+                                           [(ngModel)]="pointList[i]" #pointsCtrl="ngModel" required />
+                                    <span class="form-control-feedback" *ngIf="pointsCtrl.invalid && pointsCtrl.touched">
+                                        Podaj liczbę punktów!
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Miejsce:</label></td>
+                            <td>
+                                <div *ngIf="placeList">
+                                    <input class="form-control" type="number" id="places[i]" name="places[i]"
+                                           [(ngModel)]="placeList[i]" #placesCtrl="ngModel" required />
+                                    <span class="form-control-feedback" *ngIf="placesCtrl.invalid && placesCtrl.touched">
+                                        Podaj miejsce!
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div *ngIf="!tableGamers || tableGamers.length === 0">
+                    Brak dostępnych graczy dla stołu
+                </div>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-default" (click)="goBack()">
+                Powrót
+            </button>
+            <button class="btn btn-success" type="submit" [disabled]="form.invalid || (gamerGameTablesWithoutResults.length === 0 || tableBoardGames === null )">
+                Dodaj
+            </button>
+        </div>
+    </form>
+</div>

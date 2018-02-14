@@ -1,7 +1,7 @@
 ﻿<div *ngIf="gamerBoardGames?.length > 0; then gbgExists else gbgNotExists"></div>
 
 <ng-template #gbgExists>
-    <h3>Nowa gra dla gracza {{ gamerBoardGames[0].CreatedGamerNickname }}</h3>
+    <span class="font-weight-bold">NOWA GRA GRACZA {{ gamerBoardGames[0].CreatedGamerNickname }}</span>
 
     <select #boardGame (change)="selectBoardGame(boardGame.value)">
         <option *ngFor="let gamerBoardGame of gamerBoardGames"
@@ -9,8 +9,8 @@
             {{gamerBoardGame.BoardGameName}}
         </option>
     </select>
-    <br />
-    <button class="btn btn-default" (click)="goBack()">Powrót</button>
+    <br/>
+    <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
     <button class="btn btn-success" (click)="add();">
         Dodaj
     </button>

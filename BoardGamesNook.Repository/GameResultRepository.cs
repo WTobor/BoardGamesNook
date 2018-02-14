@@ -38,12 +38,23 @@ namespace BoardGamesNook.Repository
 
         public void AddMany(List<GameResult> gameResults)
         {
-            foreach (var gameResult in gameResults) _gameResults.Add(gameResult);
+            foreach (var gameResult in gameResults)
+            {
+                gameResult.Id = GetAll().Select(x => x.Id).LastOrDefault() + 1;
+                _gameResults.Add(gameResult);
+            }
         }
 
         public void Edit(GameResult gameResult)
         {
-            gameResult.ModifiedDate = DateTimeOffset.Now;
+            var dbGameResult = _gameResults.FirstOrDefault(x => x.Id == gameResult.Id);
+            if (dbGameResult != null)
+            {
+                dbGameResult.Points = gameResult.Points;
+                dbGameResult.Place = gameResult.Place;
+                dbGameResult.ModifiedDate = DateTimeOffset.Now;
+            }
+            
         }
 
         public void Deactivate(int id)

@@ -4,4 +4,5 @@
     selector: "about",
     templateUrl: "./src/about/about.component.html"
 })
-export class AboutComponent { }
+export class AboutComponent {
+}

@@ -25,7 +25,7 @@ namespace BoardGamesNook.Services
 
         public IEnumerable<BoardGame> GetGamerAvailableBoardGameList(string nickname)
         {
-            var availableBoardGameList = _boardGameService.GetAllGamerBoardGames();
+            var availableBoardGameList = _boardGameService.GetAll();
             var gamerBoardGameList = GetAllGamerBoardGamesByGamerNickname(nickname);
             var gamerAvailableBoardGameList = availableBoardGameList
                 .Where(x => gamerBoardGameList.All(y => y.BoardGameId != x.Id)).ToList();

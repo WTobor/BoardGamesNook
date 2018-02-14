@@ -1,31 +1,68 @@
-﻿<h3>Nowy gracz</h3>
-<table>
-    <tr>
-        <td><label>Nickname:</label></td>
-        <td><input #nickname /></td>
-    </tr>
-    <tr>
-        <td><label>Imię:</label></td>
-        <td><input #name /></td>
-    </tr>
-    <tr>
-        <td><label>Nazwisko:</label></td>
-        <td><input #surname /></td>
-    </tr>
-    <tr>
-        <td><label>Wiek:</label></td>
-        <td><input #age type="number" /></td>
-    </tr>
-    <tr>
-        <td><label>Miasto:</label></td>
-        <td><input #city /></td>
-    </tr>
-    <tr>
-        <td><label>Ulica:</label></td>
-        <td><input #street /></td>
-    </tr>
-</table>
-<br />
-<button class="btn btn-success" (click)="add(nickname.value, name.value, surname.value, age.value, city.value, street.value);">
-    Dodaj
-</button>
+﻿<form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div class="page-header">
+        NOWY GRACZ
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4" for="nickname">Nickname</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" id="nickname" name="nickname"
+                   [(ngModel)]="nickname" #nicknameCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="nicknameCtrl.invalid && nicknameCtrl.touched">
+                Podaj nickname!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4" for="name">Imię</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" id="name" name="name"
+                   [(ngModel)]="name" #nameCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+                Podaj imię!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4" for="surname">Imię</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" id="surname" name="surname"
+                   [(ngModel)]="surname" #surnameCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="surnameCtrl.invalid && surnameCtrl.touched">
+                Podaj nazwisko!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4" for="age">Wiek</label>
+        <div class="col-md-8">
+            <input class="form-control" type="number" id="age" name="age"
+                   [(ngModel)]="age" #ageCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="ageCtrl.invalid && ageCtrl.touched">
+                Podaj nazwisko!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4" for="city">Miasto</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" id="city" name="city"
+                   [(ngModel)]="city" #cityCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="cityCtrl.invalid && cityCtrl.touched">
+                Podaj miasto!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4" for="street">Ulica</label>
+        <div class="col-md-8">
+            <input class="form-control" type="text" id="street" name="street"
+                   [(ngModel)]="street" #streetCtrl="ngModel"/>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+            Dodaj
+        </button>
+    </div>
+</form>
+    

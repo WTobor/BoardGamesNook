@@ -1,12 +1,14 @@
 ﻿<div *ngIf="gamerBoardGame">
-    <h3>Gra {{gamerBoardGame.BoardGameName}} gracza {{gamerBoardGame.CreatedGamerNickname}}</h3>
+    <span class="font-weight-bold">GRA {{gamerBoardGame.BoardGameName}} GRACZA {{gamerBoardGame.CreatedGamerNickname}}</span>
     <div hidden>
         <label>Id: </label>{{ gamerBoardGame.Id }}
     </div>
     <h4>
-        <a href="https://boardgamegeek.com/boardgame/{{gamerBoardGame.BGGId}}" target="_blank"><img src="{{gamerBoardGame.ImageUrl}}" /></a>
+        <a href="https://boardgamegeek.com/boardgame/{{gamerBoardGame.BGGId}}" target="_blank">
+            <img src="{{gamerBoardGame.ImageUrl}}"/>
+        </a>
     </h4>
     <p>
-        <button class="btn btn-default" (click)="goBack()">Powrót</button>
+        <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
     </p>
 </div>

@@ -1,34 +1,45 @@
-﻿<h3>NOWA GRA</h3>
-<div *ngIf="boardGameNotFound; then bgNotFound else bgFound"></div>
+﻿<div *ngIf="boardGameNotFound; then bgNotFound else bgFound"></div>
 
 <ng-template #bgFound>
-    <table>
-        <tr>
-            <td><label>Nazwa:</label></td>
-            <td><input #name /></td>
-        </tr>
-    </table>
-
-    <br />
-
-    <button class="btn btn-default" (click)="goBack()">Powrót</button>
-    <button class="btn btn-success" (click)="add(name.value);
-            name.value='';">
-        Dodaj
-    </button>
-    <br />
+    <form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="page-header">
+            NOWA GRA
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4" for="name">Nazwa</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" id="name" name="name"
+                        [(ngModel)]="name" #nameCtrl="ngModel" required/>
+                <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+                    Podaj nazwę!
+                </span>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-default" (click)="goBack()">
+                Powrót
+            </button>
+            <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+                Dodaj
+            </button>
+        </div>
+    </form>
 </ng-template>
 
 <ng-template #bgNotFound>
-    Czy chodziło Ci o:
-    <ul>
-        <li *ngFor="let similarBoardGame of similarBoardGames">
-            <span>
-                <a href="https://boardgamegeek.com/boardgame/{{similarBoardGame.Id}}" target="_blank">
+    <div>
+        <span>Czy chodziło Ci o:</span>
+        <ul>
+            <li *ngFor="let similarBoardGame of similarBoardGames" class="form-group row">
+                <a class="col-md-8" href="https://boardgamegeek.com/boardgame/{{similarBoardGame.Id}}" target="_blank">
                     {{ similarBoardGame.Name }}
                 </a>
-            </span>
-            <button class="btn btn-success" (click)="onSelect(similarBoardGame)">Wybierz</button>
-        </li>
-    </ul>
+                <div class="col-md-4">
+                    <button class="btn btn-success" (click)="onSelect(similarBoardGame)">
+                        Wybierz
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
 </ng-template>

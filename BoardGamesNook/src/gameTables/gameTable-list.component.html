@@ -1,41 +1,45 @@
-﻿<h3>LISTA STOŁÓW DO GRY</h3>
-
-<br />
-<ul>
-    <li *ngFor="let gameTable of gameTables" (click)="onSelect(gameTable)">
-        <div *ngIf="gameTable">
-            <span *ngIf="gameTable.TableBoardGameList == null">
-                stół {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Brak wybranych gier.
-            </span>
-            <div *ngIf="gameTable.TableBoardGameList">
-                Stół {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Wybrane pozycje:
-                <ul>
-                    <li *ngFor="let boardGame of gameTable.TableBoardGameList">
-                        <span>{{boardGame.BoardGameName}}</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-</li>
-</ul>
-
-<button *ngIf="isCurrentGamer" class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
-<div *ngIf="selectedGameTable">
-    <h3>
-        Stół {{selectedGameTable.Name | uppercase}} gracza {{selectedGameTable.CreatedGamerNickname | uppercase}}
-    </h3>
-    <div *ngIf="selectedGameTable.TableBoardGameList">
-        Wybrane pozycje:
+﻿<form class="col-sm-8 container">
+    <div class="page-header">
+        LISTA STOŁÓW DO GRY
+    </div>
+    <div>
         <ul>
-            <li *ngFor="let boardGame of selectedGameTable.TableBoardGameList">
-                <div *ngIf="boardGame">
-                    {{boardGame.BoardGameName}}
+            <li *ngFor="let gameTable of gameTables" (click)="onSelect(gameTable)">
+                <div *ngIf="gameTable">
+                    <span *ngIf="gameTable.TableBoardGameList == null">
+                        stół {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Brak wybranych gier.
+                    </span>
+                    <div *ngIf="gameTable.TableBoardGameList">
+                        Stół {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Wybrane pozycje:
+                        <ul>
+                            <li *ngFor="let boardGame of gameTable.TableBoardGameList">
+                                <span>{{boardGame.BoardGameName}}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </li>
         </ul>
+
+        <button *ngIf="isCurrentGamer" class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
+        <div *ngIf="selectedGameTable">
+            <span class="font-weight-bold">
+                STÓŁ {{selectedGameTable.Name | uppercase}} GRACZA {{selectedGameTable.CreatedGamerNickname | uppercase}}
+            </span>
+            <div *ngIf="selectedGameTable.TableBoardGameList">
+                Wybrane pozycje:
+                <ul>
+                    <li *ngFor="let boardGame of selectedGameTable.TableBoardGameList">
+                        <div *ngIf="boardGame">
+                            {{boardGame.BoardGameName}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły stołu do gry</button>
+            <!--TODO: wypisz się-->
+            <button *ngIf="!isCurrentGamer" class="btn btn-primary" (click)="gotoJoin()">Dołącz do stołu do gry</button>
+            <button *ngIf="isCurrentGamer" class="btn btn-danger" (click)="deactivate(selectedGameTable); $event.stopPropagation()">Usuń stół</button>
+        </div>
     </div>
-    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły stołu do gry</button>
-    <!--TODO: wypisz się-->
-    <button *ngIf="!isCurrentGamer" class="btn btn-primary" (click)="gotoJoin()">Dołącz do stołu do gry</button>
-    <button *ngIf="isCurrentGamer" class="btn btn-danger" (click)="deactivate(selectedGameTable); $event.stopPropagation()">Usuń stół</button>
-</div>
+</form>

@@ -1,22 +1,21 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
+
 import { GameTableService } from "./gameTable.service";
 import { GameTable } from "./gameTable";
 import { Common } from "./../Common";
 import { TableBoardGame } from "./tableBoardGame";
-import { GamerService } from "../gamers/gamer.service";
+import {GamerService} from "../gamers/gamer.service";
 
 @Component({
-    selector: "gameTable-detail",
-    templateUrl: "./src/gameTables/gameTable-detail.component.html"
+    selector: "gameTable-add",
+    templateUrl: "./src/gameTables/gameTable-add.component.html"
 })
-export class GameTableDetailComponent implements OnInit {
+export class GameTableAddComponent implements OnInit {
     gameTable: GameTable;
     availableTableBoardGames: TableBoardGame[];
     selectedTableBoardGame: TableBoardGame;
-    isCurrentGamer = false;
-    //TODO: add isMember to allow edit
 
     constructor(
         private gameTableService: GameTableService,
@@ -27,19 +26,14 @@ export class GameTableDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.gameTableService.getGameTable(Number(this.route.snapshot.paramMap.get('id')))
+        this.gameTableService.getGameTable(0)
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
-                this.getAvailableTableBoardGameList(this.gameTable.Id);
-                this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
-                    if (nickname === this.gameTable.CreatedGamerNickname) {
-                        this.isCurrentGamer = true;
-                    }
-                });
+                this.gameTable.TableBoardGameList = null;
+                this.getAvailableTableBoardGameList(0);
             });
     }
 
-    //duplicated in gameTable-add
     getAvailableTableBoardGameList(tableId: number): void {
         this.gameTableService
             .getAvailableTableBoardGameList(tableId)
@@ -48,7 +42,6 @@ export class GameTableDetailComponent implements OnInit {
             );
     }
 
-    //duplicated in gameTable-add
     addTableBoardGame(selectedTableBoardGameId: number): void {
         this.selectedTableBoardGame =
             this.availableTableBoardGames.filter(x => x.BoardGameId === Number(selectedTableBoardGameId))[0];
@@ -59,26 +52,17 @@ export class GameTableDetailComponent implements OnInit {
         //TODO: count minPlayers and maxPlayers by boardGames
     }
 
-    deactivate(tableBoardGame: TableBoardGame): void {
-        this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList.filter(t => t !== tableBoardGame);
-        this.availableTableBoardGames.push(tableBoardGame);
-        if (this.selectedTableBoardGame === tableBoardGame) {
-            this.selectedTableBoardGame = null;
-        }
-    }
-
     onSubmit(submittedForm) {
         if (submittedForm.invalid) {
             return;
         }
-        this.save();
+        this.add();
     }
 
-    save(): void {
+    add(): void {
         var loc = this.location;
-        this.gameTableService.update(this.gameTable)
+        this.gameTableService.create(this.gameTable)
             .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
-        
     }
 
     goBack(): void {

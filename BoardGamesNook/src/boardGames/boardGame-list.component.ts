@@ -1,46 +1,62 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Router } from "@angular/router";
+import { Subject } from "rxjs/Subject";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/debounceTime";
 
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
+
 
 @Component({
     selector: "boardGame-list",
     templateUrl: "./src/BoardGames/BoardGame-list.component.html",
 })
 export class BoardGameListComponent implements OnInit {
-    boardGames: BoardGame[];
-    selectedBoardGame: BoardGame;
-    isAdmin: boolean = false;
+    private allBoardGames: BoardGame[];
+    private searchedBoardGames: BoardGame[];
+    private isAdmin = false;
+    private query: string = "";
+    private search: Subject<string> = new Subject<string>();
 
     constructor(
         private boardGameService: BoardGameService,
-        private route: ActivatedRoute,
-        private router: Router) { }
-
-    ngOnInit(): void {
-        this.route.params
-            .switchMap(() => this.boardGameService.getBoardGames())
-            .subscribe((boardGameList: BoardGame[]) => {
-                this.boardGames = boardGameList;
-            });
+        private router: Router) {
     }
 
-    onSelect(boardGame: BoardGame): void {
-        this.selectedBoardGame = boardGame;
+    ngOnInit(): void {
+        this.boardGameService.getBoardGames()
+            .subscribe((boardGameList: BoardGame[]) => {
+                this.allBoardGames = boardGameList;
+                this.searchedBoardGames = boardGameList;
+            });
+
+        this.search.debounceTime(500).map(query => {
+            return query;
+        }).subscribe(this.searchQuery.bind(this));
     }
 
     delete(boardGame: BoardGame): void {
         this.boardGameService
             .deactivate(boardGame.Id)
-            .then(() => {
-                this.boardGames = this.boardGames.filter(g => g !== boardGame);
-                if (this.selectedBoardGame === boardGame) { this.selectedBoardGame = null; }
+            .subscribe(() => {
+                this.allBoardGames = this.allBoardGames.filter(g => g !== boardGame);
+                //if (this.selectedBoardGame === boardGame) {
+                //    this.selectedBoardGame = null;
+                //}
             });
     }
 
-    gotoDetail(): void {
-        this.router.navigate(["/boardGames", this.selectedBoardGame.Id]);
+    searchQuery(query: string): void {
+        if (query.length > 0) {
+            this.searchedBoardGames = this.allBoardGames.filter(x => x.Name.toLowerCase().match(query.toLowerCase()));
+        } else {
+            this.searchedBoardGames = this.allBoardGames;
+        }
+    }
+
+    gotoDetail(boardGame: BoardGame): void {
+        this.router.navigate(["/boardGames", boardGame.Id]);
     }
 
     gotoAdd(): void {

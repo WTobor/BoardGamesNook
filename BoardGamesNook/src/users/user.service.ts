@@ -1,40 +1,23 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-
-import "rxjs/add/operator/toPromise";
-
-import { Common } from "./../Common";
 import { User } from "./user";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class UserService {
-    private _getUserUrl = "User/Get";
-    private _logOutUserUrl = "User/LogOut";
+    private getUserUrl = "User/Get";
+    private logOutUserUrl = "User/LogOut";
 
-    constructor(private http: Http, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router) {}
 
-    getUser(): Promise<User> {
-        const url = `${this._getUserUrl}`;
-        return this.http.get(url)
-            .toPromise()
-            .then(response => {
-                if (response.text() === "") {
-                    return null;
-                }
-                return response.json() as User || null;
-            })
-            .catch (err => { return Promise.reject(err); });
+    getUser(): Observable<User> {
+        const url = `${this.getUserUrl}`;
+        return this.http.get<User>(url);
     }
 
     logOutUser(): void {
-        const url = `${this._logOutUserUrl}`;
-        this.http.get(url)
-            .toPromise()
-            .then(() => {
-                this.router.navigate(['/']);
-                window.location.reload();
-            })
-            .catch (err => { return Promise.reject(err); });
+        const url = `${this.logOutUserUrl}`;
+        this.http.get(url);
     }
 }

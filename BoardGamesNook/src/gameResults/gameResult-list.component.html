@@ -1,20 +1,26 @@
-﻿<h3>LISTA WYNIKÓW</h3>
+﻿<form class="col-md-8 container">
+    <div class="page-header">
+        LISTA WYNIKÓW
+    </div>
+    <div>
+        <ul>
+            <li *ngFor="let gameResult of gameResults" (click)="onSelect(gameResult)">
+                <span>Miejsce: {{ gameResult.Place }}, punkty: {{ gameResult.Points }}, gra: {{ gameResult.BoardGameName }}, gracz: {{ gameResult.GamerNickname }}</span>
+                <!-- <div *ngIf="isAdmin">
+                    <button (click)="deactivate(result); $event.stopPropagation()" class="btn delete-icon">x</button>
+                </div> -->
+            </li>
+        </ul>
 
-<br />
-<ul>
-    <li *ngFor="let gameResult of gameResults" (click)="onSelect(gameResult)">
-        <span>Miejsce: {{ gameResult.Place }}, punkty: {{ gameResult.Points }}, gra: {{ gameResult.BoardGameName }}, gracz: {{ gameResult.CreatedGamerNickname }}</span>
-        <!-- <div *ngIf="isAdmin">
-            <button (click)="deactivate(result); $event.stopPropagation()" class="btn delete-icon">x</button>
-        </div> -->
-    </li>
-</ul>
+        <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy wynik</button>
+        <button class="btn btn-primary" (click)="gotoAddMany()">Dodaj nowe wyniki dla stołu</button>
 
-<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy wynik</button>
+        <div *ngIf="selectedGameResult">
+            <h4>
+                Wynik gracza {{selectedGameResult.GamerNickname | uppercase}}
+            </h4>
+            <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły wyniku</button>
+        </div>
+    </div>
+</form>
 
-<div *ngIf="selectedGameResult">
-    <h4>
-        Wynik gracza {{selectedGameResult.CreatedGamerNickname | uppercase}}
-    </h4>
-    <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły wyniku</button>
-</div>

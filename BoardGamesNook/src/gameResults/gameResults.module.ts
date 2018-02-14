@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { GameResultListComponent } from "./gameResult-list.component";
 import { GameResultDetailComponent } from "./gameResult-detail.component";
 import { GameResultAddComponent } from "./gameResult-add.component";
+import { GameResultAddManyComponent } from "./gameResult-addMany.component";
 
 import { GameResultService } from "./gameResult.service";
 
@@ -19,8 +20,10 @@ import { GameResultRoutingModule } from "./gameResults-routing.module";
     declarations: [
         GameResultListComponent,
         GameResultDetailComponent,
-        GameResultAddComponent
+        GameResultAddComponent,
+        GameResultAddManyComponent
     ],
     providers: [GameResultService]
 })
-export class GameResultsModule { }
+export class GameResultsModule {
+}

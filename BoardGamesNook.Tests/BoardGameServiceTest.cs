@@ -32,7 +32,7 @@ namespace BoardGamesNook.Tests
             var boardGameService = new BoardGameService(_boardGameRepositoryMock.Object);
 
             //Act
-            var boardGames = boardGameService.GetAllGamerBoardGames();
+            var boardGames = boardGameService.GetAll();
 
             //Assert
             Assert.AreEqual(1, boardGames.Count());

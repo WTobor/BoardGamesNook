@@ -17,25 +17,23 @@
     </script>
 </head>
 <body>
-
 <div class="container">
-    <div class="h3">
-        @RenderSection("title", false)
-    </div>
     <main>
         @RenderBody()
     </main>
+    <footer class="footer">
+        <span class="text-muted">
+            BoardGamesNook @DateTime.Now.Year - <a target="_blank" href="https://programmer-girl.com">programmer-girl</a>
+        </span>
+    </footer>
 </div>
-
-@*<div id="footer">
-    <span class="text-muted">&copy; @DateTime.Now.Year - BoardGamesNook</span>
-</div>*@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
-@RenderSection("scripts", false)
+@RenderSection("scripts", required: false)
 </body>
 </html>
 <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/site.css">
 <script src="~/Scripts/jquery-3.2.1.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>

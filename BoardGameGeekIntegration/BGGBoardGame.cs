@@ -61,7 +61,6 @@ namespace BoardGameGeekIntegration
 
         public static BoardGame GetBoardGameById(int id)
         {
-
             var url = string.Format(Constants.getJSONBoardGameObjectDetailsById, id);
             var BGGBoardGameObjectDetailsStr = GetStringResponse(url);
 

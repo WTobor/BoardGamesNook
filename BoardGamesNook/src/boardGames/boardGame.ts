@@ -11,5 +11,5 @@
     IsExpansion: boolean;
     ParentId: number | null;
     ParentBoardGame: BoardGame | null;
-    ImageUrl : string;
+    ImageUrl: string;
 }

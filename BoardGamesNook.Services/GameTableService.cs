@@ -11,13 +11,15 @@ namespace BoardGamesNook.Services
         private readonly IBoardGameService _boardGameService;
         private readonly IGameParticipationService _gameParticipationService;
         private readonly IGameTableRepository _gameTableRepository;
+        private readonly IGameResultRepository _gameResultRepository;
 
         public GameTableService(IGameTableRepository gameTableRepository, IBoardGameService boardGameService,
-            IGameParticipationService gameParticipationService)
+            IGameParticipationService gameParticipationService, IGameResultRepository gameResultRepository)
         {
             _gameTableRepository = gameTableRepository;
             _boardGameService = boardGameService;
             _gameParticipationService = gameParticipationService;
+            _gameResultRepository = gameResultRepository;
         }
 
         public GameTable GetGameTable(int id)
@@ -39,6 +41,24 @@ namespace BoardGamesNook.Services
         public IEnumerable<GameTable> GetAllGameTablesByGamerNickname(string gamerNickname)
         {
             return _gameTableRepository.GetAllGameTablesByGamerNickname(gamerNickname);
+        }
+
+        public IEnumerable<GameTable> GetAllGameTablesWithoutResultsByGamerNickname(string gamerNickname)
+        {
+            var gameTablesWithoutResults = new List<GameTable>();
+            var gameTableList = GetAllGameTablesByGamerNickname(gamerNickname);
+            foreach (var gameTable in gameTableList)
+            {
+                var tableResults = _gameResultRepository.GetAllByTableId(gameTable.Id);
+                var tableBoardGamesWithResultIds = tableResults.Select(x => x.BoardGameId).ToList();
+
+                if (!tableBoardGamesWithResultIds.SequenceEqual(gameTable.BoardGames.Select(x => x.Id).ToList()))
+                {
+                    gameTable.BoardGames.RemoveAll(x => tableBoardGamesWithResultIds.Contains(x.Id));
+                    gameTablesWithoutResults.Add(gameTable);
+                }
+            }
+            return gameTablesWithoutResults;
         }
 
         public void CreateGameTable(GameTable gameTable, IEnumerable<int> tableBoardGameIdList)

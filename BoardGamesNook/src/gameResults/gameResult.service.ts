@@ -1,119 +1,78 @@
 ﻿import { Injectable } from "@angular/core";
-import { Headers, Http } from "@angular/http";
-
-import "rxjs/add/operator/toPromise";
+import { HttpClient } from "@angular/common/http";
 
 import { GameResult } from "./gameResult";
 
-import { Common } from "./../Common";
+import { httpOptions } from "./../Common";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class GameResultService {
-    private headers = new Headers({ "Content-Type": "application/json" });
     private _getGameResultUrl = "GameResult/Get";
-    private _getByTableUrl = "GameResult/GetByTable";
-    private _getByNickUrl = "GameResult/GetAllByGamerNickname";
+    private _getGameResultListByTableUrl = "GameResult/GetAllByTableId";
+    private _getGameResultListByGamerNicknameUrl = "GameResult/GetAllByGamerNickname";
     private _getGameResultListUrl = "GameResult/GetAll";
     private _addGameResultUrl = "GameResult/Add";
     private _addGameResultListUrl = "GameResult/AddMany";
     private _editGameResultUrl = "GameResult/Edit";
     private _deactivateGameResultUrl = "GameResult/Deactivate";
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    getGameResults(): Promise<GameResult[]> {
-        const url = `${this._getGameResultListUrl}`;
-        return this.http.get(url)
-            .toPromise()
-            .then(response => {
-                var result = response.json() as GameResult[];
-                return result;
-            })
-            .catch(err => { return Promise.reject(err); });
+    getList(nickname: string): Observable<GameResult[]> {
+        if (nickname !== undefined && nickname !== "") {
+            return this.getByNickname(nickname);
+        } 
+        else {
+            return this.getGameResults();
+        }
     }
 
-    getGameResult(id: number): Promise<GameResult> {
+    getGameResults(): Observable<GameResult[]> {
+        const url = `${this._getGameResultListUrl}`;
+        return this.http.get<GameResult[]>(url);
+    }
+
+    getGameResult(id: number): Observable<GameResult> {
         if (id !== 0) {
             const url = `${this._getGameResultUrl}/${id}`;
-            return this.http.get(url)
-                .toPromise()
-                .then(response => { return response.json() as GameResult; })
-                .catch (err => { return Promise.reject(err); });
+            return this.http.get<GameResult>(url);
         }
         else {
-            var response = new GameResult;
-            return new Promise((resolve) => { resolve(response); })
-            .then(response => { return response as GameResult; })
-            .catch (err => { return Promise.reject(err); });
+            return new Observable<GameResult>();
         }
     }
 
-    getByTable(table: number): Promise<GameResult> {
+    getByTable(tableId: number): Observable<GameResult[]> {
         return this.http
-            .post(`${this._getByTableUrl}`, JSON.stringify({ table: table }), { headers: this.headers })
-            .toPromise()
-            .then(response => {
-                if (response.text() === "") {
-                    return null;
-                }
-                return response.json() as GameResult;
-            })
-            .catch(err => { return Promise.reject(err); });
+            .post<GameResult[]>(`${this._getGameResultListByTableUrl}`, JSON.stringify({ tableId: tableId }), httpOptions);
     }
 
-    getByNickname(nickname: string): Promise<GameResult> {
-        if (nickname !== "new") {
-            return this.http
-                .post(`${this._getByNickUrl}`, JSON.stringify({ nickname: nickname }), { headers: this.headers })
-                .toPromise()
-                .then(response => {
-                    if (response.text() === "") {
-                        return null;
-                    }
-                    return response.json() as GameResult;
-                })
-                .catch(err => { return Promise.reject(err); });
-        }
-        else {
-            var response = new GameResult;
-            return new Promise((resolve) => { resolve(response); })
-                .then(response => { return response as GameResult; })
-                .catch(err => { return Promise.reject(err); });
-        }
+    getByNickname(nickname: string): Observable<GameResult[]> {
+        return this.http
+            .post<GameResult[]>(`${this._getGameResultListByGamerNicknameUrl}`, JSON.stringify({ nickname: nickname }), httpOptions);
     }
 
-    create(gameResult: GameResult): Promise<string> {
+    create(gameResult: GameResult): Observable<string> {
         const url = `${this._addGameResultUrl}`;
         return this.http
-            .post(url, JSON.stringify(gameResult), { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch(err => { return Promise.reject(err); });
+            .post<string>(url, JSON.stringify(gameResult), httpOptions);
     }
 
-    createMany(gameResults: GameResult[]): Promise<string> {
+    createMany(gameResults: GameResult[]): Observable<string> {
         const url = `${this._addGameResultListUrl}`;
         return this.http
-            .post(url, JSON.stringify(gameResults), { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch(err => { return Promise.reject(err); });
+            .post<string>(url, JSON.stringify(gameResults), httpOptions);
     }
 
-    update(gameResult: GameResult): Promise<string> {
+    update(gameResult: GameResult): Observable<string> {
         const url = `${this._editGameResultUrl}`;
         return this.http
-            .post(url, JSON.stringify(gameResult), { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch(err => { return Promise.reject(err); });
+            .post<string>(url, JSON.stringify(gameResult), httpOptions);
     }
 
-    deactivate(id: string): Promise<string> {
+    deactivate(id: string): Observable<string> {
         const url = `${this._deactivateGameResultUrl}/${id}`;
-        return this.http.post(url, { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch(err => { return Promise.reject(err); });
+        return this.http.post<string>(url, httpOptions);
     }
 }

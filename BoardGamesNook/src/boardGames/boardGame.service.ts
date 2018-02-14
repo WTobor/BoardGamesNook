@@ -1,80 +1,52 @@
 ﻿import { Injectable } from "@angular/core";
-import { Headers, Http } from "@angular/http";
-
-import "rxjs/add/operator/toPromise";
+import { HttpClient } from "@angular/common/http";
 
 import { BoardGame } from "./BoardGame";
+import { Observable } from "rxjs/Observable";
+import {httpOptions} from "../common";
 
-import { Common } from "./../Common";
 
 @Injectable()
 export class BoardGameService {
-    private headers = new Headers({ "Content-Type": "application/json" });
     private _getBoardGameUrl = "BoardGame/Get";
-    private _getBoardGameListkUrl = "BoardGame/GetAll";
+    private _getBoardGameListUrl = "BoardGame/GetAll";
     private _addBoardGameUrl = "BoardGame/Add";
     private _addBoardGameByIdUrl = "BoardGame/AddById";
     private _editBoardGameUrl = "BoardGame/Edit";
     private _deactivateBoardGameUrl = "BoardGame/Deactivate";
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) {}
 
-    getBoardGames(): Promise<BoardGame[]> {
-        const url = `${this._getBoardGameListkUrl}`;
-        return this.http.get(url)
-            .toPromise()
-            .then(response => {
-                return response.json() as BoardGame[];
-            })
-            .catch (err => { return Promise.reject(err); });
+    getBoardGames(): Observable<BoardGame[]> {
+        const url = `${this._getBoardGameListUrl}`;
+        return this.http.get<BoardGame[]>(url);
     }
 
-    getBoardGame(id: number): Promise<BoardGame> {
+    getBoardGame(id: number): Observable<BoardGame> {
         if (id !== 0) {
             const url = `${this._getBoardGameUrl}/${id}`;
-            return this.http.get(url)
-                .toPromise()
-                .then(response => { return response.json() as BoardGame; })
-                .catch (err => { return Promise.reject(err); });
-        }
-        else {
-            var response = new BoardGame;
-            return new Promise((resolve) => { resolve(response); })
-            .then(response => { return response as BoardGame; })
-            .catch (err => { return Promise.reject(err); });
+            return this.http.get<BoardGame>(url);
+        } else {
+            return new Observable<BoardGame>();
         }
     }
 
-    deactivate(id: number): Promise<string> {
+    deactivate(id: number): Observable<string> {
         const url = `${this._deactivateBoardGameUrl}/${id}`;
-        return this.http.post(url, { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+        return this.http.post<string> (url, httpOptions);
     }
 
-    create(name: string): Promise<string> {
+    create(name: string): Observable<string> {
         return this.http
-            .post(`${this._addBoardGameUrl}`, JSON.stringify({ name: name }), { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+            .post<string> (`${this._addBoardGameUrl}`, JSON.stringify({ name: name }), httpOptions);
     }
 
-    addSimilar(id: number): Promise<string> {
-        return this.http
-            .post(`${this._addBoardGameByIdUrl}`, JSON.stringify({ id: id }), { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+    addSimilar(id: number): Observable<string> {
+        return this.http.post<string>(`${this._addBoardGameByIdUrl}`, JSON.stringify({ id: id }), httpOptions);
     }
 
-    update(boardGame: BoardGame): Promise<string> {
+    update(boardGame: BoardGame): Observable<string> {
         const url = `${this._editBoardGameUrl}`;
-        return this.http
-            .post(url, JSON.stringify(boardGame), { headers: this.headers })
-            .toPromise()
-            .then(response => { return response.text(); })
-            .catch (err => { return Promise.reject(err); });
+        return this.http.post<string>(url, JSON.stringify(boardGame), httpOptions);
     }
 }

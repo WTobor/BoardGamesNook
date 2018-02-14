@@ -1,30 +1,21 @@
 ﻿<div *ngIf="gameTable">
     <form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
         <div class="page-header">
-            <span>STÓŁ {{ gameTable.Name }} GRACZA {{ gameTable.CreatedGamerNickname }}</span>
+            NOWY STÓŁ
         </div>
-            
-        <div *ngIf="gameTable.TableBoardGameList" class="form-group row">
-            <label class="col-md-4">Wybrane pozycje</label>
+        <div class="form-group row">
+            <label class="col-md-4" for="name">Nazwa</label>
             <div class="col-md-8">
-                <ul>
-                    <li *ngFor="let boardGame of gameTable.TableBoardGameList" class="form-group row" style="margin: auto;">
-                        <span class="col-md-4">
-                            {{boardGame.BoardGameName}}
-                        </span>
-                        <div class="col-md-4" *ngIf="!isCurrentGamer">
-                            <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">
-                                <i class="glyphicon glyphicon-remove"></i>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+                <input class="form-control" type="text" id="name" name="name"
+                       [(ngModel)]="gameTable.Name" #nameCtrl="ngModel" required />
+                <span class="form-control-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+                    Podaj nazwę!
+                </span>
             </div>
         </div>
-
-        <div class="form-group row" *ngIf="isCurrentGamer">
+        <div class="form-group row">
             <label class="col-md-4">Dodaj grę</label>
-            <div class="col-md-8" *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
+            <div class="col-md-8">
                 <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
                     <select class="form-control" #selectedTableBoardGame>
                         <option *ngFor="let tableBoardGame of availableTableBoardGames"
@@ -32,20 +23,35 @@
                             {{tableBoardGame.BoardGameName}}
                         </option>
                     </select>
+                    <br/>
                     <button class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">
                         Dodaj
                     </button>
                 </div>
+                <div *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
+                    Brak dostępnych gier dla tego stołu
+                </div>
             </div>
-            <div class="col-md-8" *ngIf="!availableTableBoardGames || availableTableBoardGames.length === 0">
-                Brak dostępnych gier dla tego stołu
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4">Wybrane gry</label>
+            <div class="col-md-8" *ngIf="gameTable.TableBoardGameList && gameTable.TableBoardGameList.length > 0">
+                <ul>
+                    <li *ngFor="let boardGame of gameTable.TableBoardGameList">
+                        <span>{{boardGame.BoardGameName}}</span>
+                        <button (click)="delete(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-8" *ngIf="!gameTable.TableBoardGameList || gameTable.TableBoardGameList.length === 0">
+                Brak wybranych gier
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-4" for="minPlayers">Minimalna liczba graczy</label>
             <div class="col-md-8">
                 <input class="form-control" type="number" id="minPlayers" name="minPlayers"
-                        [(ngModel)]="gameTable.MinPlayers" #minPlayersCtrl="ngModel" required [readonly]="!isCurrentGamer" />
+                       [(ngModel)]="gameTable.MinPlayers" #minPlayersCtrl="ngModel" required />
                 <span class="form-control-feedback" *ngIf="minPlayersCtrl.invalid && minPlayersCtrl.touched">
                     Podaj minimalną liczbę graczy!
                 </span>
@@ -55,7 +61,7 @@
             <label class="col-md-4" for="maxPlayers">Maksymalna liczba graczy</label>
             <div class="col-md-8">
                 <input class="form-control" type="number" id="maxPlayers" name="maxPlayers"
-                        [(ngModel)]="gameTable.MaxPlayers" #maxPlayersCtrl="ngModel" required [readonly]="!isCurrentGamer" />
+                       [(ngModel)]="gameTable.MaxPlayers" #maxPlayersCtrl="ngModel" required />
                 <span class="form-control-feedback" *ngIf="maxPlayersCtrl.invalid && maxPlayersCtrl.touched">
                     Podaj maksymalną liczbę graczy!
                 </span>
@@ -65,7 +71,7 @@
             <label class="col-md-4" for="city">Miasto</label>
             <div class="col-md-8">
                 <input class="form-control" type="text" id="city" name="city"
-                        [(ngModel)]="gameTable.City" #cityCtrl="ngModel" required [readonly]="!isCurrentGamer" />
+                       [(ngModel)]="gameTable.City" #cityCtrl="ngModel" required />
                 <span class="form-control-feedback" *ngIf="cityCtrl.invalid && cityCtrl.touched">
                     Podaj miasto!
                 </span>
@@ -75,23 +81,22 @@
             <label class="col-md-4" for="street">Ulica</label>
             <div class="col-md-8">
                 <input class="form-control" type="text" id="street" name="street"
-                        [(ngModel)]="gameTable.Street" #streetCtrl="ngModel" required [readonly]="!isCurrentGamer" />
-                <span class="form-control-feedback" *ngIf="streetCtrl.invalid && streetCtrl.touched">
-                    Podaj ulicę!
-                </span>
+                       [(ngModel)]="gameTable.Street" #streetCtrl="ngModel" />
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-4" for="isPrivate">Prywatny</label>
-            <div class="col-md-8" style=" display: inline-grid">
+            <label class="col-md-4 col-form-label" for="isPrivate">Prywatny</label>
+            <div class="col-md-8">
                 <input class="form-control" type="checkbox" id="isPrivate" name="isPrivate"
-                        [(ngModel)]="gameTable.IsPrivate" #isPrivateCtrl="ngModel" required [disabled]="!isCurrentGamer" />
+                       value="false" [(ngModel)]="gameTable.IsPrivate" #isPrivateCtrl="ngModel" />
             </div>
         </div>
         <div class="form-group text-center">
-            <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
-            <button *ngIf="isCurrentGamer" class="btn btn-success" type="submit" [disabled]="form.invalid">
-                Zapisz
+            <button type="button" class="btn btn-default" (click)="goBack()">
+                Powrót
+            </button>
+            <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+                Dodaj
             </button>
         </div>
     </form>

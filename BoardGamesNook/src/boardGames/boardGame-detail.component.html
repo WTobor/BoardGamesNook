@@ -1,27 +1,41 @@
 ﻿<div *ngIf="boardGame">
-    <h3>Gra</h3>
-    <h4>"{{ boardGame.Name }}"</h4>
-    <div hidden>
-        <label>Id: </label>{{ boardGame.Id }}
-    </div>
-    <table>
-        <tr>
-            <td><label>Minimalna liczba graczy: </label></td>
-            <td><input [(ngModel)]="boardGame.MinPlayers" /></td>
-        </tr>
-        <tr>
-            <td><label>Maksymalna liczba graczy: </label></td>
-            <td><input [(ngModel)]="boardGame.MaxPlayers" /></td>
-        </tr>
-        <tr></tr>
-        <tr>
-            <td><label>Maksymalny czas gry: </label></td>
-            <td><input [(ngModel)]="boardGame.MaxTime" /></td>
-        </tr>
-    </table>
-    <br />
-    <p>
-        <button class="btn btn-default" (click)="goBack()">Powrót</button>
-        <button class="btn btn-success" (click)="save()">Zapisz</button>
-    </p>
+    <form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="page-header">
+            GRA {{boardGame.Name}}
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4" for="minPlayers">Minimalna liczba graczy</label>
+            <div class="col-md-8">
+                <input class="form-control" type="number" id="minPlayers" name="minPlayers"
+                        [(ngModel)]="boardGame.MinPlayers" #minPlayersCtrl="ngModel" required />
+                <span class="form-control-feedback" *ngIf="minPlayersCtrl.invalid && minPlayersCtrl.touched">
+                    Podaj minimalną liczbę graczy!
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4" for="maxPlayers">Maksymalna liczba graczy</label>
+            <div class="col-md-8">
+                <input class="form-control" type="number" id="maxPlayers" name="maxPlayers" 
+                        [(ngModel)]="boardGame.MaxPlayers" #maxPlayersCtrl="ngModel" required />
+                <span class="form-control-feedback" *ngIf="maxPlayersCtrl.invalid && maxPlayersCtrl.touched">
+                    Podaj maksymalną liczbę graczy!
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4" for="maxTime">Maksymalny czas gry</label>
+            <div class="col-md-8">
+                <input class="form-control" type="number" id="maxTime" name="maxTime"
+                        [(ngModel)]="boardGame.MaxTime" #maxTimeCtrl="ngModel" required />
+                <span class="form-control-feedback" *ngIf="maxTimeCtrl.invalid && maxTimeCtrl.touched">
+                    Podaj maksymalny czas gry!
+                </span>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
+            <button class="btn btn-success" type="submit" [disabled]="form.invalid">Zapisz</button>
+        </div>
+    </form>
 </div>

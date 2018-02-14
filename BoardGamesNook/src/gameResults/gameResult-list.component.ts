@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
@@ -11,34 +11,35 @@ import { GameResult } from "./gameResult";
 export class GameResultListComponent implements OnInit {
     gameResults: GameResult[];
     selectedGameResult: GameResult;
-    isAdmin: boolean = false;
+    isAdmin = false;
 
     constructor(
-        private gameResultService: GameResultService,
-        private router: Router
-    ) { }
+        private readonly gameResultService: GameResultService,
+        private readonly router: Router,
+        private route: ActivatedRoute
+    ) {
+    }
 
     ngOnInit(): void {
-        this.getResults();
+        this.gameResultService.getList(this.route.snapshot.paramMap.get("nickname"))
+            .subscribe((gameResults: GameResult[]) => {
+                this.gameResults = gameResults;
+            });
     }
 
     onSelect(gameResult: GameResult): void {
         this.selectedGameResult = gameResult;
     }
 
-    getResults(): void {
-        this.gameResultService
-            .getGameResults()
-            .then(results => {
-                this.gameResults = results;
-            });
-    }
-
     gotoDetail(): void {
-        this.router.navigate(["/gameResults", this.selectedGameResult.Id]);
+        this.router.navigate(["/gameResult", this.selectedGameResult.Id]);
     }
 
     gotoAdd(): void {
         this.router.navigate(["/gameResult", 0]);
+    }
+
+    gotoAddMany(): void {
+        this.router.navigate(["/gameResults", 0]);
     }
 }

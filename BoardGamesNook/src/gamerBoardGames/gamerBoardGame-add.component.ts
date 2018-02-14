@@ -1,11 +1,9 @@
-﻿import "rxjs/add/operator/switchMap";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+﻿import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { GamerBoardGameService } from "./gamerBoardGame.service";
 import { GamerBoardGame } from "./gamerBoardGame";
-
 import { Common } from "./../Common";
 
 @Component({
@@ -21,11 +19,11 @@ export class GamerBoardGameAddComponent implements OnInit {
         private gamerBoardGameService: GamerBoardGameService,
         private route: ActivatedRoute,
         private location: Location
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
-        this.route.params
-            .switchMap((params: Params) => this.gamerBoardGameService.getGamerAvailableBoardGames(params["gamerNickname"]))
+        this.gamerBoardGameService.getGamerAvailableBoardGames(this.route.snapshot.paramMap.get('gamerNickname'))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => {
                 this.gamerBoardGames = gamerBoardGames;
                 this.selectedBoardGameId = this.gamerBoardGames[0].BoardGameId;
@@ -35,11 +33,11 @@ export class GamerBoardGameAddComponent implements OnInit {
     add(): void {
         var loc = this.location;
         this.gamerBoardGameService.create(this.selectedBoardGameId)
-            .then(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
 
     goBack(): void {
-        var loc = this.location;
+        const loc = this.location;
         return new Common(loc).goBack();
     }
 

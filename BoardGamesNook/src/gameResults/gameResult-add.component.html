@@ -1,135 +1,81 @@
-﻿<div *ngIf="gamerGameTables?.length > 0; then gamerGameTableExists else gamerGameTableNotExists"></div>
-
-<ng-template #gamerGameTableNotExists>
-    <h3>Nowy wynik gry</h3>
-    <table>
-        <tr>
-            <td><label>Gra:</label></td>
-            <td>
-                <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
-                    <select #selectedBoardGame (change)="selectBoardGame(selectedBoardGame.value)">
-                        <option *ngFor="let boardGame of availableBoardGames"
-                                [value]="boardGame.Id">
-                            {{boardGame.Name}}
-                        </option>
-                    </select>
-                </div>
-                <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
-                    Brak dostępnych gier
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Gracz:</label></td>
-            <td>
-                <div *ngIf="availableGamers && availableGamers.length > 0">
-                    <select #selectedGamer (change)="selectGamer(selectedGamer.value)">
-                        <option *ngFor="let gamer of availableGamers"
-                                [value]="gamer.Id">
-                            {{gamer.Nickname}}
-                        </option>
-                    </select>
-                </div>
-                <div *ngIf="!availableGamers || availableGamers.length === 0">
-                    Brak dostępnych graczy
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Punkty:</label></td>
-            <td><input #points type="number" required /></td>
-        </tr>
-        <tr>
-            <td><label>Miejsce:</label></td>
-            <td><input #place type="number" required /></td>
-        </tr>
-        <tr>
-            <td><label>Liczba graczy:</label></td>
-            <td><input #playersNumber type="number" required /></td>
-        </tr>
-    </table>
-
-    <br />
-
-    <button class="btn btn-default" (click)="goBack()">Powrót</button>
-    <button class="btn btn-success" (click)="add(points.value, place.value, playersNumber.value );
-    points.value=''; place.value=''; playersNumber.value=''">
-        Dodaj
-    </button>
-</ng-template>
-
-<ng-template #gamerGameTableExists>
-    <h3>Nowy wynik gry stołu:</h3>
-    <table>
-        <tr>
-            <td><label>Stół:</label></td>
-            <td>
-                <div *ngIf="gamerGameTables && gamerGameTables.length > 0">
-                    <select #selectedBoardGameTable (change)="selectBoardGameTable(selectedBoardGameTable.value)">
-                        <option *ngFor="let gamerGameTable of gamerGameTables"
-                                [value]="gamerGameTable.Id">
-                            {{gamerGameTable.Name}}
-                        </option>
-                    </select>
-                </div>
-                <div *ngIf="!gamerGameTables || gamerGameTables.length === 0">
-                    Brak dostępnych stołów do gier
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Gra:</label></td>
-            <td>
-                <div *ngIf="tableBoardGames && tableBoardGames.length > 0">
-                    <select #selectedTableBoardGame (change)="selectTableBoardGame(selectedTableBoardGame.value)">
-                        <option *ngFor="let tableBoardGame of tableBoardGames"
-                                [value]="tableBoardGame.BoardGameId">
-                            {{tableBoardGame.BoardGameName}}
-                        </option>
-                    </select>
-                </div>
-                <div *ngIf="!tableBoardGames || tableBoardGames.length === 0">
-                    Brak dostępnych gier dla stołu
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Lista graczy:</label></td>
-            <td></td>
-        </tr>
-        <div *ngIf="tableGamers && tableGamers.length > 0">
-            <table *ngFor="let tableGamer of tableGamers; let i = index;">
-                <tr>
-                    <td><label>Gracz:</label></td>
-                    <td>{{tableGamers[i].Nickname}}</td>
-                </tr>
-                <tr>
-                    <td><label>Punkty:</label></td>
-                    <td>
-                        <div *ngIf="pointList">
-                            <input [(ngModel)]="pointList[i]" type="number" required />
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Miejsce:</label></td>
-                    <td>
-                        <div *ngIf="placeList">
-                            <input [(ngModel)]="placeList[i]" type="number" required />
-                        </div>
-                    </td>
-                </tr>
-            </table>
+﻿<form class="col-md-8 container" (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <div class="page-header">
+        NOWY WYNIK GRY
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label">Gra</label>
+        <div class="col-md-8">
+            <div *ngIf="availableBoardGames && availableBoardGames.length > 0">
+                <select class="form-control" [(ngModel)]="selectedBoardGame" #boardGameCtrl="ngModel" name="boardGame" required>
+                    <option *ngFor="let boardGame of availableBoardGames"
+                            [ngValue]="boardGame">
+                        {{boardGame.Name}}
+                    </option>
+                </select>
+                <span class="form-control-feedback" *ngIf="boardGameCtrl.invalid && boardGameCtrl.touched">
+                    Wybierz grę!
+                </span>
+            </div>
+            <div *ngIf="!availableBoardGames || availableBoardGames.length === 0">
+                Brak dostępnych gier
+            </div>
         </div>
-        <div *ngIf="!tableGamers || tableGamers.length === 0">
-            Brak dostępnych graczy dla stołu
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label">Gracz</label>
+        <div class="col-md-8">
+            <div *ngIf="availableGamers && availableGamers.length > 0">
+                <select class="form-control" [(ngModel)]="selectedGamer" #gamerCtrl="ngModel" name="gamer" required>
+                    <option *ngFor="let gamer of availableGamers"
+                            [ngValue]="gamer" >
+                        {{gamer.Nickname}}
+                    </option>
+                </select>
+                <span class="form-control-feedback" *ngIf="gamerCtrl.invalid && gamerCtrl.touched">
+                    Wybierz gracza!
+                </span>
+            </div>
+            <div *ngIf="!availableGamers || availableGamers.length === 0">
+                Brak dostępnych graczy
+            </div>
         </div>
-    </table>
-
-    <br />
-
-    <button class="btn btn-default" (click)="goBack()">Powrót</button>
-    <button class="btn btn-success" (click)="addMany();">
-        Dodaj
-    </button>
-</ng-template>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="points">Punkty</label>
+        <div class="col-md-8">
+            <input class="form-control" type="number" id="points" name="points"
+                   [(ngModel)]="points" #pointsCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="pointsCtrl.invalid && pointsCtrl.touched">
+                Podaj liczbę punktów!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="place">Miejsce</label>
+        <div class="col-md-8">
+            <input class="form-control" type="number" id="place" name="place"
+                   [(ngModel)]="place" #placeCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="placeCtrl.invalid && placeCtrl.touched">
+                Podaj miejsce!
+            </span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label" for="playersNumber">Liczba graczy</label>
+        <div class="col-md-8">
+            <input class="form-control" type="number" id="playersNumber" name="playersNumber"
+                   [(ngModel)]="playersNumber" #playersNumberCtrl="ngModel" required/>
+            <span class="form-control-feedback" *ngIf="playersNumberCtrl.invalid && playersNumberCtrl.touched">
+                Podaj miejsce!
+            </span>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button type="button" class="btn btn-default" (click)="goBack()">
+            Powrót
+        </button>
+        <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+            Dodaj
+        </button>
+    </div>
+</form>

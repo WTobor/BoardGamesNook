@@ -16,7 +16,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BoardGamesNook</RootNamespace>
     <AssemblyName>BoardGamesNook</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44375</IISExpressSSLPort>
@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
     <Use64BitIISExpress>false</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -131,6 +131,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
@@ -187,6 +188,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="TypeLite, Version=1.8.2.0, Culture=neutral, PublicKeyToken=8cd4b9c9ac23d744, processorArchitecture=MSIL">
       <HintPath>..\packages\TypeLite.1.8.2\lib\net4\TypeLite.dll</HintPath>
     </Reference>
@@ -259,7 +261,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="package.json" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -269,6 +271,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="bundleconfig.json" />
     <None Include="Properties\PublishProfiles\BoardGamesNook - Web Deploy.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -291,10 +294,12 @@
     <Content Include="src\about\about.component.html" />
     <Content Include="src\boardGames\boardGame-detail.component.html" />
     <Content Include="src\boardGames\boardGame-list.component.html" />
+    <Content Include="src\gameResults\gameResult-addMany.component.html" />
     <Content Include="src\gamers\gamer-detail.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-add.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-detail.component.html" />
     <Content Include="src\gamerBoardGames\gamerBoardGame-list.component.html" />
+    <Content Include="src\gameTables\gameTable-add.component.html" />
     <Content Include="src\gameTables\gameTable-detail.component.html" />
     <Content Include="src\gameTables\gameTable-list.component.html" />
     <Content Include="src\gameResults\gameResult-add.component.html" />
@@ -302,6 +307,7 @@
     <Content Include="src\gameResults\gameResult-list.component.html" />
     <Content Include="src\welcome\welcome.component.html" />
     <Content Include="systemjs.config.js" />
+    <Content Include="tsconfig.json" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -316,7 +322,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="typings.json" />
-    <Content Include="tsconfig.json" />
     <Content Include="Views\Gamer\GetAll.cshtml" />
     <Content Include="Views\Gamer\Get.cshtml" />
     <Content Include="src\app.component.html" />
@@ -350,7 +355,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGameGeekIntegration\BoardGameGeekIntegration.csproj">
@@ -390,6 +394,7 @@
     <TypeScriptCompile Include="src\boardGames\similarBoardGame.ts" />
     <TypeScriptCompile Include="src\common.ts" />
     <TypeScriptCompile Include="src\dialog.service.ts" />
+    <TypeScriptCompile Include="src\gameResults\gameResult-addMany.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-add.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-detail.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-list.component.ts" />
@@ -404,6 +409,7 @@
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGame.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames-routing.module.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames.module.ts" />
+    <TypeScriptCompile Include="src\gameTables\gameTable-add.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-detail.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-list.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable.service.ts" />

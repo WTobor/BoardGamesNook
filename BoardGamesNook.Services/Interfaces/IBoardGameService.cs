@@ -8,11 +8,13 @@ namespace BoardGamesNook.Services.Interfaces
     {
         BoardGame Get(int id);
 
-        IEnumerable<BoardGame> GetAllGamerBoardGames();
+        IEnumerable<BoardGame> GetAll();
 
         void Add(BoardGame boardGame);
 
         List<SimilarBoardGame> AddOrGetSimilar(string name);
+
+        bool CheckIfExists(string name);
 
         void Edit(BoardGame boardGame);
 

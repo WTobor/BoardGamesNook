@@ -10,6 +10,7 @@ namespace BoardGamesNook.Repository
     public class GameTableRepository : IGameTableRepository
     {
         private readonly BoardGameRepository _boardGameRepository = new BoardGameRepository();
+        private readonly GamerRepository _gamerRepository = new GamerRepository();
         private readonly List<GameTable> _gameTables = GameTableGenerator.GameTables;
 
         public GameTable Get(int id)
@@ -34,11 +35,18 @@ namespace BoardGamesNook.Repository
         public IEnumerable<GameTable> GetAllGameTablesByGamerNickname(string gamerNickname)
         {
             //temporaty solution, when no users
-            return _gameTables.Where(x => x.CreatedGamer.Nickname == gamerNickname).ToList();
+            var gamer = _gamerRepository.GetByNickname(gamerNickname);
+            if (gamer != null)
+            {
+                return _gameTables.Where(x => x.CreatedGamerId == gamer.Id).ToList();
+            }
+            return new List<GameTable>();
         }
 
         public void AddGameTable(GameTable gameTable)
         {
+            var id = _gameTables.Max(x => x.Id) + 1;
+            gameTable.Id = id;
             _gameTables.Add(gameTable);
         }
 

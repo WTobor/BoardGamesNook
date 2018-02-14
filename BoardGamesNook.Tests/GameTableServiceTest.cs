@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
+using BoardGamesNook.Repository;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,6 +15,7 @@ namespace BoardGamesNook.Tests
         private readonly Mock<IBoardGameRepository> _boardGameRepositoryMock;
         private readonly Mock<IGameParticipationRepository> _gameParticipationRepositoryMock;
         private readonly Mock<IGameTableRepository> _gameTableRepositoryMock;
+        private readonly Mock<IGameResultRepository> _gameResultRepositoryMock;
 
         private readonly List<GameParticipation> _testGameParticipations = new List<GameParticipation>
         {
@@ -33,7 +35,6 @@ namespace BoardGamesNook.Tests
             Id = 1,
             BoardGames = new List<BoardGame>(),
             GameParticipations = null,
-            CreatedGamer = new Gamer(),
             Active = true
         };
 
@@ -42,6 +43,7 @@ namespace BoardGamesNook.Tests
             _gameTableRepositoryMock = new Mock<IGameTableRepository>();
             _boardGameRepositoryMock = new Mock<IBoardGameRepository>();
             _gameParticipationRepositoryMock = new Mock<IGameParticipationRepository>();
+            _gameResultRepositoryMock = new Mock<IGameResultRepository>();
         }
 
         [TestMethod]
@@ -54,7 +56,9 @@ namespace BoardGamesNook.Tests
                 .Returns(new List<GameTable> {new GameTable()});
             var gameTableService = new GameTableService(_gameTableRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object),
-                new GameParticipationService(_gameParticipationRepositoryMock.Object));
+                new GameParticipationService(_gameParticipationRepositoryMock.Object), 
+                _gameResultRepositoryMock.Object);
+
             //Act
             var gamerGameTableList = gameTableService.GetAllGameTablesByGamerNickname(nickname);
             //Assert
@@ -70,7 +74,8 @@ namespace BoardGamesNook.Tests
             _gameTableRepositoryMock.Setup(mock => mock.AddGameTable(It.IsAny<GameTable>()));
             var gameTableService = new GameTableService(_gameTableRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object),
-                new GameParticipationService(_gameParticipationRepositoryMock.Object));
+                new GameParticipationService(_gameParticipationRepositoryMock.Object),
+                _gameResultRepositoryMock.Object);
             //Act
             gameTableService.CreateGameTable(_testGameTable, new List<int>());
             //Assert
@@ -88,7 +93,8 @@ namespace BoardGamesNook.Tests
                 mock.GetAvailableTableBoardGameList(It.Is<GameTable>(x => x.Equals(_testGameTable))));
             var gameTableService = new GameTableService(_gameTableRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object),
-                new GameParticipationService(_gameParticipationRepositoryMock.Object));
+                new GameParticipationService(_gameParticipationRepositoryMock.Object),
+                _gameResultRepositoryMock.Object);
             //Act
             gameTableService.GetAvailableTableBoardGameListById(_testGameTable.Id);
             //Assert
@@ -106,7 +112,8 @@ namespace BoardGamesNook.Tests
             _gameTableRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>()));
             var gameTableService = new GameTableService(_gameTableRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object),
-                new GameParticipationService(_gameParticipationRepositoryMock.Object));
+                new GameParticipationService(_gameParticipationRepositoryMock.Object),
+                _gameResultRepositoryMock.Object);
             //Act
             gameTableService.GetGameTable(_testGameTable.Id);
             //Assert
@@ -124,7 +131,8 @@ namespace BoardGamesNook.Tests
             _gameTableRepositoryMock.Setup(mock => mock.EditGameTable(It.IsAny<GameTable>()));
             var gameTableService = new GameTableService(_gameTableRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object),
-                new GameParticipationService(_gameParticipationRepositoryMock.Object));
+                new GameParticipationService(_gameParticipationRepositoryMock.Object),
+                _gameResultRepositoryMock.Object);
             //Act
             gameTableService.EditGameTable(_testGameTable.Id, new List<int>());
             //Assert
@@ -148,7 +156,8 @@ namespace BoardGamesNook.Tests
                     It.Is<Gamer>(x => x.Equals(gamer))));
             var gameTableService = new GameTableService(_gameTableRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object),
-                new GameParticipationService(_gameParticipationRepositoryMock.Object));
+                new GameParticipationService(_gameParticipationRepositoryMock.Object),
+                _gameResultRepositoryMock.Object);
             //Act
             gameTableService.EditGameTableParticipations(_testGameParticipations, gamer);
             //Assert
@@ -166,7 +175,7 @@ namespace BoardGamesNook.Tests
             _gameTableRepositoryMock.Setup(mock => mock.Deactivate(It.IsAny<int>()));
             var gameTableService = new GameTableService(_gameTableRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object),
-                new GameParticipationService(_gameParticipationRepositoryMock.Object));
+                new GameParticipationService(_gameParticipationRepositoryMock.Object), new GameResultRepository());
             //Act
             gameTableService.DeactivateGameTable(_testGameTable.Id);
             //Assert

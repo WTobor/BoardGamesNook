@@ -11,6 +11,8 @@ namespace BoardGamesNook.Repository.Interfaces
 
         void Add(BoardGame boardGame);
 
+        bool CheckIfExists(string name);
+
         void Edit(BoardGame boardGame);
 
         void Deactivate(int id);
