@@ -26,7 +26,9 @@ export class GamerBoardGameAddComponent implements OnInit {
         this.gamerBoardGameService.getGamerAvailableBoardGames(this.route.snapshot.paramMap.get('gamerNickname'))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => {
                 this.gamerBoardGames = gamerBoardGames;
-                this.selectedBoardGameId = this.gamerBoardGames[0].BoardGameId;
+                if (this.gamerBoardGames) {
+                    this.selectedBoardGameId = this.gamerBoardGames[0].BoardGameId;
+                }
             });
     }
 

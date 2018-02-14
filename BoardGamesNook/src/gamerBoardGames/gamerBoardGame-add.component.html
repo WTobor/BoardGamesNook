@@ -1,19 +1,29 @@
 ﻿<div *ngIf="gamerBoardGames?.length > 0; then gbgExists else gbgNotExists"></div>
 
 <ng-template #gbgExists>
-    <span class="font-weight-bold">NOWA GRA GRACZA {{ gamerBoardGames[0].CreatedGamerNickname }}</span>
-
-    <select #boardGame (change)="selectBoardGame(boardGame.value)">
-        <option *ngFor="let gamerBoardGame of gamerBoardGames"
-                [value]="gamerBoardGame.BoardGameId">
-            {{gamerBoardGame.BoardGameName}}
-        </option>
-    </select>
-    <br/>
-    <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
-    <button class="btn btn-success" (click)="add();">
-        Dodaj
-    </button>
+    <form class="col-md-8 container">
+        <div class="page-header">
+            NOWA GRA GRACZA {{ gamerBoardGames[0].CreatedGamerNickname }}
+        </div>
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label">Gracz</label>
+            <div class="col-md-8">
+                <select class="form-control" #boardGame (change)="selectBoardGame(boardGame.value)">
+                    <option *ngFor="let gamerBoardGame of gamerBoardGames"
+                            [value]="gamerBoardGame.BoardGameId">
+                        {{gamerBoardGame.BoardGameName}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-default" (click)="goBack()">
+                Powrót</button>
+            <button class="btn btn-success" (click)="add();">
+                Dodaj
+            </button>
+        </div>
+    </form>
 </ng-template>
 
 <ng-template #gbgNotExists>

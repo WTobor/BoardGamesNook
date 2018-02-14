@@ -47,7 +47,7 @@ export class GameTableListComponent implements OnInit {
         this.selectedGameTable = gameTable;
     }
 
-    delete(gameTable: GameTable): void {
+    deactivate(gameTable: GameTable): void {
         this.gameTableService
             .deactivate(gameTable.Id)
             .subscribe(() => {
