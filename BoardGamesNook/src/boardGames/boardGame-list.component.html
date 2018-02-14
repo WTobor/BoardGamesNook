@@ -17,7 +17,7 @@
                              (click)="gotoDetail(boardGame)" style="cursor: pointer;" />
                         <div class="text-center img-overly">
                             <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn btn-danger">x</button>
-                            <a href="{{boardGame.BGGUrl}}" class="btn btn-primary m-0">BGG</a>
+                            <a href="{{boardGame.BGGUrl}}" target="_blank" class="btn btn-primary m-0">BGG</a>
                         </div>
                     </div>
                     <div class="text-center font-weight-bold">

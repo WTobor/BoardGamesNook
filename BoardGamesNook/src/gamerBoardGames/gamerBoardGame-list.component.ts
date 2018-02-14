@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { GamerBoardGameService } from "./gamerBoardGame.service";
 import { GamerBoardGame } from "./gamerBoardGame";
 import { GamerService } from "../gamers/gamer.service";
+import {Common} from "../common";
+import {Location as Location1} from "@angular/common";
 
 @Component({
     selector: "gamerBoardGame-list",
@@ -19,7 +21,8 @@ export class GamerBoardGameListComponent implements OnInit {
         private gamerBoardGameService: GamerBoardGameService,
         private gamerService: GamerService,
         private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        private location: Location1) { }
 
     ngOnInit() {
         this.selectedGamerNickname = this.route.snapshot.paramMap.get("gamerNickname");
@@ -37,7 +40,7 @@ export class GamerBoardGameListComponent implements OnInit {
         this.selectedGamerBoardGame = gamerBoardGame;
     }
 
-    delete(gamerBoardGame: GamerBoardGame): void {
+    deactivate(gamerBoardGame: GamerBoardGame): void {
         this.gamerBoardGameService
             .deactivate(gamerBoardGame.Id)
             .subscribe(() => {
@@ -52,5 +55,10 @@ export class GamerBoardGameListComponent implements OnInit {
 
     gotoAdd(): void {
         this.router.navigate(["/gamerBoardGame", this.selectedGamerNickname, 0]);
+    }
+
+    goBack(): void {
+        const loc = this.location;
+        return new Common(loc).goBack();
     }
 }

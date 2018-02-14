@@ -39,7 +39,7 @@ export class ParticipationListComponent implements OnInit {
         this.selectedParticipation = participation;
     }
 
-    delete(participation: Participation): void {
+    deactivate(participation: Participation): void {
         this.participationService
             .deactivate(participation.Id)
             .subscribe(() => {
