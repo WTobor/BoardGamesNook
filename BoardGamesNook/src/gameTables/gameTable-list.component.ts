@@ -28,19 +28,19 @@ export class GameTableListComponent implements OnInit {
         this.gameTableService.getGameTablesByGamerNickname(this.selectedGamerNickname)
             .subscribe((gameTableList: GameTable[]) => {
                 this.loadedGameTables = gameTableList;
+            }, null, () => {
+                this.gamerService.getCurrentGamerNickname().subscribe(nick => {
+                    if (nick === this.selectedGamerNickname) {
+                        this.isCurrentGamer = true;
+                    };
+                    if (this.selectedGamerNickname === undefined && this.loadedGameTables !== undefined) {
+                        this.gameTables = this.loadedGameTables.filter(x => x.CreatedGamerNickname !== nick);
+                    }
+                    else {
+                        this.gameTables = this.loadedGameTables;
+                    }
+                });
             });
-
-        this.gamerService.getCurrentGamerNickname().subscribe(nick => {
-            if (nick === this.selectedGamerNickname) {
-                this.isCurrentGamer = true;
-            };
-            if (this.selectedGamerNickname === undefined && this.loadedGameTables !== undefined) {
-                this.gameTables = this.loadedGameTables.filter(x => x.CreatedGamerNickname !== nick);
-            }
-            else {
-                this.gameTables = this.loadedGameTables;
-            }
-        });
     }
 
     onSelect(gameTable: GameTable): void {

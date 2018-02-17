@@ -73,11 +73,10 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        // Is it used in any place?
-        public string GetCurrentGamerNickname()
+        public JsonResult GetCurrentGamerNickname()
         {
             var currentGamerNick = !(Session["gamer"] is Gamer currentGamer) ? string.Empty : currentGamer.Nickname;
-            return currentGamerNick;
+            return Json(currentGamerNick, JsonRequestBehavior.AllowGet);
         }
 
         private static Gamer GetGamerObj(GamerViewModel gamerViewModel, User loggedUser)

@@ -1,9 +1,10 @@
 ﻿import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { GameTable } from "./gameTable";
 import { TableBoardGame } from "./tableBoardGame";
 import { Observable } from "rxjs/Observable";
+import { Subscriber } from 'rxjs/Subscriber';
 import {httpOptions} from "../common";
 
 @Injectable()
@@ -26,12 +27,16 @@ export class GameTableService {
     }
 
     getGameTablesByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
-        var url = `${this._getGameTableListUrl}`;
         if (gamerNickname != null && gamerNickname !== "") {
-            url = `${this._getGameTableListByGamerNicknameUrl}/${gamerNickname}`;
-        };
-
-        return this.http.get<GameTable[]>(url);
+            var url = `${this._getGameTableListByGamerNicknameUrl}`;
+            return this.http.get<GameTable[]>(url, {
+                params: new HttpParams().set('nickname', gamerNickname)
+            });
+        }
+        else {
+            var url = `${this._getGameTableListUrl}`;
+            return this.http.get<GameTable[]>(url);
+        }
     }
 
     getGameTablesWithoutResultsByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
@@ -49,7 +54,7 @@ export class GameTableService {
             return this.http.get<GameTable> (url);
         }
         else {
-            var response = new GameTable;;
+            return new Observable<GameTable>((subscriber: Subscriber<GameTable>) => subscriber.next(new GameTable()));
         }
     }
 
