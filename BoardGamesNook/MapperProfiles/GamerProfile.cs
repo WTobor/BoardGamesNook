@@ -23,6 +23,8 @@ namespace BoardGamesNook.MapperProfiles
                 .ForMember(dest => dest.TableName, opt => opt.Ignore())
                 .ForMember(dest => dest.BoardGameId, opt => opt.Ignore())
                 .ForMember(dest => dest.BoardGameName, opt => opt.Ignore())
+                .ForMember(dest => dest.MinBoardGamePlayers, opt => opt.Ignore())
+                .ForMember(dest => dest.MaxBoardGamePlayers, opt => opt.Ignore())
                 .ForMember(dest => dest.BGGId, opt => opt.Ignore())
                 .ForMember(dest => dest.ImageUrl, opt => opt.Ignore())
                 .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.Id))

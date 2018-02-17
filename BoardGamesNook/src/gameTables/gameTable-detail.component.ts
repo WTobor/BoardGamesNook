@@ -30,6 +30,8 @@ export class GameTableDetailComponent implements OnInit {
         this.gameTableService.getGameTable(Number(this.route.snapshot.paramMap.get('id')))
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
+                this.SetMinAndMaxPlayers();
+
                 this.getAvailableTableBoardGameList(this.gameTable.Id);
                 this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
                     if (nickname === this.gameTable.CreatedGamerNickname) {
@@ -56,7 +58,12 @@ export class GameTableDetailComponent implements OnInit {
         this.gameTable.TableBoardGameList.push(this.selectedTableBoardGame);
         const index = this.availableTableBoardGames.indexOf(this.selectedTableBoardGame, 0);
         this.availableTableBoardGames.splice(index, 1);
-        //TODO: count minPlayers and maxPlayers by boardGames
+        this.SetMinAndMaxPlayers();
+    }
+
+    private SetMinAndMaxPlayers(): void {
+        this.gameTable.MinPlayers = Math.min(...this.gameTable.TableBoardGameList.map(x => x.MinBoardGamePlayers));
+        this.gameTable.MaxPlayers = Math.max(...this.gameTable.TableBoardGameList.map(x => x.MaxBoardGamePlayers));
     }
 
     deactivate(tableBoardGame: TableBoardGame): void {

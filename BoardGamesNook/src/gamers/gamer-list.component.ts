@@ -32,7 +32,7 @@ export class GamerListComponent implements OnInit {
             .getGamers()
             .subscribe(gamers => {
                 this.gamers = gamers;
-                this.gamerService.getCurrentGamerNickname().subscribe(nickname =>
+                this.gamerService.getCurrentGamerNickname().subscribe(nickname => 
                     this.gamers = this.gamers.filter(x => x.Nickname !== nickname));
             });
     }

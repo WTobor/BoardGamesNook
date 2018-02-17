@@ -17,12 +17,15 @@
             <label class="col-md-4">Dodaj grę</label>
             <div class="col-md-8">
                 <div *ngIf="availableTableBoardGames && availableTableBoardGames.length > 0">
-                    <select class="form-control" #selectedTableBoardGame>
+                    <select class="form-control" [(ngModel)]="selectedTableBoardGame" #boardGameCtrl="ngModel" name="boardGame" required>
                         <option *ngFor="let tableBoardGame of availableTableBoardGames"
                                 [value]="tableBoardGame.BoardGameId">
                             {{tableBoardGame.BoardGameName}}
                         </option>
                     </select>
+                    <span class="form-control-feedback" *ngIf="boardGameCtrl.invalid && boardGameCtrl.touched">
+                        Wybierz co najmniej jedną grę!
+                    </span>
                     <br/>
                     <button class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">
                         Dodaj
