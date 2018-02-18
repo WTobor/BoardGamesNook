@@ -47,6 +47,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["user"] is User loggedUser))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
+            // This business logic should be in the service.
             if (_gamerService.NicknameExists(gamerViewModel.Nickname))
                 return Json(string.Format(Errors.GamerNicknameExists, gamerViewModel.Nickname),
                     JsonRequestBehavior.AllowGet);
@@ -72,6 +73,7 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        // Is it used in any place?
         public string GetCurrentGamerNickname()
         {
             var currentGamerNick = !(Session["gamer"] is Gamer currentGamer) ? string.Empty : currentGamer.Nickname;
@@ -82,6 +84,8 @@ namespace BoardGamesNook.Controllers
         {
             var result = Mapper.Map<Gamer>(gamerViewModel);
             Mapper.Map(loggedUser, result);
+            // You can also put this code in mapper.
+            // What is more if you used "Guid" is better to operate on "Guid" not making a "string" from "Guid". Why are you converting this Guid to string? Is it needed?
             result.Id = Guid.NewGuid().ToString();
             return result;
         }

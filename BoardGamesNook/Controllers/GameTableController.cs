@@ -10,10 +10,11 @@ using BoardGamesNook.ViewModels.GameTable;
 namespace BoardGamesNook.Controllers
 {
     [AuthorizeCustom]
+    // This controller is so big that is hard to navigate in it. You should start creating smaller controllers. Read some more about REST API.
     public class GameTableController : Controller
     {
         private readonly IGameTableService _gameTableService;
-        private readonly IGamerService _gamerService;
+        private readonly IGamerService _gamerService; // This service is not used.
 
         public GameTableController(IGameTableService gameTableService, IGamerService gamerService)
         {
@@ -26,6 +27,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
+            // This business logic should be in the service.
             var gameTable = _gameTableService.GetGameTable(id);
 
             var tableBoardGameViewModels = Mapper.Map<List<TableBoardGameViewModel>>(gameTable.BoardGames);
@@ -40,6 +42,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
+            // This business logic can/should be in the service.
             var availableTableBoardGameList = _gameTableService.GetAvailableTableBoardGameListById(id);
             var availableTableBoardGameListViewModel =
                 Mapper.Map<IEnumerable<BoardGame>, IEnumerable<TableBoardGameViewModel>>(availableTableBoardGameList);
@@ -52,6 +55,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAll()
         {
             var gameTableListViewModel = new List<TableBoardGameViewModel>();
+            // This business logic should be in the service.
             var gameTableList = _gameTableService.GetAllGameTables();
 
             foreach (var gameTable in gameTableList)
@@ -71,6 +75,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAllByGamerNickname(string nickname)
         {
+            // This business logic should be in the service.
             var gameTableList = _gameTableService.GetAllGameTablesByGamerNickname(nickname);
             var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
             gameTableListViewModel.ForEach(x => x.GamerNickname = nickname);
@@ -82,6 +87,7 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAllWithoutResultsByGamerNickname(string nickname)
         {
+            // This business logic should be in the service.
             var gameTableList = _gameTableService.GetAllGameTablesWithoutResultsByGamerNickname(nickname);
 
             var gameTableListViewModel = Mapper.Map<List<TableBoardGameViewModel>>(gameTableList);
@@ -97,6 +103,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            // What this is doing? I can see some business logic here, but I can't tell is it needed or not, because i do not understand this code.
             var gameTable = GetGameTableObj(model, gamer);
             var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
 
@@ -109,6 +116,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(GameTableViewModel gameTableViewModel)
         {
+            // Why you have so big object in the parameter when you do not need most of its properties? You should always pass only what is needed.
             var tableBoardGameIdList = gameTableViewModel.TableBoardGameList.Select(x => x.BoardGameId).ToList();
             _gameTableService.EditGameTable(gameTableViewModel.Id, tableBoardGameIdList);
 
@@ -121,6 +129,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
+            // This business logic should be in the service.
             var gameTableId = gameParticipations.Select(x => x.GameTableId).FirstOrDefault();
             var dbGameTable = _gameTableService.GetGameTable(gameTableId);
             if (dbGameTable == null)

@@ -28,6 +28,8 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             var gamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(id);
+            // It is good to always write "brackets", because code with brackets is easier to read. You can set this setting in ReSharper (to always add brackets).
+            // But as you wish - some people do not add brackets if code is in one line.
             if (gamerBoardGame == null)
                 return Json(string.Format(Errors.GamerBoardGameWithIdNotFound, id), JsonRequestBehavior.AllowGet);
             var gamerBoardGameViewModel = Mapper.Map<GamerBoardGameViewModel>(gamerBoardGame);
@@ -57,6 +59,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            // This business logic should be in the service.
             var gamerBoardGame = GetGamerBoardGameObj(boardGameId, gamer);
             _gamerBoardGameService.Add(gamerBoardGame);
 
@@ -70,6 +73,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
+            // This business logic should be in the service.
             var dbGamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(gamerBoardGameId);
 
             if (dbGamerBoardGame == null)
@@ -93,6 +97,7 @@ namespace BoardGamesNook.Controllers
 
         private IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(string nickname)
         {
+            // This business logic should be in the service.
             var gamer = _gamerService.GetGamerBoardGameByNickname(nickname);
             var gamerAvailableBoardGameList = _gamerBoardGameService.GetGamerAvailableBoardGameList(nickname);
 

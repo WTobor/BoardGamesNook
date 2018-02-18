@@ -27,6 +27,7 @@ namespace BoardGamesNook.Controllers
             return new RedirectResult("/", true);
         }
 
+        // Move it to mapper
         private static User CreateNewUser(AuthenticateCallbackData model)
         {
             var email = model.AuthenticatedClient.UserInformation.Email;
