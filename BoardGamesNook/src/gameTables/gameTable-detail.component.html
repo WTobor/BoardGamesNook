@@ -85,7 +85,7 @@
             <label class="col-md-4" for="isPrivate">Prywatny</label>
             <div class="col-md-8" style=" display: inline-grid">
                 <input class="form-control" type="checkbox" id="isPrivate" name="isPrivate"
-                        [(ngModel)]="gameTable.IsPrivate" #isPrivateCtrl="ngModel" required [disabled]="!isCurrentGamer" />
+                        [(ngModel)]="gameTable.IsPrivate" #isPrivateCtrl="ngModel" [disabled]="!isCurrentGamer" />
             </div>
         </div>
         <div class="form-group text-center">

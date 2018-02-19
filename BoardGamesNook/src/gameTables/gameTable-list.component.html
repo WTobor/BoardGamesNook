@@ -7,10 +7,10 @@
             <li *ngFor="let gameTable of gameTables" (click)="onSelect(gameTable)">
                 <div *ngIf="gameTable">
                     <span *ngIf="gameTable.TableBoardGameList == null">
-                        stół {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Brak wybranych gier.
+                        {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Brak wybranych gier.
                     </span>
                     <div *ngIf="gameTable.TableBoardGameList">
-                        Stół {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Wybrane pozycje:
+                        {{gameTable.Name | uppercase}} gracza {{gameTable.CreatedGamerNickname | uppercase}}. Wybrane pozycje:
                         <ul>
                             <li *ngFor="let boardGame of gameTable.TableBoardGameList">
                                 <span>{{boardGame.BoardGameName}}</span>

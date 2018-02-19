@@ -7,7 +7,7 @@ import { GamerBoardGameAddComponent } from "./gamerBoardGame-add.component";
 
 const gamersRoutes: Routes = [
     { path: "gamerBoardGames/:gamerNickname", component: GamerBoardGameListComponent },
-    { path: "gamerBoardGame/:gamerNickname/new", component: GamerBoardGameAddComponent },
+    { path: "gamerBoardGame/:gamerNickname/0", component: GamerBoardGameAddComponent },
     { path: "gamerBoardGames/:gamerNickname/:id", component: GamerBoardGameDetailComponent }
 ];
 

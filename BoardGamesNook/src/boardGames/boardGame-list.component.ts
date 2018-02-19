@@ -36,14 +36,11 @@ export class BoardGameListComponent implements OnInit {
         }).subscribe(this.searchQuery.bind(this));
     }
 
-    delete(boardGame: BoardGame): void {
+    deactivate(boardGame: BoardGame): void {
         this.boardGameService
             .deactivate(boardGame.Id)
             .subscribe(() => {
-                this.allBoardGames = this.allBoardGames.filter(g => g !== boardGame);
-                //if (this.selectedBoardGame === boardGame) {
-                //    this.selectedBoardGame = null;
-                //}
+                this.searchedBoardGames = this.searchedBoardGames.filter(g => g !== boardGame);
             });
     }
 
