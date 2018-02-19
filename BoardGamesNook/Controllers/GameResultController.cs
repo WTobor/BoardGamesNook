@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
 using BoardGamesNook.Model;
@@ -35,10 +36,8 @@ namespace BoardGamesNook.Controllers
             gameResultViewModel.CreatedGamerNickname =
                 _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
             if (gameResultViewModel.GameTableId.HasValue)
-            {
                 gameResultViewModel.GameTableName =
                     _gameTableService.GetGameTable(gameResultViewModel.GameTableId.Value)?.Name;
-            }
 
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -64,7 +63,10 @@ namespace BoardGamesNook.Controllers
         public JsonResult GetAllByGamerNickname(string nickname)
         {
             if (!(Session["gamer"] is Gamer))
+            {
+                Response.StatusCode = (int) HttpStatusCode.Unauthorized;
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
+            }
 
             // This business logic should be in the service.
             var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();

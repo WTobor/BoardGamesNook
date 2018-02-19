@@ -5,6 +5,7 @@ import { Location } from "@angular/common";
 import { GamerBoardGameService } from "./gamerBoardGame.service";
 import { GamerBoardGame } from "./gamerBoardGame";
 import { Common } from "./../Common";
+import {DialogsService} from "../dialogs/confirm-dialog.service";
 
 @Component({
     selector: "gamerBoardGame-add",
@@ -18,12 +19,13 @@ export class GamerBoardGameAddComponent implements OnInit {
     constructor(
         private gamerBoardGameService: GamerBoardGameService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private dialogsService: DialogsService
     ) {
     }
 
     ngOnInit() {
-        this.gamerBoardGameService.getGamerAvailableBoardGames(this.route.snapshot.paramMap.get('gamerNickname'))
+        this.gamerBoardGameService.getGamerAvailableBoardGames(this.route.snapshot.paramMap.get("gamerNickname"))
             .subscribe((gamerBoardGames: GamerBoardGame[]) => {
                 this.gamerBoardGames = gamerBoardGames;
                 if (this.gamerBoardGames) {
@@ -35,7 +37,7 @@ export class GamerBoardGameAddComponent implements OnInit {
     add(): void {
         var loc = this.location;
         this.gamerBoardGameService.create(this.selectedBoardGameId)
-            .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            .subscribe(errorMessage => { new Common(loc, this.dialogsService).showErrorOrGoBack(errorMessage); });
     }
 
     goBack(): void {

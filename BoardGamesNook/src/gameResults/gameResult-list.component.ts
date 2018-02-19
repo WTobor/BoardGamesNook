@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { GameResultService } from "./gameResult.service";
 import { GameResult } from "./gameResult";
+import {Common} from "../common";
+import {Location as Location1} from "@angular/common";
 
 @Component({
     selector: "gameResult-list",
@@ -16,15 +18,19 @@ export class GameResultListComponent implements OnInit {
     constructor(
         private readonly gameResultService: GameResultService,
         private readonly router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private location: Location1
     ) {
     }
 
     ngOnInit(): void {
         this.gameResultService.getList(this.route.snapshot.paramMap.get("nickname"))
             .subscribe((gameResults: GameResult[]) => {
-                this.gameResults = gameResults;
-            });
+                    this.gameResults = gameResults;
+                },
+                (errorMessage: string) => {
+                    new Common(this.location).showErrorOrGoBack(errorMessage);
+                });
     }
 
     onSelect(gameResult: GameResult): void {

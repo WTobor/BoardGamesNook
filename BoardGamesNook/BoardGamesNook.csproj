@@ -393,7 +393,9 @@
     <TypeScriptCompile Include="src\boardGames\boardGames.module.ts" />
     <TypeScriptCompile Include="src\boardGames\similarBoardGame.ts" />
     <TypeScriptCompile Include="src\common.ts" />
-    <TypeScriptCompile Include="src\dialog.service.ts" />
+    <TypeScriptCompile Include="src\dialogs\confirm-dialog.component.ts" />
+    <TypeScriptCompile Include="src\dialogs\confirm-dialog.service.ts" />
+    <TypeScriptCompile Include="src\dialogs\dialogs.module.ts" />
     <TypeScriptCompile Include="src\gameResults\gameResult-addMany.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-add.component.ts" />
     <TypeScriptCompile Include="src\gamers\gamer-detail.component.ts" />

@@ -1,16 +1,18 @@
 ﻿import { Location } from "@angular/common";
 import { Router } from "@angular/router";
-import {HttpHeaders} from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
+import {DialogsService} from "./dialogs/confirm-dialog.service";
 
 export const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': "application/json"
     })
 };
 
 export class Common {
     constructor(
         private location?: Location,
+        private dialogsService?: DialogsService,
         private router?: Router
     ) {
     }
@@ -18,19 +20,22 @@ export class Common {
     goBack(): void {
         this.location.back();
     }
-    
-    showErrorOrGoBack(errorMessage): void {
+
+    showAlert(errorMessage: string): void {
+        this.dialogsService.confirm("Error", errorMessage);
+    }
+
+    showErrorOrGoBack(errorMessage: string): void {
         if (errorMessage !== "") {
-            alert(errorMessage);
-            return;
+            return this.showAlert(errorMessage);
         } else {
             return this.goBack();
         }
     }
 
-    showErrorOrReturn(errorMessage): void {
+    showErrorOrReturn(errorMessage: string): void {
         if (errorMessage !== "") {
-            alert(errorMessage);
+            return this.showAlert(errorMessage);
         }
         return;
     }

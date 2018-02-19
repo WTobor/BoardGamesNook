@@ -17,7 +17,7 @@ import { GameTableService } from "../gameTables/gameTable.service";
     providers: [BoardGameService, GamerService, GameTableService]
 })
 export class GameResultAddComponent implements OnInit {
-    gameResult: GameResult = new GameResult();
+    gameResult = new GameResult();
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
 
@@ -32,7 +32,8 @@ export class GameResultAddComponent implements OnInit {
         private gamerService: GamerService,
         private location: Location,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.gameResultService.getGameResult(0)
@@ -55,12 +56,12 @@ export class GameResultAddComponent implements OnInit {
         });
     }
 
-    selectBoardGame(value :BoardGame): void {
+    selectBoardGame(value: BoardGame): void {
         this.gameResult.BoardGameId = value.Id;
         this.gameResult.BoardGameName = value.Name;
     }
 
-    selectGamer(id: string, value :string): void {
+    selectGamer(id: string, value: string): void {
         this.gameResult.GamerId = id;
         this.gameResult.GamerNickname = value;
     }
@@ -84,7 +85,7 @@ export class GameResultAddComponent implements OnInit {
 
         this.gameResultService.create(this.gameResult)
             .subscribe(errorMessage => {
-                new Common(null, this.router).showErrorOrReturn(errorMessage);
+                new Common(null, null, this.router).showErrorOrReturn(errorMessage);
                 this.router.navigate([""]);
                 window.location.reload();
             });

@@ -42,7 +42,8 @@ export class GameResultAddManyComponent implements OnInit {
         private gamerService: GamerService,
         private location: Location,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
         this.gameResultService.getGameResult(0)
@@ -54,12 +55,13 @@ export class GameResultAddManyComponent implements OnInit {
             this.currentGamerNickname = nickname;
         });
 
-        this.gameTableService.getGameTablesWithoutResultsByGamerNickname(this.currentGamerNickname).subscribe(gamerGameTablesWithoutResults => {
-            this.gamerGameTablesWithoutResults = gamerGameTablesWithoutResults;
-            if (this.gamerGameTablesWithoutResults != null && this.gamerGameTablesWithoutResults.length > 0) {
-                this.selectBoardGameTable(this.gamerGameTablesWithoutResults[0]);
-            }
-        });
+        this.gameTableService.getGameTablesWithoutResultsByGamerNickname(this.currentGamerNickname).subscribe(
+            gamerGameTablesWithoutResults => {
+                this.gamerGameTablesWithoutResults = gamerGameTablesWithoutResults;
+                if (this.gamerGameTablesWithoutResults != null && this.gamerGameTablesWithoutResults.length > 0) {
+                    this.selectBoardGameTable(this.gamerGameTablesWithoutResults[0]);
+                }
+            });
     }
 
     selectBoardGameTable(selectedGameTable: GameTable): void {
@@ -85,7 +87,7 @@ export class GameResultAddManyComponent implements OnInit {
     }
 
     addMany(): void {
-        let playersNumber = this.tableGamers.length;
+        const playersNumber = this.tableGamers.length;
         this.gameResults = [];
         for (let i = 0; i < playersNumber; i++) {
             this.gameResult = new GameResult;
@@ -100,7 +102,7 @@ export class GameResultAddManyComponent implements OnInit {
 
         this.gameResultService.createMany(this.gameResults)
             .subscribe(errorMessage => {
-                new Common(null, this.router).showErrorOrReturn(errorMessage);
+                new Common(null, null, this.router).showErrorOrReturn(errorMessage);
                 this.router.navigate([""]);
                 window.location.reload();
             });

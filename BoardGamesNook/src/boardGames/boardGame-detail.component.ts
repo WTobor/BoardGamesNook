@@ -5,6 +5,7 @@ import { Location } from "@angular/common";
 import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
 import { Common } from "./../Common";
+import {DialogsService} from "../dialogs/confirm-dialog.service";
 
 @Component({
     selector: "boardGame-detail",
@@ -17,13 +18,14 @@ export class BoardGameDetailComponent implements OnInit {
     constructor(
         private boardGameService: BoardGameService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private dialogsService: DialogsService
     ) {
     }
 
     ngOnInit() {
-        this.boardGameService.getBoardGame(Number(this.route.snapshot.paramMap.get('id')))
-        .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
+        this.boardGameService.getBoardGame(Number(this.route.snapshot.paramMap.get("id")))
+            .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
     }
 
     onSubmit(submittedForm) {
@@ -36,7 +38,7 @@ export class BoardGameDetailComponent implements OnInit {
     save(): void {
         var loc = this.location;
         this.boardGameService.update(this.boardGame)
-            .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+            .subscribe(errorMessage => { new Common(loc, this.dialogsService).showErrorOrGoBack(errorMessage); });
     }
 
     goBack(): void {

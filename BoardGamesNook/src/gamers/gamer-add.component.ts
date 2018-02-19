@@ -29,7 +29,12 @@ export class GamerAddComponent implements OnInit {
         if (submittedForm.invalid) {
             return;
         }
-        this.add(submittedForm.value.nickname, submittedForm.value.name, submittedForm.value.surname, submittedForm.value.age, submittedForm.value.city, submittedForm.value.street);
+        this.add(submittedForm.value.nickname,
+            submittedForm.value.name,
+            submittedForm.value.surname,
+            submittedForm.value.age,
+            submittedForm.value.city,
+            submittedForm.value.street);
     }
 
     add(nickname: string, name: string, surname: string, age: number, city: string, street: string): void {
@@ -43,7 +48,7 @@ export class GamerAddComponent implements OnInit {
 
         this.gamerService.create(this.gamer)
             .subscribe(errorMessage => {
-                new Common(null, this.router).showErrorOrReturn(errorMessage);
+                new Common(null, null, this.router).showErrorOrReturn(errorMessage);
                 this.router.navigate([""]);
                 window.location.reload();
             });

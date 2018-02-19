@@ -5,6 +5,7 @@ import { BoardGameService } from "./BoardGame.service";
 import { BoardGame } from "./BoardGame";
 import { SimilarBoardGame } from "./SimilarBoardGame";
 import { Common } from "./../Common";
+import {DialogsService} from "../dialogs/confirm-dialog.service";
 
 @Component({
     selector: "boardGame-add",
@@ -17,7 +18,8 @@ export class BoardGameAddComponent implements OnInit {
 
     constructor(
         private boardGameService: BoardGameService,
-        private location: Location
+        private location: Location,
+        private dialogsService: DialogsService
     ) {
     }
 
@@ -45,7 +47,7 @@ export class BoardGameAddComponent implements OnInit {
                         new Common(loc).goBack();
                     }
                 } catch (e) {
-                    new Common(loc).showErrorOrGoBack(result);
+                    new Common(loc, this.dialogsService).showErrorOrGoBack(result);
                 }
             });
     }
@@ -54,7 +56,7 @@ export class BoardGameAddComponent implements OnInit {
         var loc = this.location;
         this.boardGameService.addSimilar(similarBoardGame.Id)
             .subscribe(result => {
-                new Common(loc).showErrorOrGoBack(result);
+                new Common(loc, this.dialogsService).showErrorOrGoBack(result);
             });
     }
 
