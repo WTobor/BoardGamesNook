@@ -19,6 +19,7 @@ namespace BoardGamesNook.Controllers
             if (loggedUser != null)
             {
                 var gamer = _gamerService.GetGamerByEmail(loggedUser.Email);
+                // Is this statement needed? Probably in this context Session["gamer"] is always null, so it shouldn't be a problem to assign null to it.
                 if (gamer != null)
                     Session["gamer"] = gamer;
             }
