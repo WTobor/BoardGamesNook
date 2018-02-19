@@ -13,7 +13,7 @@
                             {{boardGame.BoardGameName}}
                         </span>
                         <div class="col-md-4" *ngIf="!isCurrentGamer">
-                            <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">
+                            <button type="button" (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
                         </div>
@@ -32,7 +32,7 @@
                             {{tableBoardGame.BoardGameName}}
                         </option>
                     </select>
-                    <button class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">
+                    <button type="button" class="btn btn-success" (click)="addTableBoardGame(selectedTableBoardGame.value)">
                         Dodaj
                     </button>
                 </div>

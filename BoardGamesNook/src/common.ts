@@ -20,7 +20,7 @@ export class Common {
     }
     
     showErrorOrGoBack(errorMessage): void {
-        if (errorMessage !== "") {
+        if (errorMessage !== null && errorMessage !== "") {
             alert(errorMessage);
             return;
         } else {

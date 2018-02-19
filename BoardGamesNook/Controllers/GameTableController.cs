@@ -32,7 +32,9 @@ namespace BoardGamesNook.Controllers
             var tableBoardGameViewModels = Mapper.Map<List<TableBoardGameViewModel>>(gameTable.BoardGames);
             tableBoardGameViewModels.ForEach(x => Mapper.Map(gameTable, x));
 
-            var result = MapGameTableViewModelListToGameTableList(tableBoardGameViewModels)[0];
+            var gameTableList = MapGameTableViewModelListToGameTableList(tableBoardGameViewModels);
+
+            var result = gameTableList.Count > 0 ? gameTableList[0] : null;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -102,13 +104,10 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpPost]
-        public JsonResult Edit(GameTableViewModel gameTableViewModel)
+        public JsonResult Edit(EditTableBoardGameViewModel editTableBoardGame)
         {
-            // Why you have so big object in the parameter when you do not need most of its properties? You should always pass only what is needed.
-            var tableBoardGameIdList = gameTableViewModel.TableBoardGameList.Select(x => x.BoardGameId).ToList();
-            _gameTableService.EditGameTable(gameTableViewModel.Id, tableBoardGameIdList);
+            _gameTableService.EditGameTable(editTableBoardGame.Id, editTableBoardGame.TableBoardGameIdList);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
