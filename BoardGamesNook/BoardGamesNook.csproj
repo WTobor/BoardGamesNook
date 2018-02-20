@@ -245,6 +245,7 @@
     <Compile Include="ViewModels\GameParticipation\GameParticipationViewModel.cs" />
     <Compile Include="ViewModels\GamerBoardGame\GamerBoardGameViewModel.cs" />
     <Compile Include="ViewModels\Gamer\GamerViewModel.cs" />
+    <Compile Include="ViewModels\GameTable\EditTableBoardGameViewModel.cs" />
     <Compile Include="ViewModels\GameTable\GameTableViewModel.cs" />
     <Compile Include="ViewModels\GameTable\TableBoardGameViewModel.cs" />
     <Compile Include="ViewModels\AuthenticateCallbackViewModel.cs" />
