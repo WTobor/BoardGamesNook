@@ -32,8 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjMapper.cs" />
+    <Compile Include="MapperProfiles\BoardGameObjProfile.cs" />
+    <Compile Include="MapperProfiles\GameTableObjProfile.cs" />
+    <Compile Include="Objects\BoardGameObj.cs" />
     <Compile Include="GameResultService.cs" />
     <Compile Include="GameParticipationService.cs" />
     <Compile Include="GamerBoardGameService.cs" />
@@ -54,6 +62,8 @@
     <Compile Include="Interfaces\IBoardGameService.cs" />
     <Compile Include="Interfaces\IGamerService.cs" />
     <Compile Include="Interfaces\IGameTableService.cs" />
+    <Compile Include="Objects\GameTableObj.cs" />
+    <Compile Include="Objects\TableBoardGameObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +79,9 @@
       <Project>{20832e45-d6e4-4da7-8aa9-2b8e9b23e23e}</Project>
       <Name>BoardGamesNook.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
