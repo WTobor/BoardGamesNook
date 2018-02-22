@@ -58,6 +58,16 @@ export class GameResultAddComponent implements OnInit {
         });
     }
 
+    selectBoardGame(value: BoardGame): void {
+        this.gameResult.BoardGameId = value.Id;
+        this.gameResult.BoardGameName = value.Name;
+    }
+
+    selectGamer(id: string, value: string): void {
+        this.gameResult.GamerId = id;
+        this.gameResult.GamerNickname = value;
+    }
+
     onSubmit(submittedForm) {
         if (submittedForm.invalid) {
             return;

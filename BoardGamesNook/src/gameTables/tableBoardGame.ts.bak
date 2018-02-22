@@ -6,6 +6,6 @@
     MaxBoardGamePlayers: number;
     ImageUrl: string;
     TableId: number;
-    GamerId: string;
+    GamerId: number;
     GamerNickname: string;
 }

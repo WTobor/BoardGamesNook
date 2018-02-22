@@ -13,7 +13,7 @@
                             {{boardGame.BoardGameName}}
                         </span>
                         <div class="col-md-4" *ngIf="!isCurrentGamer">
-                            <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon" [disabled]="!isCurrentGamer">
+                            <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </button>
                         </div>

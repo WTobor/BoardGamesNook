@@ -5,8 +5,8 @@
     MinPlayers: number;
     MaxPlayers: number;
     MinAge: number;
-    MinTime: number;
-    MaxTime: number;
+    MinTime: TimeRanges;
+    MaxTime: TimeRanges;
     BGGUrl: string;
     IsExpansion: boolean;
     ParentId: number | null;

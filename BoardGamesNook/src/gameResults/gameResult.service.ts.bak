@@ -20,7 +20,7 @@ export class GameResultService {
     constructor(private http: HttpClient) { }
 
     getList(nickname: string): Observable<GameResult[]> {
-        if (nickname !== null && nickname !== undefined && nickname !== '') {
+        if (nickname !== undefined && nickname !== "") {
             return this.getByNickname(nickname);
         } 
         else {

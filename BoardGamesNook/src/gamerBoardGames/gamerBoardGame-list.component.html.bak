@@ -1,7 +1,7 @@
 ﻿<div *ngIf="gamerBoardGames">
     <form class="col-md-8 container">
         <div class="page-header">
-            LISTA GIER GRACZA {{ selectedGamerNickname }}
+            LISTA GIER GRACZA {{ gamerBoardGames.CreatedGamerNickname }}
         </div>
         <ul>
             <li *ngFor="let gamerBoardGame of gamerBoardGames" (click)="onSelect(gamerBoardGame)">
@@ -21,7 +21,7 @@
             </h4>
             <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
         </div>
-        <div *ngIf="!isCurrentGamer" class="form-group text-center">
+        <div class="form-group text-center">
             <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
         </div>
     </form>

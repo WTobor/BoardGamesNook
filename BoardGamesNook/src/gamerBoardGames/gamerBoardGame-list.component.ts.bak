@@ -22,7 +22,7 @@ export class GamerBoardGameListComponent implements OnInit {
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private router: Router,
-        private location: Location) { }
+        private location: Location1) { }
 
     ngOnInit() {
         this.selectedGamerNickname = this.route.snapshot.paramMap.get("gamerNickname");

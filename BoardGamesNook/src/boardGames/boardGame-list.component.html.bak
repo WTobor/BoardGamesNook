@@ -9,7 +9,7 @@
         LISTA GIER
     </div>
     <div class="row form-inline col-md-12">
-        <div class="col-md-4" *ngFor="let boardGame of searchedBoardGames" 
+        <div class="col-md-4" *ngFor="let boardGame of searchedBoardGames" (click)="onSelect(boardGame)" 
              style="margin-bottom: 1em;">
             <div class="card border-0">
                     <div class="text-center img-container">

@@ -25,7 +25,7 @@ export class ParticipationDetailComponent implements OnInit {
         this.participationService.getParticipation(Number(this.route.snapshot.paramMap.get("id")))
             .subscribe((participation: Participation) => {
                 this.participation = participation;
-                if (this.participation.Id === undefined) {
+                if (this.participation.Id == undefined) {
                     this.isCurrentGamer = true;
                 }
             });
