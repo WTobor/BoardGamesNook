@@ -1,25 +1,25 @@
 ﻿using System;
 using AutoMapper;
 using BoardGamesNook.Model;
-using BoardGamesNook.Services.Objects;
+using BoardGamesNook.Services.Models;
 
 namespace BoardGamesNook.Services.MapperProfiles
 {
-    public class GameTableObjProfile : Profile
+    public class GameTableDtoProfile : Profile
     {
-        public GameTableObjProfile()
+        public GameTableDtoProfile()
         {
-            CreateMap<GameTable, GameTableObj>()
+            CreateMap<GameTable, GameTableDto>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.TableBoardGameList, opt => opt.Ignore());
 
-            CreateMap<GameTable, TableBoardGameObj>()
+            CreateMap<GameTable, TableBoardGameDto>()
                 .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.CreatedGamerId))
                 .ForMember(dest => dest.TableId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.TableName, opt => opt.MapFrom(src => src.Name));
 
 
-            CreateMap<GameTableObj, GameTable>()
+            CreateMap<GameTableDto, GameTable>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.IsFull, opt => opt.Ignore())
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))

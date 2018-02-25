@@ -3,12 +3,12 @@ using BoardGamesNook.Services.MapperProfiles;
 
 namespace BoardGamesNook.Services
 {
-    internal class ObjMapper
+    public static class ObjMapper
     {
-        public static void AddProfiles(IMapperConfigurationExpression cfg)
+        public static void AddServicesProfiles(this IMapperConfigurationExpression cfg)
         {
-            cfg.AddProfile<BoardGameObjProfile>();
-            cfg.AddProfile<GameTableObjProfile>();
+            cfg.AddProfile<BoardGameDtoProfile>();
+            cfg.AddProfile<GameTableDtoProfile>();
         }
     }
 }

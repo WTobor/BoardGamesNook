@@ -47,9 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ObjMapper.cs" />
-    <Compile Include="MapperProfiles\BoardGameObjProfile.cs" />
-    <Compile Include="MapperProfiles\GameTableObjProfile.cs" />
-    <Compile Include="Objects\BoardGameObj.cs" />
+    <Compile Include="MapperProfiles\BoardGameDtoProfile.cs" />
+    <Compile Include="MapperProfiles\GameTableDtoProfile.cs" />
+    <Compile Include="Models\BoardGameDto.cs" />
     <Compile Include="GameResultService.cs" />
     <Compile Include="GameParticipationService.cs" />
     <Compile Include="GamerBoardGameService.cs" />
@@ -62,8 +62,8 @@
     <Compile Include="Interfaces\IBoardGameService.cs" />
     <Compile Include="Interfaces\IGamerService.cs" />
     <Compile Include="Interfaces\IGameTableService.cs" />
-    <Compile Include="Objects\GameTableObj.cs" />
-    <Compile Include="Objects\TableBoardGameObj.cs" />
+    <Compile Include="Models\GameTableDto.cs" />
+    <Compile Include="Models\TableBoardGameDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

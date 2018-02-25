@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
+using BoardGamesNook.Services.Models;
 using BoardGamesNook.ViewModels.GameTable;
 
 namespace BoardGamesNook.Controllers
@@ -36,8 +37,11 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            var availableTableBoardGameObjs = _gameTableService.GetAvailableTableBoardGameObjsById(id, gamer);
-            var result = Mapper.Map<List<TableBoardGameViewModel>>(availableTableBoardGameObjs);
+            var availableTableBoardGames = _gameTableService.GetAvailableTableBoardGamesById(id, gamer);
+            var result = Mapper.Map<List<TableBoardGameDto>>(availableTableBoardGames);
+            foreach (var obj in result)	
+                Mapper.Map(gamer, obj);
+
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

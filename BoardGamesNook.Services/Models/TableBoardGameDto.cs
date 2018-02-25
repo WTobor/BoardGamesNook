@@ -1,6 +1,6 @@
-﻿namespace BoardGamesNook.Services.Objects
+﻿namespace BoardGamesNook.Services.Models
 {
-    public class TableBoardGameObj
+    public class TableBoardGameDto
     {
         public int BoardGameId { get; set; }
         public int? BGGId { get; set; }
