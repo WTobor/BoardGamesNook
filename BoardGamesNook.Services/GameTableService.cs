@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using AutoMapper.Configuration;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
-using BoardGamesNook.Services.Objects;
+using BoardGamesNook.Services.Models;
 
 namespace BoardGamesNook.Services
 {
@@ -26,8 +25,6 @@ namespace BoardGamesNook.Services
             _boardGameService = boardGameService;
             _gameParticipationService = gameParticipationService;
             _gameResultRepository = gameResultRepository;
-
-            ObjMapper.AddProfiles(new MapperConfigurationExpression());
         }
 
         public GameTable GetGameTable(int id)
@@ -110,29 +107,17 @@ namespace BoardGamesNook.Services
             _gameTableRepository.Deactivate(id);
         }
 
-        public GameTableObj GetGameTableObj(int id)
+        public GameTableDto GetGameTableObj(int id)
         {
             var gameTable = GetGameTable(id);
-            var tableBoardGameObjs = Mapper.Map<List<TableBoardGameObj>>(gameTable.BoardGames);
+            var tableBoardGameObjs = Mapper.Map<List<TableBoardGameDto>>(gameTable.BoardGames);
             tableBoardGameObjs.ForEach(x => Mapper.Map(gameTable, x));
 
             var gameTableObjs = MapTableBoardGameObjsToGameTableObjs(tableBoardGameObjs);
             return gameTableObjs.FirstOrDefault();
         }
 
-        public IEnumerable<BoardGameObj> GetAvailableTableBoardGameObjsById(int id, Gamer gamer)
-        {
-            var availableTableBoardGameList = GetAvailableTableBoardGameListById(id);
-            var availableTableBoardGameObjs =
-                Mapper.Map<IEnumerable<BoardGame>, IEnumerable<BoardGameObj>>(availableTableBoardGameList);
-            var availableTableBoardGameObjsById = availableTableBoardGameObjs.ToList();
-            foreach (var obj in availableTableBoardGameObjsById)
-                Mapper.Map(gamer, obj);
-
-            return availableTableBoardGameObjsById;
-        }
-
-        public IEnumerable<GameTableObj> GetAllGameTableObjs()
+        public IEnumerable<GameTableDto> GetAllGameTableObjs()
         {
             var gameTableList = GetAllGameTables();
             var gameTableListViewModel = GetTableBoardGameObjs(gameTableList);
@@ -140,7 +125,7 @@ namespace BoardGamesNook.Services
             return result;
         }
 
-        public IEnumerable<GameTableObj> GetAllGameTableObjsByGamerNickname(string gamerNickname)
+        public IEnumerable<GameTableDto> GetAllGameTableObjsByGamerNickname(string gamerNickname)
         {
             var gameTableList = GetAllGameTablesByGamerNickname(gamerNickname);
             var tableBoardGameObjs = GetTableBoardGameObjs(gameTableList);
@@ -150,25 +135,32 @@ namespace BoardGamesNook.Services
             return result;
         }
 
-        public IEnumerable<GameTableObj> GetAllGameTableObjsWithoutResultsByGamerNickname(string gamerNickname)
+        public IEnumerable<GameTableDto> GetAllGameTableObjsWithoutResultsByGamerNickname(string gamerNickname)
         {
             var gameTableList = GetAllGameTablesWithoutResultsByGamerNickname(gamerNickname);
 
-            var tableBoardGameObjs = Mapper.Map<List<TableBoardGameObj>>(gameTableList);
+            var tableBoardGameObjs = Mapper.Map<List<TableBoardGameDto>>(gameTableList);
             tableBoardGameObjs.ForEach(x => x.GamerNickname = gamerNickname);
 
             var result = MapTableBoardGameObjsToGameTableObjs(tableBoardGameObjs);
             return result;
         }
 
-        private List<TableBoardGameObj> GetTableBoardGameObjs(IEnumerable<GameTable> gameTableList)
+        public IEnumerable<BoardGame> GetAvailableTableBoardGamesById(int id, Gamer gamer)
         {
-            var tableBoardGameObjs = new List<TableBoardGameObj>();
+            var availableTableBoardGameList = GetAvailableTableBoardGameListById(id).ToList();
+
+            return availableTableBoardGameList;
+        }
+
+        private List<TableBoardGameDto> GetTableBoardGameObjs(IEnumerable<GameTable> gameTableList)
+        {
+            var tableBoardGameObjs = new List<TableBoardGameDto>();
             foreach (var gameTable in gameTableList)
                 if (gameTable.BoardGames != null)
                     foreach (var boardGame in gameTable.BoardGames)
                     {
-                        var gameTableObj = Mapper.Map<TableBoardGameObj>(boardGame);
+                        var gameTableObj = Mapper.Map<TableBoardGameDto>(boardGame);
                         Mapper.Map(gameTable, gameTableObj);
                         gameTableObj.GamerNickname = _gamerService.GetGamer(gameTableObj.GamerId)?.Nickname;
                         tableBoardGameObjs.Add(gameTableObj);
@@ -177,15 +169,15 @@ namespace BoardGamesNook.Services
             return tableBoardGameObjs;
         }
 
-        private List<GameTableObj> MapTableBoardGameObjsToGameTableObjs(
-            List<TableBoardGameObj> tableBoardGameObjs)
+        private List<GameTableDto> MapTableBoardGameObjsToGameTableObjs(
+            List<TableBoardGameDto> tableBoardGameObjs)
         {
-            var result = new List<GameTableObj>();
+            var result = new List<GameTableDto>();
             var tables = tableBoardGameObjs.GroupBy(x => x.TableId).ToDictionary(t => t.Key, t => t.ToList());
             foreach (var tableGroup in tables)
             {
                 var table = GetGameTable(tableGroup.Key);
-                var gameTableViewModel = Mapper.Map<GameTableObj>(table);
+                var gameTableViewModel = Mapper.Map<GameTableDto>(table);
                 gameTableViewModel.Id = tableGroup.Key;
                 gameTableViewModel.TableBoardGameList = tableGroup.Value;
                 gameTableViewModel.CreatedGamerNickname =

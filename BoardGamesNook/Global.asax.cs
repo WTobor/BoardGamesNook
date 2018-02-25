@@ -67,6 +67,7 @@ namespace BoardGamesNook
                     cfg.AddProfile<GameResultProfile>();
                     cfg.AddProfile<BoardGameProfile>();
                     cfg.AddProfile<GameTableProfile>();
+                    cfg.AddServicesProfiles();
                 }
             );
         }

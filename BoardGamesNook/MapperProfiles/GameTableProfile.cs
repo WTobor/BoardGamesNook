@@ -1,6 +1,5 @@
-﻿using System;
-using AutoMapper;
-using BoardGamesNook.Model;
+﻿using AutoMapper;
+using BoardGamesNook.Services.Models;
 using BoardGamesNook.ViewModels.GameTable;
 
 namespace BoardGamesNook.MapperProfiles
@@ -9,6 +8,8 @@ namespace BoardGamesNook.MapperProfiles
     {
         public GameTableProfile()
         {
+            CreateMap<BoardGameDto, TableBoardGameViewModel>();
+
             //CreateMap<GameTable, GameTableViewModel>()
             //    .ForMember(dest => dest.Id, opt => opt.Ignore())
             //    .ForMember(dest => dest.TableBoardGameList, opt => opt.Ignore());

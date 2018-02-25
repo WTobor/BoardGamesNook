@@ -1,8 +1,8 @@
 ﻿using BoardGamesNook.Model;
 
-namespace BoardGamesNook.Services.Objects
+namespace BoardGamesNook.Services.Models
 {
-    public class BoardGameObj
+    public class BoardGameDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
