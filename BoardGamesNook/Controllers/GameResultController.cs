@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -33,12 +34,10 @@ namespace BoardGamesNook.Controllers
 
             var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResult);
             gameResultViewModel.CreatedGamerNickname =
-                _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
+                _gamerService.GetGamer(Guid.Parse(gameResultViewModel.CreatedGamerId))?.Nickname;
             if (gameResultViewModel.GameTableId.HasValue)
-            {
                 gameResultViewModel.GameTableName =
                     _gameTableService.GetGameTable(gameResultViewModel.GameTableId.Value)?.Name;
-            }
 
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -56,7 +55,7 @@ namespace BoardGamesNook.Controllers
 
             foreach (var gameResultViewModel in gameResultListViewModel)
                 gameResultViewModel.CreatedGamerNickname =
-                    _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
+                    _gamerService.GetGamer(Guid.Parse(gameResultViewModel.CreatedGamerId))?.Nickname;
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -74,7 +73,7 @@ namespace BoardGamesNook.Controllers
 
             foreach (var gameResultViewModel in gameResultListViewModel)
                 gameResultViewModel.CreatedGamerNickname =
-                    _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
+                    _gamerService.GetGamer(Guid.Parse(gameResultViewModel.CreatedGamerId))?.Nickname;
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -156,7 +155,7 @@ namespace BoardGamesNook.Controllers
         private GameResult GetGameResultObj(GameResultViewModel gameResultViewModel, Gamer gamer)
         {
             var result = Mapper.Map<GameResult>(gameResultViewModel);
-            result.Gamer = _gamerService.GetGamer(gameResultViewModel.GamerId);
+            result.Gamer = _gamerService.GetGamer(Guid.Parse(gameResultViewModel.GamerId));
             result.BoardGame = _boardGameService.Get(gameResultViewModel.BoardGameId);
             Mapper.Map(gamer, result);
             return result;

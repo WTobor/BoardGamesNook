@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using BoardGamesNook.Model;
@@ -162,7 +163,7 @@ namespace BoardGamesNook.Services
                     {
                         var gameTableObj = Mapper.Map<TableBoardGameDto>(boardGame);
                         Mapper.Map(gameTable, gameTableObj);
-                        gameTableObj.GamerNickname = _gamerService.GetGamer(gameTableObj.GamerId)?.Nickname;
+                        gameTableObj.GamerNickname = _gamerService.GetGamer(Guid.Parse(gameTableObj.GamerId))?.Nickname;
                         tableBoardGameObjs.Add(gameTableObj);
                     }
 
@@ -181,7 +182,7 @@ namespace BoardGamesNook.Services
                 gameTableViewModel.Id = tableGroup.Key;
                 gameTableViewModel.TableBoardGameList = tableGroup.Value;
                 gameTableViewModel.CreatedGamerNickname =
-                    _gamerService.GetGamer(gameTableViewModel.CreatedGamerId)?.Nickname;
+                    _gamerService.GetGamer(Guid.Parse(gameTableViewModel.CreatedGamerId))?.Nickname;
                 result.Add(gameTableViewModel);
             }
 

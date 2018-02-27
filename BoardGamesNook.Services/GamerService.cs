@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
@@ -14,7 +15,7 @@ namespace BoardGamesNook.Services
             _gamerRepository = gamerRepository;
         }
 
-        public Gamer GetGamer(string id)
+        public Gamer GetGamer(Guid id)
         {
             return _gamerRepository.Get(id);
         }
@@ -49,7 +50,7 @@ namespace BoardGamesNook.Services
             _gamerRepository.Edit(gamer);
         }
 
-        public void DeactivateGamer(string id)
+        public void DeactivateGamer(Guid id)
         {
             _gamerRepository.Deactivate(id);
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
@@ -18,7 +19,7 @@ namespace BoardGamesNook.Tests
             Id = 1,
             GameTableId = 1,
             GameTable = new GameTable(),
-            GamerId = "testGamerId",
+            GamerId = Guid.NewGuid(),
             Gamer = new Gamer()
         };
 
