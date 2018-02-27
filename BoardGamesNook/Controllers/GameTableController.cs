@@ -13,13 +13,11 @@ namespace BoardGamesNook.Controllers
     // This controller is so big that is hard to navigate in it. You should start creating smaller controllers. Read some more about REST API.
     public class GameTableController : Controller
     {
-        private readonly IGamerService _gamerService; // This service is not used.
         private readonly IGameTableService _gameTableService;
 
-        public GameTableController(IGameTableService gameTableService, IGamerService gamerService)
+        public GameTableController(IGameTableService gameTableService)
         {
             _gameTableService = gameTableService;
-            _gamerService = gamerService;
         }
 
         public JsonResult Get(int id)
@@ -39,9 +37,8 @@ namespace BoardGamesNook.Controllers
 
             var availableTableBoardGames = _gameTableService.GetAvailableTableBoardGamesById(id, gamer);
             var result = Mapper.Map<List<TableBoardGameDto>>(availableTableBoardGames);
-            foreach (var obj in result)	
+            foreach (var obj in result)
                 Mapper.Map(gamer, obj);
-
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -63,7 +60,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var gameTableObjs = _gameTableService.GetAllGameTableObjsByGamerNickname(nickname);
-            var result = Mapper.Map<List<GameTable>>(gameTableObjs);
+            var result = Mapper.Map<List<GameTableViewModel>>(gameTableObjs);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
