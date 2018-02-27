@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
@@ -17,7 +18,7 @@ namespace BoardGamesNook.Tests
         private readonly GamerBoardGame _testGamerBoardGame = new GamerBoardGame
         {
             Id = 1,
-            GamerId = "aqwsderfgt",
+            GamerId = Guid.NewGuid(),
             BoardGameId = 1
         };
 

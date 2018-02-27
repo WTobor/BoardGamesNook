@@ -11,11 +11,6 @@ namespace BoardGamesNook.Repository
     {
         private readonly List<Gamer> _gamers = GamerGenerator.Gamers;
 
-        public Gamer Get(string id)
-        {
-            return _gamers.FirstOrDefault(x => x.Id == id);
-        }
-
         public Gamer GetByEmail(string userEmail)
         {
             return _gamers.FirstOrDefault(x => x.Email == userEmail);
@@ -38,7 +33,8 @@ namespace BoardGamesNook.Repository
 
         public void Add(Gamer gamer)
         {
-            _gamers.Add(gamer);
+            if (_gamers.FirstOrDefault(x => x.Nickname == gamer.Nickname) == null)
+                _gamers.Add(gamer);
         }
 
         public void Edit(Gamer gamer)
@@ -55,7 +51,12 @@ namespace BoardGamesNook.Repository
             }
         }
 
-        public void Deactivate(string id)
+        public Gamer Get(Guid id)
+        {
+            return _gamers.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Deactivate(Guid id)
         {
             var gamer = _gamers.FirstOrDefault(x => x.Id == id);
             if (gamer != null)
