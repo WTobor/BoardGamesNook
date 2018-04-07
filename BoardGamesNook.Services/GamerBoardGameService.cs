@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
@@ -42,19 +43,35 @@ namespace BoardGamesNook.Services
             return _gamerBoardGameRepository.GetAllByGamerNickname(gamerNickname);
         }
 
-        public void Add(GamerBoardGame gamerBoardGame)
-        {
-            _gamerBoardGameRepository.Add(gamerBoardGame);
-        }
-
-        public void EditGamerBoardGame(GamerBoardGame gamerBoardGame)
-        {
-            _gamerBoardGameRepository.Edit(gamerBoardGame);
-        }
-
         public void DeactivateGamerBoardGame(int id)
         {
             _gamerBoardGameRepository.Deactivate(id);
+        }
+
+        public void Add(int boardGameId, Gamer gamer)
+        {
+            var gamerBoardGame = GetGamerBoardGameObj(boardGameId, gamer);
+            _gamerBoardGameRepository.Add(gamerBoardGame);
+        }
+
+        public void EditGamerBoardGame(int gamerBoardGameId)
+        {
+            var gamerBoardGame = GetGamerBoardGame(gamerBoardGameId);
+            _gamerBoardGameRepository.Edit(gamerBoardGame);
+        }
+
+        private GamerBoardGame GetGamerBoardGameObj(int boardGameId, Gamer gamer)
+        {
+            return new GamerBoardGame
+            {
+                Id = GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1,
+                GamerId = gamer.Id,
+                Gamer = gamer,
+                BoardGameId = boardGameId,
+                BoardGame = _boardGameService.Get(boardGameId),
+                CreatedDate = DateTimeOffset.Now,
+                Active = true
+            };
         }
     }
 }

@@ -42,6 +42,11 @@ namespace BoardGamesNook.Services
             return similarBoardGameList.Take(10).ToList();
         }
 
+        public BoardGame GetBGGBoardGameById(int id)
+        {
+            return BGGBoardGame.GetBoardGameById(id);
+        }
+
         public void Add(BoardGame boardGame)
         {
             boardGame.Id = GetAll().Select(x => x.Id).LastOrDefault() + 1;

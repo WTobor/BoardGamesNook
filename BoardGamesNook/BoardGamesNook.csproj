@@ -239,6 +239,7 @@
     <Compile Include="MapperProfiles\GamerBoardGameProfile.cs" />
     <Compile Include="MapperProfiles\GamerProfile.cs" />
     <Compile Include="MapperProfiles\GameTableProfile.cs" />
+    <Compile Include="MapperProfiles\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\GameResult\GameResultViewModel.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />
