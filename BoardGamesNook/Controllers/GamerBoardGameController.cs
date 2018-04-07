@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
 using BoardGamesNook.Model;
@@ -28,8 +26,6 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             var gamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(id);
-            // It is good to always write "brackets", because code with brackets is easier to read. You can set this setting in ReSharper (to always add brackets).
-            // But as you wish - some people do not add brackets if code is in one line.
             if (gamerBoardGame == null)
                 return Json(string.Format(Errors.GamerBoardGameWithIdNotFound, id), JsonRequestBehavior.AllowGet);
             var gamerBoardGameViewModel = Mapper.Map<GamerBoardGameViewModel>(gamerBoardGame);
@@ -59,9 +55,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            // This business logic should be in the service.
-            var gamerBoardGame = GetGamerBoardGameObj(boardGameId, gamer);
-            _gamerBoardGameService.Add(gamerBoardGame);
+            _gamerBoardGameService.Add(boardGameId, gamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -73,13 +67,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            // This business logic should be in the service.
-            var dbGamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(gamerBoardGameId);
-
-            if (dbGamerBoardGame == null)
-                return Json(string.Format(Errors.GamerBoardGameWithIdNotFound, gamerBoardGameId),
-                    JsonRequestBehavior.AllowGet);
-            _gamerBoardGameService.EditGamerBoardGame(dbGamerBoardGame);
+            _gamerBoardGameService.EditGamerBoardGame(gamerBoardGameId);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -98,6 +86,7 @@ namespace BoardGamesNook.Controllers
         private IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(string nickname)
         {
             // This business logic should be in the service.
+            //I have VMs here, I cannot move it to service
             var gamer = _gamerService.GetGamerBoardGameByNickname(nickname);
             var gamerAvailableBoardGameList = _gamerBoardGameService.GetGamerAvailableBoardGameList(nickname);
 
@@ -107,21 +96,6 @@ namespace BoardGamesNook.Controllers
                 Mapper.Map(gamer, obj);
 
             return availableBoardGameListViewModel;
-        }
-
-
-        private GamerBoardGame GetGamerBoardGameObj(int boardGameId, Gamer gamer)
-        {
-            return new GamerBoardGame
-            {
-                Id = _gamerBoardGameService.GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1,
-                GamerId = gamer.Id,
-                Gamer = gamer,
-                BoardGameId = boardGameId,
-                BoardGame = _boardGameService.Get(boardGameId),
-                CreatedDate = DateTimeOffset.Now,
-                Active = true
-            };
         }
     }
 }

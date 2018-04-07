@@ -1,7 +1,5 @@
-﻿using System.Linq; //Unused using
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AutoMapper;
-using BoardGameGeekIntegration;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.BoardGame;
@@ -43,13 +41,9 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddById(int id)
+        public JsonResult AddFromBGGById(int id)
         {
-            // Method name "AddById" is completely unclear - I have no idea what this method is doing
-
-            // Why you have some static method here? Statics method are only for helpers and this method do not look like helper.
-            // Main project should only method from Service. In controller you shouldn't use any method from another project than from "BoardGamesNook.Services" project. This logic should be in serivces (all the logic should be in the services...).
-            var boardGame = BGGBoardGame.GetBoardGameById(id); 
+            var boardGame = _boardGameService.GetBGGBoardGameById(id);
             if (boardGame == null)
                 return Json(string.Format(Errors.BoardGameWithIdNotFound, id), JsonRequestBehavior.AllowGet);
             _boardGameService.Add(boardGame);
@@ -59,11 +53,6 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(BoardGameViewModel boardGameViewModel)
         {
-            // Move this business logic to service. Controllers should have mostly 2 things - calling one service method and return result.
-            var dbBoardGame = _boardGameService.Get(boardGameViewModel.Id);
-            if (dbBoardGame == null)
-                return Json(string.Format(Errors.BoardGameWithIdNotFound, boardGameViewModel.Id),
-                    JsonRequestBehavior.AllowGet);
             var boardGame = Mapper.Map<BoardGame>(boardGameViewModel);
             _boardGameService.Edit(boardGame);
 

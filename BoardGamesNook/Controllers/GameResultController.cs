@@ -28,6 +28,7 @@ namespace BoardGamesNook.Controllers
         public JsonResult Get(int id)
         {
             // This business logic should be in the service.
+            // but what about VMs?
             var gameResult = _gameResultService.GetGameResult(id);
             if (gameResult == null)
                 return Json(string.Format(Errors.BoardGameResultWithIdNotFound, id), JsonRequestBehavior.AllowGet);
@@ -35,6 +36,7 @@ namespace BoardGamesNook.Controllers
             var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResult);
             gameResultViewModel.CreatedGamerNickname =
                 _gamerService.GetGamer(Guid.Parse(gameResultViewModel.CreatedGamerId))?.Nickname;
+
             if (gameResultViewModel.GameTableId.HasValue)
                 gameResultViewModel.GameTableName =
                     _gameTableService.GetGameTable(gameResultViewModel.GameTableId.Value)?.Name;
@@ -48,6 +50,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             // This business logic should be in the service.
+            // but what about VMs?
             var gameResultList = _gameResultService.GetAllGameResults().ToList();
 
             var gameResultListViewModel =
@@ -66,6 +69,7 @@ namespace BoardGamesNook.Controllers
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
 
             // This business logic should be in the service.
+            // but what about VMs?
             var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
             var gameResultListViewModel =
@@ -83,8 +87,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            // Why are you doing "ToList" here? Is it needed?
-            var gameResultList = _gameResultService.GetAllGameResultsByTableId(tableId).ToList();
+            var gameResultList = _gameResultService.GetAllGameResultsByTableId(tableId);
 
             var gameResultListViewModel = Mapper.Map<IEnumerable<GameResultViewModel>>(gameResultList);
 
@@ -97,6 +100,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
             // This business logic should be in the service.
+            // but what about VMs?
             var gameResult = GetGameResultObj(gameResultViewModel, gamer);
             _gameResultService.AddGameResult(gameResult);
 
@@ -110,6 +114,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             // This business logic should be in the service.
+            // but what about VMs?
             var gameResults = GetGameResultObjs(gameResultViewModels, gamer);
             _gameResultService.AddGameResults(gameResults);
 

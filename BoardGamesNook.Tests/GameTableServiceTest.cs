@@ -47,6 +47,7 @@ namespace BoardGamesNook.Tests
             _boardGameRepositoryMock = new Mock<IBoardGameRepository>();
             _gameParticipationRepositoryMock = new Mock<IGameParticipationRepository>();
             _gameResultRepositoryMock = new Mock<IGameResultRepository>();
+            _gamerServiceMock = new Mock<IGamerService>();
         }
 
         [TestMethod]
