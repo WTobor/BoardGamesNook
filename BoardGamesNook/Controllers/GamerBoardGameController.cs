@@ -10,6 +10,7 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerBoardGameController : Controller
     {
+        // AM: remember to remove unused variables and dependencies
         private readonly IBoardGameService _boardGameService;
         private readonly IGamerBoardGameService _gamerBoardGameService;
         private readonly IGamerService _gamerService;
@@ -85,8 +86,9 @@ namespace BoardGamesNook.Controllers
 
         private IEnumerable<GamerBoardGameViewModel> GetGamerAvailableBoardGameList(string nickname)
         {
-            // This business logic should be in the service.
-            //I have VMs here, I cannot move it to service
+            // AM: This business logic should be in the service.
+            // WT: I have VMs here, I cannot move it to service
+            // AM: You have VMs later - first two lines should be replad with one line - controller should have dependency only to one service.
             var gamer = _gamerService.GetGamerBoardGameByNickname(nickname);
             var gamerAvailableBoardGameList = _gamerBoardGameService.GetGamerAvailableBoardGameList(nickname);
 

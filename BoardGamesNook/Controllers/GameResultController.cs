@@ -27,8 +27,9 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult Get(int id)
         {
-            // This business logic should be in the service.
-            // but what about VMs?
+            // AM: This business logic should be in the service.
+            // WT: but what about VMs?
+            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
             var gameResult = _gameResultService.GetGameResult(id);
             if (gameResult == null)
                 return Json(string.Format(Errors.BoardGameResultWithIdNotFound, id), JsonRequestBehavior.AllowGet);
@@ -49,8 +50,9 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            // This business logic should be in the service.
-            // but what about VMs?
+            // AM: This business logic should be in the service.
+            // WT: but what about VMs?
+            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
             var gameResultList = _gameResultService.GetAllGameResults().ToList();
 
             var gameResultListViewModel =
@@ -68,8 +70,9 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
 
-            // This business logic should be in the service.
-            // but what about VMs?
+            // AM: This business logic should be in the service.
+            // WT: but what about VMs?
+            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
             var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
             var gameResultListViewModel =
@@ -99,8 +102,9 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            // This business logic should be in the service.
-            // but what about VMs?
+            // AM: This business logic should be in the service.
+            // WT: but what about VMs?
+            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
             var gameResult = GetGameResultObj(gameResultViewModel, gamer);
             _gameResultService.AddGameResult(gameResult);
 
@@ -113,8 +117,9 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            // This business logic should be in the service.
-            // but what about VMs?
+            // AM: This business logic should be in the service.
+            // WT: but what about VMs?
+            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
             var gameResults = GetGameResultObjs(gameResultViewModels, gamer);
             _gameResultService.AddGameResults(gameResults);
 

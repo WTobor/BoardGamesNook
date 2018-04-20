@@ -32,7 +32,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(string name)
         {
-            // What this method is doing? It is adding name to some random thing? You should call this method cleary, that it will be easy to understand
+            // AM: What this method is doing? It is adding name to some random thing? You should call this method cleary, that it will be easy to understand
             var result = _boardGameService.AddOrGetSimilar(name);
             if (result == null)
                 return Json(string.Format(Errors.BoardGameWithNameNotFound, name), JsonRequestBehavior.AllowGet);

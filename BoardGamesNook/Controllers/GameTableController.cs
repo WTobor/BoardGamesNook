@@ -10,7 +10,7 @@ using BoardGamesNook.ViewModels.GameTable;
 namespace BoardGamesNook.Controllers
 {
     [AuthorizeCustom]
-    // This controller is so big that is hard to navigate in it. You should start creating smaller controllers. Read some more about REST API.
+    // AM: This controller is so big that is hard to navigate in it. You should start creating smaller controllers. Please read some more about REST API.
     public class GameTableController : Controller
     {
         private readonly IGameTableService _gameTableService;
@@ -71,6 +71,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var gameTableObjs = _gameTableService.GetAllGameTableObjsWithoutResultsByGamerNickname(nickname);
+            // AM: Controllers should always return view models.
             var result = Mapper.Map<List<GameTable>>(gameTableObjs);
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -81,8 +82,10 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            // What this is doing? I can see some business logic here, but I can't tell is it needed or not, because i do not understand this code.
-            //here is a problem - I cannot trasfer ViewModel to Services; first I need to map it - and that's exactly what's happening here
+            // AM: What this is doing? I can see some business logic here, but I can't tell is it needed or not, because i do not understand this code.
+            // WT: here is a problem - I cannot trasfer ViewModel to Services; first I need to map it - and that's exactly what's happening here
+            // AM: Ok, i understand. It just looking strange for me, for example why GameTableViewModel has List of TableBoardGameViewModel, if you only need List of BoardGameId? It does not look like a good practis.
+            // AM: Please remove this suffix "Obj" because it is misleading.
             var gameTable = GetGameTableObj(model, gamer);
             var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
 
