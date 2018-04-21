@@ -85,8 +85,8 @@ namespace BoardGamesNook.Controllers
             // AM: What this is doing? I can see some business logic here, but I can't tell is it needed or not, because i do not understand this code.
             // WT: here is a problem - I cannot trasfer ViewModel to Services; first I need to map it - and that's exactly what's happening here
             // AM: Ok, i understand. It just looking strange for me, for example why GameTableViewModel has List of TableBoardGameViewModel, if you only need List of BoardGameId? It does not look like a good practis.
-            // AM: Please remove this suffix "Obj" because it is misleading.
-            var gameTable = GetGameTableObj(model, gamer);
+            // WT: because I need to map this model to gameTable
+            var gameTable = GetGameTable(model, gamer);
             var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
 
             _gameTableService.CreateGameTable(gameTable, tableBoardGameIdList);
@@ -94,7 +94,7 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-        private GameTable GetGameTableObj(GameTableViewModel gameTableViewModel, Gamer gamer)
+        private GameTable GetGameTable(GameTableViewModel gameTableViewModel, Gamer gamer)
         {
             var result = Mapper.Map<GameTable>(gameTableViewModel);
             Mapper.Map(gamer, result);

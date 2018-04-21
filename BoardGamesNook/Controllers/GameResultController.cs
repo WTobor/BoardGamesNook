@@ -27,21 +27,9 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult Get(int id)
         {
-            // AM: This business logic should be in the service.
-            // WT: but what about VMs?
-            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
-            var gameResult = _gameResultService.GetGameResult(id);
-            if (gameResult == null)
-                return Json(string.Format(Errors.BoardGameResultWithIdNotFound, id), JsonRequestBehavior.AllowGet);
+            var gameResultDto = _gameResultService.GetGameResult(id);
 
-            var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResult);
-            gameResultViewModel.CreatedGamerNickname =
-                _gamerService.GetGamer(Guid.Parse(gameResultViewModel.CreatedGamerId))?.Nickname;
-
-            if (gameResultViewModel.GameTableId.HasValue)
-                gameResultViewModel.GameTableName =
-                    _gameTableService.GetGameTable(gameResultViewModel.GameTableId.Value)?.Name;
-
+            var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResultDto);
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
         }
 
@@ -50,17 +38,9 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            // AM: This business logic should be in the service.
-            // WT: but what about VMs?
-            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
-            var gameResultList = _gameResultService.GetAllGameResults().ToList();
+            var gameResultDtoList = _gameResultService.GetAllGameResults().ToList();
 
-            var gameResultListViewModel =
-                Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
-
-            foreach (var gameResultViewModel in gameResultListViewModel)
-                gameResultViewModel.CreatedGamerNickname =
-                    _gamerService.GetGamer(Guid.Parse(gameResultViewModel.CreatedGamerId))?.Nickname;
+            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResultViewModel>>(gameResultDtoList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -70,17 +50,9 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
 
-            // AM: This business logic should be in the service.
-            // WT: but what about VMs?
-            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
-            var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
+            var gameResultDtoList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
-            var gameResultListViewModel =
-                Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
-
-            foreach (var gameResultViewModel in gameResultListViewModel)
-                gameResultViewModel.CreatedGamerNickname =
-                    _gamerService.GetGamer(Guid.Parse(gameResultViewModel.CreatedGamerId))?.Nickname;
+            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResultViewModel>>(gameResultDtoList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }

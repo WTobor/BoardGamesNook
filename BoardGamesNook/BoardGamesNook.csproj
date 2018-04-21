@@ -412,6 +412,7 @@
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGame.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames-routing.module.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames.module.ts" />
+    <TypeScriptCompile Include="src\gameTables\editTableBoardGame.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-add.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-detail.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-list.component.ts" />
