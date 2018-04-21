@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapperProfiles\GameResultDtoProfile.cs" />
+    <Compile Include="Models\GameResultDto.cs" />
     <Compile Include="ObjMapper.cs" />
     <Compile Include="MapperProfiles\BoardGameDtoProfile.cs" />
     <Compile Include="MapperProfiles\GameTableDtoProfile.cs" />

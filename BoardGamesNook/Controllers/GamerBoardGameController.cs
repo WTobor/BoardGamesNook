@@ -11,16 +11,13 @@ namespace BoardGamesNook.Controllers
     public class GamerBoardGameController : Controller
     {
         // AM: remember to remove unused variables and dependencies
-        private readonly IBoardGameService _boardGameService;
         private readonly IGamerBoardGameService _gamerBoardGameService;
         private readonly IGamerService _gamerService;
 
         public GamerBoardGameController(IGamerBoardGameService gamerBoardGameService,
-            IBoardGameService boardGameService,
             IGamerService gamerService)
         {
             _gamerBoardGameService = gamerBoardGameService;
-            _boardGameService = boardGameService;
             _gamerService = gamerService;
         }
 

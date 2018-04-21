@@ -9,6 +9,7 @@ namespace BoardGamesNook.Services
         {
             cfg.AddProfile<BoardGameDtoProfile>();
             cfg.AddProfile<GameTableDtoProfile>();
+            cfg.AddProfile<GameResultDtoProfile>();
         }
     }
 }
