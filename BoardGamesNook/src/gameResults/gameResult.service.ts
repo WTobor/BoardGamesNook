@@ -5,6 +5,7 @@ import { GameResult } from "./gameResult";
 
 import { httpOptions } from "./../Common";
 import { Observable } from "rxjs/Observable";
+import { Subscriber } from "rxjs/Subscriber";
 
 @Injectable()
 export class GameResultService {
@@ -20,7 +21,7 @@ export class GameResultService {
     constructor(private http: HttpClient) { }
 
     getList(nickname: string): Observable<GameResult[]> {
-        if (nickname !== undefined && nickname !== "") {
+        if (nickname !== null && nickname !== undefined && nickname !== "") {
             return this.getByNickname(nickname);
         } 
         else {
@@ -39,7 +40,8 @@ export class GameResultService {
             return this.http.get<GameResult>(url);
         }
         else {
-            return new Observable<GameResult>();
+            return new Observable<GameResult>(
+                (subscriber: Subscriber<GameResult>) => subscriber.next(new GameResult()));
         }
     }
 

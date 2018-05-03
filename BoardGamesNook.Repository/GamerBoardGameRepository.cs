@@ -23,7 +23,7 @@ namespace BoardGamesNook.Repository
 
         public IEnumerable<GamerBoardGame> GetAllByGamerNickname(string gamerNickname)
         {
-            return _gamerBoardGames.Where(x => x.Gamer.Nickname == gamerNickname);
+            return _gamerBoardGames.Where(x => x.Gamer.Nickname == gamerNickname && x.Active);
         }
 
         public void Add(GamerBoardGame gamerBoardGame)
