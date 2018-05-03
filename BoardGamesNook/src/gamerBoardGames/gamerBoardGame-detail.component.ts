@@ -22,7 +22,8 @@ export class GamerBoardGameDetailComponent implements OnInit {
 
     ngOnInit() {
         this.gamerBoardGameService.getGamerBoardGame(Number(this.route.snapshot.paramMap.get('id')))
-            .subscribe((gamerBoardGame: GamerBoardGame) => this.gamerBoardGame = gamerBoardGame);
+            .subscribe((gamerBoardGame: GamerBoardGame) =>
+                this.gamerBoardGame = gamerBoardGame);
     }
 
     save(): void {

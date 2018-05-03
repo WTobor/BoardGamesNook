@@ -101,11 +101,6 @@ namespace BoardGamesNook.Repository.Generators
             BoardGame2,
             BoardGame3,
             BoardGame4,
-            BoardGame5,
-            BoardGame1,
-            BoardGame2,
-            BoardGame3,
-            BoardGame4,
             BoardGame5
         };
     }

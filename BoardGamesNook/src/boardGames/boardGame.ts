@@ -7,7 +7,7 @@
     MinAge: number;
     MinTime: TimeRanges;
     MaxTime: TimeRanges;
-    BGGUrl: string;
+    BGGId: number | null;
     IsExpansion: boolean;
     ParentId: number | null;
     ParentBoardGame: BoardGame | null;
