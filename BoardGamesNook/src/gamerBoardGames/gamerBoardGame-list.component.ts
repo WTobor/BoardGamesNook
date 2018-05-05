@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { GamerBoardGameService } from "./gamerBoardGame.service";
 import { GamerBoardGame } from "./gamerBoardGame";
 import { GamerService } from "../gamers/gamer.service";
-import {Common} from "../common";
-import {Location as Location1} from "@angular/common";
+import { Common } from "../common";
+import { Location } from "@angular/common";
 
 @Component({
     selector: "gamerBoardGame-list",
@@ -22,13 +22,14 @@ export class GamerBoardGameListComponent implements OnInit {
         private gamerService: GamerService,
         private route: ActivatedRoute,
         private router: Router,
-        private location: Location1) { }
+        private location: Location) {
+    }
 
     ngOnInit() {
         this.selectedGamerNickname = this.route.snapshot.paramMap.get("gamerNickname");
         this.gamerBoardGameService.getGamerBoardGames(this.selectedGamerNickname)
             .subscribe((gamerBoardGames: GamerBoardGame[]) => this.gamerBoardGames = gamerBoardGames);
-        
+
         this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
             if (nickname === this.selectedGamerNickname) {
                 this.isCurrentGamer = true;
@@ -45,12 +46,16 @@ export class GamerBoardGameListComponent implements OnInit {
             .deactivate(gamerBoardGame.Id)
             .subscribe(() => {
                 this.gamerBoardGames = this.gamerBoardGames.filter(g => g !== gamerBoardGame);
-                if (this.selectedGamerBoardGame === gamerBoardGame) { this.selectedGamerBoardGame = null; }
+                if (this.selectedGamerBoardGame === gamerBoardGame) {
+                    this.selectedGamerBoardGame = null;
+                }
             });
     }
 
     gotoDetail(): void {
-        this.router.navigate(["/gamerBoardGames", this.selectedGamerBoardGame.GamerNickname, this.selectedGamerBoardGame.Id]);
+        this.router.navigate([
+            "/gamerBoardGames", this.selectedGamerBoardGame.GamerNickname, this.selectedGamerBoardGame.Id
+        ]);
     }
 
     gotoAdd(): void {

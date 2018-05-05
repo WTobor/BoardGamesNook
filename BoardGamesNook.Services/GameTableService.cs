@@ -57,8 +57,11 @@ namespace BoardGamesNook.Services
             {
                 var tableResults = _gameResultRepository.GetAllByTableId(gameTable.Id);
                 var tableBoardGamesWithResultIds = tableResults.Select(x => x.BoardGameId).ToList();
+                var gameTableBoardGameIds = gameTable.BoardGames?.Select(x => x.Id).ToList();
 
-                if (!tableBoardGamesWithResultIds.SequenceEqual(gameTable.BoardGames.Select(x => x.Id).ToList()))
+
+                if (gameTableBoardGameIds != null && tableBoardGamesWithResultIds.Count != 0 &&
+                    !tableBoardGamesWithResultIds.SequenceEqual(gameTableBoardGameIds))
                 {
                     gameTable.BoardGames.RemoveAll(x => tableBoardGamesWithResultIds.Contains(x.Id));
                     gameTablesWithoutResults.Add(gameTable);
