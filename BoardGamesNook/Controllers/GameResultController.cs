@@ -24,6 +24,7 @@ namespace BoardGamesNook.Controllers
             _gameTableService = gameTableService;
         }
 
+        [HttpGet]
         public JsonResult Get(int id)
         {
             var gameResult = _gameResultService.GetGameResult(id);
@@ -42,6 +43,7 @@ namespace BoardGamesNook.Controllers
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAll()
         {
             if (!(Session["gamer"] is Gamer))
@@ -58,6 +60,7 @@ namespace BoardGamesNook.Controllers
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAllByGamerNickname(string nickname)
         {
             if (!(Session["gamer"] is Gamer))
@@ -74,6 +77,7 @@ namespace BoardGamesNook.Controllers
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAllByTableId(int tableId)
         {
             if (!(Session["gamer"] is Gamer))

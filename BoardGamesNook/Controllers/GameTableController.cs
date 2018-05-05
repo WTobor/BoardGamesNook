@@ -20,6 +20,7 @@ namespace BoardGamesNook.Controllers
             _gamerService = gamerService;
         }
 
+        [HttpGet]
         public JsonResult Get(int id)
         {
             if (!(Session["gamer"] is Gamer))
@@ -34,6 +35,7 @@ namespace BoardGamesNook.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAvailableTableBoardGameList(int id)
         {
             if (!(Session["gamer"] is Gamer gamer))
@@ -48,6 +50,7 @@ namespace BoardGamesNook.Controllers
             return Json(availableTableBoardGameListViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAll()
         {
             var gameTableListViewModel = new List<TableBoardGameViewModel>();
@@ -59,6 +62,7 @@ namespace BoardGamesNook.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAllByGamerNickname(string nickname)
         {
             var gameTableListViewModel = new List<TableBoardGameViewModel>();
@@ -71,6 +75,7 @@ namespace BoardGamesNook.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAllWithoutResultsByGamerNickname(string nickname)
         {
             var gameTableList = _gameTableService.GetAllGameTablesWithoutResultsByGamerNickname(nickname);

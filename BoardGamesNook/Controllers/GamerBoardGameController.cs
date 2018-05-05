@@ -25,6 +25,7 @@ namespace BoardGamesNook.Controllers
             _gamerService = gamerService;
         }
 
+        [HttpGet]
         public JsonResult Get(int id)
         {
             var gamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(id);
@@ -35,6 +36,7 @@ namespace BoardGamesNook.Controllers
             return Json(gamerBoardGameViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAllByGamerNickname(string nickname)
         {
             if (!(Session["gamer"] is Gamer))

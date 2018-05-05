@@ -13,6 +13,7 @@ namespace BoardGamesNook.Controllers
             _gamerService = gamerService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var loggedUser = (User) Session["user"];

@@ -34,6 +34,7 @@ namespace BoardGamesNook.Controllers
             return Json(gamerViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAll()
         {
             var gamerList = _gamerService.GetAllGamers();
@@ -72,6 +73,7 @@ namespace BoardGamesNook.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetCurrentGamerNickname()
         {
             var currentGamerNick = !(Session["gamer"] is Gamer currentGamer) ? string.Empty : currentGamer.Nickname;

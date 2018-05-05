@@ -6,12 +6,14 @@ namespace BoardGamesNook.Controllers
 {
     public class UserController : Controller
     {
+        [HttpGet]
         public JsonResult Get()
         {
             var loggedUser = Session["user"];
             return Json(loggedUser, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult Set(string userJson)
         {
             // Jak dasz "User" zamiast "string" w parametrze, to on sam przypadkiem nie zrobi deserializacji?
@@ -21,6 +23,7 @@ namespace BoardGamesNook.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public JsonResult LogOut()
         {
             Session["user"] = null;

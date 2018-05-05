@@ -1,7 +1,9 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Results;
 using AutoMapper;
 using BoardGameGeekIntegration;
+using BoardGameGeekIntegration.Models;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.ViewModels.BoardGame;
@@ -9,7 +11,7 @@ using BoardGamesNook.ViewModels.BoardGame;
 namespace BoardGamesNook.Controllers
 {
     [AuthorizeCustom]
-    public class BoardGameController : Controller
+    public class BoardGameController : ApiController
     {
         private readonly IBoardGameService _boardGameService;
 
@@ -18,58 +20,58 @@ namespace BoardGamesNook.Controllers
             _boardGameService = boardGameService;
         }
 
-
-        public JsonResult Get(int id)
+        [System.Web.Mvc.HttpGet]
+        public JsonResult<BoardGame> Get(int id)
         {
             var boardGame = _boardGameService.Get(id);
-            return Json(boardGame, JsonRequestBehavior.AllowGet);
+            return Json(boardGame);
         }
 
-        public JsonResult GetAll()
+        [System.Web.Mvc.HttpGet]
+        public JsonResult<IEnumerable<BoardGame>> GetAll()
         {
             var boardGameList = _boardGameService.GetAll();
-            return Json(boardGameList, JsonRequestBehavior.AllowGet);
+            return Json(boardGameList);
         }
 
-        [HttpPost]
-        public JsonResult Add(string name)
+        [System.Web.Mvc.HttpPost]
+        public JsonResult<List<SimilarBoardGame>> Add(string name)
         {
             var result = _boardGameService.AddOrGetSimilar(name);
-            if (result == null)
-                return Json(string.Format(Errors.BoardGameWithNameNotFound, name), JsonRequestBehavior.AllowGet);
+            //if (result == null)
+            //    return Json(string.Format(Errors.BoardGameWithNameNotFound, name));
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result);
         }
 
-        [HttpPost]
-        public JsonResult AddById(int id)
+        [System.Web.Mvc.HttpPost]
+        public JsonResult<string> AddById(int id)
         {
             var boardGame = BGGBoardGame.GetBoardGameById(id);
             if (boardGame == null)
-                return Json(string.Format(Errors.BoardGameWithIdNotFound, id), JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.BoardGameWithIdNotFound, id));
             _boardGameService.Add(boardGame);
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("");
         }
 
-        [HttpPost]
-        public JsonResult Edit(BoardGameViewModel boardGameViewModel)
+        [System.Web.Mvc.HttpPost]
+        public JsonResult<string> Edit(BoardGameViewModel boardGameViewModel)
         {
             var dbBoardGame = _boardGameService.Get(boardGameViewModel.Id);
             if (dbBoardGame == null)
-                return Json(string.Format(Errors.BoardGameWithIdNotFound, boardGameViewModel.Id),
-                    JsonRequestBehavior.AllowGet);
+                return Json(string.Format(Errors.BoardGameWithIdNotFound, boardGameViewModel.Id));
             var boardGame = Mapper.Map<BoardGame>(boardGameViewModel);
             _boardGameService.Edit(boardGame);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("");
         }
 
 
-        [HttpPost]
-        public JsonResult Deactivate(int id)
+        [System.Web.Mvc.HttpPost]
+        public JsonResult<string> Deactivate(int id)
         {
             _boardGameService.DeactivateBoardGame(id);
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json("");
         }
     }
 }

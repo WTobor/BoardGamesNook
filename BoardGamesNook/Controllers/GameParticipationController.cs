@@ -17,6 +17,7 @@ namespace BoardGamesNook.Controllers
             _gameParticipationService = gameParticipationService;
         }
 
+        [HttpGet]
         public JsonResult Get(int id)
         {
             var gameParticipation = _gameParticipationService.GetGameParticipation(id);
@@ -25,6 +26,7 @@ namespace BoardGamesNook.Controllers
             return Json(gameParticipationViewModel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAll()
         {
             var gameParticipationList = _gameParticipationService.GetAllGameParticipations();
@@ -33,6 +35,7 @@ namespace BoardGamesNook.Controllers
             return Json(gameParticipationViewModelList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult GetAllByTableId(int id)
         {
             var gameParticipationList = _gameParticipationService.GetAllGameParticipationsByTableId(id);
