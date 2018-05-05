@@ -41,12 +41,10 @@ export class GameTableService {
     }
 
     getGameTablesWithoutResultsByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
-        let url = `${this._getGameTableListWithoutResultsUrl}`;
-        if (gamerNickname != null && gamerNickname !== "") {
-            url = `${this._getGameTableListByGamerNicknameUrl}/${gamerNickname}`;
-        };
-
-        return this.http.get<GameTable[]>(url);
+        return this.http
+            .post<GameTable[]>(`${this._getGameTableListWithoutResultsUrl}`,
+                JSON.stringify({ nickname: gamerNickname }),
+                httpOptions);
     }
 
     getGameTable(id: number): Observable<GameTable> {

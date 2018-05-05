@@ -47,15 +47,19 @@
                 <div *ngIf="tableGamers && tableGamers.length > 0">
                     <table *ngFor="let tableGamer of tableGamers; let i = index;">
                         <tr>
-                            <td><label>Gracz:</label></td>
+                            <td>
+                                <label>Gracz:</label>
+                            </td>
                             <td>{{tableGamers[i].Nickname}}</td>
                         </tr>
                         <tr>
-                            <td><label>Punkty:</label></td>
+                            <td>
+                                <label>Punkty:</label>
+                            </td>
                             <td>
                                 <div *ngIf="pointList">
                                     <input class="form-control" type="number" id="points[i]" name="points[i]"
-                                           [(ngModel)]="pointList[i]" #pointsCtrl="ngModel" required />
+                                           [(ngModel)]="pointList[i]" #pointsCtrl="ngModel" required/>
                                     <span class="form-control-feedback" *ngIf="pointsCtrl.invalid && pointsCtrl.touched">
                                         Podaj liczbę punktów!
                                     </span>
@@ -63,11 +67,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Miejsce:</label></td>
+                            <td>
+                                <label>Miejsce:</label>
+                            </td>
                             <td>
                                 <div *ngIf="placeList">
                                     <input class="form-control" type="number" id="places[i]" name="places[i]"
-                                           [(ngModel)]="placeList[i]" #placesCtrl="ngModel" required />
+                                           [(ngModel)]="placeList[i]" #placesCtrl="ngModel" required/>
                                     <span class="form-control-feedback" *ngIf="placesCtrl.invalid && placesCtrl.touched">
                                         Podaj miejsce!
                                     </span>
@@ -85,7 +91,7 @@
             <button type="button" class="btn btn-default" (click)="goBack()">
                 Powrót
             </button>
-            <button class="btn btn-success" type="submit" [disabled]="form.invalid || (gamerGameTablesWithoutResults.length === 0 || tableBoardGames === null )">
+            <button class="btn btn-success" type="submit" [disabled]="form.invalid || (tableBoardGames == undefined || tableBoardGames == undefined )">
                 Dodaj
             </button>
         </div>

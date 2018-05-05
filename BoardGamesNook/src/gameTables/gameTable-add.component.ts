@@ -70,6 +70,14 @@ export class GameTableAddComponent implements OnInit {
             .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
     }
 
+    deactivate(tableBoardGame: TableBoardGame): void {
+        this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList.filter(t => t !== tableBoardGame);
+        this.availableTableBoardGames.push(tableBoardGame);
+        if (this.selectedTableBoardGame === tableBoardGame) {
+            this.selectedTableBoardGame = null;
+        }
+    }
+
     goBack(): void {
         const loc = this.location;
         return new Common(loc).goBack();
