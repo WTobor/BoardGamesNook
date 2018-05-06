@@ -22,8 +22,7 @@ export class BoardGameAddComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.boardGameService.getBoardGame(0)
-            .subscribe((boardGame: BoardGame) => this.boardGame = boardGame);
+        this.boardGame = new BoardGame();
     }
 
     onSubmit(submittedForm) {
@@ -38,7 +37,7 @@ export class BoardGameAddComponent implements OnInit {
         this.boardGameService.create(name)
             .subscribe(result => {
                 try {
-                    this.similarBoardGames = JSON.parse(result);
+                    this.similarBoardGames = result;
                     if (this.similarBoardGames !== undefined && this.similarBoardGames.length > 0) {
                         this.boardGameNotFound = true;
                     } else {

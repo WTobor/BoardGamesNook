@@ -1,10 +1,10 @@
 ﻿<form class="col-md-8 container">
     <div class="col-md-4 float-right">
-        <input class="form-control" type="text" [(ngModel)]="query" name="query" (input)="search.next(query)" />
+        <input class="form-control" type="text" [(ngModel)]="query" name="query" (input)="search.next(query)"/>
     </div>
     <br/>
     <span *ngIf="!searchedBoardGames">Nie znaleziono gry o nazwie {{query}}</span>
-    
+
     <div class="page-header">
         LISTA GIER
     </div>
@@ -12,25 +12,23 @@
         <div class="col-md-4" *ngFor="let boardGame of searchedBoardGames"
              style="margin-bottom: 1em;">
             <div class="card border-0">
-                    <div class="text-center img-container">
-                        <img src="{{boardGame.ImageUrl}}" class="img-fluid" 
-                             (click)="gotoDetail(boardGame)" style="cursor: pointer;" />
-                        <div class="text-center img-overly">
-                            <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn btn-danger">x</button>
-                            <a href="https://boardgamegeek.com/boardgame/{{boardGame.BGGId}}" target="_blank" class="btn btn-primary m-0">BGG</a>
-                        </div>
+                <div class="text-center img-container">
+                    <img src="{{boardGame.ImageUrl}}" class="img-fluid"
+                         (click)="gotoDetail(boardGame)" style="cursor: pointer;"/>
+                    <div class="text-center img-overly">
+                        <button (click)="deactivate(boardGame); $event.stopPropagation()" class="btn btn-danger">x</button>
+                        <a href="https://boardgamegeek.com/boardgame/{{boardGame.BGGId}}" target="_blank" class="btn btn-primary m-0">BGG</a>
                     </div>
-                    <div class="text-center font-weight-bold">
-                        <span class="card-title">{{ boardGame.Name }}</span>
-                    </div>
-                    
+                </div>
+                <div class="text-center font-weight-bold">
+                    <span class="card-title">{{ boardGame.Name }}</span>
                 </div>
 
-                <!--<span>{{ boardGame.Name }}</span>-->
-                <!--<button *ngIf="isAdmin" (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>-->
             </div>
 
-        <!--<button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>-->
-
+            <!--<span>{{ boardGame.Name }}</span>-->
+            <!--<button *ngIf="isAdmin" (click)="deactivate(boardGame); $event.stopPropagation()" class="btn delete-icon">x</button>-->
+        </div>
     </div>
+    <button class="btn btn-primary" (click)="gotoAdd()">Dodaj nową grę</button>
 </form>
