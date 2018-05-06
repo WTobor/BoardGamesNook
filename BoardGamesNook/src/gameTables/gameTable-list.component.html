@@ -24,7 +24,7 @@
         <button *ngIf="isCurrentGamer" class="btn btn-primary" (click)="gotoAdd()">Dodaj nowy stół do gry</button>
         <div *ngIf="selectedGameTable">
             <span class="font-weight-bold">
-                STÓŁ {{selectedGameTable.Name | uppercase}} GRACZA {{selectedGameTable.CreatedGamerNickname | uppercase}}
+                {{selectedGameTable.Name | uppercase}} GRACZA {{selectedGameTable.CreatedGamerNickname | uppercase}}
             </span>
             <div *ngIf="selectedGameTable.TableBoardGameList">
                 Wybrane pozycje:
@@ -36,6 +36,7 @@
                     </li>
                 </ul>
             </div>
+            <br />
             <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły stołu do gry</button>
             <!--TODO: wypisz się-->
             <button *ngIf="!isCurrentGamer" class="btn btn-primary" (click)="gotoJoin()">Dołącz do stołu do gry</button>

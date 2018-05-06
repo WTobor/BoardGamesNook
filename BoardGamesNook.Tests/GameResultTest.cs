@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services;
@@ -12,19 +14,23 @@ namespace BoardGamesNook.Tests
     public class GameResultTest
     {
         private readonly Mock<IGameResultRepository> _gameResultRepositoryMock;
+        private readonly Mock<IGamerRepository> _gamerRepositoryMock;
+        private readonly Mock<IGameTableRepository> _gameTableRepositoryMock;
 
         private readonly GameResult _testGameResult = new GameResult
         {
             Id = 1,
             GameTableId = 1,
             GameTable = new GameTable(),
-            GamerId = "test",
+            GamerId = Guid.NewGuid(),
             Gamer = new Gamer()
         };
 
         public GameResultTest()
         {
             _gameResultRepositoryMock = new Mock<IGameResultRepository>();
+            _gamerRepositoryMock = new Mock<IGamerRepository>();
+            _gameTableRepositoryMock = new Mock<IGameTableRepository>();
         }
 
         [TestMethod]
@@ -32,7 +38,10 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameResultRepositoryMock.Setup(x => x.GetAll()).Returns(new List<GameResult> {new GameResult()});
-            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
+            Mapper.Reset();
+            Mapper.Initialize(cfg => { cfg.AddServicesProfiles(); });
             //Act
             var gameResults = gameResultService.GetAllGameResults();
             //Assert
@@ -45,7 +54,8 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameResultRepositoryMock.Setup(mock => mock.Add(It.IsAny<GameResult>()));
-            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
             //Act
             gameResultService.AddGameResult(_testGameResult);
             //Assert
@@ -57,8 +67,13 @@ namespace BoardGamesNook.Tests
         public void GetGameResult()
         {
             //Arrange
-            _gameResultRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>()));
-            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
+            _gameResultRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>())).Returns(new GameResult());
+            _gamerRepositoryMock.Setup(mock => mock.Get(It.IsAny<Guid>())).Returns(new Gamer());
+            _gameTableRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>())).Returns(new GameTable());
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
+            Mapper.Reset();
+            Mapper.Initialize(cfg => { cfg.AddServicesProfiles(); });
             //Act
             gameResultService.GetGameResult(_testGameResult.Id);
             //Assert
@@ -73,7 +88,10 @@ namespace BoardGamesNook.Tests
             var nickname = "test";
             _gameResultRepositoryMock.Setup(mock => mock.GetAllByGamerNickname(It.IsAny<string>()))
                 .Returns(new List<GameResult> {new GameResult()});
-            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
+            Mapper.Reset();
+            Mapper.Initialize(cfg => { cfg.AddServicesProfiles(); });
             //Act
             var gameResults = gameResultService.GetAllByGamerNickname(nickname);
 
@@ -90,7 +108,8 @@ namespace BoardGamesNook.Tests
             _gameResultRepositoryMock.Setup(mock =>
                     mock.GetAllByTableId(It.IsAny<int>()))
                 .Returns(new List<GameResult> {new GameResult()});
-            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
             //Act
             var gameResults = gameResultService.GetAllGameResultsByTableId(_testGameResult.GameTableId.Value);
 
@@ -106,7 +125,8 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameResultRepositoryMock.Setup(mock => mock.Edit(It.IsAny<GameResult>()));
-            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
             //Act
             gameResultService.EditGameResult(_testGameResult);
             //Assert
@@ -119,7 +139,8 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameResultRepositoryMock.Setup(mock => mock.Deactivate(It.IsAny<int>()));
-            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object);
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
             //Act
             gameResultService.DeactivateGameResult(_testGameResult.Id);
             //Assert

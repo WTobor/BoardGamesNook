@@ -11,7 +11,7 @@
             <label class="col-md-4" for="points">Punkty</label>
             <div class="col-md-8">
                 <input class="form-control" type="number" id="points" name="points"
-                        [(ngModel)]="gameResult.Points" #pointsCtrl="ngModel" required />
+                       [(ngModel)]="gameResult.Points" #pointsCtrl="ngModel" required [readonly]="!canChange"/>
                 <span class="form-control-feedback" *ngIf="pointsCtrl.invalid && pointsCtrl.touched">
                     Podaj liczbę punktów!
                 </span>
@@ -21,7 +21,7 @@
             <label class="col-md-4" for="place">Miejsce</label>
             <div class="col-md-8">
                 <input class="form-control" type="number" id="place" name="place"
-                        [(ngModel)]="gameResult.Place" #placeCtrl="ngModel" required />
+                       [(ngModel)]="gameResult.Place" #placeCtrl="ngModel" required [readonly]="!canChange"/>
                 <span class="form-control-feedback" *ngIf="placeCtrl.invalid && placeCtrl.touched">
                     Podaj liczbę punktów!
                 </span>

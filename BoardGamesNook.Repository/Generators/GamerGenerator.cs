@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BoardGamesNook.Model;
 
@@ -7,7 +8,7 @@ namespace BoardGamesNook.Repository.Generators
     {
         public static Gamer Gamer1 = new Gamer
         {
-            Id = "a1s2d3f4",
+            Id = Guid.Parse("11111111-2222-3333-4444-555555555555"),
             Active = true,
             Age = 25,
             Nickname = "programmer-girl",
@@ -20,7 +21,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static Gamer Gamer2 = new Gamer
         {
-            Id = "q1w2e3r4",
+            Id = Guid.Parse("22222222-3333-4444-5555-666666666666"),
             Active = true,
             Age = 19,
             Nickname = "tomek_K",
@@ -33,7 +34,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static Gamer Gamer3 = new Gamer
         {
-            Id = "z2x3c4v5",
+            Id = Guid.Parse("33333333-4444-5555-6666-777777777777"),
             Active = true,
             Age = 27,
             Nickname = "anna90",
@@ -46,7 +47,7 @@ namespace BoardGamesNook.Repository.Generators
 
         public static Gamer Gamer4 = new Gamer
         {
-            Id = "n7m8k9l0",
+            Id = Guid.Parse("44444444-5555-6666-7777-888888888888"),
             Active = true,
             Age = 34,
             Nickname = "macius",

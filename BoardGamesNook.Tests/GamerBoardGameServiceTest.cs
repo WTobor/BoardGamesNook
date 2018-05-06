@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
@@ -11,13 +12,19 @@ namespace BoardGamesNook.Tests
     [TestClass]
     public class GamerBoardGameServiceTest
     {
+        private static readonly Guid _testGuid = Guid.NewGuid();
         private readonly Mock<IBoardGameRepository> _boardGameRepositoryMock;
         private readonly Mock<IGamerBoardGameRepository> _gamerBoardGameRepositoryMock;
+
+        private readonly Gamer _testGamer = new Gamer
+        {
+            Id = _testGuid
+        };
 
         private readonly GamerBoardGame _testGamerBoardGame = new GamerBoardGame
         {
             Id = 1,
-            GamerId = "aqwsderfgt",
+            GamerId = _testGuid,
             BoardGameId = 1
         };
 
@@ -52,10 +59,12 @@ namespace BoardGamesNook.Tests
             var gamerBoardGameService = new GamerBoardGameService(_gamerBoardGameRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object));
             //Act
-            gamerBoardGameService.Add(_testGamerBoardGame);
+            gamerBoardGameService.Add(_testGamerBoardGame.BoardGameId, _testGamer);
             //Assert
             _gamerBoardGameRepositoryMock.Verify(
-                mock => mock.Add(It.Is<GamerBoardGame>(x => x.Equals(_testGamerBoardGame))), Times.Once());
+                mock => mock.Add(It.Is<GamerBoardGame>(x =>
+                    x.Id == _testGamerBoardGame.Id && x.BoardGameId == _testGamerBoardGame.BoardGameId &&
+                    x.GamerId == _testGamerBoardGame.GamerId)), Times.Once());
         }
 
         [TestMethod]
@@ -80,13 +89,18 @@ namespace BoardGamesNook.Tests
             //Arrange
             _gamerBoardGameRepositoryMock.Setup(mock =>
                 mock.Edit(It.IsAny<GamerBoardGame>()));
+            _gamerBoardGameRepositoryMock.Setup(mock =>
+                mock.GetAll()).Returns(new List<GamerBoardGame>());
+            _gamerBoardGameRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>())).Returns(_testGamerBoardGame);
             var gamerBoardGameService = new GamerBoardGameService(_gamerBoardGameRepositoryMock.Object,
                 new BoardGameService(_boardGameRepositoryMock.Object));
             //Act
-            gamerBoardGameService.EditGamerBoardGame(_testGamerBoardGame);
+            gamerBoardGameService.EditGamerBoardGame(_testGamerBoardGame.Id);
             //Assert
             _gamerBoardGameRepositoryMock.Verify(
-                mock => mock.Edit(It.Is<GamerBoardGame>(x => x.Equals(_testGamerBoardGame))), Times.Once());
+                mock => mock.Edit(It.Is<GamerBoardGame>(x =>
+                    x.Id == _testGamerBoardGame.Id && x.BoardGameId == _testGamerBoardGame.BoardGameId &&
+                    x.GamerId == _testGamerBoardGame.GamerId)), Times.Once());
         }
 
         [TestMethod]

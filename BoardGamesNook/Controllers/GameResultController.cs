@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -13,32 +14,20 @@ namespace BoardGamesNook.Controllers
         private readonly IBoardGameService _boardGameService;
         private readonly IGameResultService _gameResultService;
         private readonly IGamerService _gamerService;
-        private readonly IGameTableService _gameTableService;
 
         public GameResultController(IGameResultService gameResultService, IBoardGameService boardGameService,
-            IGamerService gamerService, IGameTableService gameTableService)
+            IGamerService gamerService)
         {
             _gameResultService = gameResultService;
             _boardGameService = boardGameService;
             _gamerService = gamerService;
-            _gameTableService = gameTableService;
         }
 
         public JsonResult Get(int id)
         {
-            var gameResult = _gameResultService.GetGameResult(id);
-            if (gameResult == null)
-                return Json(string.Format(Errors.BoardGameResultWithIdNotFound, id), JsonRequestBehavior.AllowGet);
+            var gameResultDto = _gameResultService.GetGameResult(id);
 
-            var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResult);
-            gameResultViewModel.CreatedGamerNickname =
-                _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
-            if (gameResultViewModel.GameTableId.HasValue)
-            {
-                gameResultViewModel.GameTableName =
-                    _gameTableService.GetGameTable(gameResultViewModel.GameTableId.Value)?.Name;
-            }
-
+            var gameResultViewModel = Mapper.Map<GameResultViewModel>(gameResultDto);
             return Json(gameResultViewModel, JsonRequestBehavior.AllowGet);
         }
 
@@ -46,14 +35,10 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            var gameResultList = _gameResultService.GetAllGameResults().ToList();
 
-            var gameResultListViewModel =
-                Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
+            var gameResultDtoList = _gameResultService.GetAllGameResults().ToList();
 
-            foreach (var gameResultViewModel in gameResultListViewModel)
-                gameResultViewModel.CreatedGamerNickname =
-                    _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
+            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResultViewModel>>(gameResultDtoList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -62,14 +47,10 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer))
                 return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
-            var gameResultList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
-            var gameResultListViewModel =
-                Mapper.Map<IEnumerable<GameResult>, IEnumerable<GameResultViewModel>>(gameResultList);
+            var gameResultDtoList = _gameResultService.GetAllByGamerNickname(nickname).ToList();
 
-            foreach (var gameResultViewModel in gameResultListViewModel)
-                gameResultViewModel.CreatedGamerNickname =
-                    _gamerService.GetGamer(gameResultViewModel.CreatedGamerId)?.Nickname;
+            var gameResultListViewModel = Mapper.Map<IEnumerable<GameResultViewModel>>(gameResultDtoList);
 
             return Json(gameResultListViewModel, JsonRequestBehavior.AllowGet);
         }
@@ -78,7 +59,8 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            var gameResultList = _gameResultService.GetAllGameResultsByTableId(tableId).ToList();
+
+            var gameResultList = _gameResultService.GetAllGameResultsByTableId(tableId);
 
             var gameResultListViewModel = Mapper.Map<IEnumerable<GameResultViewModel>>(gameResultList);
 
@@ -90,6 +72,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+
             var gameResult = GetGameResultObj(gameResultViewModel, gamer);
             _gameResultService.AddGameResult(gameResult);
 
@@ -147,7 +130,7 @@ namespace BoardGamesNook.Controllers
         private GameResult GetGameResultObj(GameResultViewModel gameResultViewModel, Gamer gamer)
         {
             var result = Mapper.Map<GameResult>(gameResultViewModel);
-            result.Gamer = _gamerService.GetGamer(gameResultViewModel.GamerId);
+            result.Gamer = _gamerService.GetGamer(Guid.Parse(gameResultViewModel.GamerId));
             result.BoardGame = _boardGameService.Get(gameResultViewModel.BoardGameId);
             Mapper.Map(gamer, result);
             return result;

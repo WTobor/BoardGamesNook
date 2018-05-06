@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
@@ -18,7 +19,7 @@ namespace BoardGamesNook.Tests
             Id = 1,
             GameTableId = 1,
             GameTable = new GameTable(),
-            GamerId = "testGamerId",
+            GamerId = Guid.NewGuid(),
             Gamer = new Gamer()
         };
 
@@ -64,7 +65,7 @@ namespace BoardGamesNook.Tests
                 .Returns(_testGameParticipation);
             var gameParticipationService = new GameParticipationService(_gameParticipationRepositoryMock.Object);
             //Act
-            var gameParticipation = gameParticipationService.GetGameParticipation(_testGameParticipation.Id);
+            gameParticipationService.GetGameParticipation(_testGameParticipation.Id);
             //Assert
             _gameParticipationRepositoryMock.Verify(
                 mock => mock.Get(It.Is<int>(x => x.Equals(_testGameParticipation.Id))), Times.Once());

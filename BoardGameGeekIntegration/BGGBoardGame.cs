@@ -17,16 +17,16 @@ namespace BoardGameGeekIntegration
             var objectId = 0;
 
             var url = string.Format(Constants.getXMLBoardGameObjectByName, name);
-            var BGGBoardGameObjectStr = GetStringResponse(url);
-            object boardGamesObject = new boardgames();
+            var BGGBoardGame = GetStringResponse(url);
+            object boardGamesObj = new boardgames();
 
             var xmlSerializer = new XmlSerializer(typeof(boardgames));
-            using (TextReader textReader = new StringReader(BGGBoardGameObjectStr))
+            using (TextReader textReader = new StringReader(BGGBoardGame))
             {
-                boardGamesObject = xmlSerializer.Deserialize(textReader);
+                boardGamesObj = xmlSerializer.Deserialize(textReader);
             }
 
-            var boardGames = (boardgames) boardGamesObject;
+            var boardGames = (boardgames) boardGamesObj;
 
             if (boardGames.boardgame != null && boardGames.boardgame.Length > 0)
                 objectId = (int) boardGames.boardgame.First().objectid;
@@ -62,9 +62,9 @@ namespace BoardGameGeekIntegration
         public static BoardGame GetBoardGameById(int id)
         {
             var url = string.Format(Constants.getJSONBoardGameObjectDetailsById, id);
-            var BGGBoardGameObjectDetailsStr = GetStringResponse(url);
+            var BGGBoardGameObjectDetails = GetStringResponse(url);
 
-            var boardGameDetails = JsonConvert.DeserializeObject<BoardGameDetails>(BGGBoardGameObjectDetailsStr);
+            var boardGameDetails = JsonConvert.DeserializeObject<BoardGameDetails>(BGGBoardGameObjectDetails);
 
             var boardGame = new BoardGame
             {

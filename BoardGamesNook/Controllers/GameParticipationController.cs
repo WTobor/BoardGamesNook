@@ -52,12 +52,6 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(GameParticipationViewModel gameParticipationViewModel)
         {
-            // To również wygląda na jakąś logikę biznesową, która powinna być w serwisie
-            var orgGameParticipation = _gameParticipationService.GetGameParticipation(gameParticipationViewModel.Id);
-            if (orgGameParticipation == null)
-                return Json(string.Format(Errors.GameParticipationWithIdNotFound, gameParticipationViewModel.Id),
-                    JsonRequestBehavior.AllowGet);
-
             var dbGameParticipation = Mapper.Map<GameParticipation>(gameParticipationViewModel);
             _gameParticipationService.Edit(dbGameParticipation);
 

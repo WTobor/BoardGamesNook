@@ -8,9 +8,9 @@ namespace BoardGamesNook.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
-        public string CreatedGamerId { get; set; }
+        public Guid CreatedGamerId { get; set; }
         public DateTimeOffset? ModifiedDate { get; set; }
-        public string ModifiedGamerId { get; set; }
+        public Guid ModifiedGamerId { get; set; }
         public Gamer ModifiedGamer { get; set; }
         public int MinPlayersNumber { get; set; }
         public int MaxPlayersNumber { get; set; }

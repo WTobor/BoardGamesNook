@@ -7,8 +7,6 @@ import { GameTable } from "./gameTable";
 import { Common } from "./../Common";
 import { TableBoardGame } from "./tableBoardGame";
 import {GamerService} from "../gamers/gamer.service";
-import {Gamer} from "../gamers/gamer";
-import {BoardGame} from "../boardGames/boardGame";
 
 @Component({
     selector: "gameTable-add",
@@ -65,6 +63,14 @@ export class GameTableAddComponent implements OnInit {
         var loc = this.location;
         this.gameTableService.create(this.gameTable)
             .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
+    }
+
+    deactivate(tableBoardGame: TableBoardGame): void {
+        this.gameTable.TableBoardGameList = this.gameTable.TableBoardGameList.filter(t => t !== tableBoardGame);
+        this.availableTableBoardGames.push(tableBoardGame);
+        if (this.selectedTableBoardGame === tableBoardGame) {
+            this.selectedTableBoardGame = null;
+        }
     }
 
     goBack(): void {

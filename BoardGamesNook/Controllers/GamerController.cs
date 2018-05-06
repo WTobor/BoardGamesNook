@@ -47,9 +47,6 @@ namespace BoardGamesNook.Controllers
             if (!(Session["user"] is User loggedUser))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            if (_gamerService.NicknameExists(gamerViewModel.Nickname))
-                return Json(string.Format(Errors.GamerNicknameExists, gamerViewModel.Nickname),
-                    JsonRequestBehavior.AllowGet);
             var gamer = GetGamerObj(gamerViewModel, loggedUser);
             _gamerService.AddGamer(gamer);
 
@@ -67,7 +64,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Deactivate(string id)
         {
-            _gamerService.DeactivateGamer(id);
+            _gamerService.DeactivateGamer(Guid.Parse(id));
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -82,7 +79,7 @@ namespace BoardGamesNook.Controllers
         {
             var result = Mapper.Map<Gamer>(gamerViewModel);
             Mapper.Map(loggedUser, result);
-            result.Id = Guid.NewGuid().ToString();
+            result.Id = Guid.NewGuid();
             return result;
         }
     }

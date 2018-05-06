@@ -2,12 +2,15 @@
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Models;
 
-namespace BoardGamesNook.MapperProfiles
+namespace BoardGamesNook.Services.MapperProfiles
 {
-    public class BoardGameProfile : Profile
+    public class BoardGameDtoProfile : Profile
     {
-        public BoardGameProfile()
+        public BoardGameDtoProfile()
         {
+            CreateMap<Gamer, TableBoardGameDto>()
+                .ForMember(dest => dest.GamerId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.GamerNickname, opt => opt.MapFrom(src => src.Nickname));
             CreateMap<BoardGame, TableBoardGameDto>()
                 .ForMember(dest => dest.BGGId, opt => opt.MapFrom(src => src.BGGId))
                 .ForMember(dest => dest.BoardGameId, opt => opt.MapFrom(src => src.Id))
@@ -15,6 +18,7 @@ namespace BoardGamesNook.MapperProfiles
                 .ForMember(dest => dest.MinBoardGamePlayers, opt => opt.MapFrom(src => src.MinPlayers))
                 .ForMember(dest => dest.MaxBoardGamePlayers, opt => opt.MapFrom(src => src.MaxPlayers))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+            CreateMap<BoardGame, BoardGameDto>();
         }
     }
 }

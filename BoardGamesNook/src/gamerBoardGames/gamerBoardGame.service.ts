@@ -14,26 +14,29 @@ export class GamerBoardGameService {
     private _deactivateGamerBoardGameUrl = "GamerBoardGame/Deactivate";
     private _getGamerAvailableBoardGamesUrl = "GamerBoardGame/GetGamerAvailableBoardGames";
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     getGamerBoardGames(gamerNickname: string): Observable<GamerBoardGame[]> {
-        const url = `${this._getGamerBoardGameListUrl}/${gamerNickname}`;
-        return this.http.get<GamerBoardGame[]>(url);
+        return this.http
+            .post<GamerBoardGame[]>(`${this._getGamerBoardGameListUrl}`,
+                JSON.stringify({ nickname: gamerNickname }),
+                httpOptions);
     }
 
     getGamerBoardGame(id: number): Observable<GamerBoardGame> {
         if (id > 0) {
             const url = `${this._getGamerBoardGameUrl}/${id}`;
             return this.http.get<GamerBoardGame>(url);
-        }
-        else {
+        } else {
             return new Observable<GamerBoardGame>();
         }
     }
 
     getGamerAvailableBoardGames(gamerNickname: string): Observable<GamerBoardGame[]> {
-        const url = `${this._getGamerAvailableBoardGamesUrl}/${gamerNickname}`;
-        return this.http.post<GamerBoardGame[]>(url, httpOptions);
+        return this.http
+            .post<GamerBoardGame[]>(`${this._getGamerAvailableBoardGamesUrl}`,
+                JSON.stringify({ nickname: gamerNickname }),
+                httpOptions);
     }
 
     deactivate(id: number): Observable<string> {
@@ -43,7 +46,7 @@ export class GamerBoardGameService {
 
     create(boardGameId: number): Observable<string> {
         const url = `${this._addGamerBoardGameUrl}`;
-        var body = JSON.stringify({ boardGameId: boardGameId });
+        const body = JSON.stringify({ boardGameId: boardGameId });
         this.http.post<string>(url, body, httpOptions);
 
         return this.http.post<string>(url, body, httpOptions);

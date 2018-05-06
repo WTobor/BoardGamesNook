@@ -1,5 +1,4 @@
 ﻿import { TableBoardGame } from "./tableBoardGame";
-import {Gamer} from "../gamers/gamer";
 
 export class GameTable {
     Id: number;

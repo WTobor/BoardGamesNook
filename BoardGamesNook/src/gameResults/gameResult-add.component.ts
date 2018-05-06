@@ -17,7 +17,7 @@ import { GameTableService } from "../gameTables/gameTable.service";
     providers: [BoardGameService, GamerService, GameTableService]
 })
 export class GameResultAddComponent implements OnInit {
-    gameResult: GameResult = new GameResult();
+    gameResult = new GameResult();
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
 
@@ -35,13 +35,11 @@ export class GameResultAddComponent implements OnInit {
         private gamerService: GamerService,
         private location: Location,
         private router: Router
-    ) { }
+    ) {
+    }
 
     ngOnInit() {
-        this.gameResultService.getGameResult(0)
-            .subscribe((gameResult: GameResult) => {
-                this.gameResult = new GameResult();
-            });
+        this.gameResult = new GameResult();
 
         this.boardGameService.getBoardGames().subscribe(
             response => {
@@ -56,6 +54,16 @@ export class GameResultAddComponent implements OnInit {
         this.gamerService.getCurrentGamerNickname().subscribe(nickname => {
             this.currentGamerNickname = nickname;
         });
+    }
+
+    selectBoardGame(value: BoardGame): void {
+        this.gameResult.BoardGameId = value.Id;
+        this.gameResult.BoardGameName = value.Name;
+    }
+
+    selectGamer(id: string, value: string): void {
+        this.gameResult.GamerId = id;
+        this.gameResult.GamerNickname = value;
     }
 
     onSubmit(submittedForm) {
@@ -75,11 +83,9 @@ export class GameResultAddComponent implements OnInit {
         this.gameResult.Place = place;
         this.gameResult.PlayersNumber = playersNumber;
 
-		const loc = this.location;
+        var loc = this.location;
         this.gameResultService.create(this.gameResult)
-            .subscribe(errorMessage => {
-              new Common(loc).showErrorOrGoBack(errorMessage);
-            });
+            .subscribe(errorMessage => new Common(loc).showErrorOrGoBack(errorMessage));
     }
 
     goBack(): void {

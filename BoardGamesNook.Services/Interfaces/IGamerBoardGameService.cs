@@ -12,9 +12,9 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<GamerBoardGame> GetAllGamerBoardGamesByGamerNickname(string gamerNickname);
 
-        void Add(GamerBoardGame boardGame);
+        void Add(int boardGameId, Gamer gamer);
 
-        void EditGamerBoardGame(GamerBoardGame boardGame);
+        void EditGamerBoardGame(int gamerBoardGameId);
 
         void DeactivateGamerBoardGame(int id);
     }

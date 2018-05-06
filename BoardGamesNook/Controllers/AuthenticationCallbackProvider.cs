@@ -1,7 +1,7 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AutoMapper;
 using BoardGamesNook.Model;
 using Newtonsoft.Json;
 using SimpleAuthentication.Mvc;
@@ -29,18 +29,7 @@ namespace BoardGamesNook.Controllers
 
         private static User CreateNewUser(AuthenticateCallbackData model)
         {
-            var email = model.AuthenticatedClient.UserInformation.Email;
-            var name = model.AuthenticatedClient.UserInformation.Name;
-            var picture = model.AuthenticatedClient.UserInformation.Picture;
-
-            var loggedUser = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = name,
-                ImageUrl = picture,
-                Email = email
-            };
-            return loggedUser;
+            return Mapper.Map<User>(model.AuthenticatedClient.UserInformation);
         }
     }
 }

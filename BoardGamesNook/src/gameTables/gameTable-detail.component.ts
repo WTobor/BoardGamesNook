@@ -27,7 +27,7 @@ export class GameTableDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.gameTableService.getGameTable(Number(this.route.snapshot.paramMap.get('id')))
+        this.gameTableService.getGameTable(Number(this.route.snapshot.paramMap.get("id")))
             .subscribe((gameTable: GameTable) => {
                 this.gameTable = gameTable;
                 this.SetMinAndMaxPlayers();
@@ -41,7 +41,6 @@ export class GameTableDetailComponent implements OnInit {
             });
     }
 
-    //duplicated in gameTable-add
     getAvailableTableBoardGameList(tableId: number): void {
         this.gameTableService
             .getAvailableTableBoardGameList(tableId)
@@ -50,7 +49,6 @@ export class GameTableDetailComponent implements OnInit {
             );
     }
 
-    //duplicated in gameTable-add
     addTableBoardGame(selectedTableBoardGameId: number): void {
         this.selectedTableBoardGame =
             this.availableTableBoardGames.filter(x => x.BoardGameId === Number(selectedTableBoardGameId))[0];
@@ -85,7 +83,7 @@ export class GameTableDetailComponent implements OnInit {
         var loc = this.location;
         this.gameTableService.update(this.gameTable)
             .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });
-        
+
     }
 
     goBack(): void {

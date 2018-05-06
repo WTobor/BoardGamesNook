@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services.Interfaces;
+using BoardGamesNook.Services.Models;
 
 namespace BoardGamesNook.Services
 {
@@ -10,12 +13,15 @@ namespace BoardGamesNook.Services
     {
         private readonly IBoardGameService _boardGameService;
         private readonly IGameParticipationService _gameParticipationService;
-        private readonly IGameTableRepository _gameTableRepository;
         private readonly IGameResultRepository _gameResultRepository;
+        private readonly IGamerService _gamerService;
+        private readonly IGameTableRepository _gameTableRepository;
 
-        public GameTableService(IGameTableRepository gameTableRepository, IBoardGameService boardGameService,
+        public GameTableService(IGamerService gamerService, IGameTableRepository gameTableRepository,
+            IBoardGameService boardGameService,
             IGameParticipationService gameParticipationService, IGameResultRepository gameResultRepository)
         {
+            _gamerService = gamerService;
             _gameTableRepository = gameTableRepository;
             _boardGameService = boardGameService;
             _gameParticipationService = gameParticipationService;
@@ -51,13 +57,17 @@ namespace BoardGamesNook.Services
             {
                 var tableResults = _gameResultRepository.GetAllByTableId(gameTable.Id);
                 var tableBoardGamesWithResultIds = tableResults.Select(x => x.BoardGameId).ToList();
+                var gameTableBoardGameIds = gameTable.BoardGames?.Select(x => x.Id).ToList();
 
-                if (!tableBoardGamesWithResultIds.SequenceEqual(gameTable.BoardGames.Select(x => x.Id).ToList()))
+
+                if (gameTableBoardGameIds != null && tableBoardGamesWithResultIds.Count != 0 &&
+                    !tableBoardGamesWithResultIds.SequenceEqual(gameTableBoardGameIds))
                 {
                     gameTable.BoardGames.RemoveAll(x => tableBoardGamesWithResultIds.Contains(x.Id));
                     gameTablesWithoutResults.Add(gameTable);
                 }
             }
+
             return gameTablesWithoutResults;
         }
 
@@ -99,6 +109,87 @@ namespace BoardGamesNook.Services
         public void DeactivateGameTable(int id)
         {
             _gameTableRepository.Deactivate(id);
+        }
+
+        public GameTableDto GetGameTableObj(int id)
+        {
+            var gameTable = GetGameTable(id);
+            var tableBoardGameObjs = Mapper.Map<List<TableBoardGameDto>>(gameTable.BoardGames);
+            tableBoardGameObjs.ForEach(x => Mapper.Map(gameTable, x));
+
+            var gameTableObjs = MapTableBoardGameObjsToGameTableObjs(tableBoardGameObjs);
+            return gameTableObjs.FirstOrDefault();
+        }
+
+        public IEnumerable<GameTableDto> GetAllGameTableObjs()
+        {
+            var gameTableList = GetAllGameTables();
+            var gameTableListViewModel = GetTableBoardGameObjs(gameTableList);
+            var result = MapTableBoardGameObjsToGameTableObjs(gameTableListViewModel);
+            return result;
+        }
+
+        public IEnumerable<GameTableDto> GetAllGameTableObjsByGamerNickname(string gamerNickname)
+        {
+            var gameTableList = GetAllGameTablesByGamerNickname(gamerNickname);
+            var tableBoardGameObjs = GetTableBoardGameObjs(gameTableList);
+            tableBoardGameObjs.ForEach(x => x.GamerNickname = gamerNickname);
+
+            var result = MapTableBoardGameObjsToGameTableObjs(tableBoardGameObjs);
+            return result;
+        }
+
+        public IEnumerable<GameTableDto> GetAllGameTableObjsWithoutResultsByGamerNickname(string gamerNickname)
+        {
+            var gameTableList = GetAllGameTablesWithoutResultsByGamerNickname(gamerNickname);
+
+            var tableBoardGameObjs = Mapper.Map<List<TableBoardGameDto>>(gameTableList);
+            tableBoardGameObjs.ForEach(x => x.GamerNickname = gamerNickname);
+
+            var result = MapTableBoardGameObjsToGameTableObjs(tableBoardGameObjs);
+            return result;
+        }
+
+        public IEnumerable<BoardGame> GetAvailableTableBoardGamesById(int id, Gamer gamer)
+        {
+            var availableTableBoardGameList = GetAvailableTableBoardGameListById(id).ToList();
+
+            return availableTableBoardGameList;
+        }
+
+        private List<TableBoardGameDto> GetTableBoardGameObjs(IEnumerable<GameTable> gameTableList)
+        {
+            var tableBoardGameObjs = new List<TableBoardGameDto>();
+            foreach (var gameTable in gameTableList)
+                if (gameTable.BoardGames != null)
+                    foreach (var boardGame in gameTable.BoardGames)
+                    {
+                        var gameTableObj = Mapper.Map<TableBoardGameDto>(boardGame);
+                        Mapper.Map(gameTable, gameTableObj);
+                        gameTableObj.GamerNickname = _gamerService.GetGamer(Guid.Parse(gameTableObj.GamerId))?.Nickname;
+                        tableBoardGameObjs.Add(gameTableObj);
+                    }
+
+            return tableBoardGameObjs;
+        }
+
+        private List<GameTableDto> MapTableBoardGameObjsToGameTableObjs(
+            List<TableBoardGameDto> tableBoardGameObjs)
+        {
+            var result = new List<GameTableDto>();
+            var tables = tableBoardGameObjs.GroupBy(x => x.TableId).ToDictionary(t => t.Key, t => t.ToList());
+            foreach (var tableGroup in tables)
+            {
+                var table = GetGameTable(tableGroup.Key);
+                var gameTableViewModel = Mapper.Map<GameTableDto>(table);
+                gameTableViewModel.Id = tableGroup.Key;
+                gameTableViewModel.TableBoardGameList = tableGroup.Value;
+                gameTableViewModel.CreatedGamerNickname =
+                    _gamerService.GetGamer(Guid.Parse(gameTableViewModel.CreatedGamerId))?.Nickname;
+                result.Add(gameTableViewModel);
+            }
+
+            return result;
         }
     }
 }

@@ -5,9 +5,9 @@
     MinPlayers: number;
     MaxPlayers: number;
     MinAge: number;
-    MinTime: number;
-    MaxTime: number;
-    BGGUrl: string;
+    MinTime: TimeRanges;
+    MaxTime: TimeRanges;
+    BGGId: number | null;
     IsExpansion: boolean;
     ParentId: number | null;
     ParentBoardGame: BoardGame | null;

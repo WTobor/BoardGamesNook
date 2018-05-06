@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
@@ -15,7 +16,7 @@ namespace BoardGamesNook.Tests
 
         private readonly Gamer _testGamer = new Gamer
         {
-            Id = "test",
+            Id = Guid.NewGuid(),
             Nickname = "test"
         };
 
@@ -55,12 +56,12 @@ namespace BoardGamesNook.Tests
         public void GetGamer()
         {
             //Arrange
-            _gamerRepositoryMock.Setup(mock => mock.Get(It.IsAny<string>()));
+            _gamerRepositoryMock.Setup(mock => mock.Get(It.IsAny<Guid>()));
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             gamerService.GetGamer(_testGamer.Id);
             //Assert
-            _gamerRepositoryMock.Verify(mock => mock.Get(It.Is<string>(x => x.Equals(_testGamer.Id))),
+            _gamerRepositoryMock.Verify(mock => mock.Get(It.Is<Guid>(x => x.Equals(_testGamer.Id))),
                 Times.Once());
         }
 
@@ -125,12 +126,12 @@ namespace BoardGamesNook.Tests
         public void DeactivateGamer()
         {
             //Arrange
-            _gamerRepositoryMock.Setup(mock => mock.Deactivate(It.IsAny<string>()));
+            _gamerRepositoryMock.Setup(mock => mock.Deactivate(It.IsAny<Guid>()));
             var gamerService = new GamerService(_gamerRepositoryMock.Object);
             //Act
             gamerService.DeactivateGamer(_testGamer.Id);
             //Assert
-            _gamerRepositoryMock.Verify(mock => mock.Deactivate(It.Is<string>(x => x.Equals(_testGamer.Id))),
+            _gamerRepositoryMock.Verify(mock => mock.Deactivate(It.Is<Guid>(x => x.Equals(_testGamer.Id))),
                 Times.Once());
         }
     }

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BoardGamesNook.Model;
 
 namespace BoardGamesNook.Services.Interfaces
 {
     public interface IGamerService
     {
-        Gamer GetGamer(string id);
+        Gamer GetGamer(Guid id);
 
         Gamer GetGamerByEmail(string userEmail);
 
@@ -19,6 +20,6 @@ namespace BoardGamesNook.Services.Interfaces
 
         void EditGamer(Gamer gamer);
 
-        void DeactivateGamer(string id);
+        void DeactivateGamer(Guid id);
     }
 }

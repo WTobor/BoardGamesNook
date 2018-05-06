@@ -10,6 +10,8 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<BoardGame> GetAll();
 
+        BoardGame GetBGGBoardGameById(int id);
+
         void Add(BoardGame boardGame);
 
         List<SimilarBoardGame> AddOrGetSimilar(string name);

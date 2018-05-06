@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using AutoMapper;
 using BoardGamesNook.Model;
@@ -12,16 +10,13 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerBoardGameController : Controller
     {
-        private readonly IBoardGameService _boardGameService;
         private readonly IGamerBoardGameService _gamerBoardGameService;
         private readonly IGamerService _gamerService;
 
         public GamerBoardGameController(IGamerBoardGameService gamerBoardGameService,
-            IBoardGameService boardGameService,
             IGamerService gamerService)
         {
             _gamerBoardGameService = gamerBoardGameService;
-            _boardGameService = boardGameService;
             _gamerService = gamerService;
         }
 
@@ -57,8 +52,7 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            var gamerBoardGame = GetGamerBoardGameObj(boardGameId, gamer);
-            _gamerBoardGameService.Add(gamerBoardGame);
+            _gamerBoardGameService.Add(boardGameId, gamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -70,12 +64,7 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            var dbGamerBoardGame = _gamerBoardGameService.GetGamerBoardGame(gamerBoardGameId);
-
-            if (dbGamerBoardGame == null)
-                return Json(string.Format(Errors.GamerBoardGameWithIdNotFound, gamerBoardGameId),
-                    JsonRequestBehavior.AllowGet);
-            _gamerBoardGameService.EditGamerBoardGame(dbGamerBoardGame);
+            _gamerBoardGameService.EditGamerBoardGame(gamerBoardGameId);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -102,21 +91,6 @@ namespace BoardGamesNook.Controllers
                 Mapper.Map(gamer, obj);
 
             return availableBoardGameListViewModel;
-        }
-
-
-        private GamerBoardGame GetGamerBoardGameObj(int boardGameId, Gamer gamer)
-        {
-            return new GamerBoardGame
-            {
-                Id = _gamerBoardGameService.GetAllGamerBoardGames().Select(x => x.Id).LastOrDefault() + 1,
-                GamerId = gamer.Id,
-                Gamer = gamer,
-                BoardGameId = boardGameId,
-                BoardGame = _boardGameService.Get(boardGameId),
-                CreatedDate = DateTimeOffset.Now,
-                Active = true
-            };
         }
     }
 }

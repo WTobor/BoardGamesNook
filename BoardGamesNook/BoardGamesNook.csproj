@@ -239,12 +239,14 @@
     <Compile Include="MapperProfiles\GamerBoardGameProfile.cs" />
     <Compile Include="MapperProfiles\GamerProfile.cs" />
     <Compile Include="MapperProfiles\GameTableProfile.cs" />
+    <Compile Include="MapperProfiles\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\GameResult\GameResultViewModel.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />
     <Compile Include="ViewModels\GameParticipation\GameParticipationViewModel.cs" />
     <Compile Include="ViewModels\GamerBoardGame\GamerBoardGameViewModel.cs" />
     <Compile Include="ViewModels\Gamer\GamerViewModel.cs" />
+    <Compile Include="ViewModels\GameTable\EditTableBoardGameViewModel.cs" />
     <Compile Include="ViewModels\GameTable\GameTableViewModel.cs" />
     <Compile Include="ViewModels\GameTable\TableBoardGameViewModel.cs" />
     <Compile Include="ViewModels\AuthenticateCallbackViewModel.cs" />
@@ -254,7 +256,9 @@
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
     <Content Include="Content\images\facebok64.png" />
     <Content Include="Content\images\github64.png" />
     <Content Include="Content\images\google64.png" />
@@ -409,6 +413,7 @@
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGame.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames-routing.module.ts" />
     <TypeScriptCompile Include="src\gamerBoardGames\gamerBoardGames.module.ts" />
+    <TypeScriptCompile Include="src\gameTables\editTableBoardGame.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-add.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-detail.component.ts" />
     <TypeScriptCompile Include="src\gameTables\gameTable-list.component.ts" />
