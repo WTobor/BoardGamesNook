@@ -5,6 +5,7 @@ using AutoMapper;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
 using BoardGamesNook.Services.Models;
+using BoardGamesNook.Validators;
 using BoardGamesNook.ViewModels.GameTable;
 
 namespace BoardGamesNook.Controllers
@@ -13,10 +14,12 @@ namespace BoardGamesNook.Controllers
     public class GameTableController : Controller
     {
         private readonly IGameTableService _gameTableService;
+        private readonly GameTableValidator _gameTableValidator;
 
         public GameTableController(IGameTableService gameTableService)
         {
             _gameTableService = gameTableService;
+            _gameTableValidator = new GameTableValidator();
         }
 
         public JsonResult Get(int id)
@@ -79,15 +82,23 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(GameTableViewModel model)
         {
-            if (!(Session["gamer"] is Gamer gamer))
-                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            var results = _gameTableValidator.Validate(model);
+            if (results.IsValid)
+            {
+                if (!(Session["gamer"] is Gamer gamer))
+                    return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            var gameTable = GetGameTable(model, gamer);
-            var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
+                var gameTable = GetGameTable(model, gamer);
+                var tableBoardGameIdList = model.TableBoardGameList.Select(x => x.BoardGameId).ToList();
 
-            _gameTableService.CreateGameTable(gameTable, tableBoardGameIdList);
+                _gameTableService.CreateGameTable(gameTable, tableBoardGameIdList);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var joinedErrors = string.Join(" ", results.Errors.Select(x => x.ErrorMessage).ToList());
+
+            return Json(joinedErrors, JsonRequestBehavior.AllowGet);
         }
 
         private GameTable GetGameTable(GameTableViewModel gameTableViewModel, Gamer gamer)
