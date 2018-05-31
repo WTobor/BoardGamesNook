@@ -10,7 +10,6 @@ namespace BoardGamesNook.Controllers
     [AuthorizeCustom]
     public class GamerBoardGameController : Controller
     {
-        // AM: remember to remove unused variables and dependencies
         private readonly IGamerBoardGameService _gamerBoardGameService;
         private readonly IGamerService _gamerService;
 
@@ -33,8 +32,6 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetAllByGamerNickname(string nickname)
         {
-            if (!(Session["gamer"] is Gamer))
-                return Json(string.Format(Errors.GamerWithNicknameNotLoggedIn, nickname), JsonRequestBehavior.AllowGet);
             var gamerList = _gamerBoardGameService.GetAllGamerBoardGamesByGamerNickname(nickname);
             var gamerListViewModel = Mapper.Map<IEnumerable<GamerBoardGameViewModel>>(gamerList);
 
@@ -51,9 +48,7 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(int boardGameId)
         {
-            if (!(Session["gamer"] is Gamer gamer))
-                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            _gamerBoardGameService.Add(boardGameId, gamer);
+            _gamerBoardGameService.Add(boardGameId, Session["gamer"] as Gamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -62,9 +57,6 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(int gamerBoardGameId)
         {
-            if (!(Session["gamer"] is Gamer))
-                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-
             _gamerBoardGameService.EditGamerBoardGame(gamerBoardGameId);
 
             return Json(null, JsonRequestBehavior.AllowGet);
@@ -73,9 +65,6 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Deactivate(int id)
         {
-            if (!(Session["gamer"] is Gamer))
-                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-
             _gamerBoardGameService.DeactivateGamerBoardGame(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
