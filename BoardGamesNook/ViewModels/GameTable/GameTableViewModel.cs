@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using BoardGamesNook.Validators;
+using FluentValidation.Attributes;
 
 namespace BoardGamesNook.ViewModels.GameTable
 {
+    [Validator(typeof(GameTableValidator))]
     public class GameTableViewModel
     {
         public int Id { get; set; }

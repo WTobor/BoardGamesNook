@@ -15,6 +15,7 @@ using BoardGamesNook.Services.Interfaces;
 using SimpleAuthentication.Core;
 using SimpleAuthentication.Mvc;
 using SimpleAuthentication.Mvc.Caching;
+using FluentValidation.Mvc;
 
 namespace BoardGamesNook
 {
@@ -26,6 +27,7 @@ namespace BoardGamesNook
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            FluentValidationModelValidatorProvider.Configure();
 
             var builder = new ContainerBuilder();
 
