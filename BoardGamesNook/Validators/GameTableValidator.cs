@@ -7,9 +7,9 @@ namespace BoardGamesNook.Validators
     {
         public GameTableValidator()
         {
-            RuleFor(gameTable => gameTable.City).MinimumLength(3).WithMessage("Miasto musi mieć minimum 3 znaki!");
-            RuleFor(gameTable => gameTable.City).Matches("^[a-zA-Z\\s]+$")
-                .WithMessage("Miasto musi się składać z liter!");
+            RuleFor(gameTable => gameTable.City)
+                .MinimumLength(3).WithMessage("Miasto musi mieć minimum 3 znaki!")
+                .Matches("^[a-zA-Z\\s]+$").WithMessage("Miasto musi się składać z liter!");
         }
     }
 }
