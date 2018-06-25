@@ -70,13 +70,19 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(GameResultViewModel gameResultViewModel)
         {
-            if (!(Session["gamer"] is Gamer gamer))
-                return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+            if (ModelState.IsValid)
+            {
+                if (!(Session["gamer"] is Gamer gamer))
+                    return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            var gameResult = GetGameResultObj(gameResultViewModel, gamer);
-            _gameResultService.AddGameResult(gameResult);
+                var gameResult = GetGameResultObj(gameResultViewModel, gamer);
+                _gameResultService.AddGameResult(gameResult);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var errors = Helpers.GetErrorMessages(ModelState.Values);
+            return Json(errors, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

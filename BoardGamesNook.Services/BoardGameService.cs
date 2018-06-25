@@ -29,6 +29,9 @@ namespace BoardGamesNook.Services
 
         public List<SimilarBoardGame> AddOrGetSimilar(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                return new List<SimilarBoardGame>();
+
             var boardGameId = BGGBoardGame.GetBoardGameId(name);
             if (boardGameId != 0)
             {

@@ -236,6 +236,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers.cs" />
     <Compile Include="MapperProfiles\GameResultProfile.cs" />
     <Compile Include="MapperProfiles\BoardGameProfile.cs" />
     <Compile Include="MapperProfiles\GameParticipationProfile.cs" />
@@ -244,6 +245,8 @@
     <Compile Include="MapperProfiles\GameTableProfile.cs" />
     <Compile Include="MapperProfiles\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\GameResultValidator.cs" />
+    <Compile Include="Validators\BoardGameValidator.cs" />
     <Compile Include="Validators\GameTableValidator.cs" />
     <Compile Include="ViewModels\GameResult\GameResultViewModel.cs" />
     <Compile Include="ViewModels\BoardGame\BoardGameViewModel.cs" />
@@ -450,6 +453,7 @@
     <EmbeddedResource Include="Errors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -70,8 +70,7 @@ namespace BoardGamesNook.Controllers
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var gameTableObjs = _gameTableService.GetAllGameTableObjsWithoutResultsByGamerNickname(nickname);
-            // AM: Controllers should always return view models.
-            var result = Mapper.Map<List<GameTable>>(gameTableObjs);
+            var result = Mapper.Map<List<GameTableViewModel>>(gameTableObjs);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -92,10 +91,8 @@ namespace BoardGamesNook.Controllers
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
 
-            var joinedErrors = string.Join(" ",
-                ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)));
-
-            return Json(joinedErrors, JsonRequestBehavior.AllowGet);
+            var errors = Helpers.GetErrorMessages(ModelState.Values);
+            return Json(errors, JsonRequestBehavior.AllowGet);
         }
 
         private GameTable GetGameTable(GameTableViewModel gameTableViewModel, Gamer gamer)

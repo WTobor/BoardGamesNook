@@ -52,10 +52,16 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Edit(BoardGameViewModel boardGameViewModel)
         {
-            var boardGame = Mapper.Map<BoardGame>(boardGameViewModel);
-            _boardGameService.Edit(boardGame);
+            if (ModelState.IsValid)
+            {
+                var boardGame = Mapper.Map<BoardGame>(boardGameViewModel);
+                _boardGameService.Edit(boardGame);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var errors = Helpers.GetErrorMessages(ModelState.Values);
+            return Json(errors, JsonRequestBehavior.AllowGet);
         }
 
 

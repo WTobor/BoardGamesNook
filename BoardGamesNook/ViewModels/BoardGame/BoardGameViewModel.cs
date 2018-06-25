@@ -1,5 +1,9 @@
-﻿namespace BoardGamesNook.ViewModels.BoardGame
+﻿using BoardGamesNook.Validators;
+using FluentValidation.Attributes;
+
+namespace BoardGamesNook.ViewModels.BoardGame
 {
+    [Validator(typeof(BoardGameValidator))]
     public class BoardGameViewModel
     {
         public int Id { get; set; }
