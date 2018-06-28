@@ -6,11 +6,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BoardGamesNook.Tests
 {
     [TestClass]
-    public class ValidationTest
+    public class BoardGameValidationTest
     {
         private readonly BoardGameValidator _boardGameValidator;
 
-        public ValidationTest()
+        public BoardGameValidationTest()
         {
             _boardGameValidator = new BoardGameValidator();
         }

@@ -68,13 +68,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BoardGameServiceTest.cs" />
+    <Compile Include="GameTableValidationTest.cs" />
+    <Compile Include="GameResultValidationTest.cs" />
     <Compile Include="GameResultTest.cs" />
     <Compile Include="GameParticipationTest.cs" />
     <Compile Include="GamerBoardGameServiceTest.cs" />
     <Compile Include="GamerServiceTest.cs" />
     <Compile Include="GameTableServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValidationTest.cs" />
+    <Compile Include="BoardGameValidationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">
