@@ -10,8 +10,8 @@ namespace BoardGamesNook.Validators
             RuleFor(boardGame => boardGame.MaxPlayers)
                 .GreaterThan(0).WithMessage("Maksymalna liczba graczy musi być dodatnia!");
             RuleFor(boardGame => boardGame)
-                .Must(boardGame => boardGame.MaxPlayers > boardGame.MinPlayers)
-                .WithMessage("Maksymalna liczba graczy musi być większa od minimalnej liczby graczy!");
+                .Must(boardGame => boardGame.MaxPlayers >= boardGame.MinPlayers)
+                .WithMessage("Maksymalna liczba graczy musi być większa lub równa minimalnej liczby graczy!");
             RuleFor(boardGame => boardGame.MaxTime)
                 .GreaterThan(0).WithMessage("Maksymalny czas gry musi być dodatni!");
         }

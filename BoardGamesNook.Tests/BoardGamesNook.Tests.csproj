@@ -41,6 +41,7 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0" />
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.1\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -73,6 +74,7 @@
     <Compile Include="GamerServiceTest.cs" />
     <Compile Include="GameTableServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BoardGamesNook.Model\BoardGamesNook.Model.csproj">
@@ -86,6 +88,10 @@
     <ProjectReference Include="..\BoardGamesNook.Services\BoardGamesNook.Services.csproj">
       <Project>{6d2ca308-019d-4ba6-8bd9-c7698fd62dfd}</Project>
       <Name>BoardGamesNook.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BoardGamesNook\BoardGamesNook.csproj">
+      <Project>{25946406-A91B-4B5D-AADD-37530A434E1E}</Project>
+      <Name>BoardGamesNook</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
