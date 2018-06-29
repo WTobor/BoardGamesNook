@@ -7,8 +7,9 @@ namespace BoardGamesNook.Validators
     {
         public GameResultValidator()
         {
-            RuleFor(gameResult => gameResult)
-                .Must(gameResult => gameResult.PlayersNumber >= gameResult.Place)
+            RuleFor(gameResult => gameResult.PlayersNumber)
+                .GreaterThanOrEqualTo(gameResult => gameResult.Place.Value)
+                .When(gameResult => gameResult.Place.HasValue)
                 .WithMessage("Maksymalna liczba graczy musi być większa lub równa zajętemu miejscu!");
         }
     }
