@@ -15,32 +15,37 @@ namespace BoardGamesNook.Tests
             _boardGameValidator = new BoardGameValidator();
         }
 
-        [TestMethod]
-        public void MaxPlayerEquals0ThrowsError()
+        [DataTestMethod]
+        [DataRow(0)]
+        public void MaxPlayersThrowsError(int maxPlayers)
         {
-            _boardGameValidator.ShouldHaveValidationErrorFor(boardGame => boardGame.MaxPlayers, 0);
+            _boardGameValidator.ShouldHaveValidationErrorFor(boardGame => boardGame.MaxPlayers, maxPlayers);
         }
 
-        [TestMethod]
-        public void MaxPlayerGreaterThan0Passes()
+        [DataTestMethod]
+        [DataRow(1)]
+        public void MaxPlayersPasses(int maxPlayers)
         {
-            _boardGameValidator.ShouldNotHaveValidationErrorFor(boardGame => boardGame.MaxPlayers, 1);
+            _boardGameValidator.ShouldNotHaveValidationErrorFor(boardGame => boardGame.MaxPlayers, maxPlayers);
         }
 
-        [TestMethod]
-        public void MaxTimeEquals0ThrowsError()
+        [DataTestMethod]
+        [DataRow(0)]
+        public void MaxTimeThrowsError(int maxTime)
         {
-            _boardGameValidator.ShouldHaveValidationErrorFor(boardGame => boardGame.MaxTime, 0);
+            _boardGameValidator.ShouldHaveValidationErrorFor(boardGame => boardGame.MaxTime, maxTime);
         }
 
-        [TestMethod]
-        public void MaxTimeGreaterThan0Passes()
+        [DataTestMethod]
+        [DataRow(1)]
+        public void MaxTimePasses(int maxTime)
         {
-            _boardGameValidator.ShouldNotHaveValidationErrorFor(boardGame => boardGame.MaxTime, 1);
+            _boardGameValidator.ShouldNotHaveValidationErrorFor(boardGame => boardGame.MaxTime, maxTime);
         }
 
-        [TestMethod]
-        public void MaxPlayersLessThanMinPlayersThrowsError()
+        [DataTestMethod]
+        [DataRow(1, 0)]
+        public void MaxPlayersWithMinPlayersThrowsError(int minPlayers, int maxPlayers)
         {
             var boardGame = new BoardGameViewModel
             {
@@ -50,24 +55,15 @@ namespace BoardGamesNook.Tests
             _boardGameValidator.ShouldHaveValidationErrorFor(x => x.MaxPlayers, boardGame);
         }
 
-        [TestMethod]
-        public void MaxPlayersEqualsMinPlayersPasses()
+        [DataTestMethod]
+        [DataRow(1, 1)]
+        [DataRow(1, 2)]
+        public void MaxPlayersWithMinPlayersPasses(int minPlayers, int maxPlayers)
         {
             var boardGame = new BoardGameViewModel
             {
-                MinPlayers = 1,
-                MaxPlayers = 1
-            };
-            _boardGameValidator.ShouldNotHaveValidationErrorFor(x => x.MaxPlayers, boardGame);
-        }
-
-        [TestMethod]
-        public void MaxPlayersGreaterThanMinPlayersPasses()
-        {
-            var boardGame = new BoardGameViewModel
-            {
-                MinPlayers = 1,
-                MaxPlayers = 2
+                MinPlayers = minPlayers,
+                MaxPlayers = maxPlayers
             };
             _boardGameValidator.ShouldNotHaveValidationErrorFor(x => x.MaxPlayers, boardGame);
         }

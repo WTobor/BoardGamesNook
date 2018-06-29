@@ -14,28 +14,19 @@ namespace BoardGamesNook.Tests
             _gameTableValidator = new GameTableValidator();
         }
 
-        [TestMethod]
-        public void CityHasNumbersThrowsError()
+        [DataTestMethod]
+        [DataRow("a")]
+        [DataRow("123")]
+        public void CityThrowsError(string city)
         {
-            _gameTableValidator.ShouldHaveValidationErrorFor(boardGame => boardGame.City, "123");
+            _gameTableValidator.ShouldHaveValidationErrorFor(boardGame => boardGame.City, city);
         }
 
-        [TestMethod]
-        public void CityHasOnlyLettersPasses()
+        [DataTestMethod]
+        [DataRow("abc")]
+        public void CityPasses(string city)
         {
-            _gameTableValidator.ShouldNotHaveValidationErrorFor(gameTable => gameTable.City, "abc");
-        }
-
-        [TestMethod]
-        public void CityTooShortThrowsError()
-        {
-            _gameTableValidator.ShouldHaveValidationErrorFor(gameTable => gameTable.City, "a");
-        }
-
-        [TestMethod]
-        public void CityLongEnoughtPasses()
-        {
-            _gameTableValidator.ShouldNotHaveValidationErrorFor(gameTable => gameTable.City, "abc");
+            _gameTableValidator.ShouldNotHaveValidationErrorFor(gameTable => gameTable.City, city);
         }
     }
 }

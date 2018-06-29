@@ -15,35 +15,27 @@ namespace BoardGamesNook.Tests
             _gameResultValidator = new GameResultValidator();
         }
 
-        [TestMethod]
-        public void PlayersNumberLessThanPlaceThrowsError()
+        [DataTestMethod]
+        [DataRow(1,2)]
+        public void PlayersNumberThrowsError(int playersNumber, int place)
         {
             var gameResult = new GameResultViewModel
             {
-                PlayersNumber = 1,
-                Place = 2
+                PlayersNumber = playersNumber,
+                Place = place
             };
             _gameResultValidator.ShouldHaveValidationErrorFor(x => x.PlayersNumber, gameResult);
         }
 
-        [TestMethod]
-        public void PlayersNumberEqualsPlacePasses()
+        [DataTestMethod]
+        [DataRow(1,1)]
+        [DataRow(2,1)]
+        public void PlayersNumberPasses(int playersNumber, int place)
         {
             var gameResult = new GameResultViewModel
             {
-                PlayersNumber = 1,
-                Place = 1
-            };
-            _gameResultValidator.ShouldNotHaveValidationErrorFor(x => x.PlayersNumber, gameResult);
-        }
-
-        [TestMethod]
-        public void PlayersNumberGreaterThanPlacePasses()
-        {
-            var gameResult = new GameResultViewModel
-            {
-                PlayersNumber = 2,
-                Place = 1
+                PlayersNumber = playersNumber,
+                Place = place
             };
             _gameResultValidator.ShouldNotHaveValidationErrorFor(x => x.PlayersNumber, gameResult);
         }
