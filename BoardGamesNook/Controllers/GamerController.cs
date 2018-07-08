@@ -44,18 +44,29 @@ namespace BoardGamesNook.Controllers
         [HttpPost]
         public JsonResult Add(GamerViewModel gamerViewModel)
         {
+            if (ModelState.IsValid)
+            {
+                if (!(Session["user"] is User loggedUser))
+                    return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
+
+                var gamer = GetGamerObj(gamerViewModel, loggedUser);
+                _gamerService.AddGamer(gamer);
+
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var errors = Helpers.GetErrorMessages(ModelState.Values);
+            return Json(errors, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Edit(GamerViewModel gamerViewModel)
+        {
             if (!(Session["user"] is User loggedUser))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
             var gamer = GetGamerObj(gamerViewModel, loggedUser);
-            _gamerService.AddGamer(gamer);
 
-            return Json(null, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult Edit(Gamer gamer)
-        {
             _gamerService.EditGamer(gamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
@@ -71,7 +82,9 @@ namespace BoardGamesNook.Controllers
 
         public JsonResult GetCurrentGamerNickname()
         {
-            var currentGamerNick = !(Session["gamer"] is Gamer currentGamer) ? string.Empty : currentGamer.Nickname;
+            var currentGamerNick = !(Session["gamerViewModel"] is Gamer currentGamer)
+                ? string.Empty
+                : currentGamer.Nickname;
             return Json(currentGamerNick, JsonRequestBehavior.AllowGet);
         }
 
