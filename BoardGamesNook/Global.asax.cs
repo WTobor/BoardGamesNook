@@ -62,6 +62,7 @@ namespace BoardGamesNook
                 {
                     cfg.AddProfile<GamerBoardGameProfile>();
                     cfg.AddProfile<GamerProfile>();
+                    cfg.AddProfile<UserProfile>();
                     cfg.AddProfile<GamerBoardGameProfile>();
                     cfg.AddProfile<GameResultProfile>();
                     cfg.AddProfile<BoardGameProfile>();
