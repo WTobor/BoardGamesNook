@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using BoardGamesNook.Model;
 using BoardGamesNook.Services.Interfaces;
+using BoardGamesNook.Services.Models;
 using BoardGamesNook.ViewModels.GameResult;
 
 namespace BoardGamesNook.Controllers
@@ -74,11 +75,9 @@ namespace BoardGamesNook.Controllers
         {
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
-            // AM: This business logic should be in the service.
-            // WT: but what about VMs?
-            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
-            var gameResult = GetGameResultObj(gameResultViewModel, gamer);
-            _gameResultService.AddGameResult(gameResult);
+
+            var gameResultDto = Mapper.Map<GameResultDto>(gameResultViewModel);
+            _gameResultService.AddGameResult(gameResultDto, gamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -89,11 +88,8 @@ namespace BoardGamesNook.Controllers
             if (!(Session["gamer"] is Gamer gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            // AM: This business logic should be in the service.
-            // WT: but what about VMs?
-            // AM: Create additional models (Dto) - service should return this new model and here you should map this new model to view model
-            var gameResults = GetGameResultObjs(gameResultViewModels, gamer);
-            _gameResultService.AddGameResults(gameResults);
+            var gameResultDtoList = Mapper.Map<List<GameResultDto>>(gameResultViewModels);
+            _gameResultService.AddGameResults(gameResultDtoList, gamer);
 
             return Json(null, JsonRequestBehavior.AllowGet);
         }
@@ -119,19 +115,6 @@ namespace BoardGamesNook.Controllers
             _gameResultService.DeactivateGameResult(id);
 
             return Json(null, JsonRequestBehavior.AllowGet);
-        }
-
-
-        private List<GameResult> GetGameResultObjs(IEnumerable<GameResultViewModel> gameResultViewModels, Gamer gamer)
-        {
-            var result = new List<GameResult>();
-            foreach (var gameResultViewModel in gameResultViewModels)
-            {
-                var obj = GetGameResultObj(gameResultViewModel, gamer);
-                result.Add(obj);
-            }
-
-            return result;
         }
 
         private GameResult GetGameResultObj(GameResultViewModel gameResultViewModel, Gamer gamer)

@@ -5,6 +5,7 @@ using AutoMapper;
 using BoardGamesNook.Model;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services;
+using BoardGamesNook.Services.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -13,6 +14,8 @@ namespace BoardGamesNook.Tests
     [TestClass]
     public class GameResultTest
     {
+        private static readonly Guid _testGuid1 = Guid.NewGuid();
+        private static readonly Guid _testGuid2 = Guid.NewGuid();
         private readonly Mock<IGameResultRepository> _gameResultRepositoryMock;
         private readonly Mock<IGamerRepository> _gamerRepositoryMock;
         private readonly Mock<IGameTableRepository> _gameTableRepositoryMock;
@@ -22,8 +25,51 @@ namespace BoardGamesNook.Tests
             Id = 1,
             GameTableId = 1,
             GameTable = new GameTable(),
-            GamerId = Guid.NewGuid(),
+            GamerId = _testGuid1,
             Gamer = new Gamer()
+        };
+
+        private readonly GameResultDto _testGameResultDto = new GameResultDto
+        {
+            Id = 1,
+            GameTableId = 1,
+            GamerId = _testGuid1.ToString()
+        };
+
+        private readonly List<GameResultDto> _testGameResultDtoList = new List<GameResultDto>
+        {
+            new GameResultDto
+            {
+                Id = 1,
+                GameTableId = 1,
+                GamerId = _testGuid1.ToString()
+            },
+            new GameResultDto
+            {
+                Id = 2,
+                GameTableId = 2,
+                GamerId = _testGuid2.ToString()
+            }
+        };
+
+        private readonly List<GameResult> _testGameResultList = new List<GameResult>
+        {
+            new GameResult
+            {
+                Id = 1,
+                GameTableId = 1,
+                GameTable = new GameTable(),
+                GamerId = _testGuid1,
+                Gamer = new Gamer()
+            },
+            new GameResult
+            {
+                Id = 2,
+                GameTableId = 2,
+                GameTable = new GameTable(),
+                GamerId = _testGuid2,
+                Gamer = new Gamer()
+            }
         };
 
         public GameResultTest()
@@ -56,10 +102,29 @@ namespace BoardGamesNook.Tests
             _gameResultRepositoryMock.Setup(mock => mock.Add(It.IsAny<GameResult>()));
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
                 _gameTableRepositoryMock.Object);
+            Mapper.Reset();
+            Mapper.Initialize(cfg => { cfg.AddServicesProfiles(); });
             //Act
-            gameResultService.AddGameResult(_testGameResult);
+            gameResultService.AddGameResult(_testGameResultDto, new Gamer());
             //Assert
             _gameResultRepositoryMock.Verify(mock => mock.Add(It.Is<GameResult>(x => x.Equals(_testGameResult))),
+                Times.Once());
+        }
+
+        [TestMethod]
+        public void AddManyGameResultToGameResultsList()
+        {
+            //Arrange
+            _gameResultRepositoryMock.Setup(mock => mock.AddMany(It.IsAny<List<GameResult>>()));
+            var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
+                _gameTableRepositoryMock.Object);
+            Mapper.Reset();
+            Mapper.Initialize(cfg => { cfg.AddServicesProfiles(); });
+            //Act
+            gameResultService.AddGameResults(_testGameResultDtoList, new Gamer());
+            //Assert
+            _gameResultRepositoryMock.Verify(
+                mock => mock.AddMany(It.Is<List<GameResult>>(x => x.Equals(_testGameResultList))),
                 Times.Once());
         }
 

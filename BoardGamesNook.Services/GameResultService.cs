@@ -40,13 +40,19 @@ namespace BoardGamesNook.Services
             return MapGameResultListToGameResultDtoList(gameResultList);
         }
 
-        public void AddGameResult(GameResult gameResult)
+        public void AddGameResult(GameResultDto gameResultDto, Gamer gamer)
         {
+            var gameResult = Mapper.Map<GameResultDto, GameResult>(gameResultDto);
+            Mapper.Map(gamer, gameResult);
             _gameResultRepository.Add(gameResult);
         }
 
-        public void AddGameResults(List<GameResult> gameResults)
+        public void AddGameResults(List<GameResultDto> gameResultDtoList, Gamer gamer)
         {
+            var gameResults =
+                Mapper.Map<List<GameResultDto>, List<GameResult>>(gameResultDtoList);
+            foreach (var obj in gameResults)
+                Mapper.Map(gamer, obj);
             _gameResultRepository.AddMany(gameResults);
         }
 
