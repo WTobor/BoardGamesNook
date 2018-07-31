@@ -15,8 +15,13 @@ namespace BoardGamesNook.Controllers
         public ActionResult Set(string userString)
         {
             var user = JsonConvert.DeserializeObject<User>(userString);
-            Session["user"] = user;
-            return RedirectToAction("Index", "Home");
+            if (user != null)
+            {
+                Session["user"] = user;
+                return RedirectToAction("Index", "Home");
+            }
+
+            return new RedirectResult("/", true);
         }
 
         public JsonResult LogOut()
