@@ -11,16 +11,18 @@ namespace BoardGamesNook.Services
 {
     public class GameResultService : IGameResultService
     {
+        private readonly IBoardGameRepository _boardGameRepository;
         private readonly IGameResultRepository _gameResultRepository;
         private readonly IGamerRepository _gamerRepository;
         private readonly IGameTableRepository _gameTableRepository;
 
         public GameResultService(IGameResultRepository gameResultRepository, IGamerRepository gamerRepository,
-            IGameTableRepository gameTableRepository)
+            IGameTableRepository gameTableRepository, IBoardGameRepository boardGameRepository)
         {
             _gameResultRepository = gameResultRepository;
             _gamerRepository = gamerRepository;
             _gameTableRepository = gameTableRepository;
+            _boardGameRepository = boardGameRepository;
         }
 
         public IEnumerable<GameResultDto> GetAllGameResults()
@@ -42,8 +44,16 @@ namespace BoardGamesNook.Services
 
         public void AddGameResult(GameResultDto gameResultDto, Gamer gamer)
         {
+            GameTable gameTable = null;
+            if (gameResultDto.GameTableId.HasValue)
+                gameTable = _gameTableRepository.Get(gameResultDto.GameTableId.Value);
+
+            var boardGame = _boardGameRepository.Get(gameResultDto.BoardGameId);
+
             var gameResult = Mapper.Map<GameResultDto, GameResult>(gameResultDto);
             Mapper.Map(gamer, gameResult);
+            Mapper.Map(gameTable, gameResult);
+            Mapper.Map(boardGame, gameResult);
             _gameResultRepository.Add(gameResult);
         }
 

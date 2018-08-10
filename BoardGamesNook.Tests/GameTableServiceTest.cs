@@ -14,6 +14,7 @@ namespace BoardGamesNook.Tests
     [TestClass]
     public class GameTableServiceTest
     {
+        private static readonly Guid testUserId = Guid.NewGuid();
         private readonly Mock<IBoardGameRepository> _boardGameRepositoryMock;
         private readonly Mock<IGameParticipationRepository> _gameParticipationRepositoryMock;
         private readonly Mock<IGameResultRepository> _gameResultRepositoryMock;
@@ -25,7 +26,7 @@ namespace BoardGamesNook.Tests
             new GameParticipation
             {
                 Id = 1,
-                CreatedGamerId = Guid.NewGuid(),
+                CreatedGamerId = testUserId,
                 Gamer = new Gamer(),
                 GameTable = new GameTable(),
                 GameTableId = 1,
@@ -37,6 +38,7 @@ namespace BoardGamesNook.Tests
         {
             Id = 1,
             BoardGames = new List<BoardGame>(),
+            CreatedGamerId = testUserId,
             GameParticipations = null,
             Active = true
         };
