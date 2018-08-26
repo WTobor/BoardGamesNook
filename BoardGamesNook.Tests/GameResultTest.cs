@@ -64,6 +64,8 @@ namespace BoardGamesNook.Tests
             Id = 1,
             GameTableId = 1,
             GamerId = _testGuid1.ToString(),
+            CreatedGamerId = _testGamer1.Id.ToString(),
+            CreatedGamerNickname = _testGamer1.Nickname,
             BoardGameId = 1
         };
 
@@ -74,6 +76,8 @@ namespace BoardGamesNook.Tests
                 Id = 1,
                 GameTableId = 1,
                 GamerId = _testGuid1.ToString(),
+                CreatedGamerId = _testGamer1.Id.ToString(),
+                CreatedGamerNickname = _testGamer1.Nickname,
                 BoardGameId = 1
             },
             new GameResultDto
@@ -81,6 +85,8 @@ namespace BoardGamesNook.Tests
                 Id = 2,
                 GameTableId = 2,
                 GamerId = _testGuid2.ToString(),
+                CreatedGamerId = _testGamer1.Id.ToString(),
+                CreatedGamerNickname = _testGamer1.Nickname,
                 BoardGameId = 1
             }
         };
@@ -169,12 +175,15 @@ namespace BoardGamesNook.Tests
         {
             //Arrange
             _gameResultRepositoryMock.Setup(mock => mock.AddMany(It.IsAny<List<GameResult>>()));
+            _gameTableRepositoryMock.Setup(mock => mock.Get(1)).Returns(_testGameTable1);
+            _gameTableRepositoryMock.Setup(mock => mock.Get(2)).Returns(_testGameTable2);
+            _boardGameRepositoryMock.Setup(mock => mock.Get(It.IsAny<int>())).Returns(_testBoardGame);
             var gameResultService = new GameResultService(_gameResultRepositoryMock.Object, _gamerRepositoryMock.Object,
                 _gameTableRepositoryMock.Object, _boardGameRepositoryMock.Object);
             Mapper.Reset();
             Mapper.Initialize(cfg => { cfg.AddServicesProfiles(); });
             //Act
-            gameResultService.AddGameResults(_testGameResultDtoList, new Gamer());
+            gameResultService.AddGameResults(_testGameResultDtoList, _testGamer1);
             //Assert
             _gameResultRepositoryMock.Verify(
                 mock => mock.AddMany(It.Is<List<GameResult>>(
