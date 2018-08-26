@@ -12,10 +12,10 @@ using BoardGamesNook.Repository.Generators;
 using BoardGamesNook.Repository.Interfaces;
 using BoardGamesNook.Services;
 using BoardGamesNook.Services.Interfaces;
+using FluentValidation.Mvc;
 using SimpleAuthentication.Core;
 using SimpleAuthentication.Mvc;
 using SimpleAuthentication.Mvc.Caching;
-using FluentValidation.Mvc;
 
 namespace BoardGamesNook
 {
@@ -64,11 +64,11 @@ namespace BoardGamesNook
                 {
                     cfg.AddProfile<GamerBoardGameProfile>();
                     cfg.AddProfile<GamerProfile>();
+                    cfg.AddProfile<UserProfile>();
                     cfg.AddProfile<GamerBoardGameProfile>();
                     cfg.AddProfile<GameResultProfile>();
                     cfg.AddProfile<BoardGameProfile>();
                     cfg.AddProfile<GameTableProfile>();
-                    cfg.AddProfile<UserProfile>();
                     cfg.AddServicesProfiles();
                 }
             );

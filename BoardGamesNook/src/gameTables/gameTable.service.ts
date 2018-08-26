@@ -28,14 +28,14 @@ export class GameTableService {
     }
 
     getGameTablesByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
-        if (gamerNickname !== null && gamerNickname !== "") {
-            const urlWithNickname = `${this._getGameTableListByGamerNicknameUrl}`;
-            return this.http.get<GameTable[]>(urlWithNickname,
+        if (gamerNickname != null && gamerNickname !== "") {
+            var url = `${this._getGameTableListByGamerNicknameUrl}`;
+            return this.http.get<GameTable[]>(url,
                 {
                     params: new HttpParams().set("nickname", gamerNickname)
                 });
         } else {
-            const url = `${this._getGameTableListUrl}`;
+            var url = `${this._getGameTableListUrl}`;
             return this.http.get<GameTable[]>(url);
         }
     }

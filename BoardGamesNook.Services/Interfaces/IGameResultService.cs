@@ -14,9 +14,9 @@ namespace BoardGamesNook.Services.Interfaces
 
         IEnumerable<GameResultDto> GetAllByGamerNickname(string nickname);
 
-        void AddGameResult(GameResult gameResult);
+        void AddGameResult(GameResultDto gameResult, Gamer gamer);
 
-        void AddGameResults(List<GameResult> gameResults);
+        void AddGameResults(List<GameResultDto> gameResults, Gamer gamer);
 
         void EditGameResult(GameResult gameResult);
 

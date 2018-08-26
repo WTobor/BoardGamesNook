@@ -103,12 +103,12 @@ namespace BoardGamesNook.Controllers
         }
 
         [HttpPost]
-        public JsonResult Edit(EditTableBoardGameViewModel editTableBoardGame)
+        public JsonResult Edit(int gameTableId, List<int> tableBoardGameId)
         {
             if (!(Session["gamer"] is Gamer))
                 return Json(Errors.GamerNotLoggedIn, JsonRequestBehavior.AllowGet);
 
-            _gameTableService.EditGameTable(editTableBoardGame.Id, editTableBoardGame.TableBoardGameIdList);
+            _gameTableService.EditGameTable(gameTableId, tableBoardGameId);
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 

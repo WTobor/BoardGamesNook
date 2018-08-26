@@ -7,6 +7,8 @@ import { GameTable } from "./gameTable";
 import { Common } from "./../Common";
 import { TableBoardGame } from "./tableBoardGame";
 import {GamerService} from "../gamers/gamer.service";
+import {Gamer} from "../gamers/gamer";
+import {BoardGame} from "../boardGames/boardGame";
 
 @Component({
     selector: "gameTable-add",
@@ -16,6 +18,9 @@ export class GameTableAddComponent implements OnInit {
     gameTable: GameTable;
     availableTableBoardGames: TableBoardGame[];
     selectedTableBoardGame: TableBoardGame;
+
+    selectedGamer: Gamer;
+    selectedBoardGame: BoardGame;
 
     constructor(
         private gameTableService: GameTableService,

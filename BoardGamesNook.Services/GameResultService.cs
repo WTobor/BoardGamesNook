@@ -11,16 +11,18 @@ namespace BoardGamesNook.Services
 {
     public class GameResultService : IGameResultService
     {
+        private readonly IBoardGameRepository _boardGameRepository;
         private readonly IGameResultRepository _gameResultRepository;
         private readonly IGamerRepository _gamerRepository;
         private readonly IGameTableRepository _gameTableRepository;
 
         public GameResultService(IGameResultRepository gameResultRepository, IGamerRepository gamerRepository,
-            IGameTableRepository gameTableRepository)
+            IGameTableRepository gameTableRepository, IBoardGameRepository boardGameRepository)
         {
             _gameResultRepository = gameResultRepository;
             _gamerRepository = gamerRepository;
             _gameTableRepository = gameTableRepository;
+            _boardGameRepository = boardGameRepository;
         }
 
         public IEnumerable<GameResultDto> GetAllGameResults()
@@ -40,13 +42,22 @@ namespace BoardGamesNook.Services
             return MapGameResultListToGameResultDtoList(gameResultList);
         }
 
-        public void AddGameResult(GameResult gameResult)
+        public void AddGameResult(GameResultDto gameResultDto, Gamer gamer)
         {
+            var gameResult = MapGameResultDtoToGameResultWithReferences(gameResultDto, gamer);
             _gameResultRepository.Add(gameResult);
         }
 
-        public void AddGameResults(List<GameResult> gameResults)
+        public void AddGameResults(List<GameResultDto> gameResultDtoList, Gamer gamer)
         {
+            var gameResults = new List<GameResult>();
+            foreach (var gameResultDto in gameResultDtoList)
+            {
+                var gameResult = MapGameResultDtoToGameResultWithReferences(gameResultDto, gamer);
+                gameResult.CreatedGamerId = gamer.Id;
+                gameResults.Add(gameResult);
+            }
+
             _gameResultRepository.AddMany(gameResults);
         }
 
@@ -72,6 +83,21 @@ namespace BoardGamesNook.Services
                     _gameTableRepository.Get(gameResultDto.GameTableId.Value)?.Name;
 
             return gameResultDto;
+        }
+
+        private GameResult MapGameResultDtoToGameResultWithReferences(GameResultDto gameResultDto, Gamer gamer)
+        {
+            GameTable gameTable = null;
+            if (gameResultDto.GameTableId.HasValue)
+                gameTable = _gameTableRepository.Get(gameResultDto.GameTableId.Value);
+
+            var boardGame = _boardGameRepository.Get(gameResultDto.BoardGameId);
+
+            var gameResult = Mapper.Map<GameResultDto, GameResult>(gameResultDto);
+            Mapper.Map(gamer, gameResult);
+            Mapper.Map(gameTable, gameResult);
+            Mapper.Map(boardGame, gameResult);
+            return gameResult;
         }
 
         private IEnumerable<GameResultDto> MapGameResultListToGameResultDtoList(List<GameResult> gameResultList)
